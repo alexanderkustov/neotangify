@@ -1,0 +1,40 @@
+<Alloy>
+	<TabGroup>
+		<Tab title="Tab 2" icon="KS_nav_views.png">
+			<Window title="Tab 2">
+				
+			 <View layout="vertical">
+        		<TextField hintText="Login" height="40" width="Ti.UI.FILL" id="login"></TextField>
+        		<TextField hintText="Password" passwordMask="true" height="40" width="Ti.UI.FILL" id="password"></TextField>
+        		<Button height="40" width="Ti.UI.FILL" onClick="login">Login</Button>
+    		</View>
+    		
+    		</Window>
+		</Tab>
+		<Tab title="Tab 1" icon="KS_nav_ui.png">
+			<Window title="Tab 1">
+				<Label>I am Window 1</Label>
+			</Window>
+		</Tab>
+		
+		<Tab title="Tab 3" icon="KS_nav_ui.png">
+			<Window title="Tab 3">
+				<Label>I am Window 3</Label>
+			</Window>
+		</Tab>
+		
+		<Tab title="Tab 4" icon="KS_nav_ui.png">
+			<Window title="Tab 4">
+				<Label>I am Window 4</Label>
+			</Window>
+		</Tab>
+		
+		<Tab title="Tab 5" icon="KS_nav_ui.png">
+			<Window title="Tab 5">
+				<Label>I am Radar</Label>
+			</Window>
+		</Tab>
+		
+		
+	</TabGroup>
+</Alloy>
