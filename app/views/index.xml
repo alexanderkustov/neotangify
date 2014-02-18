@@ -25,7 +25,11 @@
 		
 		<Tab title="Tab 3" icon="KS_nav_ui.png">
 			<Window title="Tab 3">
-				<Label>I am Window 3</Label>
+				 <View layout="vertical">
+        		<Button height="40" width="Ti.UI.FILL" onClick="geolocate">Geolocate</Button>
+        		
+    		</View>
+				
 			</Window>
 		</Tab>
 		

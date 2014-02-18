@@ -33,7 +33,7 @@ function Controller() {
         var client = Ti.Network.createHTTPClient({
             onload: function() {
                 Ti.API.info("Get ACtivity feed text: " + this.responseText);
-                $.activityfeed.text = this.responseText;
+                $.activityfeed.text = JSON.parse(this.responseText);
             },
             onerror: function(e) {
                 alert("error" + e);
@@ -46,6 +46,34 @@ function Controller() {
         };
         client.open("GET", url);
         client.send(params);
+    }
+    function changePosition(lat, longi) {
+        var url = "http://localhost:3000/change_position.json?auth_token=" + Alloy.Globals.auth_token;
+        var client = Ti.Network.createHTTPClient({
+            onload: function() {
+                Ti.API.info("Received text: " + this.responseText);
+            },
+            onerror: function(e) {
+                alert("error" + e);
+            },
+            timeout: 6e4
+        });
+        var params = {
+            latitude: lat,
+            longitude: longi
+        };
+        client.open("POST", url);
+        client.send(params);
+    }
+    function geolocate() {
+        var cur_longitude, cur_latitude;
+        Titanium.Geolocation.getCurrentPosition(function(e) {
+            Ti.API.warn(e);
+            cur_longitude = e.coords.longitude;
+            cur_latitude = e.coords.latitude;
+            Titanium.API.info("geo - current location: long " + cur_longitude.toFixed(3) + " lat " + cur_latitude.toFixed(3));
+            changePosition(cur_longitude, cur_latitude);
+        });
     }
     require("alloy/controllers/BaseController").apply(this, Array.prototype.slice.call(arguments));
     this.__controllerPath = "index";
@@ -147,19 +175,41 @@ function Controller() {
         title: "Tab 3",
         id: "__alloyId11"
     });
-    $.__views.__alloyId12 = Ti.UI.createLabel({
-        width: Ti.UI.SIZE,
-        height: Ti.UI.SIZE,
-        color: "#000",
-        font: {
-            fontSize: 20,
-            fontFamily: "Helvetica Neue"
-        },
-        textAlign: "center",
-        text: "I am Window 3",
+    $.__views.__alloyId12 = Ti.UI.createView({
+        layout: "vertical",
         id: "__alloyId12"
     });
     $.__views.__alloyId11.add($.__views.__alloyId12);
+    $.__views.lat = Ti.UI.createTextField({
+        hintText: "Lat",
+        height: "40",
+        width: Ti.UI.FILL,
+        id: "lat"
+    });
+    $.__views.__alloyId12.add($.__views.lat);
+    $.__views.longi = Ti.UI.createTextField({
+        hintText: "Long",
+        height: "40",
+        width: Ti.UI.FILL,
+        id: "longi"
+    });
+    $.__views.__alloyId12.add($.__views.longi);
+    $.__views.__alloyId13 = Ti.UI.createButton({
+        title: "Set Location",
+        height: "40",
+        width: Ti.UI.FILL,
+        id: "__alloyId13"
+    });
+    $.__views.__alloyId12.add($.__views.__alloyId13);
+    changePosition ? $.__views.__alloyId13.addEventListener("click", changePosition) : __defers["$.__views.__alloyId13!click!changePosition"] = true;
+    $.__views.__alloyId14 = Ti.UI.createButton({
+        title: "View Location",
+        height: "40",
+        width: Ti.UI.FILL,
+        id: "__alloyId14"
+    });
+    $.__views.__alloyId12.add($.__views.__alloyId14);
+    geolocate ? $.__views.__alloyId14.addEventListener("click", geolocate) : __defers["$.__views.__alloyId14!click!geolocate"] = true;
     $.__views.__alloyId10 = Ti.UI.createTab({
         window: $.__views.__alloyId11,
         title: "Tab 3",
@@ -167,12 +217,12 @@ function Controller() {
         id: "__alloyId10"
     });
     __alloyId0.push($.__views.__alloyId10);
-    $.__views.__alloyId14 = Ti.UI.createWindow({
+    $.__views.__alloyId16 = Ti.UI.createWindow({
         backgroundColor: "#eee",
         title: "Radar",
-        id: "__alloyId14"
+        id: "__alloyId16"
     });
-    $.__views.__alloyId15 = Ti.UI.createLabel({
+    $.__views.__alloyId17 = Ti.UI.createLabel({
         width: Ti.UI.SIZE,
         height: Ti.UI.SIZE,
         color: "#000",
@@ -182,22 +232,22 @@ function Controller() {
         },
         textAlign: "center",
         text: "I am Circle 4",
-        id: "__alloyId15"
-    });
-    $.__views.__alloyId14.add($.__views.__alloyId15);
-    $.__views.__alloyId13 = Ti.UI.createTab({
-        window: $.__views.__alloyId14,
-        title: "Tab 4",
-        icon: "KS_nav_ui.png",
-        id: "__alloyId13"
-    });
-    __alloyId0.push($.__views.__alloyId13);
-    $.__views.__alloyId17 = Ti.UI.createWindow({
-        backgroundColor: "#eee",
-        title: "Chat",
         id: "__alloyId17"
     });
-    $.__views.__alloyId18 = Ti.UI.createLabel({
+    $.__views.__alloyId16.add($.__views.__alloyId17);
+    $.__views.__alloyId15 = Ti.UI.createTab({
+        window: $.__views.__alloyId16,
+        title: "Tab 4",
+        icon: "KS_nav_ui.png",
+        id: "__alloyId15"
+    });
+    __alloyId0.push($.__views.__alloyId15);
+    $.__views.__alloyId19 = Ti.UI.createWindow({
+        backgroundColor: "#eee",
+        title: "Chat",
+        id: "__alloyId19"
+    });
+    $.__views.__alloyId20 = Ti.UI.createLabel({
         width: Ti.UI.SIZE,
         height: Ti.UI.SIZE,
         color: "#000",
@@ -207,16 +257,16 @@ function Controller() {
         },
         textAlign: "center",
         text: "I am Messages",
-        id: "__alloyId18"
+        id: "__alloyId20"
     });
-    $.__views.__alloyId17.add($.__views.__alloyId18);
-    $.__views.__alloyId16 = Ti.UI.createTab({
-        window: $.__views.__alloyId17,
+    $.__views.__alloyId19.add($.__views.__alloyId20);
+    $.__views.__alloyId18 = Ti.UI.createTab({
+        window: $.__views.__alloyId19,
         title: "Tab 5",
         icon: "KS_nav_ui.png",
-        id: "__alloyId16"
+        id: "__alloyId18"
     });
-    __alloyId0.push($.__views.__alloyId16);
+    __alloyId0.push($.__views.__alloyId18);
     $.__views.index = Ti.UI.createTabGroup({
         tabs: __alloyId0,
         id: "index"
@@ -228,6 +278,8 @@ function Controller() {
     __defers["$.__views.__alloyId4!click!login"] && $.__views.__alloyId4.addEventListener("click", login);
     __defers["$.__views.__alloyId5!click!openRegister"] && $.__views.__alloyId5.addEventListener("click", openRegister);
     __defers["$.__views.__alloyId9!click!getActivityFeed"] && $.__views.__alloyId9.addEventListener("click", getActivityFeed);
+    __defers["$.__views.__alloyId13!click!changePosition"] && $.__views.__alloyId13.addEventListener("click", changePosition);
+    __defers["$.__views.__alloyId14!click!geolocate"] && $.__views.__alloyId14.addEventListener("click", geolocate);
     _.extend($, exports);
 }
 
