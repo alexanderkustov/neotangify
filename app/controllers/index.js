@@ -39,31 +39,30 @@ function login(e)
 
 function getActivityFeed(e){
 		//starting to send out the auth
-	var url = "http://localhost:3000/activities?format=json";
+	var url = 'http://localhost:3000/activities.json?' + 'auth_token=' + Alloy.Globals.auth_token ;
+	console.log(url);
 	
 	var client = Ti.Network.createHTTPClient({
 	    // function called when the response data is available
 	    onload : function(e) {
 	    	Ti.API.info("Get ACtivity feed text: " + this.responseText);
 	    	
-	    	$.activityfeed.value = this.responseText;
+	    	$.activityfeed.text = this.responseText;
 	       
 	    },
 	    // function called when an error occurs, including a timeout
 	    onerror : function(e) {
-	        alert('error' + e);
-	        Ti.API.info("Get Activity feed text: " + this.responseText);
+	       alert('error' + e);
+	       Ti.API.info("Get ACtivity feed text: " + this.responseText);
     },
     timeout : 60 * 1000
 	});
 	
 	var params = {
-		'auth_key': Alloy.Globals.auth_token
+		//'auth_key': Alloy.Globals.auth_token,
+		'format': "json"
 	};
 
-	// Prepare the connection
-	client.setRequestHeader('enctype', 'multipart/form-data');
-	
 	client.open("GET", url);
 	client.send(params);  
 }

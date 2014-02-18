@@ -28,11 +28,12 @@ function Controller() {
         client.send(params);
     }
     function getActivityFeed() {
-        var url = "http://localhost:3000/activities?format=json";
+        var url = "http://localhost:3000/activities.json?auth_token=" + Alloy.Globals.auth_token;
+        console.log(url);
         var client = Ti.Network.createHTTPClient({
             onload: function() {
                 Ti.API.info("Get ACtivity feed text: " + this.responseText);
-                $.activityfeed.value = this.responseText;
+                $.activityfeed.text = this.responseText;
             },
             onerror: function(e) {
                 alert("error" + e);
@@ -41,9 +42,8 @@ function Controller() {
             timeout: 6e4
         });
         var params = {
-            auth_key: Alloy.Globals.auth_token
+            format: "json"
         };
-        client.setRequestHeader("enctype", "multipart/form-data");
         client.open("GET", url);
         client.send(params);
     }
