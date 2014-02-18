@@ -75,6 +75,7 @@ function changePosition(lat, longi){
 	    // function called when the response data is available
 	    onload : function(e) {
 	    	Ti.API.info("Received text: " + this.responseText);
+	    	updateRadar();
 	       	
 	    },
 	    // function called when an error occurs, including a timeout
@@ -113,6 +114,35 @@ function geolocate(e)
     });
 }
 
+function updateRadar(lat, longi){
+	var url = 'http://localhost:3000/people_nearby.json?' + 'auth_token=' + Alloy.Globals.auth_token ;
+	console.log(url);
+	
+	var client = Ti.Network.createHTTPClient({
+	    // function called when the response data is available
+	    onload : function(e) {
+	    	Ti.API.info("Get ACtivity feed text: " + this.responseText);
+	    	
+	    	$.radar.text = JSON.parse(this.responseText);
+	       
+	    },
+	    // function called when an error occurs, including a timeout
+	    onerror : function(e) {
+	       alert('error' + e);
+	       Ti.API.info("Get radar text: " + this.responseText);
+    },
+    timeout : 60 * 1000
+	});
+	
+	var params = {
+		'latitude': lat,
+		'longitude' : longi
+	};
+	
+
+	client.open("GET", url);
+	client.send(params);  
+}
 
 
 $.index.open();
