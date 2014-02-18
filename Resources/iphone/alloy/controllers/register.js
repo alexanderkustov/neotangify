@@ -5,6 +5,7 @@ function Controller() {
             onload: function() {
                 Ti.API.info("Received text: " + this.responseText);
                 alert("success");
+                goBack();
             },
             onerror: function(e) {
                 alert("error" + e);
@@ -21,6 +22,10 @@ function Controller() {
         client.open("POST", url);
         client.send(params);
     }
+    function goBack() {
+        var win = Alloy.createController("index").getView();
+        win.open();
+    }
     require("alloy/controllers/BaseController").apply(this, Array.prototype.slice.call(arguments));
     this.__controllerPath = "register";
     arguments[0] ? arguments[0]["__parentSymbol"] : null;
@@ -35,30 +40,25 @@ function Controller() {
         id: "register"
     });
     $.__views.register && $.addTopLevelView($.__views.register);
-    $.__views.__alloyId19 = Ti.UI.createButton({
-        title: "Back",
+    $.__views.__alloyId19 = Ti.UI.createView({
+        layout: "vertical",
         id: "__alloyId19"
     });
-    $.__views.register.rightNavButton = $.__views.__alloyId19;
-    $.__views.__alloyId20 = Ti.UI.createView({
-        layout: "vertical",
-        id: "__alloyId20"
-    });
-    $.__views.register.add($.__views.__alloyId20);
+    $.__views.register.add($.__views.__alloyId19);
     $.__views.name = Ti.UI.createTextField({
         hintText: "Name",
         height: "40",
         width: Ti.UI.FILL,
         id: "name"
     });
-    $.__views.__alloyId20.add($.__views.name);
+    $.__views.__alloyId19.add($.__views.name);
     $.__views.email = Ti.UI.createTextField({
         hintText: "Email",
         height: "40",
         width: Ti.UI.FILL,
         id: "email"
     });
-    $.__views.__alloyId20.add($.__views.email);
+    $.__views.__alloyId19.add($.__views.email);
     $.__views.password = Ti.UI.createTextField({
         hintText: "Password",
         passwordMask: "true",
@@ -66,7 +66,7 @@ function Controller() {
         width: Ti.UI.FILL,
         id: "password"
     });
-    $.__views.__alloyId20.add($.__views.password);
+    $.__views.__alloyId19.add($.__views.password);
     $.__views.password_confirmation = Ti.UI.createTextField({
         hintText: "Confirm Password",
         passwordMask: "true",
@@ -74,18 +74,18 @@ function Controller() {
         width: Ti.UI.FILL,
         id: "password_confirmation"
     });
-    $.__views.__alloyId20.add($.__views.password_confirmation);
-    $.__views.__alloyId21 = Ti.UI.createButton({
+    $.__views.__alloyId19.add($.__views.password_confirmation);
+    $.__views.__alloyId20 = Ti.UI.createButton({
         title: "Register",
         height: "40",
         width: Ti.UI.FILL,
-        id: "__alloyId21"
+        id: "__alloyId20"
     });
-    $.__views.__alloyId20.add($.__views.__alloyId21);
-    register ? $.__views.__alloyId21.addEventListener("click", register) : __defers["$.__views.__alloyId21!click!register"] = true;
+    $.__views.__alloyId19.add($.__views.__alloyId20);
+    register ? $.__views.__alloyId20.addEventListener("click", register) : __defers["$.__views.__alloyId20!click!register"] = true;
     exports.destroy = function() {};
     _.extend($, $.__views);
-    __defers["$.__views.__alloyId21!click!register"] && $.__views.__alloyId21.addEventListener("click", register);
+    __defers["$.__views.__alloyId20!click!register"] && $.__views.__alloyId20.addEventListener("click", register);
     _.extend($, exports);
 }
 

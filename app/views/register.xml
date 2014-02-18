@@ -1,10 +1,9 @@
 <Alloy>
 	
 			<Window title="Registration">
-				<RightNavButton>
-					<Button title="Back" />
-				</RightNavButton>
-					
+				
+				
+		        
 					
 				 <View layout="vertical">
 				 	<TextField hintText="Name" height="40" width="Ti.UI.FILL" id="name"></TextField>
@@ -19,5 +18,5 @@
 	    		</View>
     		
     		</Window>
-    		
+    		  
 </Alloy>

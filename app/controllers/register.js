@@ -6,7 +6,9 @@ function register(e){
 	    // function called when the response data is available
 	    onload : function(e) {
 	    	Ti.API.info("Received text: " + this.responseText);
-	        alert('success');  
+	        alert('success');
+	        goBack();
+	        
 	    },
 	    // function called when an error occurs, including a timeout
 	    onerror : function(e) {
