@@ -7,13 +7,14 @@
         		<TextField hintText="Login" height="40" width="Ti.UI.FILL" id="login"></TextField>
         		<TextField hintText="Password" passwordMask="true" height="40" width="Ti.UI.FILL" id="password"></TextField>
         		<Button height="40" width="Ti.UI.FILL" onClick="login">Login</Button>
+        		<Button height="40" width="Ti.UI.FILL" onClick="openRegister">Register</Button>
     		</View>
     		
     		</Window>
 		</Tab>
 		<Tab title="Tab 1" icon="KS_nav_ui.png">
-			<Window title="Tab 1">
-				<Label>I am Window 1</Label>
+			<Window title="Activity">
+				<Label>I am Activity 1</Label>
 			</Window>
 		</Tab>
 		
@@ -24,14 +25,14 @@
 		</Tab>
 		
 		<Tab title="Tab 4" icon="KS_nav_ui.png">
-			<Window title="Tab 4">
-				<Label>I am Window 4</Label>
+			<Window title="Radar">
+				<Label>I am Circle 4</Label>
 			</Window>
 		</Tab>
 		
 		<Tab title="Tab 5" icon="KS_nav_ui.png">
-			<Window title="Tab 5">
-				<Label>I am Radar</Label>
+			<Window title="Chat">
+				<Label>I am Messages</Label>
 			</Window>
 		</Tab>
 		

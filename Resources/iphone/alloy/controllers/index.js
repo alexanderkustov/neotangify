@@ -1,6 +1,10 @@
 function Controller() {
+    function openRegister() {
+        var win = Alloy.createController("register").getView();
+        $.index.close();
+        win.open();
+    }
     function login() {
-        console.log("starting to send out the auth shit");
         var url = "http://localhost:3000/auth/identity/callback?format=json";
         var client = Ti.Network.createHTTPClient({
             onload: function() {
@@ -8,8 +12,8 @@ function Controller() {
                 alert("success " + JSON.parse(this.responseText).user.auth_token);
                 auth_token = JSON.parse(this.responseText).user.auth_token;
             },
-            onerror: function() {
-                alert("error");
+            onerror: function(e) {
+                alert("error" + e);
             },
             timeout: 6e4
         });
@@ -33,7 +37,7 @@ function Controller() {
     var __defers = {};
     var __alloyId0 = [];
     $.__views.__alloyId2 = Ti.UI.createWindow({
-        backgroundColor: "#fff",
+        backgroundColor: "#eee",
         title: "Tab 2",
         id: "__alloyId2"
     });
@@ -65,6 +69,14 @@ function Controller() {
     });
     $.__views.__alloyId3.add($.__views.__alloyId4);
     login ? $.__views.__alloyId4.addEventListener("click", login) : __defers["$.__views.__alloyId4!click!login"] = true;
+    $.__views.__alloyId5 = Ti.UI.createButton({
+        title: "Register",
+        height: "40",
+        width: Ti.UI.FILL,
+        id: "__alloyId5"
+    });
+    $.__views.__alloyId3.add($.__views.__alloyId5);
+    openRegister ? $.__views.__alloyId5.addEventListener("click", openRegister) : __defers["$.__views.__alloyId5!click!openRegister"] = true;
     $.__views.__alloyId1 = Ti.UI.createTab({
         window: $.__views.__alloyId2,
         title: "Tab 2",
@@ -72,12 +84,12 @@ function Controller() {
         id: "__alloyId1"
     });
     __alloyId0.push($.__views.__alloyId1);
-    $.__views.__alloyId6 = Ti.UI.createWindow({
-        backgroundColor: "#fff",
-        title: "Tab 1",
-        id: "__alloyId6"
+    $.__views.__alloyId7 = Ti.UI.createWindow({
+        backgroundColor: "#eee",
+        title: "Activity",
+        id: "__alloyId7"
     });
-    $.__views.__alloyId7 = Ti.UI.createLabel({
+    $.__views.__alloyId8 = Ti.UI.createLabel({
         width: Ti.UI.SIZE,
         height: Ti.UI.SIZE,
         color: "#000",
@@ -86,23 +98,23 @@ function Controller() {
             fontFamily: "Helvetica Neue"
         },
         textAlign: "center",
-        text: "I am Window 1",
-        id: "__alloyId7"
+        text: "I am Activity 1",
+        id: "__alloyId8"
     });
-    $.__views.__alloyId6.add($.__views.__alloyId7);
-    $.__views.__alloyId5 = Ti.UI.createTab({
-        window: $.__views.__alloyId6,
+    $.__views.__alloyId7.add($.__views.__alloyId8);
+    $.__views.__alloyId6 = Ti.UI.createTab({
+        window: $.__views.__alloyId7,
         title: "Tab 1",
         icon: "KS_nav_ui.png",
-        id: "__alloyId5"
+        id: "__alloyId6"
     });
-    __alloyId0.push($.__views.__alloyId5);
-    $.__views.__alloyId9 = Ti.UI.createWindow({
-        backgroundColor: "#fff",
+    __alloyId0.push($.__views.__alloyId6);
+    $.__views.__alloyId10 = Ti.UI.createWindow({
+        backgroundColor: "#eee",
         title: "Tab 3",
-        id: "__alloyId9"
+        id: "__alloyId10"
     });
-    $.__views.__alloyId10 = Ti.UI.createLabel({
+    $.__views.__alloyId11 = Ti.UI.createLabel({
         width: Ti.UI.SIZE,
         height: Ti.UI.SIZE,
         color: "#000",
@@ -112,47 +124,22 @@ function Controller() {
         },
         textAlign: "center",
         text: "I am Window 3",
-        id: "__alloyId10"
-    });
-    $.__views.__alloyId9.add($.__views.__alloyId10);
-    $.__views.__alloyId8 = Ti.UI.createTab({
-        window: $.__views.__alloyId9,
-        title: "Tab 3",
-        icon: "KS_nav_ui.png",
-        id: "__alloyId8"
-    });
-    __alloyId0.push($.__views.__alloyId8);
-    $.__views.__alloyId12 = Ti.UI.createWindow({
-        backgroundColor: "#fff",
-        title: "Tab 4",
-        id: "__alloyId12"
-    });
-    $.__views.__alloyId13 = Ti.UI.createLabel({
-        width: Ti.UI.SIZE,
-        height: Ti.UI.SIZE,
-        color: "#000",
-        font: {
-            fontSize: 20,
-            fontFamily: "Helvetica Neue"
-        },
-        textAlign: "center",
-        text: "I am Window 4",
-        id: "__alloyId13"
-    });
-    $.__views.__alloyId12.add($.__views.__alloyId13);
-    $.__views.__alloyId11 = Ti.UI.createTab({
-        window: $.__views.__alloyId12,
-        title: "Tab 4",
-        icon: "KS_nav_ui.png",
         id: "__alloyId11"
     });
-    __alloyId0.push($.__views.__alloyId11);
-    $.__views.__alloyId15 = Ti.UI.createWindow({
-        backgroundColor: "#fff",
-        title: "Tab 5",
-        id: "__alloyId15"
+    $.__views.__alloyId10.add($.__views.__alloyId11);
+    $.__views.__alloyId9 = Ti.UI.createTab({
+        window: $.__views.__alloyId10,
+        title: "Tab 3",
+        icon: "KS_nav_ui.png",
+        id: "__alloyId9"
     });
-    $.__views.__alloyId16 = Ti.UI.createLabel({
+    __alloyId0.push($.__views.__alloyId9);
+    $.__views.__alloyId13 = Ti.UI.createWindow({
+        backgroundColor: "#eee",
+        title: "Radar",
+        id: "__alloyId13"
+    });
+    $.__views.__alloyId14 = Ti.UI.createLabel({
         width: Ti.UI.SIZE,
         height: Ti.UI.SIZE,
         color: "#000",
@@ -161,17 +148,42 @@ function Controller() {
             fontFamily: "Helvetica Neue"
         },
         textAlign: "center",
-        text: "I am Radar",
-        id: "__alloyId16"
-    });
-    $.__views.__alloyId15.add($.__views.__alloyId16);
-    $.__views.__alloyId14 = Ti.UI.createTab({
-        window: $.__views.__alloyId15,
-        title: "Tab 5",
-        icon: "KS_nav_ui.png",
+        text: "I am Circle 4",
         id: "__alloyId14"
     });
-    __alloyId0.push($.__views.__alloyId14);
+    $.__views.__alloyId13.add($.__views.__alloyId14);
+    $.__views.__alloyId12 = Ti.UI.createTab({
+        window: $.__views.__alloyId13,
+        title: "Tab 4",
+        icon: "KS_nav_ui.png",
+        id: "__alloyId12"
+    });
+    __alloyId0.push($.__views.__alloyId12);
+    $.__views.__alloyId16 = Ti.UI.createWindow({
+        backgroundColor: "#eee",
+        title: "Chat",
+        id: "__alloyId16"
+    });
+    $.__views.__alloyId17 = Ti.UI.createLabel({
+        width: Ti.UI.SIZE,
+        height: Ti.UI.SIZE,
+        color: "#000",
+        font: {
+            fontSize: 20,
+            fontFamily: "Helvetica Neue"
+        },
+        textAlign: "center",
+        text: "I am Messages",
+        id: "__alloyId17"
+    });
+    $.__views.__alloyId16.add($.__views.__alloyId17);
+    $.__views.__alloyId15 = Ti.UI.createTab({
+        window: $.__views.__alloyId16,
+        title: "Tab 5",
+        icon: "KS_nav_ui.png",
+        id: "__alloyId15"
+    });
+    __alloyId0.push($.__views.__alloyId15);
     $.__views.index = Ti.UI.createTabGroup({
         tabs: __alloyId0,
         id: "index"
@@ -181,6 +193,7 @@ function Controller() {
     _.extend($, $.__views);
     $.index.open();
     __defers["$.__views.__alloyId4!click!login"] && $.__views.__alloyId4.addEventListener("click", login);
+    __defers["$.__views.__alloyId5!click!openRegister"] && $.__views.__alloyId5.addEventListener("click", openRegister);
     _.extend($, exports);
 }
 

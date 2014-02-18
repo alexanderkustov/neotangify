@@ -1,21 +1,12 @@
-function openRegister(e){
-	var win=Alloy.createController('register').getView();
-	$.index.close();
-	win.open();
-}
-
-
-function login(e)
-{
-	//starting to send out the auth
-	var url = "http://localhost:3000/auth/identity/callback?format=json";
+function register(e){
+	
+	var url = "http://localhost:3000/auth/identity/register?format=json";
 	
 	var client = Ti.Network.createHTTPClient({
 	    // function called when the response data is available
 	    onload : function(e) {
 	    	Ti.API.info("Received text: " + this.responseText);
-	        alert('success ' + JSON.parse(this.responseText).user.auth_token);
-	        auth_token = JSON.parse(this.responseText).user.auth_token;
+	        alert('success');  
 	    },
 	    // function called when an error occurs, including a timeout
 	    onerror : function(e) {
@@ -25,17 +16,23 @@ function login(e)
 	});
 	
 	var params = {
-		'auth_key': $.login.value,
+		'name': $.name.value,
+		'email': $.email.value,
 		'password' : $.password.value ,
-	    "Login" :"", 
-	    "provider":"identity"
+		'password_confirmation' : $.password_confirmation.value
 	};
 
 	// Prepare the connection
 	client.setRequestHeader('enctype', 'multipart/form-data');
 	
 	client.open("POST", url);
-	client.send(params);  
+	client.send(params);
+	        		
 }
 
-$.index.open();
+function goBack(e){
+	
+	var win=Alloy.createController('index').getView();
+	win.open();
+	
+}
