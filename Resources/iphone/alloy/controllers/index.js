@@ -9,7 +9,7 @@ function Controller() {
         var client = Ti.Network.createHTTPClient({
             onload: function() {
                 Ti.API.info("Received text: " + this.responseText);
-                alert("success " + JSON.parse(this.responseText).user.auth_token);
+                $.index.setActiveTab(2);
                 Alloy.Globals.auth_token = JSON.parse(this.responseText).user.auth_token;
             },
             onerror: function(e) {
@@ -52,7 +52,7 @@ function Controller() {
         var client = Ti.Network.createHTTPClient({
             onload: function() {
                 Ti.API.info("Received text: " + this.responseText);
-                updateRadar();
+                updateRadar(lat, longi);
             },
             onerror: function(e) {
                 alert("error" + e);
@@ -82,7 +82,10 @@ function Controller() {
         var client = Ti.Network.createHTTPClient({
             onload: function() {
                 Ti.API.info("Get ACtivity feed text: " + this.responseText);
-                $.radar.text = JSON.parse(this.responseText);
+                $.radar.text = JSON.parse(this.responseText).people[0].name;
+                var face = JSON.parse(this.responseText).people[0].presentation_picture.url;
+                $.face.image = null != face ? JSON.parse(this.responseText).people[0].presentation_picture.url : "http://lorempixel.com/100/100";
+                Ti.API.info("Get ACtivity feed text: " + JSON.parse(this.responseText).people[0].presentation_picture.url);
             },
             onerror: function(e) {
                 alert("error" + e);
@@ -210,6 +213,13 @@ function Controller() {
     });
     $.__views.__alloyId12.add($.__views.__alloyId13);
     geolocate ? $.__views.__alloyId13.addEventListener("click", geolocate) : __defers["$.__views.__alloyId13!click!geolocate"] = true;
+    $.__views.face = Ti.UI.createImageView({
+        borderRadius: 50,
+        borderWidth: 3,
+        borderColor: "white",
+        id: "face"
+    });
+    $.__views.__alloyId12.add($.__views.face);
     $.__views.radar = Ti.UI.createLabel({
         width: Ti.UI.SIZE,
         height: Ti.UI.SIZE,

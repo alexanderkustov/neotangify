@@ -12,6 +12,7 @@
     		
     		</Window>
 		</Tab>
+		
 		<Tab title="Tab 1" icon="KS_nav_ui.png">
 			<Window title="Activity">
 				<View layout="vertical">
@@ -27,6 +28,7 @@
 			<Window title="Tab 3">
 				 <View layout="vertical">
         		<Button height="40" width="Ti.UI.FILL" onClick="geolocate">Geolocate</Button>
+        		<ImageView id="face"/>
         		<Label id="radar" >I am radar</Label>
 				
     		</View>

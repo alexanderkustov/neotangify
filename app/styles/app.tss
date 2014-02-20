@@ -10,4 +10,9 @@
 		fontFamily: 'Helvetica Neue'
 	},
 	textAlign: 'center'
-} 
+},
+"#face": {
+	 borderRadius : 50,
+    borderWidth : 3,
+    borderColor : 'white'
+}

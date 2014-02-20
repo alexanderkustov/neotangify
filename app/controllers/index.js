@@ -13,8 +13,10 @@ function login(e)
 	    // function called when the response data is available
 	    onload : function(e) {
 	    	Ti.API.info("Received text: " + this.responseText);
-	        alert('success ' + JSON.parse(this.responseText).user.auth_token);
+	      	$.index.setActiveTab(2);
 	        Alloy.Globals.auth_token = JSON.parse(this.responseText).user.auth_token;
+	        
+	        
 	    },
 	    // function called when an error occurs, including a timeout
 	    onerror : function(e) {
@@ -75,7 +77,7 @@ function changePosition(lat, longi){
 	    // function called when the response data is available
 	    onload : function(e) {
 	    	Ti.API.info("Received text: " + this.responseText);
-	    	updateRadar();
+	    	updateRadar(lat,longi);
 	       	
 	    },
 	    // function called when an error occurs, including a timeout
@@ -123,7 +125,19 @@ function updateRadar(lat, longi){
 	    onload : function(e) {
 	    	Ti.API.info("Get ACtivity feed text: " + this.responseText);
 	    	
-	    	$.radar.text = JSON.parse(this.responseText);
+	    	$.radar.text = JSON.parse(this.responseText).people[0].name;
+	    	
+	    	var face = JSON.parse(this.responseText).people[0].presentation_picture.url;
+	    	
+	    	if(face != null){
+	    		$.face.image =  JSON.parse(this.responseText).people[0].presentation_picture.url;
+	    	} else {
+	    		$.face.image =  "http://lorempixel.com/100/100";
+	    	}
+	    	
+	    	
+	    	Ti.API.info("Get ACtivity feed text: " + JSON.parse(this.responseText).people[0].presentation_picture.url);
+	    	
 	       
 	    },
 	    // function called when an error occurs, including a timeout
