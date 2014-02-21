@@ -4,6 +4,7 @@
 			<Window title="Login">
 				
 			 <View layout="vertical">
+			 	<ImageView image="/appicon.png"/>
         		<TextField hintText="Login" height="40" width="Ti.UI.FILL" id="login"></TextField>
         		<TextField hintText="Password" passwordMask="true" height="40" width="Ti.UI.FILL" id="password"></TextField>
         		<Button height="40" width="Ti.UI.FILL" onClick="login">Login</Button>

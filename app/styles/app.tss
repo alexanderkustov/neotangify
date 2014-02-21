@@ -1,16 +1,21 @@
 "Window": {
-	backgroundColor: "#eee"
+	backgroundColor: "#2980b9",
+	color: "fff"
 },
 "Label": {
 	width: Ti.UI.SIZE,
 	height: Ti.UI.SIZE,
-	color: "#000",
+	color: "#fff",
 	font: {
 		fontSize: 20,
 		fontFamily: 'Helvetica Neue'
 	},
 	textAlign: 'center'
 },
+"Button": {
+	color:"fff"
+},
+
 "#face": {
 	 borderRadius : 50,
     borderWidth : 3,
