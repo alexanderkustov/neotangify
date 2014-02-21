@@ -1,0 +1,10 @@
+<Alloy>
+	
+			<Window title="Profile">
+				 <View layout="vertical">		 	
+	        		<Button height="40" width="Ti.UI.FILL" onClick="addFriend">Add Friend</Button>
+	    		</View>
+    		
+    		</Window>
+    		  
+</Alloy>

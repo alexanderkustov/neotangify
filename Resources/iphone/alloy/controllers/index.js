@@ -14,6 +14,7 @@ function Controller() {
             },
             onerror: function(e) {
                 alert("error" + e);
+                TI.API.info("error" + e);
             },
             timeout: 6e4
         });
@@ -23,7 +24,6 @@ function Controller() {
             Login: "",
             provider: "identity"
         };
-        client.setRequestHeader("enctype", "multipart/form-data");
         client.open("POST", url);
         client.send(params);
     }
@@ -76,16 +76,28 @@ function Controller() {
             changePosition(cur_longitude, cur_latitude);
         });
     }
+    function profilemodal() {
+        var profilewin = Alloy.createController("profilemodal").getView();
+        var avatar = $.radar.image;
+        var name = $.radar.text;
+        Titanium.API.info("image: " + avatar + " name " + name);
+        $.index.close();
+        profilewin.open({
+            transition: Ti.UI.iPhone.AnimationStyle.CURL_DOWN
+        });
+    }
     function updateRadar(lat, longi) {
         var url = "http://localhost:3000/people_nearby.json?auth_token=" + Alloy.Globals.auth_token;
         console.log(url);
         var client = Ti.Network.createHTTPClient({
             onload: function() {
                 Ti.API.info("Get ACtivity feed text: " + this.responseText);
-                $.radar.text = JSON.parse(this.responseText).people[0].name;
-                var face = JSON.parse(this.responseText).people[0].presentation_picture.url;
-                $.face.image = null != face ? JSON.parse(this.responseText).people[0].presentation_picture.url : "http://lorempixel.com/100/100";
-                Ti.API.info("Get ACtivity feed text: " + JSON.parse(this.responseText).people[0].presentation_picture.url);
+                for (var i = 0; JSON.parse(this.responseText).people.length > i; i++) {
+                    $.radar.text = JSON.parse(this.responseText).people[i].name;
+                    var face = JSON.parse(this.responseText).people[i].presentation_picture.url;
+                    $.face.image = null != face ? JSON.parse(this.responseText).people[i].presentation_picture.url : "http://lorempixel.com/100/100";
+                    Ti.API.info("Get ACtivity feed text: " + JSON.parse(this.responseText).people[i].presentation_picture.url);
+                }
             },
             onerror: function(e) {
                 alert("error" + e);
@@ -232,6 +244,7 @@ function Controller() {
         id: "face"
     });
     $.__views.__alloyId13.add($.__views.face);
+    profilemodal ? $.__views.face.addEventListener("click", profilemodal) : __defers["$.__views.face!click!profilemodal"] = true;
     $.__views.radar = Ti.UI.createLabel({
         width: Ti.UI.SIZE,
         height: Ti.UI.SIZE,
@@ -311,11 +324,14 @@ function Controller() {
     $.__views.index && $.addTopLevelView($.__views.index);
     exports.destroy = function() {};
     _.extend($, $.__views);
-    $.index.open();
+    $.index.open({
+        transition: Ti.UI.iPhone.AnimationStyle.FLIP_FROM_LEFT
+    });
     __defers["$.__views.__alloyId5!click!login"] && $.__views.__alloyId5.addEventListener("click", login);
     __defers["$.__views.__alloyId6!click!openRegister"] && $.__views.__alloyId6.addEventListener("click", openRegister);
     __defers["$.__views.__alloyId10!click!getActivityFeed"] && $.__views.__alloyId10.addEventListener("click", getActivityFeed);
     __defers["$.__views.__alloyId14!click!geolocate"] && $.__views.__alloyId14.addEventListener("click", geolocate);
+    __defers["$.__views.face!click!profilemodal"] && $.__views.face.addEventListener("click", profilemodal);
     _.extend($, exports);
 }
 

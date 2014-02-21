@@ -29,7 +29,7 @@
 			<Window title="Tab 3">
 				 <View layout="vertical">
         		<Button height="40" width="Ti.UI.FILL" onClick="geolocate">Geolocate</Button>
-        		<ImageView id="face"/>
+        		<ImageView onClick="profilemodal" id="face"/>
         		<Label id="radar" >I am radar</Label>
 				
     		</View>

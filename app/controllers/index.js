@@ -10,17 +10,17 @@ function login(e)
 	var url = "http://localhost:3000/auth/identity/callback?format=json";
 	
 	var client = Ti.Network.createHTTPClient({
-	    // function called when the response data is available
+	    
 	    onload : function(e) {
 	    	Ti.API.info("Received text: " + this.responseText);
 	      	$.index.setActiveTab(2);
 	        Alloy.Globals.auth_token = JSON.parse(this.responseText).user.auth_token;
-	        
-	        
+	            
 	    },
 	    // function called when an error occurs, including a timeout
 	    onerror : function(e) {
 	        alert('error' + e);
+	        TI.API.info("error" + e);
     },
     timeout : 60 * 1000
 	});
@@ -32,8 +32,6 @@ function login(e)
 	    "provider":"identity"
 	};
 
-	// Prepare the connection
-	client.setRequestHeader('enctype', 'multipart/form-data');
 	
 	client.open("POST", url);
 	client.send(params);  
@@ -116,6 +114,21 @@ function geolocate(e)
     });
 }
 
+function profilemodal(e){
+	var profilewin=Alloy.createController('profilemodal').getView();
+	var avatar = $.radar.image;
+	var name = $.radar.text;
+	
+	 Titanium.API.info('image: ' + avatar + ' name ' + name);
+	 
+	 $.index.close();
+	profilewin.open({transition:Ti.UI.iPhone.AnimationStyle.CURL_DOWN});
+
+	 
+	 
+	
+}
+
 function updateRadar(lat, longi){
 	var url = 'http://localhost:3000/people_nearby.json?' + 'auth_token=' + Alloy.Globals.auth_token ;
 	console.log(url);
@@ -124,21 +137,24 @@ function updateRadar(lat, longi){
 	    // function called when the response data is available
 	    onload : function(e) {
 	    	Ti.API.info("Get ACtivity feed text: " + this.responseText);
-	    	
-	    	$.radar.text = JSON.parse(this.responseText).people[0].name;
-	    	
-	    	var face = JSON.parse(this.responseText).people[0].presentation_picture.url;
+	   	
+	   	for (var i = 0; i < JSON.parse(this.responseText).people.length; i++) {
+
+	 	
+	    	$.radar.text = JSON.parse(this.responseText).people[i].name;
+	 
+	    	var face = JSON.parse(this.responseText).people[i].presentation_picture.url;
 	    	
 	    	if(face != null){
-	    		$.face.image =  JSON.parse(this.responseText).people[0].presentation_picture.url;
+	    		$.face.image =  JSON.parse(this.responseText).people[i].presentation_picture.url;
 	    	} else {
 	    		$.face.image =  "http://lorempixel.com/100/100";
 	    	}
 	    	
 	    	
-	    	Ti.API.info("Get ACtivity feed text: " + JSON.parse(this.responseText).people[0].presentation_picture.url);
+	    	Ti.API.info("Get ACtivity feed text: " + JSON.parse(this.responseText).people[i].presentation_picture.url);
 	    	
-	       
+	      }
 	    },
 	    // function called when an error occurs, including a timeout
 	    onerror : function(e) {
@@ -159,4 +175,6 @@ function updateRadar(lat, longi){
 }
 
 
-$.index.open();
+$.index.open({transition:Ti.UI.iPhone.AnimationStyle.FLIP_FROM_LEFT});
+
+

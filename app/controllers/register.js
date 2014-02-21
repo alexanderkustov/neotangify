@@ -24,9 +24,6 @@ function register(e){
 		'password_confirmation' : $.password_confirmation.value
 	};
 
-	// Prepare the connection
-	client.setRequestHeader('enctype', 'multipart/form-data');
-	
 	client.open("POST", url);
 	client.send(params);
 	        		
