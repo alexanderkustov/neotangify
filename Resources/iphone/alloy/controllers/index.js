@@ -252,6 +252,7 @@ function Controller() {
     $.__views.index && $.addTopLevelView($.__views.index);
     exports.destroy = function() {};
     _.extend($, $.__views);
+    Alloy.Globals.tabgroup = $.index;
     $.index.open({
         transition: Ti.UI.iPhone.AnimationStyle.FLIP_FROM_LEFT
     });

@@ -1,14 +1,16 @@
 function Controller() {
     function openRegister() {
         var win = Alloy.createController("register").getView();
-        win.open();
+        win.open({
+            transition: Ti.UI.iPhone.AnimationStyle.FLIP_FROM_RIGHT
+        });
     }
     function login() {
         var url = "http://localhost:3000/auth/identity/callback?format=json";
         var client = Ti.Network.createHTTPClient({
             onload: function() {
                 Ti.API.info("Received text: " + this.responseText);
-                $.index.setActiveTab(2);
+                Alloy.Globals.tabgroup.setActiveTab(2);
                 Alloy.Globals.auth_token = JSON.parse(this.responseText).user.auth_token;
             },
             onerror: function(e) {

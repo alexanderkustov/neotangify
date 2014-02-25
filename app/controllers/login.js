@@ -1,7 +1,6 @@
 function openRegister(e){
 	var win=Alloy.createController('register').getView();
-	
-	win.open();
+	win.open({transition:Ti.UI.iPhone.AnimationStyle.FLIP_FROM_RIGHT});
 }
 
 function login(e)
@@ -13,9 +12,10 @@ function login(e)
 	    
 	    onload : function(e) {
 	    	Ti.API.info("Received text: " + this.responseText);
-	      	$.index.setActiveTab(2);
-	        Alloy.Globals.auth_token = JSON.parse(this.responseText).user.auth_token;
-	            
+
+	      	Alloy.Globals.tabgroup.setActiveTab(2);
+	      	 
+	        Alloy.Globals.auth_token = JSON.parse(this.responseText).user.auth_token;    
 	    },
 	    // function called when an error occurs, including a timeout
 	    onerror : function(e) {
@@ -32,7 +32,6 @@ function login(e)
 	    "provider":"identity"
 	};
 
-	
 	client.open("POST", url);
 	client.send(params);  
 }

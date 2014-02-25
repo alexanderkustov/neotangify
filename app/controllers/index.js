@@ -1,5 +1,4 @@
 
-
 function getActivityFeed(e){
 		//starting to send out the auth
 	var url = 'http://localhost:3000/activities.json?' + 'auth_token=' + Alloy.Globals.auth_token ;
@@ -136,7 +135,7 @@ function updateRadar(lat, longi){
 	client.open("GET", url);
 	client.send(params);  
 }
-
+Alloy.Globals.tabgroup = $.index;
 
 $.index.open({transition:Ti.UI.iPhone.AnimationStyle.FLIP_FROM_LEFT});
 

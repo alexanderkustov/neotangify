@@ -1,8 +1,12 @@
 <Alloy>
-	
+		<NavigationWindow id="win1" platform="ios">
 			<Window title="Registration">
 				
-				
+              
+                <LeftNavButton>
+                    <Button id="back" onClick="goback">Back</Button>
+                </LeftNavButton>
+			   
 		        
 					
 				 <View layout="vertical">
@@ -11,8 +15,11 @@
 	        		<TextField hintText="Password" passwordMask="true" height="40" width="Ti.UI.FILL" id="password"></TextField>
 	        		<TextField hintText="Confirm Password" passwordMask="true" height="40" width="Ti.UI.FILL" id="password_confirmation"></TextField>
 	        		<Button height="40" width="Ti.UI.FILL" onClick="register">Register</Button>
+	        		 
+	        		
 	    		</View>
     		
-    		</Window>
+    		     </Window>
+			    </NavigationWindow>
     		  
 </Alloy>

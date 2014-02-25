@@ -29,9 +29,11 @@ function register(e){
 	        		
 }
 
-function goBack(e){
+function goback(e){
 	
 	var win=Alloy.createController('index').getView();
 	win.open();
 	
 }
+
+

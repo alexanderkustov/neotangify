@@ -21,7 +21,7 @@ function Controller() {
         client.open("POST", url);
         client.send(params);
     }
-    function goBack() {
+    function goback() {
         var win = Alloy.createController("index").getView();
         win.open();
     }
@@ -33,32 +33,38 @@ function Controller() {
     var $ = this;
     var exports = {};
     var __defers = {};
-    $.__views.register = Ti.UI.createWindow({
+    $.__views.__alloyId23 = Ti.UI.createWindow({
         backgroundColor: "#2980b9",
         color: "fff",
         title: "Registration",
-        id: "register"
-    });
-    $.__views.register && $.addTopLevelView($.__views.register);
-    $.__views.__alloyId23 = Ti.UI.createView({
-        layout: "vertical",
         id: "__alloyId23"
     });
-    $.__views.register.add($.__views.__alloyId23);
+    $.__views.back = Ti.UI.createButton({
+        color: "fff",
+        title: "Back",
+        id: "back"
+    });
+    goback ? $.__views.back.addEventListener("click", goback) : __defers["$.__views.back!click!goback"] = true;
+    $.__views.__alloyId23.leftNavButton = $.__views.back;
+    $.__views.__alloyId25 = Ti.UI.createView({
+        layout: "vertical",
+        id: "__alloyId25"
+    });
+    $.__views.__alloyId23.add($.__views.__alloyId25);
     $.__views.name = Ti.UI.createTextField({
         hintText: "Name",
         height: "40",
         width: Ti.UI.FILL,
         id: "name"
     });
-    $.__views.__alloyId23.add($.__views.name);
+    $.__views.__alloyId25.add($.__views.name);
     $.__views.email = Ti.UI.createTextField({
         hintText: "Email",
         height: "40",
         width: Ti.UI.FILL,
         id: "email"
     });
-    $.__views.__alloyId23.add($.__views.email);
+    $.__views.__alloyId25.add($.__views.email);
     $.__views.password = Ti.UI.createTextField({
         hintText: "Password",
         passwordMask: "true",
@@ -66,7 +72,7 @@ function Controller() {
         width: Ti.UI.FILL,
         id: "password"
     });
-    $.__views.__alloyId23.add($.__views.password);
+    $.__views.__alloyId25.add($.__views.password);
     $.__views.password_confirmation = Ti.UI.createTextField({
         hintText: "Confirm Password",
         passwordMask: "true",
@@ -74,19 +80,25 @@ function Controller() {
         width: Ti.UI.FILL,
         id: "password_confirmation"
     });
-    $.__views.__alloyId23.add($.__views.password_confirmation);
-    $.__views.__alloyId24 = Ti.UI.createButton({
+    $.__views.__alloyId25.add($.__views.password_confirmation);
+    $.__views.__alloyId26 = Ti.UI.createButton({
         color: "fff",
         title: "Register",
         height: "40",
         width: Ti.UI.FILL,
-        id: "__alloyId24"
+        id: "__alloyId26"
     });
-    $.__views.__alloyId23.add($.__views.__alloyId24);
-    register ? $.__views.__alloyId24.addEventListener("click", register) : __defers["$.__views.__alloyId24!click!register"] = true;
+    $.__views.__alloyId25.add($.__views.__alloyId26);
+    register ? $.__views.__alloyId26.addEventListener("click", register) : __defers["$.__views.__alloyId26!click!register"] = true;
+    $.__views.win1 = Ti.UI.iOS.createNavigationWindow({
+        window: $.__views.__alloyId23,
+        id: "win1"
+    });
+    $.__views.win1 && $.addTopLevelView($.__views.win1);
     exports.destroy = function() {};
     _.extend($, $.__views);
-    __defers["$.__views.__alloyId24!click!register"] && $.__views.__alloyId24.addEventListener("click", register);
+    __defers["$.__views.back!click!goback"] && $.__views.back.addEventListener("click", goback);
+    __defers["$.__views.__alloyId26!click!register"] && $.__views.__alloyId26.addEventListener("click", register);
     _.extend($, exports);
 }
 
