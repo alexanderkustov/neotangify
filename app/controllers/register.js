@@ -1,18 +1,18 @@
 function register(e){
 	
-	var url = "http://localhost:3000/auth/identity/register?format=json";
+	var url = mainserver + "/auth/identity/register?format=json";
 	
 	var client = Ti.Network.createHTTPClient({
 	    // function called when the response data is available
 	    onload : function(e) {
 	    	Ti.API.info("Received text: " + this.responseText);
 	        alert('success');
-	        goBack();
 	        
 	    },
 	    // function called when an error occurs, including a timeout
 	    onerror : function(e) {
 	        alert('error' + e);
+	        console.log(e);
     },
     timeout : 60 * 1000
 	});
@@ -30,7 +30,7 @@ function register(e){
 }
 
 function goback(e){
-	
+
 	var win=Alloy.createController('index').getView();
 	win.open();
 	

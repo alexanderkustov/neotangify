@@ -1,10 +1,10 @@
 <Alloy>
 	<TabGroup>
-		<Tab title="Login" icon="KS_nav_views.png">
+		<Tab title="Profile" icon="KS_nav_views.png">
 				<Require id="login" src="login" type="view"/>
 		</Tab>
 		
-		<Tab title="Tab 1" icon="KS_nav_ui.png">
+		<Tab title="Feed" icon="KS_nav_ui.png">
 			<Window title="Activity">
 				<View layout="vertical">
 					
@@ -15,7 +15,7 @@
 			</Window>
 		</Tab>
 		
-		<Tab title="Tab 3" icon="KS_nav_ui.png">
+		<Tab title="Radar" icon="radar.png">
 			<Window title="Tab 3">
 				 <View layout="vertical">
         		<Button height="40" width="Ti.UI.FILL" onClick="geolocate">Geolocate</Button>
@@ -33,7 +33,7 @@
 			</Window>
 		</Tab>
 		
-		<Tab title="Tab 5" icon="KS_nav_ui.png">
+		<Tab title="Chat" icon="chat.png">
 			<Window title="Chat">
 				<Label>I am Messages</Label>
 			</Window>

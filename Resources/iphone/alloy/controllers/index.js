@@ -1,6 +1,6 @@
 function Controller() {
     function getActivityFeed() {
-        var url = "http://localhost:3000/activities.json?auth_token=" + Alloy.Globals.auth_token;
+        var url = mainserver + "/activities.json?" + "auth_token=" + Alloy.Globals.auth_token;
         console.log(url);
         var client = Ti.Network.createHTTPClient({
             onload: function() {
@@ -20,7 +20,7 @@ function Controller() {
         client.send(params);
     }
     function changePosition(lat, longi) {
-        var url = "http://localhost:3000/change_position.json?auth_token=" + Alloy.Globals.auth_token;
+        var url = mainserver + "/change_position.json?" + "auth_token=" + Alloy.Globals.auth_token;
         var client = Ti.Network.createHTTPClient({
             onload: function() {
                 Ti.API.info("Received text: " + this.responseText);
@@ -59,11 +59,11 @@ function Controller() {
         });
     }
     function updateRadar(lat, longi) {
-        var url = "http://localhost:3000/people_nearby.json?auth_token=" + Alloy.Globals.auth_token;
+        var url = mainserver + "/people_nearby?" + "auth_token=" + Alloy.Globals.auth_token;
         console.log(url);
         var client = Ti.Network.createHTTPClient({
             onload: function() {
-                Ti.API.info("Get ACtivity feed text: " + this.responseText);
+                Ti.API.info("update radar feed text: " + this.responseText);
                 for (var i = 0; JSON.parse(this.responseText).people.length > i; i++) {
                     $.radar.text = JSON.parse(this.responseText).people[i].name;
                     var face = JSON.parse(this.responseText).people[i].presentation_picture.url;
@@ -79,7 +79,8 @@ function Controller() {
         });
         var params = {
             latitude: lat,
-            longitude: longi
+            longitude: longi,
+            format: "json"
         };
         client.open("GET", url);
         client.send(params);
@@ -100,7 +101,7 @@ function Controller() {
         window: $.__views.login.getViewEx({
             recurse: true
         }),
-        title: "Login",
+        title: "Profile",
         icon: "KS_nav_views.png",
         id: "__alloyId1"
     });
@@ -140,7 +141,7 @@ function Controller() {
     $.__views.__alloyId5.add($.__views.activityfeed);
     $.__views.__alloyId3 = Ti.UI.createTab({
         window: $.__views.__alloyId4,
-        title: "Tab 1",
+        title: "Feed",
         icon: "KS_nav_ui.png",
         id: "__alloyId3"
     });
@@ -188,8 +189,8 @@ function Controller() {
     $.__views.__alloyId9.add($.__views.radar);
     $.__views.__alloyId7 = Ti.UI.createTab({
         window: $.__views.__alloyId8,
-        title: "Tab 3",
-        icon: "KS_nav_ui.png",
+        title: "Radar",
+        icon: "radar.png",
         id: "__alloyId7"
     });
     __alloyId0.push($.__views.__alloyId7);
@@ -240,8 +241,8 @@ function Controller() {
     $.__views.__alloyId15.add($.__views.__alloyId16);
     $.__views.__alloyId14 = Ti.UI.createTab({
         window: $.__views.__alloyId15,
-        title: "Tab 5",
-        icon: "KS_nav_ui.png",
+        title: "Chat",
+        icon: "chat.png",
         id: "__alloyId14"
     });
     __alloyId0.push($.__views.__alloyId14);
@@ -256,6 +257,7 @@ function Controller() {
     $.index.open({
         transition: Ti.UI.iPhone.AnimationStyle.FLIP_FROM_LEFT
     });
+    null != auth_token ? console.log(auth_token) : console.log("e null");
     __defers["$.__views.__alloyId6!click!getActivityFeed"] && $.__views.__alloyId6.addEventListener("click", getActivityFeed);
     __defers["$.__views.__alloyId10!click!geolocate"] && $.__views.__alloyId10.addEventListener("click", geolocate);
     __defers["$.__views.face!click!profilemodal"] && $.__views.face.addEventListener("click", profilemodal);

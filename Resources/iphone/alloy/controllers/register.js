@@ -1,14 +1,14 @@
 function Controller() {
     function register() {
-        var url = "http://localhost:3000/auth/identity/register?format=json";
+        var url = mainserver + "/auth/identity/register?format=json";
         var client = Ti.Network.createHTTPClient({
             onload: function() {
                 Ti.API.info("Received text: " + this.responseText);
                 alert("success");
-                goBack();
             },
             onerror: function(e) {
                 alert("error" + e);
+                console.log(e);
             },
             timeout: 6e4
         });

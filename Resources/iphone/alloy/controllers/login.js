@@ -6,7 +6,7 @@ function Controller() {
         });
     }
     function login() {
-        var url = "http://localhost:3000/auth/identity/callback?format=json";
+        var url = mainserver + "/auth/identity/callback?format=json";
         var client = Ti.Network.createHTTPClient({
             onload: function() {
                 Ti.API.info("Received text: " + this.responseText);
@@ -14,8 +14,8 @@ function Controller() {
                 Alloy.Globals.auth_token = JSON.parse(this.responseText).user.auth_token;
             },
             onerror: function(e) {
-                alert("error" + e);
-                TI.API.info("error" + e);
+                alert("error: " + e);
+                console.log("url: " + url + " error: " + e);
             },
             timeout: 6e4
         });

@@ -11,3 +11,4 @@
 // Alloy.Globals.someGlobalFunction = function(){};
 Ti.Geolocation.purpose = "Recieve User Location";
 var auth_token;
+var mainserver = 'http://tangifyapp.com';

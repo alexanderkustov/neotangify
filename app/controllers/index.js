@@ -1,7 +1,7 @@
 
 function getActivityFeed(e){
 		//starting to send out the auth
-	var url = 'http://localhost:3000/activities.json?' + 'auth_token=' + Alloy.Globals.auth_token ;
+	var url = mainserver + '/activities.json?' + 'auth_token=' + Alloy.Globals.auth_token ;
 	console.log(url);
 	
 	var client = Ti.Network.createHTTPClient({
@@ -31,7 +31,7 @@ function getActivityFeed(e){
 
 
 function changePosition(lat, longi){
-	var url = 'http://localhost:3000/change_position.json?' + 'auth_token=' + Alloy.Globals.auth_token ;
+	var url = mainserver + '/change_position.json?' + 'auth_token=' + Alloy.Globals.auth_token ;
 	
 	var client = Ti.Network.createHTTPClient({
 	    // function called when the response data is available
@@ -81,24 +81,22 @@ function profilemodal(e){
 	var avatar = $.radar.image;
 	var name = $.radar.text;
 	
-	 Titanium.API.info('image: ' + avatar + ' name ' + name);
+	Titanium.API.info('image: ' + avatar + ' name ' + name);
 	 
-	 $.index.close();
+	$.index.close();
 	profilewin.open({transition:Ti.UI.iPhone.AnimationStyle.CURL_DOWN});
 
-	 
-	 
 	
 }
 
 function updateRadar(lat, longi){
-	var url = 'http://localhost:3000/people_nearby.json?' + 'auth_token=' + Alloy.Globals.auth_token ;
+	var url = mainserver + '/people_nearby?' + 'auth_token=' + Alloy.Globals.auth_token ;
 	console.log(url);
 	
 	var client = Ti.Network.createHTTPClient({
 	    // function called when the response data is available
 	    onload : function(e) {
-	    	Ti.API.info("Get ACtivity feed text: " + this.responseText);
+	    	Ti.API.info("update radar feed text: " + this.responseText);
 	   	
 	   	for (var i = 0; i < JSON.parse(this.responseText).people.length; i++) {
 
@@ -128,7 +126,8 @@ function updateRadar(lat, longi){
 	
 	var params = {
 		'latitude': lat,
-		'longitude' : longi
+		'longitude' : longi,
+		'format': "json"
 	};
 	
 
@@ -139,4 +138,10 @@ Alloy.Globals.tabgroup = $.index;
 
 $.index.open({transition:Ti.UI.iPhone.AnimationStyle.FLIP_FROM_LEFT});
 
-
+//ver se o estado do auth_token
+if(auth_token != null)
+{
+	console.log(auth_token);
+} else {
+	console.log("e null");
+}
