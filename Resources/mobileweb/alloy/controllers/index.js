@@ -65,16 +65,10 @@ function Controller() {
             onload: function() {
                 Ti.API.info("update radar feed text: " + this.responseText);
                 for (var i = 0; JSON.parse(this.responseText).people.length > i; i++) {
-                    var label = Ti.UI.createLabel({
-                        text: JSON.parse(this.responseText).people[i].name
-                    });
-                    $.radar.add(label);
-                    if (null != face) var face = TI.UI.createImageView({
-                        image: JSON.parse(this.responseText).people[i].presentation_picture.url
-                    }); else var face = TI.UI.createImageView({
-                        image: "http://lorempixel.com/100/100/people"
-                    });
-                    Ti.API.info("get radar text: " + JSON.parse(this.responseText).people[i].presentation_picture.url);
+                    $.radar.text = JSON.parse(this.responseText).people[i].name;
+                    var face = JSON.parse(this.responseText).people[i].presentation_picture.url;
+                    $.face.image = null != face ? JSON.parse(this.responseText).people[i].presentation_picture.url : "http://lorempixel.com/64/64/people";
+                    Ti.API.info("get feed text: " + JSON.parse(this.responseText).people[i].presentation_picture.url);
                 }
             },
             onerror: function(e) {

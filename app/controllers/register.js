@@ -23,17 +23,15 @@ function register(e){
 		'password' : $.password.value ,
 		'password_confirmation' : $.password_confirmation.value
 	};
-
+	auth_token = null;
 	client.open("POST", url);
+	
 	client.send(params);
 	        		
 }
 
 function goback(e){
-
 	var win=Alloy.createController('index').getView();
 	win.open();
 	
 }
-
-

@@ -96,20 +96,19 @@ function updateRadar(lat, longi){
 	    onload : function(e) {
 	    	Ti.API.info("update radar feed text: " + this.responseText);
 	   	
+	   	//for das pessoas fixes
 	   	for (var i = 0; i < JSON.parse(this.responseText).people.length; i++) {
-
-	 	
-	    	$.radar.text = JSON.parse(this.responseText).people[i].name;
-	 
-	    	var face = JSON.parse(this.responseText).people[i].presentation_picture.url;
-	    	
+			
+			var label=Ti.UI.createLabel({text: JSON.parse(this.responseText).people[i].name });
+			$.radar.add(label);
+			
 	    	if(face != null){
-	    		$.face.image =  JSON.parse(this.responseText).people[i].presentation_picture.url;
+	    		var face = TI.UI.createImageView({image:JSON.parse(this.responseText).people[i].presentation_picture.url });
 	    	} else {
-	    		$.face.image =  "http://lorempixel.com/64/64/people";
+	    		var face = TI.UI.createImageView({image:"http://lorempixel.com/100/100/people" });
 	    	}
 	    	
-	    	Ti.API.info("Get ACtivity feed text: " + JSON.parse(this.responseText).people[i].presentation_picture.url);
+	    	Ti.API.info("get radar text: " + JSON.parse(this.responseText).people[i].presentation_picture.url);
 	    	
 	      }
 	    },

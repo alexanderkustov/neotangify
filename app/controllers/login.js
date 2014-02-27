@@ -23,11 +23,12 @@ function login(e)
 		'auth_key': $.login.value,
 		'password' : $.password.value , 
 	    "provider":"identity",
+	    "Login": "",
 	    "format" : "json"  
 	};
 	
 	client.open("POST", url);
-	client.send(params);  
+	client.send(params);
 }
 
 function openRegister(e)
