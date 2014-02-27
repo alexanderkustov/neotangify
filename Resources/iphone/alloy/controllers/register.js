@@ -52,6 +52,7 @@ function Controller() {
     });
     $.__views.__alloyId23.add($.__views.__alloyId25);
     $.__views.name = Ti.UI.createTextField({
+        color: "#fff",
         hintText: "Name",
         height: "40",
         width: Ti.UI.FILL,
@@ -59,6 +60,7 @@ function Controller() {
     });
     $.__views.__alloyId25.add($.__views.name);
     $.__views.email = Ti.UI.createTextField({
+        color: "#fff",
         hintText: "Email",
         height: "40",
         width: Ti.UI.FILL,
@@ -66,6 +68,7 @@ function Controller() {
     });
     $.__views.__alloyId25.add($.__views.email);
     $.__views.password = Ti.UI.createTextField({
+        color: "#fff",
         hintText: "Password",
         passwordMask: "true",
         height: "40",
@@ -74,6 +77,7 @@ function Controller() {
     });
     $.__views.__alloyId25.add($.__views.password);
     $.__views.password_confirmation = Ti.UI.createTextField({
+        color: "#fff",
         hintText: "Confirm Password",
         passwordMask: "true",
         height: "40",

@@ -67,7 +67,7 @@ function Controller() {
                 for (var i = 0; JSON.parse(this.responseText).people.length > i; i++) {
                     $.radar.text = JSON.parse(this.responseText).people[i].name;
                     var face = JSON.parse(this.responseText).people[i].presentation_picture.url;
-                    $.face.image = null != face ? JSON.parse(this.responseText).people[i].presentation_picture.url : "http://lorempixel.com/100/100";
+                    $.face.image = null != face ? JSON.parse(this.responseText).people[i].presentation_picture.url : "http://lorempixel.com/64/64/people";
                     Ti.API.info("Get ACtivity feed text: " + JSON.parse(this.responseText).people[i].presentation_picture.url);
                 }
             },
@@ -257,7 +257,7 @@ function Controller() {
     $.index.open({
         transition: Ti.UI.iPhone.AnimationStyle.FLIP_FROM_LEFT
     });
-    null != auth_token ? console.log(auth_token) : console.log("e null");
+    null != auth_token ? console.log(auth_token) : console.log("auth_token e null");
     __defers["$.__views.__alloyId6!click!getActivityFeed"] && $.__views.__alloyId6.addEventListener("click", getActivityFeed);
     __defers["$.__views.__alloyId10!click!geolocate"] && $.__views.__alloyId10.addEventListener("click", geolocate);
     __defers["$.__views.face!click!profilemodal"] && $.__views.face.addEventListener("click", profilemodal);

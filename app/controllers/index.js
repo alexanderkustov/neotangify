@@ -61,8 +61,6 @@ function geolocate(e)
 {
 	var cur_longitude, cur_latitude, cur_loc_timestamp;
  
- 
- 
     Titanium.Geolocation.getCurrentPosition(function(e)
     {
         Ti.API.warn(e);
@@ -108,9 +106,8 @@ function updateRadar(lat, longi){
 	    	if(face != null){
 	    		$.face.image =  JSON.parse(this.responseText).people[i].presentation_picture.url;
 	    	} else {
-	    		$.face.image =  "http://lorempixel.com/100/100";
+	    		$.face.image =  "http://lorempixel.com/64/64/people";
 	    	}
-	    	
 	    	
 	    	Ti.API.info("Get ACtivity feed text: " + JSON.parse(this.responseText).people[i].presentation_picture.url);
 	    	
@@ -130,7 +127,6 @@ function updateRadar(lat, longi){
 		'format': "json"
 	};
 	
-
 	client.open("GET", url);
 	client.send(params);  
 }
@@ -143,5 +139,5 @@ if(auth_token != null)
 {
 	console.log(auth_token);
 } else {
-	console.log("e null");
+	console.log("auth_token e null");
 }

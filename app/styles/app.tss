@@ -2,6 +2,10 @@
 	backgroundColor: "#2980b9",
 	color: "fff"
 },
+"TextField": {
+	color: "#fff"
+},
+
 "Label": {
 	width: Ti.UI.SIZE,
 	height: Ti.UI.SIZE,

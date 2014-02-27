@@ -1,10 +1,4 @@
 function Controller() {
-    function openRegister() {
-        var win = Alloy.createController("register").getView();
-        win.open({
-            transition: Ti.UI.iPhone.AnimationStyle.FLIP_FROM_RIGHT
-        });
-    }
     function login() {
         var url = mainserver + "/auth/identity/callback?format=json";
         var client = Ti.Network.createHTTPClient({
@@ -14,19 +8,25 @@ function Controller() {
                 Alloy.Globals.auth_token = JSON.parse(this.responseText).user.auth_token;
             },
             onerror: function(e) {
-                alert("error: " + e);
-                console.log("url: " + url + " error: " + e);
+                alert("Error, try again!");
+                Ti.API.info("url: " + url + " error: " + JSON.stringify(e));
             },
             timeout: 6e4
         });
         var params = {
             auth_key: $.login.value,
             password: $.password.value,
-            Login: "",
-            provider: "identity"
+            provider: "identity",
+            format: "json"
         };
         client.open("POST", url);
         client.send(params);
+    }
+    function openRegister() {
+        var win = Alloy.createController("register").getView();
+        win.open({
+            transition: Ti.UI.iPhone.AnimationStyle.FLIP_FROM_RIGHT
+        });
     }
     require("alloy/controllers/BaseController").apply(this, Array.prototype.slice.call(arguments));
     this.__controllerPath = "login";
@@ -49,11 +49,13 @@ function Controller() {
     });
     $.__views.login.add($.__views.__alloyId17);
     $.__views.__alloyId18 = Ti.UI.createImageView({
-        image: "/appicon.png",
+        image: "/login-logo.png",
+        height: "180",
         id: "__alloyId18"
     });
     $.__views.__alloyId17.add($.__views.__alloyId18);
     $.__views.login = Ti.UI.createTextField({
+        color: "#fff",
         hintText: "Login",
         height: "40",
         width: Ti.UI.FILL,
@@ -61,6 +63,7 @@ function Controller() {
     });
     $.__views.__alloyId17.add($.__views.login);
     $.__views.password = Ti.UI.createTextField({
+        color: "#fff",
         hintText: "Password",
         passwordMask: "true",
         height: "40",
