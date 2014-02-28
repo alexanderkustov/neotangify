@@ -23,17 +23,20 @@
         			
         		</View>
     		</View>
-				
 			</Window>
 		</Tab>
 		
-		<Tab title="Tab 4" icon="KS_nav_ui.png">
+		<Tab title="Chat" icon="KS_nav_ui.png">
 			<Window title="teste">
-				<Label>I am Circle 4</Label>
+				<View layout="vertical">
+				<Label id="labelChat">chat area</Label>
+				<TextField hintText="Enter Message..." height="40" width="Ti.UI.FILL" id="textChat"></TextField>
+				<Button height="40" width="Ti.UI.FILL" onClick="sendMsg">Send</Button>
+				</View>
 			</Window>
 		</Tab>
 		
-		<Tab title="Chat" icon="chat.png">
+		<Tab title="Settings" icon="chat.png">
 			<Window title="Chat">
 				<Label>I am Messages</Label>
 			</Window>

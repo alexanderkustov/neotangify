@@ -6,6 +6,7 @@ function Controller() {
                 Ti.API.info("Received text: " + this.responseText);
                 Alloy.Globals.tabgroup.setActiveTab(2);
                 Alloy.Globals.auth_token = JSON.parse(this.responseText).user.auth_token;
+                console.log(auth_token);
             },
             onerror: function(e) {
                 alert("Error, try again!");
@@ -40,21 +41,20 @@ function Controller() {
     $.__views.login = Ti.UI.createWindow({
         backgroundColor: "#2980b9",
         color: "fff",
-        title: "Login",
         id: "login"
     });
     $.__views.login && $.addTopLevelView($.__views.login);
-    $.__views.__alloyId17 = Ti.UI.createView({
+    $.__views.__alloyId18 = Ti.UI.createView({
         layout: "vertical",
-        id: "__alloyId17"
-    });
-    $.__views.login.add($.__views.__alloyId17);
-    $.__views.__alloyId18 = Ti.UI.createImageView({
-        image: "/login-logo.png",
-        height: "160",
         id: "__alloyId18"
     });
-    $.__views.__alloyId17.add($.__views.__alloyId18);
+    $.__views.login.add($.__views.__alloyId18);
+    $.__views.__alloyId19 = Ti.UI.createImageView({
+        image: "/login-logo.png",
+        height: "160",
+        id: "__alloyId19"
+    });
+    $.__views.__alloyId18.add($.__views.__alloyId19);
     $.__views.login = Ti.UI.createTextField({
         color: "#fff",
         hintText: "Login",
@@ -62,7 +62,7 @@ function Controller() {
         width: Ti.UI.FILL,
         id: "login"
     });
-    $.__views.__alloyId17.add($.__views.login);
+    $.__views.__alloyId18.add($.__views.login);
     $.__views.password = Ti.UI.createTextField({
         color: "#fff",
         hintText: "Password",
@@ -71,29 +71,29 @@ function Controller() {
         width: Ti.UI.FILL,
         id: "password"
     });
-    $.__views.__alloyId17.add($.__views.password);
-    $.__views.__alloyId19 = Ti.UI.createButton({
+    $.__views.__alloyId18.add($.__views.password);
+    $.__views.__alloyId20 = Ti.UI.createButton({
         color: "fff",
         title: "Login",
         height: "40",
         width: Ti.UI.FILL,
-        id: "__alloyId19"
+        id: "__alloyId20"
     });
-    $.__views.__alloyId17.add($.__views.__alloyId19);
-    login ? $.__views.__alloyId19.addEventListener("click", login) : __defers["$.__views.__alloyId19!click!login"] = true;
-    $.__views.__alloyId20 = Ti.UI.createButton({
+    $.__views.__alloyId18.add($.__views.__alloyId20);
+    login ? $.__views.__alloyId20.addEventListener("click", login) : __defers["$.__views.__alloyId20!click!login"] = true;
+    $.__views.__alloyId21 = Ti.UI.createButton({
         color: "fff",
         title: "Register",
         height: "40",
         width: Ti.UI.FILL,
-        id: "__alloyId20"
+        id: "__alloyId21"
     });
-    $.__views.__alloyId17.add($.__views.__alloyId20);
-    openRegister ? $.__views.__alloyId20.addEventListener("click", openRegister) : __defers["$.__views.__alloyId20!click!openRegister"] = true;
+    $.__views.__alloyId18.add($.__views.__alloyId21);
+    openRegister ? $.__views.__alloyId21.addEventListener("click", openRegister) : __defers["$.__views.__alloyId21!click!openRegister"] = true;
     exports.destroy = function() {};
     _.extend($, $.__views);
-    __defers["$.__views.__alloyId19!click!login"] && $.__views.__alloyId19.addEventListener("click", login);
-    __defers["$.__views.__alloyId20!click!openRegister"] && $.__views.__alloyId20.addEventListener("click", openRegister);
+    __defers["$.__views.__alloyId20!click!login"] && $.__views.__alloyId20.addEventListener("click", login);
+    __defers["$.__views.__alloyId21!click!openRegister"] && $.__views.__alloyId21.addEventListener("click", openRegister);
     _.extend($, exports);
 }
 

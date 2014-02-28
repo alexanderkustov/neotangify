@@ -57,7 +57,8 @@ function Controller() {
                 for (var i = 0; JSON.parse(this.responseText).people.length > i; i++) {
                     console.log("criar label" + i);
                     var label = Ti.UI.createLabel({
-                        text: JSON.parse(this.responseText).people[i].name
+                        text: JSON.parse(this.responseText).people[i].name,
+                        id: "name"
                     });
                     console.log("label criada" + i);
                     $.radar.add(label);
@@ -66,7 +67,7 @@ function Controller() {
                         image: JSON.parse(this.responseText).people[i].presentation_picture.url
                     }); else var face = Ti.UI.createImageView({
                         image: "http://lorempixel.com/100/100/people",
-                        id: "avatar"
+                        id: "face"
                     });
                     $.radar.add(face);
                     console.log("get radar text: " + JSON.parse(this.responseText).people[i].presentation_picture.url);
@@ -85,6 +86,18 @@ function Controller() {
         };
         client.open("GET", url);
         client.send(params);
+    }
+    function sendMsg() {
+        var message = $.textChat.value;
+        "" != message && WS.send(JSON.stringify([ "message", {
+            from: "eu",
+            to: "Outro",
+            message: Base64.encode(message)
+        } ]));
+    }
+    function sendKeepAlives() {
+        WS.send(JSON.stringify([ "ping" ]));
+        setTimeout("sendKeepAlives();", 3e4);
     }
     require("alloy/controllers/BaseController").apply(this, Array.prototype.slice.call(arguments));
     this.__controllerPath = "index";
@@ -184,7 +197,12 @@ function Controller() {
         title: "teste",
         id: "__alloyId12"
     });
-    $.__views.__alloyId13 = Ti.UI.createLabel({
+    $.__views.__alloyId13 = Ti.UI.createView({
+        layout: "vertical",
+        id: "__alloyId13"
+    });
+    $.__views.__alloyId12.add($.__views.__alloyId13);
+    $.__views.labelChat = Ti.UI.createLabel({
         width: Ti.UI.SIZE,
         height: Ti.UI.SIZE,
         color: "#fff",
@@ -193,24 +211,41 @@ function Controller() {
             fontFamily: "Helvetica Neue"
         },
         textAlign: "center",
-        text: "I am Circle 4",
-        id: "__alloyId13"
+        text: "chat area",
+        id: "labelChat"
     });
-    $.__views.__alloyId12.add($.__views.__alloyId13);
+    $.__views.__alloyId13.add($.__views.labelChat);
+    $.__views.textChat = Ti.UI.createTextField({
+        color: "#fff",
+        hintText: "Enter Message...",
+        height: "40",
+        width: Ti.UI.FILL,
+        id: "textChat"
+    });
+    $.__views.__alloyId13.add($.__views.textChat);
+    $.__views.__alloyId14 = Ti.UI.createButton({
+        color: "fff",
+        title: "Send",
+        height: "40",
+        width: Ti.UI.FILL,
+        id: "__alloyId14"
+    });
+    $.__views.__alloyId13.add($.__views.__alloyId14);
+    sendMsg ? $.__views.__alloyId14.addEventListener("click", sendMsg) : __defers["$.__views.__alloyId14!click!sendMsg"] = true;
     $.__views.__alloyId11 = Ti.UI.createTab({
         window: $.__views.__alloyId12,
-        title: "Tab 4",
+        title: "Chat",
         icon: "KS_nav_ui.png",
         id: "__alloyId11"
     });
     __alloyId0.push($.__views.__alloyId11);
-    $.__views.__alloyId15 = Ti.UI.createWindow({
+    $.__views.__alloyId16 = Ti.UI.createWindow({
         backgroundColor: "#2980b9",
         color: "fff",
         title: "Chat",
-        id: "__alloyId15"
+        id: "__alloyId16"
     });
-    $.__views.__alloyId16 = Ti.UI.createLabel({
+    $.__views.__alloyId17 = Ti.UI.createLabel({
         width: Ti.UI.SIZE,
         height: Ti.UI.SIZE,
         color: "#fff",
@@ -220,16 +255,16 @@ function Controller() {
         },
         textAlign: "center",
         text: "I am Messages",
-        id: "__alloyId16"
+        id: "__alloyId17"
     });
-    $.__views.__alloyId15.add($.__views.__alloyId16);
-    $.__views.__alloyId14 = Ti.UI.createTab({
-        window: $.__views.__alloyId15,
-        title: "Chat",
+    $.__views.__alloyId16.add($.__views.__alloyId17);
+    $.__views.__alloyId15 = Ti.UI.createTab({
+        window: $.__views.__alloyId16,
+        title: "Settings",
         icon: "chat.png",
-        id: "__alloyId14"
+        id: "__alloyId15"
     });
-    __alloyId0.push($.__views.__alloyId14);
+    __alloyId0.push($.__views.__alloyId15);
     $.__views.index = Ti.UI.createTabGroup({
         tabs: __alloyId0,
         id: "index"
@@ -237,6 +272,43 @@ function Controller() {
     $.__views.index && $.addTopLevelView($.__views.index);
     exports.destroy = function() {};
     _.extend($, $.__views);
+    Ti.include("base64.js");
+    uri = "ws://tangifyapp.com:81";
+    var WS = require("net.iamyellow.tiws").createWS();
+    WS.addEventListener("open", function() {
+        Ti.API.info("websocket opened");
+        WS.send(JSON.stringify([ "connect", {
+            user: "a@a.com",
+            auth_token: "_YW1MBm_cDBmNn985NnCdw"
+        } ]));
+        sendKeepAlives();
+    });
+    WS.addEventListener("close", function(ev) {
+        Ti.API.info(ev);
+    });
+    WS.addEventListener("error", function(ev) {
+        Ti.API.info(ev);
+    });
+    WS.addEventListener("message", function(ev) {
+        message = JSON.parse(ev.data);
+        var event = message[0];
+        var data = message[1];
+        if ("message" == event) {
+            console.log("From " + data.from);
+            console.log("To " + data.to);
+            console.log("Message " + Base64.decode(data.message));
+        } else {
+            if ("pong" == event) {
+                console.log("pong");
+                return;
+            }
+            if ("new_user" == event) console.log("New user: " + data.data); else if ("user_left" == event) console.log("User left: " + data.data); else if ("room_state" == event) {
+                var names = data.data.split(",");
+                console.log(names[0]);
+            }
+        }
+    });
+    WS.open(uri);
     Alloy.Globals.tabgroup = $.index;
     $.index.open({
         transition: Ti.UI.iPhone.AnimationStyle.FLIP_FROM_LEFT
@@ -244,6 +316,7 @@ function Controller() {
     null != auth_token ? console.log(auth_token) : console.log("auth_token e null");
     __defers["$.__views.__alloyId6!click!getActivityFeed"] && $.__views.__alloyId6.addEventListener("click", getActivityFeed);
     __defers["$.__views.__alloyId10!click!geolocate"] && $.__views.__alloyId10.addEventListener("click", geolocate);
+    __defers["$.__views.__alloyId14!click!sendMsg"] && $.__views.__alloyId14.addEventListener("click", sendMsg);
     _.extend($, exports);
 }
 

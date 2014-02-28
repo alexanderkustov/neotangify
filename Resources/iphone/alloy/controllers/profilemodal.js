@@ -17,23 +17,23 @@ function Controller() {
         id: "profilemodal"
     });
     $.__views.profilemodal && $.addTopLevelView($.__views.profilemodal);
-    $.__views.__alloyId21 = Ti.UI.createView({
+    $.__views.__alloyId22 = Ti.UI.createView({
         layout: "vertical",
-        id: "__alloyId21"
+        id: "__alloyId22"
     });
-    $.__views.profilemodal.add($.__views.__alloyId21);
-    $.__views.__alloyId22 = Ti.UI.createButton({
+    $.__views.profilemodal.add($.__views.__alloyId22);
+    $.__views.__alloyId23 = Ti.UI.createButton({
         color: "fff",
         title: "Add Friend",
         height: "40",
         width: Ti.UI.FILL,
-        id: "__alloyId22"
+        id: "__alloyId23"
     });
-    $.__views.__alloyId21.add($.__views.__alloyId22);
-    addFriend ? $.__views.__alloyId22.addEventListener("click", addFriend) : __defers["$.__views.__alloyId22!click!addFriend"] = true;
+    $.__views.__alloyId22.add($.__views.__alloyId23);
+    addFriend ? $.__views.__alloyId23.addEventListener("click", addFriend) : __defers["$.__views.__alloyId23!click!addFriend"] = true;
     exports.destroy = function() {};
     _.extend($, $.__views);
-    __defers["$.__views.__alloyId22!click!addFriend"] && $.__views.__alloyId22.addEventListener("click", addFriend);
+    __defers["$.__views.__alloyId23!click!addFriend"] && $.__views.__alloyId23.addEventListener("click", addFriend);
     _.extend($, exports);
 }
 

@@ -1,5 +1,5 @@
 <Alloy>
-	<Window title="Login">
+	<Window>
 		 <View layout="vertical">
 		 	<ImageView image="/login-logo.png" height="160">
 			<TextField hintText="Login" height="40" width="Ti.UI.FILL" id="login"></TextField>

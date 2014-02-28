@@ -1,3 +1,4 @@
+Ti.include("base64.js");
 
 function getActivityFeed(e){
 		//starting to send out the auth
@@ -92,7 +93,7 @@ function updateRadar(lat, longi){
 	    	if(face != null){
 	    		var face = Ti.UI.createImageView({image: JSON.parse(this.responseText).people[i].presentation_picture.url });
 	    	} else {
-	    		var face = Ti.UI.createImageView({image: 'http://lorempixel.com/100/100/people', id: 'avatar' });
+	    		var face = Ti.UI.createImageView({image: 'http://lorempixel.com/100/100/people', id: 'face' });
 	    	}
 	    	$.radar.add(face);
 	    	
@@ -130,6 +131,77 @@ function profilemodal(e){
 }
 
 
+//WEBSOCKETS
+
+	uri = 'ws://tangifyapp.com:81';
+	var WS = require('net.iamyellow.tiws').createWS();
+		
+	WS.addEventListener('open', function () {
+		Ti.API.info('websocket opened');
+		WS.send(JSON.stringify(["connect",{"user":"a@a.com","auth_token":"_YW1MBm_cDBmNn985NnCdw"}]));
+		sendKeepAlives();	
+	});
+		
+	WS.addEventListener('close', function (ev) {
+		Ti.API.info(ev);
+	});
+		
+	WS.addEventListener('error', function (ev) {
+		Ti.API.info(ev);
+	});
+
+	WS.addEventListener('message', function (ev) {
+		//E este bocado é na função onMessage, quando recebe mensagem
+		message = JSON.parse(ev.data);
+		var event = message[0];
+		var data = message[1];
+		
+		if (event=='message'){
+			// Received a message for the chat room.
+			console.log('From ' + data.from);
+			console.log('To ' + data.to);
+			console.log('Message ' + Base64.decode(data.message));
+				
+		}else if (event == 'pong'){
+			// Received a pong
+			console.log("pong");
+	        return;
+		}else if (event=='new_user'){
+			// Received a notification that a new user has arrived.
+			console.log("New user: " + data.data);
+		}else if (event=='user_left'){
+			// Received a notification that a user has left.
+			console.log("User left: " + data.data);
+		}else if (event == 'room_state'){
+			// Received the current state of the chat room.
+			// Currently all this has is a list of the participants.
+			var names = data.data.split(',');
+			console.log(names[0]);
+		}
+	});
+	
+	function sendMsg(e){
+		
+		var message = $.textChat.value;
+	
+		if (message!=''){
+	    	WS.send(JSON.stringify(["message",{"from":"eu","to":"Outro","message":Base64.encode(message)}]));        
+		}
+
+	}
+	
+	
+	WS.open(uri);
+	//Meter esta num ponto inicial
+
+	function sendKeepAlives(){
+		//if (WS && WS.readyState == WebSocket.OPEN){
+			// Send a ping to avoid TCP timeout.
+        	WS.send(JSON.stringify(["ping"])); 
+		//}
+    	setTimeout("sendKeepAlives();", 30000);
+	}
+
 
 
 Alloy.Globals.tabgroup = $.index;
@@ -143,6 +215,3 @@ if(auth_token != null)
 } else {
 	console.log("auth_token e null");
 }
-
-
-
