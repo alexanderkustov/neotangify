@@ -16,19 +16,19 @@
 		</Tab>
 		
 		<Tab title="Radar" icon="radar.png">
-			<Window title="Tab 3">
-				 <View layout="vertical">
+			<Window title="tangify">
+				<View layout="vertical">
         		<Button height="40" width="Ti.UI.FILL" onClick="geolocate">Geolocate</Button>
-        		<ImageView onClick="profilemodal" id="face"/>
-        		<Label id="radar" >I am radar</Label>
-				
+        		<View id="radar">
+        			
+        		</View>
     		</View>
 				
 			</Window>
 		</Tab>
 		
 		<Tab title="Tab 4" icon="KS_nav_ui.png">
-			<Window title="Radar">
+			<Window title="teste">
 				<Label>I am Circle 4</Label>
 			</Window>
 		</Tab>
@@ -38,7 +38,6 @@
 				<Label>I am Messages</Label>
 			</Window>
 		</Tab>
-		
 		
 	</TabGroup>
 </Alloy>

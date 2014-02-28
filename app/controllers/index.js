@@ -30,6 +30,20 @@ function getActivityFeed(e){
 }
 
 
+function geolocate(e)
+{
+	var cur_longitude, cur_latitude, cur_loc_timestamp;
+ 
+    Titanium.Geolocation.getCurrentPosition(function(e)
+    {
+        cur_longitude = e.coords.longitude;                     
+        cur_latitude = e.coords.latitude;
+        console.log('current location long ' + cur_longitude.toFixed(3) + ' lat ' + cur_latitude.toFixed(3));
+ 		changePosition(cur_longitude, cur_latitude);
+    });
+}
+
+
 function changePosition(lat, longi){
 	var url = mainserver + '/change_position.json?' + 'auth_token=' + Alloy.Globals.auth_token ;
 	
@@ -53,37 +67,7 @@ function changePosition(lat, longi){
 	};
 	
 	client.open("POST", url);
-	client.send(params);  
-	
-}
-
-function geolocate(e)
-{
-	var cur_longitude, cur_latitude, cur_loc_timestamp;
- 
-    Titanium.Geolocation.getCurrentPosition(function(e)
-    {
-        Ti.API.warn(e);
- 
-        cur_longitude = e.coords.longitude;                     
-        cur_latitude = e.coords.latitude;
- 
-        Titanium.API.info('geo - current location: long ' + cur_longitude.toFixed(3) + ' lat ' + cur_latitude.toFixed(3));
- 
- 		changePosition(cur_longitude, cur_latitude);
-    });
-}
-
-function profilemodal(e){
-	var profilewin=Alloy.createController('profilemodal').getView();
-	var avatar = $.radar.image;
-	var name = $.radar.text;
-	
-	Titanium.API.info('image: ' + avatar + ' name ' + name);
-	 
-	$.index.close();
-	profilewin.open({transition:Ti.UI.iPhone.AnimationStyle.CURL_DOWN});
-
+	client.send(params);
 	
 }
 
@@ -94,21 +78,25 @@ function updateRadar(lat, longi){
 	var client = Ti.Network.createHTTPClient({
 	    // function called when the response data is available
 	    onload : function(e) {
-	    	Ti.API.info("update radar feed text: " + this.responseText);
+	    	Ti.API.info("update radar text: " + this.responseText);
+	    	Ti.API.info("pessoas a tua volta: " + JSON.parse(this.responseText).people.length);
 	   	
 	   	//for das pessoas fixes
 	   	for (var i = 0; i < JSON.parse(this.responseText).people.length; i++) {
-			
-			var label=Ti.UI.createLabel({text: JSON.parse(this.responseText).people[i].name });
+			console.log("criar label" + i);
+			var label=Ti.UI.createLabel({text: JSON.parse(this.responseText).people[i].name, id: 'name' });
+			console.log("label criada" + i);
 			$.radar.add(label);
 			
+			console.log("criar img" + i);
 	    	if(face != null){
-	    		var face = TI.UI.createImageView({image:JSON.parse(this.responseText).people[i].presentation_picture.url });
+	    		var face = Ti.UI.createImageView({image: JSON.parse(this.responseText).people[i].presentation_picture.url });
 	    	} else {
-	    		var face = TI.UI.createImageView({image:"http://lorempixel.com/100/100/people" });
+	    		var face = Ti.UI.createImageView({image: 'http://lorempixel.com/100/100/people', id: 'avatar' });
 	    	}
+	    	$.radar.add(face);
 	    	
-	    	Ti.API.info("get radar text: " + JSON.parse(this.responseText).people[i].presentation_picture.url);
+	    	console.log("get radar text: " + JSON.parse(this.responseText).people[i].presentation_picture.url);
 	    	
 	      }
 	    },
@@ -129,6 +117,21 @@ function updateRadar(lat, longi){
 	client.open("GET", url);
 	client.send(params);  
 }
+
+function profilemodal(e){
+	var profilewin=Alloy.createController('profilemodal').getView();
+	var avatar = $.radar.image;
+	var name = $.radar.text;
+	
+	Titanium.API.info('image: ' + avatar + ' name ' + name);
+	 
+	$.index.close();
+	profilewin.open({transition:Ti.UI.iPhone.AnimationStyle.CURL_DOWN});
+}
+
+
+
+
 Alloy.Globals.tabgroup = $.index;
 
 $.index.open({transition:Ti.UI.iPhone.AnimationStyle.FLIP_FROM_LEFT});
@@ -140,3 +143,6 @@ if(auth_token != null)
 } else {
 	console.log("auth_token e null");
 }
+
+
+

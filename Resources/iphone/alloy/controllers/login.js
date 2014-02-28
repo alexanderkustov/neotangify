@@ -51,7 +51,7 @@ function Controller() {
     $.__views.login.add($.__views.__alloyId17);
     $.__views.__alloyId18 = Ti.UI.createImageView({
         image: "/login-logo.png",
-        height: "180",
+        height: "160",
         id: "__alloyId18"
     });
     $.__views.__alloyId17.add($.__views.__alloyId18);
