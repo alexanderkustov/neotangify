@@ -83,7 +83,13 @@ function updateRadar(lat, longi){
 	    	Ti.API.info("pessoas a tua volta: " + JSON.parse(this.responseText).people.length);
 	   	
 	   	//for das pessoas fixes
+	   	
+	   var person_id;
+	   	
 	   	for (var i = 0; i < JSON.parse(this.responseText).people.length; i++) {
+	   		
+	   		persons_id = JSON.parse(this.responseText).people[i].id;
+	   		
 			console.log("criar label" + i);
 			var label=Ti.UI.createLabel({text: JSON.parse(this.responseText).people[i].name, id: 'name' });
 			console.log("label criada" + i);
@@ -93,8 +99,13 @@ function updateRadar(lat, longi){
 	    	if(face != null){
 	    		var face = Ti.UI.createImageView({image: JSON.parse(this.responseText).people[i].presentation_picture.url });
 	    	} else {
-	    		var face = Ti.UI.createImageView({image: 'http://lorempixel.com/100/100/people', id: 'face' });
+	    		var face = Ti.UI.createImageView({image: 'http://lorempixel.com/100/100/people', id: 'face'});
 	    	}
+	    	
+	    	face.addEventListener('click', function(e){
+	    			profilemodal(persons_id);
+	    			console.log("gaja a passar aqui: " + persons_id);
+	    		});
 	    	$.radar.add(face);
 	    	
 	    	console.log("get radar text: " + JSON.parse(this.responseText).people[i].presentation_picture.url);
@@ -119,13 +130,26 @@ function updateRadar(lat, longi){
 	client.send(params);  
 }
 
-function profilemodal(e){
+function profilemodal(userid){
 	var profilewin=Alloy.createController('profilemodal').getView();
-	var avatar = $.radar.image;
-	var name = $.radar.text;
 	
-	Titanium.API.info('image: ' + avatar + ' name ' + name);
-	 
+	var url = mainserver + '/users/' + userid + '.json?' + 'auth_token=' + Alloy.Globals.auth_token ;
+	console.log(url);
+	
+	var client = Ti.Network.createHTTPClient({
+	    onload : function(e) {
+	    	Ti.API.info("pessoa selecionada: " + this.responseText);	
+	    },
+	    onerror : function(e) {
+	       alert('error' + e);
+	       Ti.API.info("Erro: " + this.responseText);
+    },
+    timeout : 60 * 1000
+	});
+
+	client.open('GET', url);
+	client.send();  
+	
 	$.index.close();
 	profilewin.open({transition:Ti.UI.iPhone.AnimationStyle.CURL_DOWN});
 }

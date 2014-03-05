@@ -20,7 +20,7 @@
 	color:"fff"
 },
 "#face": {
-	 borderRadius : 50,
+	borderRadius : 50,
     borderWidth : 3,
     borderColor : 'white'
 }

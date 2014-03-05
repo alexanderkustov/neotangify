@@ -55,6 +55,7 @@ function Controller() {
                 Ti.API.info("update radar text: " + this.responseText);
                 Ti.API.info("pessoas a tua volta: " + JSON.parse(this.responseText).people.length);
                 for (var i = 0; JSON.parse(this.responseText).people.length > i; i++) {
+                    persons_id = JSON.parse(this.responseText).people[i].id;
                     console.log("criar label" + i);
                     var label = Ti.UI.createLabel({
                         text: JSON.parse(this.responseText).people[i].name,
@@ -68,6 +69,10 @@ function Controller() {
                     }); else var face = Ti.UI.createImageView({
                         image: "http://lorempixel.com/100/100/people",
                         id: "face"
+                    });
+                    face.addEventListener("click", function() {
+                        profilemodal(persons_id);
+                        console.log("gaja a passar aqui: " + persons_id);
                     });
                     $.radar.add(face);
                     console.log("get radar text: " + JSON.parse(this.responseText).people[i].presentation_picture.url);
@@ -86,6 +91,27 @@ function Controller() {
         };
         client.open("GET", url);
         client.send(params);
+    }
+    function profilemodal(userid) {
+        var profilewin = Alloy.createController("profilemodal").getView();
+        var url = mainserver + "/users/" + userid + ".json?" + "auth_token=" + Alloy.Globals.auth_token;
+        console.log(url);
+        var client = Ti.Network.createHTTPClient({
+            onload: function() {
+                Ti.API.info("pessoa selecionada: " + this.responseText);
+            },
+            onerror: function(e) {
+                alert("error" + e);
+                Ti.API.info("Erro: " + this.responseText);
+            },
+            timeout: 6e4
+        });
+        client.open("GET", url);
+        client.send();
+        $.index.close();
+        profilewin.open({
+            transition: Ti.UI.iPhone.AnimationStyle.CURL_DOWN
+        });
     }
     function sendMsg() {
         var message = $.textChat.value;
