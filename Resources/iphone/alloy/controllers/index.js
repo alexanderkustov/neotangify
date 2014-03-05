@@ -99,6 +99,8 @@ function Controller() {
         var client = Ti.Network.createHTTPClient({
             onload: function() {
                 Ti.API.info("pessoa selecionada: " + this.responseText);
+                console.log("pesosa nome " + JSON.parse(this.responseText).user.name);
+                profilewin.profile_name.text = "teste";
             },
             onerror: function(e) {
                 alert("error" + e);

@@ -1,7 +1,9 @@
 <Alloy>
 	
 			<Window title="Profile">
-				 <View layout="vertical">		 	
+				 <View layout="vertical">
+				 	<ImageView image="/login-logo.png" height="160">
+				 	<Label id="profile_name">name</Label>
 	        		<Button height="40" width="Ti.UI.FILL" onClick="addFriend">Add Friend</Button>
 	    		</View>
     		

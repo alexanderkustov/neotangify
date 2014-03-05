@@ -138,17 +138,20 @@ function profilemodal(userid){
 	
 	var client = Ti.Network.createHTTPClient({
 	    onload : function(e) {
-	    	Ti.API.info("pessoa selecionada: " + this.responseText);	
+	    	Ti.API.info("pessoa selecionada: " + this.responseText);
+	    	//$.profilewin.profile_name.text = 'lol';
+	    	console.log('pesosa nome: ' + JSON.parse(this.responseText).user.name);
+			profilewin.profile_name.text = 'teste';
 	    },
 	    onerror : function(e) {
 	       alert('error' + e);
 	       Ti.API.info("Erro: " + this.responseText);
     },
-    timeout : 60 * 1000
+   		timeout : 60 * 1000
 	});
 
 	client.open('GET', url);
-	client.send();  
+	client.send();
 	
 	$.index.close();
 	profilewin.open({transition:Ti.UI.iPhone.AnimationStyle.CURL_DOWN});
@@ -156,7 +159,6 @@ function profilemodal(userid){
 
 
 //WEBSOCKETS
-
 	uri = 'ws://tangifyapp.com:81';
 	var WS = require('net.iamyellow.tiws').createWS();
 		
