@@ -131,28 +131,12 @@ function updateRadar(lat, longi){
 }
 
 function profilemodal(userid){
-	var profilewin=Alloy.createController('profilemodal').getView();
 	
-	var url = mainserver + '/users/' + userid + '.json?' + 'auth_token=' + Alloy.Globals.auth_token ;
-	console.log(url);
+	var userNumber = userid;
+	console.log(userNumber + ' este e o user');
 	
-	var client = Ti.Network.createHTTPClient({
-	    onload : function(e) {
-	    	Ti.API.info("pessoa selecionada: " + this.responseText);
-	    	//$.profilewin.profile_name.text = 'lol';
-	    	console.log('pesosa nome: ' + JSON.parse(this.responseText).user.name);
-			profilewin.profile_name.text = 'teste';
-	    },
-	    onerror : function(e) {
-	       alert('error' + e);
-	       Ti.API.info("Erro: " + this.responseText);
-    },
-   		timeout : 60 * 1000
-	});
+	var profilewin=Alloy.createController('profilemodal', {args1: userNumber}).getView();
 
-	client.open('GET', url);
-	client.send();
-	
 	$.index.close();
 	profilewin.open({transition:Ti.UI.iPhone.AnimationStyle.CURL_DOWN});
 }

@@ -93,23 +93,11 @@ function Controller() {
         client.send(params);
     }
     function profilemodal(userid) {
-        var profilewin = Alloy.createController("profilemodal").getView();
-        var url = mainserver + "/users/" + userid + ".json?" + "auth_token=" + Alloy.Globals.auth_token;
-        console.log(url);
-        var client = Ti.Network.createHTTPClient({
-            onload: function() {
-                Ti.API.info("pessoa selecionada: " + this.responseText);
-                console.log("pesosa nome " + JSON.parse(this.responseText).user.name);
-                profilewin.profile_name.text = "teste";
-            },
-            onerror: function(e) {
-                alert("error" + e);
-                Ti.API.info("Erro: " + this.responseText);
-            },
-            timeout: 6e4
-        });
-        client.open("GET", url);
-        client.send();
+        var userNumber = userid;
+        console.log(userNumber + " este e o user");
+        var profilewin = Alloy.createController("profilemodal", {
+            args1: userNumber
+        }).getView();
         $.index.close();
         profilewin.open({
             transition: Ti.UI.iPhone.AnimationStyle.CURL_DOWN

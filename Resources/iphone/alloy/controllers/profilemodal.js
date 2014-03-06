@@ -2,6 +2,24 @@ function Controller() {
     function addFriend() {
         console.log("friends are magical");
     }
+    function getFriend(userid) {
+        var url = mainserver + "/users/" + userid + ".json?" + "auth_token=" + Alloy.Globals.auth_token;
+        console.log(url);
+        var client = Ti.Network.createHTTPClient({
+            onload: function() {
+                Ti.API.info("pessoa selecionada: " + this.responseText);
+                console.log("pesosa nome: " + JSON.parse(this.responseText).user.name);
+                $.profile_name.text = JSON.parse(this.responseText).user.name;
+            },
+            onerror: function(e) {
+                alert("error" + e);
+                Ti.API.info("Erro: " + this.responseText);
+            },
+            timeout: 6e4
+        });
+        client.open("GET", url);
+        client.send();
+    }
     require("alloy/controllers/BaseController").apply(this, Array.prototype.slice.call(arguments));
     this.__controllerPath = "profilemodal";
     arguments[0] ? arguments[0]["__parentSymbol"] : null;
@@ -52,6 +70,9 @@ function Controller() {
     addFriend ? $.__views.__alloyId24.addEventListener("click", addFriend) : __defers["$.__views.__alloyId24!click!addFriend"] = true;
     exports.destroy = function() {};
     _.extend($, $.__views);
+    var userid = arguments[0] || {};
+    console.log(userid.args1 + " arguments:  " + arguments[0]);
+    getFriend(userid.args1);
     __defers["$.__views.__alloyId24!click!addFriend"] && $.__views.__alloyId24.addEventListener("click", addFriend);
     _.extend($, exports);
 }
