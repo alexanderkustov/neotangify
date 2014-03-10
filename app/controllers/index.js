@@ -8,9 +8,9 @@ function getActivityFeed(e){
 	var client = Ti.Network.createHTTPClient({
 	    // function called when the response data is available
 	    onload : function(e) {
-	    	Ti.API.info("Get ACtivity feed text: " + this.responseText);
+	    	Ti.API.info("Get feed text: " + this.responseText);
 	    	
-	    	$.activityfeed.text = JSON.parse(this.responseText);
+	    	$.status.text = JSON.parse(this.responseText);
 	       
 	    },
 	    // function called when an error occurs, including a timeout
@@ -99,7 +99,7 @@ function updateRadar(lat, longi){
 	    	if(face != null){
 	    		var face = Ti.UI.createImageView({image: JSON.parse(this.responseText).people[i].presentation_picture.url });
 	    	} else {
-	    		var face = Ti.UI.createImageView({image: 'http://lorempixel.com/100/100/people', id: 'face'});
+	    		var face = Ti.UI.createImageView({image: 'http://lorempixel.com/100/100/people', id: 'profileRadar'});
 	    	}
 	    	
 	    	face.addEventListener('click', function(e){
@@ -193,11 +193,20 @@ function profilemodal(userid){
 	function sendMsg(e){
 		
 		var message = $.textChat.value;
-	
+		
+		var chatMsg = Ti.UI.createLabel({
+		  color: '#ffffff',
+		  font: { fontSize:14 },
+		  text: message,
+		  top: 25,
+		  width: Ti.UI.SIZE, height: Ti.UI.SIZE
+		});
+				
 		if (message!=''){
 	    	WS.send(JSON.stringify(["message",{"from":"eu","to":"Outro","message":Base64.encode(message)}]));        
 		}
-
+		
+		$.chatArea.add(chatMsg);
 	}
 	
 	

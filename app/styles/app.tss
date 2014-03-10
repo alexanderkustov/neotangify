@@ -19,8 +19,85 @@
 "Button": {
 	color:"fff"
 },
-"#face": {
-	borderRadius : 50,
-    borderWidth : 3,
+"#profileRadar": {
+	borderRadius : "50",
+    borderWidth : "3",
     borderColor : 'white'
+},
+
+"#mainList":{
+	backgroundColor: "#2980b9",
+	separatorStyle: "NONE"
+},
+"#listRow":{
+	height:"200",
+	selectionStyle: "NONE"
+},
+"#rowContainer":{
+	borderColor: "#cacdd8",
+	borderRadius: 5,
+	borderWidth: 1,
+	left: "5",
+	right: "5",
+	top: "5",
+	bottom: "5",
+	height: "Ti.UI.FILL",
+	width: "Ti.UI.FILL",
+	backgroundColor: "#fff"
+},
+"#profilePic":{
+	width: "66",
+	height: "66",
+	top:"5",
+	left: "5"
+},
+"#profileName":{
+	top: "5",
+	left: "80",
+	color: "#576b95",
+	font: {
+		fontSize: "16",
+		fontWeight: "bold"
+	}
+},
+"#timeAgo":{
+	top: "25",
+	left: "80",
+	color: "#bbbbbb",
+	font: {
+		fontSize: "16",
+	}
+},
+"#status":{
+	width: Ti.UI.SIZE,
+	left: "5",
+	right: "5",
+	font: {
+		fontSize: "16",
+	}
+},
+"#bottomActions":{
+	bottom: 0,
+	height: "50",
+	width: Ti.UI.FILL,
+	backgroundColor: "#eff2f5",
+	layout: "horizontal"
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -6,10 +6,25 @@
 		
 		<Tab title="Feed" icon="KS_nav_ui.png">
 			<Window title="Activity">
-				<View layout="vertical">
-					
-				<Button  height="40" width="Ti.UI.FILL" onClick="getActivityFeed">Refresh</Button>
-				<Label id="activityfeed" >I am feed</Label>
+										<View layout="vertical">
+																			<Button  height="40" width="Ti.UI.FILL" onClick="getActivityFeed">Refresh</Button>
+
+
+				<TableView id="mainList">
+					<TableViewRow id="listRow">
+						<View id="rowContainer">
+							<ImageView id="profilePic" image="radar.png"></ImageView>
+							<Label id="profileName">Teste</Label>
+							<Label id="timeAgo">10 minutes ago</Label>
+							<Label id="status"></Label>
+							<View id="grayLine" bottom="51"></View>
+							<View id="bottomActions">
+								
+								
+							</View>
+						</View>
+					</TableViewRow>
+				</TableView>
 				
 				</View>
 			</Window>
@@ -27,11 +42,14 @@
 		</Tab>
 		
 		<Tab title="Chat" icon="KS_nav_ui.png">
-			<Window title="teste">
-				<View layout="vertical">
-				<Label id="labelChat">chat area</Label>
-				<TextField hintText="Enter Message..." height="40" width="Ti.UI.FILL" id="textChat"></TextField>
-				<Button height="40" width="Ti.UI.FILL" onClick="sendMsg">Send</Button>
+			<Window title="chat">
+				<ScrollView id="chatArea" layout="vertical" contentWidth="auto" contentHeight="auto" showVerticalScrollIndicator="true" showHorizontalScrollIndicator="false" height="80%">
+				
+				</ScrollView>	
+				<View id="chatBtn" layout="vertical" top="80%" backgroundColor="#0071bc">
+					<Label id="labelChat">chat area</Label>
+					<TextField hintText="Enter Message..." height="40" width="Ti.UI.FILL" id="textChat"></TextField>
+					<Button height="40" width="Ti.UI.FILL" onClick="sendMsg">Send</Button>
 				</View>
 			</Window>
 		</Tab>
