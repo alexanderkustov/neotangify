@@ -220,17 +220,9 @@ function profilemodal(userid){
 		//}
     	setTimeout("sendKeepAlives();", 30000);
 	}
-
-
-
+	
 Alloy.Globals.tabgroup = $.index;
 
-$.index.open({transition:Ti.UI.iPhone.AnimationStyle.FLIP_FROM_LEFT});
 
-//ver se o estado do auth_token
-if(auth_token != null)
-{
-	console.log(auth_token);
-} else {
-	console.log("auth_token e null");
-}
+var win=Alloy.createController('login').getView();
+win.open();

@@ -4,7 +4,8 @@ function Controller() {
         var client = Ti.Network.createHTTPClient({
             onload: function() {
                 Ti.API.info("Received text: " + this.responseText);
-                Alloy.Globals.tabgroup.setActiveTab(2);
+                var win = Alloy.createController("index").getView();
+                win.open();
                 Alloy.Globals.auth_token = JSON.parse(this.responseText).user.auth_token;
                 console.log(auth_token);
             },
@@ -38,23 +39,23 @@ function Controller() {
     var $ = this;
     var exports = {};
     var __defers = {};
-    $.__views.login = Ti.UI.createWindow({
+    $.__views.__alloyId18 = Ti.UI.createWindow({
         backgroundColor: "#2980b9",
         color: "fff",
-        id: "login"
-    });
-    $.__views.login && $.addTopLevelView($.__views.login);
-    $.__views.__alloyId18 = Ti.UI.createView({
-        layout: "vertical",
+        title: "Please login",
         id: "__alloyId18"
     });
-    $.__views.login.add($.__views.__alloyId18);
-    $.__views.__alloyId19 = Ti.UI.createImageView({
-        image: "/login-logo.png",
-        height: "160",
+    $.__views.__alloyId19 = Ti.UI.createView({
+        layout: "vertical",
         id: "__alloyId19"
     });
     $.__views.__alloyId18.add($.__views.__alloyId19);
+    $.__views.__alloyId20 = Ti.UI.createImageView({
+        image: "/login-logo.png",
+        height: "160",
+        id: "__alloyId20"
+    });
+    $.__views.__alloyId19.add($.__views.__alloyId20);
     $.__views.login = Ti.UI.createTextField({
         color: "#fff",
         hintText: "Login",
@@ -62,7 +63,7 @@ function Controller() {
         width: Ti.UI.FILL,
         id: "login"
     });
-    $.__views.__alloyId18.add($.__views.login);
+    $.__views.__alloyId19.add($.__views.login);
     $.__views.password = Ti.UI.createTextField({
         color: "#fff",
         hintText: "Password",
@@ -71,29 +72,34 @@ function Controller() {
         width: Ti.UI.FILL,
         id: "password"
     });
-    $.__views.__alloyId18.add($.__views.password);
-    $.__views.__alloyId20 = Ti.UI.createButton({
+    $.__views.__alloyId19.add($.__views.password);
+    $.__views.__alloyId21 = Ti.UI.createButton({
         color: "fff",
         title: "Login",
         height: "40",
         width: Ti.UI.FILL,
-        id: "__alloyId20"
+        id: "__alloyId21"
     });
-    $.__views.__alloyId18.add($.__views.__alloyId20);
-    login ? $.__views.__alloyId20.addEventListener("click", login) : __defers["$.__views.__alloyId20!click!login"] = true;
-    $.__views.__alloyId21 = Ti.UI.createButton({
+    $.__views.__alloyId19.add($.__views.__alloyId21);
+    login ? $.__views.__alloyId21.addEventListener("click", login) : __defers["$.__views.__alloyId21!click!login"] = true;
+    $.__views.__alloyId22 = Ti.UI.createButton({
         color: "fff",
         title: "Register",
         height: "40",
         width: Ti.UI.FILL,
-        id: "__alloyId21"
+        id: "__alloyId22"
     });
-    $.__views.__alloyId18.add($.__views.__alloyId21);
-    openRegister ? $.__views.__alloyId21.addEventListener("click", openRegister) : __defers["$.__views.__alloyId21!click!openRegister"] = true;
+    $.__views.__alloyId19.add($.__views.__alloyId22);
+    openRegister ? $.__views.__alloyId22.addEventListener("click", openRegister) : __defers["$.__views.__alloyId22!click!openRegister"] = true;
+    $.__views.win1 = Ti.UI.iOS.createNavigationWindow({
+        window: $.__views.__alloyId18,
+        id: "win1"
+    });
+    $.__views.win1 && $.addTopLevelView($.__views.win1);
     exports.destroy = function() {};
     _.extend($, $.__views);
-    __defers["$.__views.__alloyId20!click!login"] && $.__views.__alloyId20.addEventListener("click", login);
-    __defers["$.__views.__alloyId21!click!openRegister"] && $.__views.__alloyId21.addEventListener("click", openRegister);
+    __defers["$.__views.__alloyId21!click!login"] && $.__views.__alloyId21.addEventListener("click", login);
+    __defers["$.__views.__alloyId22!click!openRegister"] && $.__views.__alloyId22.addEventListener("click", openRegister);
     _.extend($, exports);
 }
 

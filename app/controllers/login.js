@@ -7,7 +7,9 @@ function login(e)
 	    onload : function(e) {
 	    	Ti.API.info("Received text: " + this.responseText);
 
-	      	Alloy.Globals.tabgroup.setActiveTab(2);
+			var win=Alloy.createController('index').getView();
+			win.open();
+	      	//Alloy.Globals.tabgroup.setActiveTab(2);
 	  	 	//fica com auth token para sempre  	 
 	        Alloy.Globals.auth_token = JSON.parse(this.responseText).user.auth_token; 
 	        console.log(auth_token);   

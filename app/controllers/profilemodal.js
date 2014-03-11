@@ -1,7 +1,10 @@
-
-
 function addFriend(e){
 	console.log("friends are magical");
+}
+
+function goback(e) {
+	var win=Alloy.createController('index').getView();
+	win.open();
 }
 
 function getFriend(userid){
@@ -15,7 +18,7 @@ function getFriend(userid){
 	    	//$.profilewin.profile_name.text = 'lol';
 	    	console.log('pesosa nome: ' + JSON.parse(this.responseText).user.name);
 	    	
-	    	 $.profile_name.text = JSON.parse(this.responseText).user.name;
+	    	 $.profile_name.title = JSON.parse(this.responseText).user.name;
 			
 	    },
 	    onerror : function(e) {

@@ -1,5 +1,7 @@
 <Alloy>
-	<Window>
+		<NavigationWindow id="win1" platform="ios">
+			<Window title="Please login">
+				
 		 <View layout="vertical">
 		 	<ImageView image="/login-logo.png" height="160">
 			<TextField hintText="Login" height="40" width="Ti.UI.FILL" id="login"></TextField>
@@ -8,4 +10,6 @@
 			<Button height="40" width="Ti.UI.FILL" onClick="openRegister">Register</Button>
 		</View>
 	</Window>
+</NavigationWindow>
+    		  
 </Alloy>

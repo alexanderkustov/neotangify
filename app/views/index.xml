@@ -1,15 +1,15 @@
 <Alloy>
 	<TabGroup>
 		<Tab title="Profile" icon="KS_nav_views.png">
-				<Require id="login" src="login" type="view"/>
+			<Window title="Profile">
+				
+			</Window>
 		</Tab>
 		
 		<Tab title="Feed" icon="KS_nav_ui.png">
 			<Window title="Activity">
-										<View layout="vertical">
-																			<Button  height="40" width="Ti.UI.FILL" onClick="getActivityFeed">Refresh</Button>
-
-
+				<View layout="vertical">
+					<Button height="40" width="Ti.UI.FILL" onClick="getActivityFeed">Refresh</Button>
 				<TableView id="mainList">
 					<TableViewRow id="listRow">
 						<View id="rowContainer">
@@ -19,13 +19,10 @@
 							<Label id="status"></Label>
 							<View id="grayLine" bottom="51"></View>
 							<View id="bottomActions">
-								
-								
 							</View>
 						</View>
 					</TableViewRow>
 				</TableView>
-				
 				</View>
 			</Window>
 		</Tab>

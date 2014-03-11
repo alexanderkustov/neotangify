@@ -135,13 +135,14 @@ function Controller() {
     var exports = {};
     var __defers = {};
     var __alloyId0 = [];
-    $.__views.login = Alloy.createController("login", {
-        id: "login"
+    $.__views.__alloyId2 = Ti.UI.createWindow({
+        backgroundColor: "#2980b9",
+        color: "fff",
+        title: "profile",
+        id: "__alloyId2"
     });
     $.__views.__alloyId1 = Ti.UI.createTab({
-        window: $.__views.login.getViewEx({
-            recurse: true
-        }),
+        window: $.__views.__alloyId2,
         title: "Profile",
         icon: "KS_nav_views.png",
         id: "__alloyId1"
@@ -429,10 +430,8 @@ function Controller() {
     });
     WS.open(uri);
     Alloy.Globals.tabgroup = $.index;
-    $.index.open({
-        transition: Ti.UI.iPhone.AnimationStyle.FLIP_FROM_LEFT
-    });
-    null != auth_token ? console.log(auth_token) : console.log("auth_token e null");
+    var win = Alloy.createController("login").getView();
+    win.open();
     __defers["$.__views.__alloyId6!click!getActivityFeed"] && $.__views.__alloyId6.addEventListener("click", getActivityFeed);
     __defers["$.__views.__alloyId11!click!geolocate"] && $.__views.__alloyId11.addEventListener("click", geolocate);
     __defers["$.__views.__alloyId14!click!sendMsg"] && $.__views.__alloyId14.addEventListener("click", sendMsg);

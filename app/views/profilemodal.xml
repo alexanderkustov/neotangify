@@ -1,12 +1,15 @@
 <Alloy>
-	
-			<Window title="Profile">
+	<NavigationWindow id="win1" platform="ios">
+			<Window id="profile_name" title="">
+                <LeftNavButton>
+                	<Button id="back" onClick="goback">Back</Button>
+                </LeftNavButton>
+                
 				 <View layout="vertical">
 				 	<ImageView image="/login-logo.png" height="160">
-				 	<Label id="profile_name">name</Label>
-	        		<Button height="40" width="Ti.UI.FILL" onClick="addFriend">Add Friend</Button>
+				 	<Button height="40" width="Ti.UI.FILL" onClick="addFriend">Add Friend</Button>
 	    		</View>
     		
     		</Window>
-    		  
+    </NavigationWindow>	  
 </Alloy>
