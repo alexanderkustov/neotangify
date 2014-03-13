@@ -3,7 +3,10 @@
 	color: "fff"
 },
 "TextField": {
-	color: "#fff"
+	color: "#333",
+	borderStyle: Ti.UI.INPUT_BORDERSTYLE_ROUNDED,
+  top: 10, left: 10, right: 10,
+  width: 250, height: 60
 },
 
 "Label": {

@@ -19,7 +19,7 @@ function register(e){
 	
 	var params = {
 		'name': $.name.value,
-		'email': $.email.value,
+		'email': $.email.value.toLowerCase(),
 		'password' : $.password.value ,
 		'password_confirmation' : $.password_confirmation.value
 	};

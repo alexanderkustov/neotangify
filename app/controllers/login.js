@@ -23,7 +23,7 @@ function login(e)
 	});
 	
 	var params = {
-		'auth_key': $.login.value,
+		'auth_key': $.login.value.toLowerCase(),
 		'password' : $.password.value , 
 	    "provider":"identity",
 	    "Login": "",
@@ -39,3 +39,4 @@ function openRegister(e)
 	var win=Alloy.createController('register').getView();
 	win.open({transition:Ti.UI.iPhone.AnimationStyle.FLIP_FROM_RIGHT});
 }
+

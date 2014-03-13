@@ -31,6 +31,10 @@ function getActivityFeed(e){
 }
 
 
+function editProfile(){
+	
+}
+
 function geolocate(e)
 {
 	var cur_longitude, cur_latitude, cur_loc_timestamp;
