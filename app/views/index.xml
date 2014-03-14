@@ -3,8 +3,9 @@
 		<Tab title="Profile" icon="KS_nav_views.png">
 			<Window title="Profile">
 				<View layout="vertical">
-					<Button height="40" width="Ti.UI.FILL" onClick="editProfile">Edit</Button>
-					<ImageView image="/tangy_back.jpg" height="160"></ImageView>
+					<Button height="40" width="Ti.UI.FILL" zIndex="100" right="10" textAlign="right" onClick="editProfile">Edit</Button>
+					<ImageView image="/tangy_back.jpg" zIndex="1" height="160" top="-50" width="Ti.UI.FILL"></ImageView>
+					<ImageView image="/person.png" zIndex="5" top="-50" borderRadius="50%" borderWidth="3" borderColor="white"></ImageView>
 					<Label>Your Name</Label>
 					<Label>Birthdate</Label>
 					<Label>Short Description</Label>					
@@ -37,7 +38,7 @@
 			<Window title="tangify">
 				<View layout="vertical">
         		<Button height="40" width="Ti.UI.FILL" onClick="geolocate">Geolocate</Button>
-        		<View id="radar">
+        		<View id="radar" width="Ti.UI.FILL" height="960px" backgroundImage="/radar_back.png">
         			
         		</View>
     		</View>

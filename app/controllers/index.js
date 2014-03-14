@@ -33,6 +33,9 @@ function getActivityFeed(e){
 
 function editProfile(){
 	
+	var win=Alloy.createController('profile').getView();
+	win.open();
+	
 }
 
 function geolocate(e)
@@ -78,7 +81,7 @@ function changePosition(lat, longi){
 
 function updateRadar(lat, longi){
 	var url = mainserver + '/people_nearby?' + 'auth_token=' + Alloy.Globals.auth_token ;
-	console.log(url);
+	//console.log(url);
 	
 	var client = Ti.Network.createHTTPClient({
 	    // function called when the response data is available
@@ -99,7 +102,7 @@ function updateRadar(lat, longi){
 			if(face != null){
 	    		var face = Ti.UI.createImageView({image: JSON.parse(this.responseText).people[i].presentation_picture.url });
 	    	} else {
-	    		var face = Ti.UI.createImageView({image: 'http://lorempixel.com/100/100/people', top: 30+i, borderRadius: 50,  borderWidth : "3",
+	    		var face = Ti.UI.createImageView({image: '/person.png', top: 30+i, borderRadius: 50,  borderWidth : "3",
     borderColor : 'white'});
 	    	}
 	    	

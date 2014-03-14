@@ -45,26 +45,26 @@ function Controller() {
     });
     goback ? $.__views.back.addEventListener("click", goback) : __defers["$.__views.back!click!goback"] = true;
     $.__views.profile_name.leftNavButton = $.__views.back;
-    $.__views.__alloyId30 = Ti.UI.createView({
+    $.__views.__alloyId31 = Ti.UI.createView({
         layout: "vertical",
-        id: "__alloyId30"
-    });
-    $.__views.profile_name.add($.__views.__alloyId30);
-    $.__views.__alloyId31 = Ti.UI.createImageView({
-        image: "/login-logo.png",
-        height: "160",
         id: "__alloyId31"
     });
-    $.__views.__alloyId30.add($.__views.__alloyId31);
-    $.__views.__alloyId32 = Ti.UI.createButton({
+    $.__views.profile_name.add($.__views.__alloyId31);
+    $.__views.__alloyId32 = Ti.UI.createImageView({
+        image: "/login-logo.png",
+        height: "160",
+        id: "__alloyId32"
+    });
+    $.__views.__alloyId31.add($.__views.__alloyId32);
+    $.__views.__alloyId33 = Ti.UI.createButton({
         color: "fff",
         title: "Add Friend",
         height: "40",
         width: Ti.UI.FILL,
-        id: "__alloyId32"
+        id: "__alloyId33"
     });
-    $.__views.__alloyId30.add($.__views.__alloyId32);
-    addFriend ? $.__views.__alloyId32.addEventListener("click", addFriend) : __defers["$.__views.__alloyId32!click!addFriend"] = true;
+    $.__views.__alloyId31.add($.__views.__alloyId33);
+    addFriend ? $.__views.__alloyId33.addEventListener("click", addFriend) : __defers["$.__views.__alloyId33!click!addFriend"] = true;
     $.__views.win1 = Ti.UI.iOS.createNavigationWindow({
         window: $.__views.profile_name,
         id: "win1"
@@ -76,7 +76,7 @@ function Controller() {
     console.log(userid.args1 + " arguments:  " + arguments[0]);
     getFriend(userid.args1);
     __defers["$.__views.back!click!goback"] && $.__views.back.addEventListener("click", goback);
-    __defers["$.__views.__alloyId32!click!addFriend"] && $.__views.__alloyId32.addEventListener("click", addFriend);
+    __defers["$.__views.__alloyId33!click!addFriend"] && $.__views.__alloyId33.addEventListener("click", addFriend);
     _.extend($, exports);
 }
 
