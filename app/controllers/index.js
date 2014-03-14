@@ -85,35 +85,34 @@ function updateRadar(lat, longi){
 	    onload : function(e) {
 	    	Ti.API.info("update radar text: " + this.responseText);
 	    	Ti.API.info("pessoas a tua volta: " + JSON.parse(this.responseText).people.length);
-	   	
 	   	//for das pessoas fixes
-	   	
 	   var person_id;
 	   	
 	   	for (var i = 0; i < JSON.parse(this.responseText).people.length; i++) {
 	   		
 	   		persons_id = JSON.parse(this.responseText).people[i].id;
 	   		
-			console.log("criar label" + i);
-			var label=Ti.UI.createLabel({text: JSON.parse(this.responseText).people[i].name, id: 'name' });
-			console.log("label criada" + i);
-			$.radar.add(label);
+	   		var personView = Ti.UI.createView({top: i*30});
+	 
+			var label=Ti.UI.createLabel({text: JSON.parse(this.responseText).people[i].name, id: 'name', color: 'white', top: 10 });
 			
-			console.log("criar img" + i);
-	    	if(face != null){
+			if(face != null){
 	    		var face = Ti.UI.createImageView({image: JSON.parse(this.responseText).people[i].presentation_picture.url });
 	    	} else {
-	    		var face = Ti.UI.createImageView({image: 'http://lorempixel.com/100/100/people', id: 'profileRadar'});
+	    		var face = Ti.UI.createImageView({image: 'http://lorempixel.com/100/100/people', top: 30+i, borderRadius: 50,  borderWidth : "3",
+    borderColor : 'white'});
 	    	}
 	    	
-	    	face.addEventListener('click', function(e){
+	    	label.addEventListener('click', function(e){
 	    			profilemodal(persons_id);
 	    			console.log("gaja a passar aqui: " + persons_id);
-	    		});
-	    	$.radar.add(face);
+	    	});
+	    			
+	    	personView.add(face);
+	    	personView.add(label);
+	    	$.radar.add(personView);
 	    	
-	    	console.log("get radar text: " + JSON.parse(this.responseText).people[i].presentation_picture.url);
-	    	
+	    
 	      }
 	    },
 	    // function called when an error occurs, including a timeout
