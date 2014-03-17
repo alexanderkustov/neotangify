@@ -96,14 +96,12 @@ function updateRadar(lat, longi){
 	   		persons_id = JSON.parse(this.responseText).people[i].id;
 	   		
 	   		var personView = Ti.UI.createView({top: i*30});
-	 
 			var label=Ti.UI.createLabel({text: JSON.parse(this.responseText).people[i].name, id: 'name', color: 'white', top: 10 });
 			
 			if(face != null){
 	    		var face = Ti.UI.createImageView({image: JSON.parse(this.responseText).people[i].presentation_picture.url });
 	    	} else {
-	    		var face = Ti.UI.createImageView({image: '/person.png', top: 30+i, borderRadius: 50,  borderWidth : "3",
-    borderColor : 'white'});
+	    		var face = Ti.UI.createImageView({image: '/person.png', top: 30+i, borderRadius: 50, borderWidth : "3", borderColor : 'white', width: 100, height: 100});
 	    	}
 	    	
 	    	label.addEventListener('click', function(e){
@@ -115,7 +113,6 @@ function updateRadar(lat, longi){
 	    	personView.add(label);
 	    	$.radar.add(personView);
 	    	
-	    
 	      }
 	    },
 	    // function called when an error occurs, including a timeout
@@ -126,12 +123,7 @@ function updateRadar(lat, longi){
     timeout : 60 * 1000
 	});
 	
-	var params = {
-		'latitude': lat,
-		'longitude' : longi,
-		'format': "json"
-	};
-	
+	var params = { 'latitude': lat, 'longitude' : longi, 'format': "json"};
 	client.open("GET", url);
 	client.send(params);  
 }
@@ -227,8 +219,24 @@ function profilemodal(userid){
     	setTimeout("sendKeepAlives();", 30000);
 	}
 	
+	
+function loadData(e){
+	
+	$.user_name.text = Alloy.Globals.user_name;
+	$.birthdate.text = Alloy.Globals.birthdate;
+	$.short_description.text = Alloy.Globals.short_description;
+}
+
+
 Alloy.Globals.tabgroup = $.index;
-
-
 var win=Alloy.createController('login').getView();
+win.addEventListener('open', loadData);
+
 win.open();
+
+
+
+
+
+
+

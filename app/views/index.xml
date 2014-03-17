@@ -6,9 +6,9 @@
 					<Button height="40" width="Ti.UI.FILL" zIndex="100" right="10" textAlign="right" onClick="editProfile">Edit</Button>
 					<ImageView image="/tangy_back.jpg" zIndex="1" height="160" top="-50" width="Ti.UI.FILL"></ImageView>
 					<ImageView image="/person.png" zIndex="5" top="-50" borderRadius="50%" borderWidth="3" borderColor="white"></ImageView>
-					<Label>Your Name</Label>
-					<Label>Birthdate</Label>
-					<Label>Short Description</Label>					
+					<Label id="user_name">Your Name</Label>
+					<Label id="birthdate">Birthdate</Label>
+					<Label id="short_description">Short Description</Label>					
 				</View>
 			</Window>
 		</Tab>
@@ -38,7 +38,7 @@
 			<Window title="tangify">
 				<View layout="vertical">
         		<Button height="40" width="Ti.UI.FILL" onClick="geolocate">Geolocate</Button>
-        		<View id="radar" width="Ti.UI.FILL" height="960px" backgroundImage="/radar_back.png">
+        		<View id="radar" width="Ti.UI.FILL" height="460px" width="460px" backgroundImage="/radar_back.png">
         			
         		</View>
     		</View>

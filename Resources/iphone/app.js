@@ -4,6 +4,12 @@ Ti.Geolocation.purpose = "Recieve User Location";
 
 var auth_token;
 
+var user_name;
+
+var short_description;
+
+var birthdate;
+
 var mainserver = "http://tangifyapp.com";
 
 Alloy.createController("index");
