@@ -9,9 +9,7 @@ function getActivityFeed(e){
 	    // function called when the response data is available
 	    onload : function(e) {
 	    	Ti.API.info("Get feed text: " + this.responseText);
-	    	
 	    	$.status.text = JSON.parse(this.responseText);
-	       
 	    },
 	    // function called when an error occurs, including a timeout
 	    onerror : function(e) {
@@ -218,8 +216,7 @@ function profilemodal(userid){
 	}
 	
 	
-function loadData(e){
-	
+function loadData(e){	
 	$.user_name.text = Alloy.Globals.user_name;
 	$.birthdate.text = Alloy.Globals.birthdate;
 	$.short_description.text = Alloy.Globals.short_description;
@@ -230,7 +227,7 @@ Alloy.Globals.tabgroup = $.index;
 var win=Alloy.createController('login').getView();
 win.addEventListener('open', loadData);
 
-win.open();
+win.open({transition : Ti.UI.iPhone.AnimationStyle.FLIP_FROM_LEFT});
 
 
 

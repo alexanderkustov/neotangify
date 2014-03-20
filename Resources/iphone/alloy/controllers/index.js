@@ -9,7 +9,7 @@ function Controller() {
             },
             onerror: function(e) {
                 alert("error" + e);
-                Ti.API.info("Get ACtivity feed text: " + this.responseText);
+                Ti.API.info("get feed text: " + this.responseText);
             },
             timeout: 6e4
         });
@@ -235,7 +235,7 @@ function Controller() {
     $.__views.__alloyId1 = Ti.UI.createTab({
         window: $.__views.__alloyId2,
         title: "Profile",
-        icon: "KS_nav_views.png",
+        icon: "profile.png",
         id: "__alloyId1"
     });
     __alloyId0.push($.__views.__alloyId1);
@@ -440,7 +440,7 @@ function Controller() {
     $.__views.__alloyId16 = Ti.UI.createTab({
         window: $.__views.__alloyId17,
         title: "Chat",
-        icon: "KS_nav_ui.png",
+        icon: "chat.png",
         id: "__alloyId16"
     });
     __alloyId0.push($.__views.__alloyId16);
@@ -466,7 +466,7 @@ function Controller() {
     $.__views.__alloyId19 = Ti.UI.createTab({
         window: $.__views.__alloyId20,
         title: "Settings",
-        icon: "chat.png",
+        icon: "settings.png",
         id: "__alloyId19"
     });
     __alloyId0.push($.__views.__alloyId19);
@@ -517,7 +517,9 @@ function Controller() {
     Alloy.Globals.tabgroup = $.index;
     var win = Alloy.createController("login").getView();
     win.addEventListener("open", loadData);
-    win.open();
+    win.open({
+        transition: Ti.UI.iPhone.AnimationStyle.FLIP_FROM_LEFT
+    });
     __defers["$.__views.__alloyId4!click!editProfile"] && $.__views.__alloyId4.addEventListener("click", editProfile);
     __defers["$.__views.__alloyId10!click!getActivityFeed"] && $.__views.__alloyId10.addEventListener("click", getActivityFeed);
     __defers["$.__views.__alloyId15!click!geolocate"] && $.__views.__alloyId15.addEventListener("click", geolocate);

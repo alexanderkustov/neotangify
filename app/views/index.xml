@@ -1,6 +1,6 @@
 <Alloy>
 	<TabGroup>
-		<Tab title="Profile" icon="KS_nav_views.png">
+		<Tab title="Profile" icon="profile.png">
 			<Window title="Profile">
 				<View layout="vertical">
 					<Button height="40" width="Ti.UI.FILL" zIndex="100" right="10" textAlign="right" onClick="editProfile">Edit</Button>
@@ -45,7 +45,7 @@
 			</Window>
 		</Tab>
 		
-		<Tab title="Chat" icon="KS_nav_ui.png">
+		<Tab title="Chat" icon="chat.png">
 			<Window title="chat">
 				<ScrollView id="chatArea" layout="vertical" contentWidth="auto" contentHeight="auto" showVerticalScrollIndicator="true" showHorizontalScrollIndicator="false" height="80%">
 				
@@ -57,11 +57,10 @@
 			</Window>
 		</Tab>
 		
-		<Tab title="Settings" icon="chat.png">
+		<Tab title="Settings" icon="settings.png">
 			<Window title="Chat">
 				<Label>I am Settings</Label>
 			</Window>
 		</Tab>
-		
 	</TabGroup>
 </Alloy>

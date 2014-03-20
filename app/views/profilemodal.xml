@@ -7,7 +7,10 @@
                 
 				 <View layout="vertical">
 				 	<ImageView image="/login-logo.png" height="160">
-				 	<Button height="40" width="Ti.UI.FILL" onClick="addFriend">Add Friend</Button>
+				 		<View layout="horizontal">
+							 <Button height="40" borderColor="white" borderRadius="2" onClick="sendMsg">Send a Message</Button>	
+							 <Button height="40" borderColor="white" borderRadius="2" onClick="addFriend">Add Friend</Button>
+						</View>
 	    		</View>
     		
     		</Window>

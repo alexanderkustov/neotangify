@@ -3,7 +3,29 @@ function Controller() {
         var win = Alloy.createController("index").getView();
         win.open();
     }
-    function editProfile() {}
+    function editProfile() {
+        var url = mainserver + "/auth/identity/register?format=json";
+        var client = Ti.Network.createHTTPClient({
+            onload: function() {
+                Ti.API.info("Received text: " + this.responseText);
+                alert("success");
+            },
+            onerror: function(e) {
+                alert("error" + e);
+                console.log(e);
+            },
+            timeout: 6e4
+        });
+        var params = {
+            name: $.name.value,
+            email: $.email.value.toLowerCase(),
+            password: $.password.value,
+            password_confirmation: $.password_confirmation.value
+        };
+        auth_token = null;
+        client.open("POST", url);
+        client.send(params);
+    }
     require("alloy/controllers/BaseController").apply(this, Array.prototype.slice.call(arguments));
     this.__controllerPath = "profile";
     arguments[0] ? arguments[0]["__parentSymbol"] : null;
