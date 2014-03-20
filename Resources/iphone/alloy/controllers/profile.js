@@ -1,4 +1,9 @@
 function Controller() {
+    function goback() {
+        var win = Alloy.createController("index").getView();
+        win.open();
+    }
+    function editProfile() {}
     require("alloy/controllers/BaseController").apply(this, Array.prototype.slice.call(arguments));
     this.__controllerPath = "profile";
     arguments[0] ? arguments[0]["__parentSymbol"] : null;

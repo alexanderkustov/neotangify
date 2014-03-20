@@ -120,7 +120,7 @@ function Controller() {
             font: {
                 fontSize: 14
             },
-            text: message,
+            text: Alloy.Globals.user_name + ":" + message,
             top: 25,
             width: Ti.UI.SIZE,
             height: Ti.UI.SIZE
@@ -131,6 +131,7 @@ function Controller() {
             message: Base64.encode(message)
         } ]));
         $.chatArea.add(chatMsg);
+        $.textChat.value = "";
     }
     function sendKeepAlives() {
         WS.send(JSON.stringify([ "ping" ]));
@@ -410,31 +411,18 @@ function Controller() {
     $.__views.__alloyId17.add($.__views.chatArea);
     $.__views.chatBtn = Ti.UI.createView({
         id: "chatBtn",
-        layout: "vertical",
+        layout: "horizontal",
         top: "80%",
         backgroundColor: "#0071bc"
     });
     $.__views.__alloyId17.add($.__views.chatBtn);
-    $.__views.labelChat = Ti.UI.createLabel({
-        width: Ti.UI.SIZE,
-        height: Ti.UI.SIZE,
-        color: "#fff",
-        font: {
-            fontSize: 20,
-            fontFamily: "Helvetica Neue"
-        },
-        textAlign: "center",
-        text: "chat area",
-        id: "labelChat"
-    });
-    $.__views.chatBtn.add($.__views.labelChat);
     $.__views.textChat = Ti.UI.createTextField({
         color: "#333",
         borderStyle: Ti.UI.INPUT_BORDERSTYLE_ROUNDED,
         top: 10,
         left: 10,
         right: 10,
-        width: Ti.UI.FILL,
+        width: "70%",
         height: "40",
         hintText: "Enter Message...",
         id: "textChat"
@@ -444,7 +432,7 @@ function Controller() {
         color: "fff",
         title: "Send",
         height: "40",
-        width: Ti.UI.FILL,
+        width: "20%",
         id: "__alloyId18"
     });
     $.__views.chatBtn.add($.__views.__alloyId18);
@@ -471,7 +459,7 @@ function Controller() {
             fontFamily: "Helvetica Neue"
         },
         textAlign: "center",
-        text: "I am Messages",
+        text: "I am Settings",
         id: "__alloyId21"
     });
     $.__views.__alloyId20.add($.__views.__alloyId21);

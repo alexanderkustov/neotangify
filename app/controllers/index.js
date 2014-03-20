@@ -16,7 +16,7 @@ function getActivityFeed(e){
 	    // function called when an error occurs, including a timeout
 	    onerror : function(e) {
 	       alert('error' + e);
-	       Ti.API.info("Get ACtivity feed text: " + this.responseText);
+	       Ti.API.info("get feed text: " + this.responseText);
     },
     timeout : 60 * 1000
 	});
@@ -32,16 +32,13 @@ function getActivityFeed(e){
 
 
 function editProfile(){
-	
 	var win=Alloy.createController('profile').getView();
 	win.open();
-	
 }
 
 function geolocate(e)
 {
 	var cur_longitude, cur_latitude, cur_loc_timestamp;
- 
     Titanium.Geolocation.getCurrentPosition(function(e)
     {
         cur_longitude = e.coords.longitude;                     
@@ -195,7 +192,7 @@ function profilemodal(userid){
 		var chatMsg = Ti.UI.createLabel({
 		  color: '#ffffff',
 		  font: { fontSize:14 },
-		  text: message,
+		  text: Alloy.Globals.user_name + ":" + message,
 		  top: 25,
 		  width: Ti.UI.SIZE, height: Ti.UI.SIZE
 		});
@@ -203,10 +200,11 @@ function profilemodal(userid){
 		if (message!=''){
 	    	WS.send(JSON.stringify(["message",{"from":"eu","to":"Outro","message":Base64.encode(message)}]));        
 		}
-		
+		//por o display chat msg com o nome atras, nao funciona
+		//display_chatMsg = Alloy.Globals.user_name + ' ' + chatMsg;
 		$.chatArea.add(chatMsg);
+		$.textChat.value="";
 	}
-	
 	
 	WS.open(uri);
 	//Meter esta num ponto inicial
@@ -233,7 +231,6 @@ var win=Alloy.createController('login').getView();
 win.addEventListener('open', loadData);
 
 win.open();
-
 
 
 
