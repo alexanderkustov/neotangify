@@ -15,6 +15,8 @@ function login(e)
 	       	Alloy.Globals.user_name = JSON.parse(this.responseText).user.name; 
 	       	Alloy.Globals.birthdate = JSON.parse(this.responseText).user.birthdate; 
 	       	Alloy.Globals.short_description = JSON.parse(this.responseText).user.short_description; 
+	       	Alloy.Globals.user_id = JSON.parse(this.responseText).user.id; 
+	       	
 
 	        var win=Alloy.createController('index').getView();
 	        win.open();

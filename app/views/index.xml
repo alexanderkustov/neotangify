@@ -17,19 +17,10 @@
 			<Window title="Activity">
 				<View layout="vertical">
 					<Button height="40" width="Ti.UI.FILL" onClick="getActivityFeed">Refresh</Button>
-				<TableView id="mainList">
-					<TableViewRow id="listRow">
-						<View id="rowContainer">
-							<ImageView id="profilePic" image="radar.png"></ImageView>
-							<Label id="profileName">Teste</Label>
-							<Label id="timeAgo">10 minutes ago</Label>
-							<Label id="status"></Label>
-							<View id="grayLine" bottom="51"></View>
-							<View id="bottomActions">
-							</View>
-						</View>
-					</TableViewRow>
-				</TableView>
+					<ScrollView id="feed_area" layout="vertical" contentWidth="auto" contentHeight="auto" showVerticalScrollIndicator="true" showHorizontalScrollIndicator="false" height="80%">
+				<Label id="status"></Label>
+				</ScrollView>	
+					
 				</View>
 			</Window>
 		</Tab>

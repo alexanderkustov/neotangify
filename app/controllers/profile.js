@@ -4,16 +4,14 @@ function goback(e) {
 }
 
 function editProfile(e) {
-	var url = mainserver + "/auth/identity/register?format=json";
+	var url = mainserver + "/users/"+user_id+"/edit?format=json" + 'auth_token=' + Alloy.Globals.auth_token ;
 	
 	var client = Ti.Network.createHTTPClient({
-	    // function called when the response data is available
 	    onload : function(e) {
 	    	Ti.API.info("Received text: " + this.responseText);
-	        alert('success');
+	        alert('Profile updated!');
 	        
 	    },
-	    // function called when an error occurs, including a timeout
 	    onerror : function(e) {
 	        alert('error' + e);
 	        console.log(e);
@@ -24,6 +22,7 @@ function editProfile(e) {
 	var params = {
 		'name': $.name.value,
 		'email': $.email.value.toLowerCase(),
+		'short_description': $.short_description.value,
 		'password' : $.password.value ,
 		'password_confirmation' : $.password_confirmation.value
 	};

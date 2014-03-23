@@ -8,6 +8,7 @@
 				 <View layout="vertical">
 				 	<TextField hintText="Name" height="40" width="Ti.UI.FILL" id="name"></TextField>
 	        		<TextField hintText="Email" height="40" width="Ti.UI.FILL" id="email"></TextField>
+	        		<TextField hintText="Short Description" height="40" width="Ti.UI.FILL" id="short_description"></TextField>
 	        		
 	        		<Label text="Want to change your password? (Optional)"></Label>
 	        		<TextField hintText="Password" passwordMask="true" height="40" width="Ti.UI.FILL" id="password"></TextField>

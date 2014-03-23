@@ -9,7 +9,9 @@ function getActivityFeed(e){
 	    // function called when the response data is available
 	    onload : function(e) {
 	    	Ti.API.info("Get feed text: " + this.responseText);
-	    	$.status.text = JSON.parse(this.responseText);
+	    	
+	    		$.status.text = JSON.parse(this.responseText).activities;
+	    	
 	    },
 	    // function called when an error occurs, including a timeout
 	    onerror : function(e) {
