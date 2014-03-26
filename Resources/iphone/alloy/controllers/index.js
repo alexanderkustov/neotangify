@@ -60,7 +60,7 @@ function Controller() {
                 for (var i = 0; JSON.parse(this.responseText).people.length > i; i++) {
                     persons_id = JSON.parse(this.responseText).people[i].id;
                     var personView = Ti.UI.createView({
-                        top: 30 * i
+                        top: 40 * i
                     });
                     var label = Ti.UI.createLabel({
                         text: JSON.parse(this.responseText).people[i].name,
@@ -68,9 +68,7 @@ function Controller() {
                         color: "white",
                         top: 10
                     });
-                    if (null != face) var face = Ti.UI.createImageView({
-                        image: JSON.parse(this.responseText).people[i].presentation_picture.url
-                    }); else var face = Ti.UI.createImageView({
+                    var face = Ti.UI.createImageView({
                         image: "/person.png",
                         top: 30 + i,
                         borderRadius: 50,
@@ -79,9 +77,9 @@ function Controller() {
                         width: 100,
                         height: 100
                     });
-                    label.addEventListener("click", function() {
+                    personView.addEventListener("click", function() {
                         profilemodal(persons_id);
-                        console.log("gaja a passar aqui: " + persons_id);
+                        console.log("gaja a passar para modal: " + persons_id);
                     });
                     personView.add(face);
                     personView.add(label);

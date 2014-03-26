@@ -30,7 +30,6 @@ function getActivityFeed(e){
 	client.send(params);  
 }
 
-
 function editProfile(){
 	var win=Alloy.createController('profile').getView();
 	win.open();
@@ -47,7 +46,6 @@ function geolocate(e)
  		changePosition(cur_longitude, cur_latitude);
     });
 }
-
 
 function changePosition(lat, longi){
 	var url = mainserver + '/change_position.json?' + 'auth_token=' + Alloy.Globals.auth_token ;
@@ -92,18 +90,18 @@ function updateRadar(lat, longi){
 	   		
 	   		persons_id = JSON.parse(this.responseText).people[i].id;
 	   		
-	   		var personView = Ti.UI.createView({top: i*30});
+	   		var personView = Ti.UI.createView({top: i*40});
 			var label=Ti.UI.createLabel({text: JSON.parse(this.responseText).people[i].name, id: 'name', color: 'white', top: 10 });
 			
-			if(face != null){
-	    		var face = Ti.UI.createImageView({image: JSON.parse(this.responseText).people[i].presentation_picture.url });
-	    	} else {
+			//if(face != null){
+	    	//	var face = Ti.UI.createImageView({image: JSON.parse(this.responseText).people[i].presentation_picture.url });
+	    	//} else {
 	    		var face = Ti.UI.createImageView({image: '/person.png', top: 30+i, borderRadius: 50, borderWidth : "3", borderColor : 'white', width: 100, height: 100});
-	    	}
+	    	//}
 	    	
-	    	label.addEventListener('click', function(e){
+	    	personView.addEventListener('click', function(e){
 	    			profilemodal(persons_id);
-	    			console.log("gaja a passar aqui: " + persons_id);
+	    			console.log("gaja a passar para modal: " + persons_id);
 	    	});
 	    			
 	    	personView.add(face);
