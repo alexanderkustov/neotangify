@@ -137,23 +137,23 @@ function profilemodal(userid){
 
 //WEBSOCKETS
 	uri = 'ws://tangifyapp.com:81';
-	var WS = require('net.iamyellow.tiws').createWS();
+	Alloy.Globals.WS = require('net.iamyellow.tiws').createWS();
 		
-	WS.addEventListener('open', function () {
+	Alloy.Globals.WS.addEventListener('open', function () {
 		Ti.API.info('websocket opened');
-		WS.send(JSON.stringify(["connect",{"user":"a@a.com","auth_token":"_YW1MBm_cDBmNn985NnCdw"}]));
+		Alloy.Globals.WS.send(JSON.stringify(["connect",{"user":"a@a.com","auth_token":"_YW1MBm_cDBmNn985NnCdw"}]));
 		sendKeepAlives();	
 	});
 		
-	WS.addEventListener('close', function (ev) {
+	Alloy.Globals.WS.addEventListener('close', function (ev) {
 		Ti.API.info(ev);
 	});
 		
-	WS.addEventListener('error', function (ev) {
+	Alloy.Globals.WS.addEventListener('error', function (ev) {
 		Ti.API.info(ev);
 	});
 
-	WS.addEventListener('message', function (ev) {
+	Alloy.Globals.WS.addEventListener('message', function (ev) {
 		//E este bocado é na função onMessage, quando recebe mensagem
 		message = JSON.parse(ev.data);
 		var event = message[0];
@@ -183,34 +183,15 @@ function profilemodal(userid){
 		}
 	});
 	
-	function sendMsg(e){
-		
-		var message = $.textChat.value;
-		
-		var chatMsg = Ti.UI.createLabel({
-		  color: '#ffffff',
-		  font: { fontSize:14 },
-		  text: Alloy.Globals.user_name + ":" + message,
-		  top: 25,
-		  width: Ti.UI.SIZE, height: Ti.UI.SIZE
-		});
-				
-		if (message!=''){
-	    	WS.send(JSON.stringify(["message",{"from":"eu","to":"Outro","message":Base64.encode(message)}]));        
-		}
-		//por o display chat msg com o nome atras, nao funciona
-		//display_chatMsg = Alloy.Globals.user_name + ' ' + chatMsg;
-		$.chatArea.add(chatMsg);
-		$.textChat.value="";
-	}
 	
-	WS.open(uri);
+	
+	Alloy.Globals.WS.open(uri);
 	//Meter esta num ponto inicial
 
 	function sendKeepAlives(){
 		//if (WS && WS.readyState == WebSocket.OPEN){
 			// Send a ping to avoid TCP timeout.
-        	WS.send(JSON.stringify(["ping"])); 
+        	Alloy.Globals.WS.send(JSON.stringify(["ping"])); 
 		//}
     	setTimeout("sendKeepAlives();", 30000);
 	}

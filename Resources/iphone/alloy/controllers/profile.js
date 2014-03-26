@@ -35,11 +35,11 @@ function Controller() {
     var $ = this;
     var exports = {};
     var __defers = {};
-    $.__views.__alloyId26 = Ti.UI.createWindow({
+    $.__views.__alloyId25 = Ti.UI.createWindow({
         backgroundColor: "#2980b9",
         color: "fff",
         title: "Registration",
-        id: "__alloyId26"
+        id: "__alloyId25"
     });
     $.__views.back = Ti.UI.createButton({
         color: "fff",
@@ -47,12 +47,12 @@ function Controller() {
         id: "back"
     });
     goback ? $.__views.back.addEventListener("click", goback) : __defers["$.__views.back!click!goback"] = true;
-    $.__views.__alloyId26.leftNavButton = $.__views.back;
-    $.__views.__alloyId28 = Ti.UI.createView({
+    $.__views.__alloyId25.leftNavButton = $.__views.back;
+    $.__views.__alloyId27 = Ti.UI.createView({
         layout: "vertical",
-        id: "__alloyId28"
+        id: "__alloyId27"
     });
-    $.__views.__alloyId26.add($.__views.__alloyId28);
+    $.__views.__alloyId25.add($.__views.__alloyId27);
     $.__views.name = Ti.UI.createTextField({
         color: "#333",
         borderStyle: Ti.UI.INPUT_BORDERSTYLE_ROUNDED,
@@ -64,7 +64,7 @@ function Controller() {
         hintText: "Name",
         id: "name"
     });
-    $.__views.__alloyId28.add($.__views.name);
+    $.__views.__alloyId27.add($.__views.name);
     $.__views.email = Ti.UI.createTextField({
         color: "#333",
         borderStyle: Ti.UI.INPUT_BORDERSTYLE_ROUNDED,
@@ -76,7 +76,7 @@ function Controller() {
         hintText: "Email",
         id: "email"
     });
-    $.__views.__alloyId28.add($.__views.email);
+    $.__views.__alloyId27.add($.__views.email);
     $.__views.short_description = Ti.UI.createTextField({
         color: "#333",
         borderStyle: Ti.UI.INPUT_BORDERSTYLE_ROUNDED,
@@ -88,8 +88,8 @@ function Controller() {
         hintText: "Short Description",
         id: "short_description"
     });
-    $.__views.__alloyId28.add($.__views.short_description);
-    $.__views.__alloyId29 = Ti.UI.createLabel({
+    $.__views.__alloyId27.add($.__views.short_description);
+    $.__views.__alloyId28 = Ti.UI.createLabel({
         width: Ti.UI.SIZE,
         height: Ti.UI.SIZE,
         color: "#fff",
@@ -99,9 +99,9 @@ function Controller() {
         },
         textAlign: "center",
         text: "Want to change your password? (Optional)",
-        id: "__alloyId29"
+        id: "__alloyId28"
     });
-    $.__views.__alloyId28.add($.__views.__alloyId29);
+    $.__views.__alloyId27.add($.__views.__alloyId28);
     $.__views.password = Ti.UI.createTextField({
         color: "#333",
         borderStyle: Ti.UI.INPUT_BORDERSTYLE_ROUNDED,
@@ -114,7 +114,7 @@ function Controller() {
         passwordMask: "true",
         id: "password"
     });
-    $.__views.__alloyId28.add($.__views.password);
+    $.__views.__alloyId27.add($.__views.password);
     $.__views.password_confirmation = Ti.UI.createTextField({
         color: "#333",
         borderStyle: Ti.UI.INPUT_BORDERSTYLE_ROUNDED,
@@ -127,25 +127,25 @@ function Controller() {
         passwordMask: "true",
         id: "password_confirmation"
     });
-    $.__views.__alloyId28.add($.__views.password_confirmation);
-    $.__views.__alloyId30 = Ti.UI.createButton({
+    $.__views.__alloyId27.add($.__views.password_confirmation);
+    $.__views.__alloyId29 = Ti.UI.createButton({
         color: "fff",
         title: "Submit",
         height: "40",
         width: Ti.UI.FILL,
-        id: "__alloyId30"
+        id: "__alloyId29"
     });
-    $.__views.__alloyId28.add($.__views.__alloyId30);
-    editProfile ? $.__views.__alloyId30.addEventListener("click", editProfile) : __defers["$.__views.__alloyId30!click!editProfile"] = true;
+    $.__views.__alloyId27.add($.__views.__alloyId29);
+    editProfile ? $.__views.__alloyId29.addEventListener("click", editProfile) : __defers["$.__views.__alloyId29!click!editProfile"] = true;
     $.__views.win1 = Ti.UI.iOS.createNavigationWindow({
-        window: $.__views.__alloyId26,
+        window: $.__views.__alloyId25,
         id: "win1"
     });
     $.__views.win1 && $.addTopLevelView($.__views.win1);
     exports.destroy = function() {};
     _.extend($, $.__views);
     __defers["$.__views.back!click!goback"] && $.__views.back.addEventListener("click", goback);
-    __defers["$.__views.__alloyId30!click!editProfile"] && $.__views.__alloyId30.addEventListener("click", editProfile);
+    __defers["$.__views.__alloyId29!click!editProfile"] && $.__views.__alloyId29.addEventListener("click", editProfile);
     _.extend($, exports);
 }
 
