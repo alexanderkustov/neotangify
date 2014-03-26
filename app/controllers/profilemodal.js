@@ -62,8 +62,7 @@ function getFriend(userid){
 	client.send();
 }
 	
-var userid = arguments[0] || {};
+var args = arguments[0] || {};
 
-console.log(userid.args1 + ' arguments:  ' + arguments[0]);
-getFriend(userid.args1);
-
+console.log('About to get user with id ' + args.userId);
+getFriend(args.userId);

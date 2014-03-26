@@ -128,7 +128,7 @@ function profilemodal(userid){
 	var userNumber = userid;
 	console.log(userNumber + ' este e o user');
 	
-	var profilewin=Alloy.createController('profilemodal', {args1: userNumber}).getView();
+	var profilewin=Alloy.createController('profilemodal', {userId: userNumber}).getView();
 
 	$.index.close();
 	profilewin.open({transition:Ti.UI.iPhone.AnimationStyle.CURL_DOWN});
