@@ -144,16 +144,12 @@ function Controller() {
     $.__views.win1 && $.addTopLevelView($.__views.win1);
     exports.destroy = function() {};
     _.extend($, $.__views);
-    var flag = true;
-    $.win1.addEventListener("open", function() {
-        var props = Ti.App.Properties.listProperties();
-        for (var i = 0, ilen = props.length; ilen > i; i++) {
-            var value = Ti.App.Properties.getString(props[i]);
-            Ti.API.info(props[i] + " = " + value);
-        }
-        if (null != Ti.App.Properties.getString("saved_login") && null != Ti.App.Properties.getString("saved_pw") && true == flag) {
-            autoLogin(Ti.App.Properties.getString("saved_login"), Ti.App.Properties.getString("saved_pw"));
-            flag = false;
+    $.win1.addEventListener("focus", function() {
+        for (var i = 0; 1 > i; i++) {
+            if (null != Ti.App.Properties.getString("saved_login") && null != Ti.App.Properties.getString("saved_pw") && 0 == i) {
+                autoLogin(Ti.App.Properties.getString("saved_login"), Ti.App.Properties.getString("saved_pw"));
+                flag = false;
+            }
             $.win1.close();
         }
     });

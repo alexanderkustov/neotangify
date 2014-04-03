@@ -107,22 +107,17 @@ function openRegister(e)
 }
 
 
- var flag = true;
 
-
-$.win1.addEventListener('open', function(e) {
-    var props = Ti.App.Properties.listProperties();
+$.win1.addEventListener('focus', function(e) {
+  
    
-	for (var i=0, ilen=props.length; i<ilen; i++){
-	    var value = Ti.App.Properties.getString(props[i]);
-	    Ti.API.info(props[i] + ' = ' + value);
-	}
-
-
-	if(Ti.App.Properties.getString('saved_login') != null && Ti.App.Properties.getString('saved_pw') != null && flag == true){
+	for (var i=0; i<1; i++){
+	   
+	if(Ti.App.Properties.getString('saved_login') != null && Ti.App.Properties.getString('saved_pw') != null && i == 0){
 		autoLogin(Ti.App.Properties.getString('saved_login'), Ti.App.Properties.getString('saved_pw'));
 		flag=false;
-		$.win1.close();
+		
 	}
-
+$.win1.close();
+}
 });
