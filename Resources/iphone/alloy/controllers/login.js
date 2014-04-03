@@ -26,6 +26,40 @@ function Controller() {
             Login: "",
             format: "json"
         };
+        Ti.App.Properties.setString("saved_login", $.login.value.toLowerCase());
+        Ti.App.Properties.setString("saved_pw", $.password.value);
+        Ti.API.info("The value of the stuff saved: " + Ti.App.Properties.getString("saved_login") + " pw: " + Ti.App.Properties.getString("saved_pw"));
+        client.open("POST", url);
+        client.send(params);
+    }
+    function autoLogin(user, pw) {
+        var url = mainserver + "/auth/identity/callback?format=json";
+        var client = Ti.Network.createHTTPClient({
+            onload: function() {
+                Ti.API.info("Received text: " + this.responseText);
+                Alloy.Globals.auth_token = JSON.parse(this.responseText).user.auth_token;
+                Ti.API.info("auth token:" + Alloy.Globals.auth_token);
+                Alloy.Globals.user_name = JSON.parse(this.responseText).user.name;
+                Alloy.Globals.birthdate = JSON.parse(this.responseText).user.birthdate;
+                Alloy.Globals.short_description = JSON.parse(this.responseText).user.short_description;
+                Alloy.Globals.user_id = JSON.parse(this.responseText).user.id;
+                var win = Alloy.createController("index").getView();
+                win.open();
+            },
+            onerror: function(e) {
+                alert("Error, try again!");
+                Ti.API.info("url: " + url + " error: " + JSON.stringify(e));
+            },
+            timeout: 6e4
+        });
+        var params = {
+            auth_key: user,
+            password: pw,
+            provider: "identity",
+            Login: "",
+            format: "json"
+        };
+        Ti.API.info("The value of the stuff saved: " + Ti.App.Properties.getString("saved_login") + " pw: " + Ti.App.Properties.getString("saved_pw"));
         client.open("POST", url);
         client.send(params);
     }
@@ -110,6 +144,19 @@ function Controller() {
     $.__views.win1 && $.addTopLevelView($.__views.win1);
     exports.destroy = function() {};
     _.extend($, $.__views);
+    var flag = true;
+    $.win1.addEventListener("open", function() {
+        var props = Ti.App.Properties.listProperties();
+        for (var i = 0, ilen = props.length; ilen > i; i++) {
+            var value = Ti.App.Properties.getString(props[i]);
+            Ti.API.info(props[i] + " = " + value);
+        }
+        if (null != Ti.App.Properties.getString("saved_login") && null != Ti.App.Properties.getString("saved_pw") && true == flag) {
+            autoLogin(Ti.App.Properties.getString("saved_login"), Ti.App.Properties.getString("saved_pw"));
+            flag = false;
+            $.win1.close();
+        }
+    });
     __defers["$.__views.__alloyId24!click!login"] && $.__views.__alloyId24.addEventListener("click", login);
     __defers["$.__views.__alloyId25!click!openRegister"] && $.__views.__alloyId25.addEventListener("click", openRegister);
     _.extend($, exports);
