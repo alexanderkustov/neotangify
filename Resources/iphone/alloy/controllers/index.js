@@ -9,7 +9,7 @@ function Controller() {
             },
             onerror: function(e) {
                 alert("error" + e);
-                Ti.API.info("get feed text: " + this.responseText);
+                Ti.API.info("get feed error: " + this.responseText);
             },
             timeout: 6e4
         });
@@ -52,11 +52,10 @@ function Controller() {
         client.send(params);
     }
     function updateRadar(lat, longi) {
-        var url = mainserver + "/people_nearby?" + "auth_token=" + Alloy.Globals.auth_token;
+        var url = mainserver + "/people_nearby.json?" + "auth_token=" + Alloy.Globals.auth_token;
         var client = Ti.Network.createHTTPClient({
             onload: function() {
                 Ti.API.info("update radar text: " + this.responseText);
-                Ti.API.info("pessoas a tua volta: " + JSON.parse(this.responseText).people.length);
                 for (var i = 0; JSON.parse(this.responseText).people.length > i; i++) {
                     persons_id = JSON.parse(this.responseText).people[i].id;
                     var personView = Ti.UI.createView({
@@ -88,7 +87,7 @@ function Controller() {
             },
             onerror: function(e) {
                 alert("error" + e);
-                Ti.API.info("Get radar text: " + this.responseText);
+                Ti.API.info("Get radar error: " + this.responseText);
             },
             timeout: 6e4
         });
@@ -104,7 +103,7 @@ function Controller() {
         var userNumber = userid;
         console.log(userNumber + " este e o user");
         var profilewin = Alloy.createController("profilemodal", {
-            args1: userNumber
+            userId: userNumber
         }).getView();
         $.index.close();
         profilewin.open({

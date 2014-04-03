@@ -16,7 +16,7 @@ function getActivityFeed(e){
 	    // function called when an error occurs, including a timeout
 	    onerror : function(e) {
 	       alert('error' + e);
-	       Ti.API.info("get feed text: " + this.responseText);
+	       Ti.API.info("get feed error: " + this.responseText);
     },
     timeout : 60 * 1000
 	});
@@ -75,14 +75,14 @@ function changePosition(lat, longi){
 }
 
 function updateRadar(lat, longi){
-	var url = mainserver + '/people_nearby?' + 'auth_token=' + Alloy.Globals.auth_token ;
+	var url = mainserver + '/people_nearby.json?' + 'auth_token=' + Alloy.Globals.auth_token ;
 	//console.log(url);
 	
 	var client = Ti.Network.createHTTPClient({
 	    // function called when the response data is available
 	    onload : function(e) {
 	    	Ti.API.info("update radar text: " + this.responseText);
-	    	Ti.API.info("pessoas a tua volta: " + JSON.parse(this.responseText).people.length);
+	    	//Ti.API.info("pessoas a tua volta: " + JSON.parse(this.responseText).people.length);
 	   	//for das pessoas fixes
 	   var person_id;
 	   	
@@ -113,7 +113,7 @@ function updateRadar(lat, longi){
 	    // function called when an error occurs, including a timeout
 	    onerror : function(e) {
 	       alert('error' + e);
-	       Ti.API.info("Get radar text: " + this.responseText);
+	       Ti.API.info("Get radar error: " + this.responseText);
     },
     timeout : 60 * 1000
 	});

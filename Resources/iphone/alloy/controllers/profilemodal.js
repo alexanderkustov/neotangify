@@ -110,9 +110,9 @@ function Controller() {
     exports.destroy = function() {};
     _.extend($, $.__views);
     var current_user_id;
-    var userid = arguments[0] || {};
-    console.log(userid.args1 + " arguments:  " + arguments[0]);
-    getFriend(userid.args1);
+    var args = arguments[0] || {};
+    console.log("About to get user with id " + args.userId);
+    getFriend(args.userId);
     __defers["$.__views.back!click!goback"] && $.__views.back.addEventListener("click", goback);
     __defers["$.__views.__alloyId34!click!sendMsg"] && $.__views.__alloyId34.addEventListener("click", sendMsg);
     __defers["$.__views.__alloyId35!click!addFriend"] && $.__views.__alloyId35.addEventListener("click", addFriend);

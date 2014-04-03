@@ -11,7 +11,7 @@ function login(e)
 	      	//Alloy.Globals.tabgroup.setActiveTab(2);
 	  	 	//fica com auth token para sempre  	 
 	        Alloy.Globals.auth_token = JSON.parse(this.responseText).user.auth_token; 
-	        console.log(auth_token);
+	        Ti.API.info("auth token:" +  Alloy.Globals.auth_token);
 	       	Alloy.Globals.user_name = JSON.parse(this.responseText).user.name; 
 	       	Alloy.Globals.birthdate = JSON.parse(this.responseText).user.birthdate; 
 	       	Alloy.Globals.short_description = JSON.parse(this.responseText).user.short_description; 
