@@ -4,7 +4,7 @@ function goback(e) {
 }
 
 function editProfile(e) {
-	var url = mainserver + "/users/"+user_id+"/edit?format=json" + 'auth_token=' + Alloy.Globals.auth_token ;
+	var url = mainserver + "/users/"+Alloy.Globals.user_id+"/edit?format=json" + 'auth_token=' + Alloy.Globals.auth_token ;
 	
 	var client = Ti.Network.createHTTPClient({
 	    onload : function(e) {
