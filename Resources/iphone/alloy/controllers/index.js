@@ -88,6 +88,7 @@ function Controller() {
         var client = Ti.Network.createHTTPClient({
             onload: function() {
                 Ti.API.info("update radar text: " + this.responseText);
+                Ti.API.info("pessoas a tua volta: " + JSON.parse(this.responseText).people.length);
                 for (var i = 0; JSON.parse(this.responseText).people.length > i; i++) {
                     persons_id = JSON.parse(this.responseText).people[i].id;
                     var personView = Ti.UI.createView({
@@ -125,8 +126,7 @@ function Controller() {
         });
         var params = {
             latitude: lat,
-            longitude: longi,
-            format: "json"
+            longitude: longi
         };
         client.open("GET", url);
         client.send(params);

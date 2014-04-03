@@ -180,7 +180,7 @@ function updateRadar(lat, longi){
 	    // function called when the response data is available
 	    onload : function(e) {
 	    	Ti.API.info("update radar text: " + this.responseText);
-	    	//Ti.API.info("pessoas a tua volta: " + JSON.parse(this.responseText).people.length);
+	    	Ti.API.info("pessoas a tua volta: " + JSON.parse(this.responseText).people.length);
 	   	//for das pessoas fixes
 	   var person_id;
 	   	
@@ -216,7 +216,7 @@ function updateRadar(lat, longi){
     timeout : 60 * 1000
 	});
 	
-	var params = { 'latitude': lat, 'longitude' : longi, 'format': "json"};
+	var params = { 'latitude': lat, 'longitude' : longi};
 	client.open("GET", url);
 	client.send(params);  
 }

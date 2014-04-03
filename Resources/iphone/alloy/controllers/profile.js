@@ -4,7 +4,7 @@ function Controller() {
         win.open();
     }
     function editProfile() {
-        var url = mainserver + "/users/" + Alloy.Globals.user_id + "/edit?format=json" + "auth_token=" + Alloy.Globals.auth_token;
+        var url = mainserver + "/users/" + Alloy.Globals.user_id + "/?format=json&auth_token=" + Alloy.Globals.auth_token;
         var client = Ti.Network.createHTTPClient({
             onload: function() {
                 Ti.API.info("Received text: " + this.responseText);
