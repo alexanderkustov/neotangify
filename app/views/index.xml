@@ -17,9 +17,6 @@
 			<Window title="Activity">
 				<View layout="vertical">
 					<Button height="40" width="Ti.UI.FILL" onClick="getActivityFeed">Refresh</Button>
-					<Button height="40" width="Ti.UI.FILL" onClick="takePicture">Picture</Button>
-					
-					
 					<ScrollView id="feed_area" layout="vertical" contentWidth="auto" contentHeight="auto" showVerticalScrollIndicator="true" showHorizontalScrollIndicator="false" height="80%">
 				<Label id="status"></Label>
 				</ScrollView>	

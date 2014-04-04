@@ -8,9 +8,23 @@
 				 <View layout="vertical">
 				 	<ImageView image="/login-logo.png" height="160">
 				 		<View layout="horizontal">
-							 <Button height="40" borderColor="white" borderRadius="2" onClick="sendMsg">Send a Message</Button>	
-							 <Button height="40" borderColor="white" borderRadius="2" onClick="addFriend">Add Friend</Button>
+						
+							 
+							 
+					<TabbedBar id="bb1" platform="ios" backgroundColor="#fff" top="50" height="25" width="300">
+							<Labels>
+				               	<Label id="send_msg">Send a Msg</Label>
+				                <Label id="add_friend">Add Friend</Label>
+				                <Label id="block">Block</Label>
+				
+				            </Labels>
+				
+				           
+				
+				        </TabbedBar>
 						</View>
+						
+						
 	    		</View>
     		
     		</Window>

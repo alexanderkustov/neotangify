@@ -1,5 +1,9 @@
 var current_user_id;
 
+
+
+
+
 function sendMsg(e){
 	
 }
@@ -35,6 +39,7 @@ function goback(e) {
 	var win=Alloy.createController('index').getView();
 	win = Alloy.Globals.tabgroup.setActiveTab(2);
 	win.open();
+	
 }
 
 function getFriend(userid){
@@ -66,3 +71,13 @@ var args = arguments[0] || {};
 
 console.log('About to get user with id ' + args.userId);
 getFriend(args.userId);
+
+
+
+
+$.bb1.addEventListener('click', function(e){
+    console.log(e.index);
+    if(e.index=1){
+    	addFriend();
+    }
+});

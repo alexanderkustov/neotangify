@@ -74,104 +74,6 @@ function changePosition(lat, longi){
 	
 }
 
-
-
-//ESTA FUNCAO NAO TEM UM RETURN PARA NADA POR ISSO E PRECISO AGARRAR NA FOTO E SUBMETER PARA A BD NO FORM EM QUESTAO
-function takePicture(e){
-	//Create a dialog with options
-var dialog = Titanium.UI.createOptionDialog({
-    //title of dialog
-    title: 'Choose an image source...',
-    //options
-    options: ['Camera','Photo Gallery', 'Cancel'],
-    //index of cancel button
-    cancel:2
-});
- 
-//add event listener
-dialog.addEventListener('click', function(e) {
-    //if first option was selected
-    if(e.index == 0)
-    {
-        //then we are getting image from camera
-        Titanium.Media.showCamera({
-            //we got something
-            success:function(event)
-            {
-                //getting media
-                var image = event.media; 
-                 
-                //checking if it is photo
-                if(event.mediaType == Ti.Media.MEDIA_TYPE_PHOTO)
-                {
-                    //we may create image view with contents from image variable
-                    //or simply save path to image
-                    Ti.App.Properties.setString("image", image.nativePath);
-                }
-            },
-            cancel:function()
-            {
-                //do somehting if user cancels operation
-            },
-            error:function(error)
-            {
-                //error happend, create alert
-                var a = Titanium.UI.createAlertDialog({title:'Camera'});
-                //set message
-                if (error.code == Titanium.Media.NO_CAMERA)
-                {
-                    a.setMessage('Device does not have camera');
-                }
-                else
-                {
-                    a.setMessage('Unexpected error: ' + error.code);
-                }
- 
-                // show alert
-                a.show();
-            },
-            allowImageEditing:true,
-            saveToPhotoGallery:true
-        });
-    }
-    else if(e.index == 1)
-    {
-        //obtain an image from the gallery
-        Titanium.Media.openPhotoGallery({
-            success:function(event)
-            {
-                //getting media
-                var image = event.media; 
-                // set image view
-                 
-                //checking if it is photo
-                if(event.mediaType == Ti.Media.MEDIA_TYPE_PHOTO)
-                {
-                    //we may create image view with contents from image variable
-                    //or simply save path to image
-                    Ti.App.Properties.setString("image", image.nativePath); 
-                }   
-            },
-            cancel:function()
-            {
-                //user cancelled the action fron within
-                //the photo gallery
-            }
-        });
-    }
-    else
-    {
-        //cancel was tapped
-        //user opted not to choose a photo
-    }
-});
- 
-//show dialog
-dialog.show();
-}
-
-
-
 function updateRadar(lat, longi){
 	var url = mainserver + '/people_nearby.json?' + 'auth_token=' + Alloy.Globals.auth_token ;
 	//console.log(url);
@@ -182,14 +84,14 @@ function updateRadar(lat, longi){
 	    	Ti.API.info("update radar text: " + this.responseText);
 	    	Ti.API.info("pessoas a tua volta: " + JSON.parse(this.responseText).people.length);
 	   	//for das pessoas fixes
-	   var person_id;
 	   	
 	   	for (var i = 0; i < JSON.parse(this.responseText).people.length; i++) {
 	   		
-	   		persons_id = JSON.parse(this.responseText).people[i].id;
+	   		var persons_id = JSON.parse(this.responseText).people[i].id;
 	   		
-	   		var personView = Ti.UI.createView({top: i*40});
-			var label=Ti.UI.createLabel({text: JSON.parse(this.responseText).people[i].name, id: 'name', color: 'white', top: 10 });
+	   		var personView = Ti.UI.createView({top: i*40, id: JSON.parse(this.responseText).people[i].id});
+	   
+	   		var label=Ti.UI.createLabel({text: JSON.parse(this.responseText).people[i].name, id: 'name', color: 'white', top: 10 });
 			
 			//if(face != null){
 	    	//	var face = Ti.UI.createImageView({image: JSON.parse(this.responseText).people[i].presentation_picture.url });
@@ -198,7 +100,7 @@ function updateRadar(lat, longi){
 	    	//}
 	    	
 	    	personView.addEventListener('click', function(e){
-	    			profilemodal(persons_id);
+	    			profilemodal(this.id);
 	    			console.log("gaja a passar para modal: " + persons_id);
 	    	});
 	    			
@@ -228,8 +130,10 @@ function profilemodal(userid){
 	
 	var profilewin=Alloy.createController('profilemodal', {userId: userNumber}).getView();
 
-	$.index.close();
+	
 	profilewin.open({transition:Ti.UI.iPhone.AnimationStyle.CURL_DOWN});
+	
+	$.index.close();
 }
 
 
@@ -281,8 +185,12 @@ function profilemodal(userid){
 		}
 	});
 	
-	
-	
+function loadData(e){	
+	$.user_name.text = Alloy.Globals.user_name;
+	$.birthdate.text = Alloy.Globals.birthdate;
+	$.short_description.text = Alloy.Globals.short_description;
+}
+
 	Alloy.Globals.WS.open(uri);
 	//Meter esta num ponto inicial
 
@@ -295,12 +203,6 @@ function profilemodal(userid){
 	}
 	
 	
-function loadData(e){	
-	$.user_name.text = Alloy.Globals.user_name;
-	$.birthdate.text = Alloy.Globals.birthdate;
-	$.short_description.text = Alloy.Globals.short_description;
-}
-
 
 Alloy.Globals.tabgroup = $.index;
 var win=Alloy.createController('login').getView();
