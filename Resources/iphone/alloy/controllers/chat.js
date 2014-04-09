@@ -1,23 +1,63 @@
 function Controller() {
     function sendMsg() {
-        var message = $.textChat.value;
-        var chatMsg = Ti.UI.createLabel({
-            color: "#ffffff",
-            font: {
-                fontSize: 14
-            },
-            text: Alloy.Globals.user_name + ":" + message,
-            top: 25,
-            width: Ti.UI.SIZE,
-            height: Ti.UI.SIZE
-        });
-        "" != message && Alloy.Globals.WS.send(JSON.stringify([ "message", {
-            from: "eu",
-            to: "Outro",
+        appendChatMessage($.textChat.value);
+        sendMessage($.textChat.value);
+        $.textChat.value = "";
+        $.textChat.focus();
+    }
+    function sendMessage(message) {
+        if (!message) return;
+        Ti.API.info("Message sent: " + Base64.encode(message));
+        Alloy.Globals.WS.send(JSON.stringify([ "message", {
+            from: "2",
+            to: "253",
+            auth_token: "g2NnWq4GipQknAzHnWNh9Q",
             message: Base64.encode(message)
         } ]));
-        $.chatArea.add(chatMsg);
-        $.textChat.value = "";
+    }
+    function appendChatMessage(message) {
+        var row = Ti.UI.createTableViewRow({
+            className: "chat_message",
+            backgroundGradient: {
+                type: "linear",
+                colors: [ "#fff", "#eeeeed" ],
+                startPoint: {
+                    x: 0,
+                    y: 0
+                },
+                endPoint: {
+                    x: 0,
+                    y: 70
+                },
+                backFillStart: false
+            }
+        });
+        var imageAvatar = Ti.UI.createImageView({
+            image: "profile.png",
+            left: 10,
+            top: 5,
+            width: 50,
+            height: 50,
+            borderColor: "#fff",
+            borderRadius: 50,
+            borderWidth: 3
+        });
+        row.add(imageAvatar);
+        var label = Ti.UI.createLabel({
+            text: message || "no-message",
+            height: "auto",
+            width: "auto",
+            color: "#111",
+            left: 50,
+            font: {
+                fontSize: 14,
+                fontWeight: "normal"
+            }
+        });
+        row.add(label);
+        $.chatArea.appendRow(row, {
+            animationStyle: Titanium.UI.iPhone.RowAnimationStyle.RIGHT
+        });
     }
     require("alloy/controllers/BaseController").apply(this, Array.prototype.slice.call(arguments));
     this.__controllerPath = "chat";
@@ -34,8 +74,8 @@ function Controller() {
         title: "chat"
     });
     $.__views.chatWindow && $.addTopLevelView($.__views.chatWindow);
-    $.__views.chatArea = Ti.UI.createScrollView({
-        id: "chatArea",
+    $.__views.chatContaniner = Ti.UI.createScrollView({
+        id: "chatContaniner",
         layout: "vertical",
         contentWidth: "auto",
         contentHeight: "auto",
@@ -43,7 +83,11 @@ function Controller() {
         showHorizontalScrollIndicator: "false",
         height: "80%"
     });
-    $.__views.chatWindow.add($.__views.chatArea);
+    $.__views.chatWindow.add($.__views.chatContaniner);
+    $.__views.chatArea = Ti.UI.createTableView({
+        id: "chatArea"
+    });
+    $.__views.chatContaniner.add($.__views.chatArea);
     $.__views.chatBtn = Ti.UI.createView({
         id: "chatBtn",
         layout: "horizontal",
@@ -74,6 +118,13 @@ function Controller() {
     sendMsg ? $.__views.__alloyId0.addEventListener("click", sendMsg) : __defers["$.__views.__alloyId0!click!sendMsg"] = true;
     exports.destroy = function() {};
     _.extend($, $.__views);
+    $.textChat.addEventListener("return", function() {
+        appendChatMessage($.textChat.value);
+        sendMessage($.textChat.value);
+        $.textChat.value = "";
+        $.textChat.focus();
+    });
+    appendChatMessage("Hello");
     __defers["$.__views.__alloyId0!click!sendMsg"] && $.__views.__alloyId0.addEventListener("click", sendMsg);
     _.extend($, exports);
 }
