@@ -5,7 +5,8 @@ function Controller() {
         var client = Ti.Network.createHTTPClient({
             onload: function() {
                 Ti.API.info("Get feed text: " + this.responseText);
-                $.status.text = JSON.parse(this.responseText).activities;
+                var parsedText = JSON.parse(this.responseText).activities;
+                for (var i = 0; parsedText.length > i; i++) "Friendship" == parsedText[i].subject_type && ($.status.text = parsedText[i].subject.user.name + " " + parsedText[i].direction + " " + parsedText[i].subject.friend.name);
             },
             onerror: function(e) {
                 alert("error" + e);
