@@ -1,5 +1,6 @@
 Ti.include("base64.js");
 
+
 function getActivityFeed(e){
 		//starting to send out the auth
 	var url = mainserver + '/activities.json?' + 'auth_token=' + Alloy.Globals.auth_token ;

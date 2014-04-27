@@ -53,8 +53,8 @@ function Controller() {
     var exports = {};
     var __defers = {};
     $.__views.profile_name = Ti.UI.createWindow({
-        backgroundColor: "#2980b9",
-        color: "fff",
+        backgroundImage: "background.jpg",
+        color: "#fff",
         id: "profile_name",
         title: ""
     });

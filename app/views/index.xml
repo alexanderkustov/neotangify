@@ -2,7 +2,9 @@
 	<TabGroup>
 		<Tab title="Profile" icon="profile.png">
 			<Window title="Profile">
+				
 				<View layout="vertical">
+					
 					<Button height="40" width="Ti.UI.FILL" zIndex="100" right="10" textAlign="right" onClick="editProfile">Edit</Button>
 					<ImageView image="/tangy_back.jpg" zIndex="1" height="160" top="-50" width="Ti.UI.FILL"></ImageView>
 					<ImageView image="/person.png" zIndex="5" top="-50" borderRadius="50%" borderWidth="3" borderColor="white"></ImageView>
@@ -26,7 +28,7 @@
 		</Tab>
 		
 		<Tab title="Radar" icon="radar.png">
-			<Window title="tangify">
+			<Window title="tangify" class="titleBar">
 				<View layout="vertical">
         		<Button height="40" width="Ti.UI.FILL" onClick="geolocate">Geolocate</Button>
         		<View id="radar" width="Ti.UI.FILL" height="460px" width="460px" backgroundImage="/radar_back.png">

@@ -68,8 +68,8 @@ function Controller() {
     var exports = {};
     var __defers = {};
     $.__views.__alloyId25 = Ti.UI.createWindow({
-        backgroundColor: "#2980b9",
-        color: "fff",
+        backgroundImage: "background.jpg",
+        color: "#fff",
         title: "Registration",
         id: "__alloyId25"
     });

@@ -78,8 +78,8 @@ function Controller() {
     var exports = {};
     var __defers = {};
     $.__views.__alloyId20 = Ti.UI.createWindow({
-        backgroundColor: "#2980b9",
-        color: "fff",
+        backgroundImage: "background.jpg",
+        color: "#fff",
         title: "Please login",
         id: "__alloyId20"
     });

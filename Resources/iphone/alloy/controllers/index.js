@@ -131,8 +131,8 @@ function Controller() {
     var __defers = {};
     var __alloyId1 = [];
     $.__views.__alloyId3 = Ti.UI.createWindow({
-        backgroundColor: "#2980b9",
-        color: "fff",
+        backgroundImage: "background.jpg",
+        color: "#fff",
         title: "Profile",
         id: "__alloyId3"
     });
@@ -219,8 +219,8 @@ function Controller() {
     });
     __alloyId1.push($.__views.__alloyId2);
     $.__views.__alloyId9 = Ti.UI.createWindow({
-        backgroundColor: "#2980b9",
-        color: "fff",
+        backgroundImage: "background.jpg",
+        color: "#fff",
         title: "Activity",
         id: "__alloyId9"
     });
@@ -269,8 +269,8 @@ function Controller() {
     });
     __alloyId1.push($.__views.__alloyId8);
     $.__views.__alloyId13 = Ti.UI.createWindow({
-        backgroundColor: "#2980b9",
-        color: "fff",
+        backgroundImage: "background.jpg",
+        color: "#fff",
         title: "tangify",
         id: "__alloyId13"
     });
@@ -315,8 +315,8 @@ function Controller() {
     });
     __alloyId1.push($.__views.__alloyId16);
     $.__views.__alloyId18 = Ti.UI.createWindow({
-        backgroundColor: "#2980b9",
-        color: "fff",
+        backgroundImage: "background.jpg",
+        color: "#fff",
         title: "Chat",
         id: "__alloyId18"
     });
@@ -348,6 +348,13 @@ function Controller() {
     exports.destroy = function() {};
     _.extend($, $.__views);
     Ti.include("base64.js");
+    var nav = Ti.UI.iPhone.createNavigationGroup({
+        window: Ti.UI.createWindow({
+            backgroundColor: "#fff",
+            title: "Window 1"
+        })
+    });
+    win.add(nav);
     uri = "ws://tangifyapp.com:81";
     Alloy.Globals.WS = require("net.iamyellow.tiws").createWS();
     Alloy.Globals.WS.addEventListener("open", function() {
