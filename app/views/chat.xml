@@ -1,5 +1,6 @@
 <Alloy>
 	<Window id="chatWindow" title="chat">
+		 
 		<ScrollView id="chatContaniner" layout="vertical" contentWidth="auto" contentHeight="auto" showVerticalScrollIndicator="true" showHorizontalScrollIndicator="false" height="80%">		
 		<TableView id="chatArea">		
 		</TableView>	
@@ -10,3 +11,6 @@
 		</View>
 	</Window>
 </Alloy>
+
+
+   

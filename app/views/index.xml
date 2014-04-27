@@ -2,7 +2,10 @@
 	<TabGroup>
 		<Tab title="Profile" icon="profile.png">
 			<Window title="Profile">
-				
+	            <RightNavButton>
+		            <Button id="add" title="Add" />
+		        </RightNavButton>
+
 				<View layout="vertical">
 					
 					<Button height="40" width="Ti.UI.FILL" zIndex="100" right="10" textAlign="right" onClick="editProfile">Edit</Button>

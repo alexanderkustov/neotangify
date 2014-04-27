@@ -106,14 +106,14 @@ function openRegister(e)
 	win.open({transition:Ti.UI.iPhone.AnimationStyle.FLIP_FROM_RIGHT});
 }
 
-
+/*
 
 $.win1.addEventListener('focus', function(e) {
   
    
 	for (var i=0; i<1; i++){
 	   
-	if(Ti.App.Properties.getString('saved_login') != null && Ti.App.Properties.getString('saved_pw') != null && i == 0){
+	if(Ti.App.Properties.getString('saved_login') != null && Ti.App.Properties.getString('saved_pw') != null && i == 0 ){
 		autoLogin(Ti.App.Properties.getString('saved_login'), Ti.App.Properties.getString('saved_pw'));
 		flag=false;
 		
@@ -121,3 +121,5 @@ $.win1.addEventListener('focus', function(e) {
 $.win1.close();
 }
 });
+
+*/

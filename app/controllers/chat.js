@@ -94,4 +94,8 @@ function appendChatMessage(message){
     $.chatArea.appendRow(row,{animationStyle:Titanium.UI.iPhone.RowAnimationStyle.RIGHT});
 }
 
+
+
+
+
 appendChatMessage("Hello");
