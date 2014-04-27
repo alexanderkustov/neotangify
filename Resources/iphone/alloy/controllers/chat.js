@@ -3,7 +3,6 @@ function Controller() {
         appendChatMessage($.textChat.value);
         sendMessage($.textChat.value);
         $.textChat.value = "";
-        $.textChat.focus();
     }
     function sendMessage(message) {
         if (!message) return;
@@ -58,6 +57,18 @@ function Controller() {
         $.chatArea.appendRow(row, {
             animationStyle: Titanium.UI.iPhone.RowAnimationStyle.RIGHT
         });
+        $.chatArea.insertRowBefore(0, row);
+        $.chatArea.insertRowBefore(0, row);
+        $.chatArea.insertRowBefore(0, row);
+        $.chatArea.insertRowBefore(0, row);
+        $.chatArea.insertRowBefore(0, row);
+        $.chatArea.insertRowBefore(0, row);
+        $.chatArea.insertRowBefore(0, row);
+        $.chatArea.insertRowBefore(0, row);
+        $.chatArea.insertRowBefore(0, row);
+        $.chatArea.insertRowBefore(0, row);
+        $.chatArea.insertRowBefore(0, row);
+        $.chatArea.scrollToIndex(11);
     }
     require("alloy/controllers/BaseController").apply(this, Array.prototype.slice.call(arguments));
     this.__controllerPath = "chat";
@@ -122,7 +133,6 @@ function Controller() {
         appendChatMessage($.textChat.value);
         sendMessage($.textChat.value);
         $.textChat.value = "";
-        $.textChat.focus();
     });
     appendChatMessage("Hello");
     __defers["$.__views.__alloyId0!click!sendMsg"] && $.__views.__alloyId0.addEventListener("click", sendMsg);

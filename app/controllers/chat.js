@@ -23,7 +23,7 @@ function sendMsg(e){
 	appendChatMessage($.textChat.value);
     sendMessage($.textChat.value);
     $.textChat.value="";
-    $.textChat.focus();
+    //$.textChat.focus();
 }
 
 
@@ -33,7 +33,7 @@ $.textChat.addEventListener( 'return', function(e) {
     appendChatMessage($.textChat.value);
     sendMessage($.textChat.value);
     $.textChat.value = "";
-    $.textChat.focus();
+    //$.textChat.focus();
 });
 
 function sendMessage(message){
@@ -48,8 +48,18 @@ function sendMessage(message){
 	//   width: Ti.UI.SIZE, height: Ti.UI.SIZE
 	// });
 	Ti.API.info("Message sent: " + Base64.encode(message)); 
-    Alloy.Globals.WS.send(JSON.stringify(["message",{"from":"2","to":"253","auth_token":"g2NnWq4GipQknAzHnWNh9Q","message":Base64.encode(message)}]));        
-	
+    Alloy.Globals.WS.send(JSON.stringify(["message",{
+    	"from": "2",
+    	"to": "253",
+    	"auth_token": "g2NnWq4GipQknAzHnWNh9Q",
+    	"message": Base64.encode(message)}]));        
+	// ["message",{
+            // "user": Ti.App.Properties.setString('saved_login'), 
+            // "auth_token":Alloy.Globals.auth_token, 
+            // "receiver_id": receiverId,
+            // "message":Base64.encode(message)
+        // }]
+        
 	// $.chatArea.add(chatMsg);
 	// $.textChat.value="";
 }
@@ -92,10 +102,10 @@ function appendChatMessage(message){
     //Melhorar esta
     //$.chatArea.insertRowAfter( 0, row );
     $.chatArea.appendRow(row,{animationStyle:Titanium.UI.iPhone.RowAnimationStyle.RIGHT});
+    //$.chatArea.insertRowBefore(0, row); //inicio
+    //$.chatArea.scrollToIndex($.chatArea.data[0].length);
+    //$.chatArea.scrollToIndex(11);
 }
-
-
-
 
 
 appendChatMessage("Hello");
