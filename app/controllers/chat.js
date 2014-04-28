@@ -1,3 +1,80 @@
+var current_page = 1;
+
+Ti.App.addEventListener("app:messageReceived", function(e) {
+    // e.data...
+    messageRoute(e);
+    // var row = Ti.UI.createTableViewRow({
+    //     title: e.title, 
+    //     otherAttribute: e.otherAttribute
+    // });
+    // // Now append it to the table
+    // $.basketTable.append(row);
+});
+
+// Listen for Return Key Press
+$.textChat.addEventListener( 'return', function(e) {
+    appendChatMessage($.textChat.value);
+    sendMessage($.textChat.value);
+    $.textChat.value = "";
+    //$.textChat.focus();
+});
+
+function messageRoute(e) {
+    message = JSON.parse(e.data);
+    var event = message[0];
+    var data = message[1];
+    // console.log("Event " + event);  
+    console.log("Data" + JSON.stringify(data));
+    switch(event){
+    case 'message':
+        console.log("Message Received");
+        // console.log(data);
+        // chatView.add("<div class=\"chat_message\">"+"From: "+ data.sender.name+ " To: "+ data.receiver.name + " -> "+
+        //     sanitize(Base64.decode(data.text))+"</div>", "Last");
+        appendChatMessage("message", "Last")
+        break;
+    case 'conversation_with':
+        console.log("Conversation With... Received");
+        for (var i = 0; i < data.length; i++) {
+            // chatView.add("<div class=\"chat_message\">"+
+            //     "From: "+ data[i]['sender']['name']+ " To: "+ data[i]['receiver']['name'] + " -> "+
+            //     sanitize(data[i]['text'])+"</div>", "First");
+            appendChatMessage("message", "First")
+        };
+        break;
+    case 'auth_response':
+        if (message[1]['data'] == 'authentication_success') {
+            getConversationWith(receiverId);
+            console.log("Authentication Success Received");
+        }else{
+            console.log("Authentication Failed Received");    
+        }
+        break;
+    case 'pong':
+        console.log("Pong Received");
+        break;
+    case 'connection_success':
+        console.log("Connection Success Received");
+        break;
+    default:
+        console.log("WTF is this?");
+    }
+}
+
+function getConversationWith(friend_id){
+    ws.send(JSON.stringify(["get_conversation_with",{
+        "user": Ti.App.Properties.setString('saved_login'),
+        "auth_token": Alloy.Globals.auth_token, 
+        "friend_id": friend_id, 
+        "page":current_page
+    }]));
+}
+
+function getMoreConversationWith(friend_id){
+    current_page++;
+    getConversationWith(friend_id);
+}
+
 function sendMsg(e){
 		
 		/**
@@ -27,15 +104,6 @@ function sendMsg(e){
 }
 
 
-
-// Listen for Return Key Press
-$.textChat.addEventListener( 'return', function(e) {
-    appendChatMessage($.textChat.value);
-    sendMessage($.textChat.value);
-    $.textChat.value = "";
-    //$.textChat.focus();
-});
-
 function sendMessage(message){
 	if (!message) return;
 
@@ -47,24 +115,20 @@ function sendMessage(message){
 	//   top: 25,
 	//   width: Ti.UI.SIZE, height: Ti.UI.SIZE
 	// });
+
 	Ti.API.info("Message sent: " + Base64.encode(message)); 
     Alloy.Globals.WS.send(JSON.stringify(["message",{
-    	"from": "2",
-    	"to": "253",
-    	"auth_token": "g2NnWq4GipQknAzHnWNh9Q",
-    	"message": Base64.encode(message)}]));        
-	// ["message",{
-            // "user": Ti.App.Properties.setString('saved_login'), 
-            // "auth_token":Alloy.Globals.auth_token, 
-            // "receiver_id": receiverId,
-            // "message":Base64.encode(message)
-        // }]
+            "user": Ti.App.Properties.setString('saved_login'), 
+            "auth_token": Alloy.Globals.auth_token, 
+            "receiver_id": "4",
+            "message": Base64.encode(message)
+        }]));
         
 	// $.chatArea.add(chatMsg);
 	// $.textChat.value="";
 }
 
-function appendChatMessage(message){
+function appendChatMessage(message, position){
     var row = Ti.UI.createTableViewRow({
         className          : "chat_message",
         backgroundGradient : {
@@ -99,10 +163,14 @@ function appendChatMessage(message){
     });
 
     row.add(label);
-    //Melhorar esta
+    
     //$.chatArea.insertRowAfter( 0, row );
-    $.chatArea.appendRow(row,{animationStyle:Titanium.UI.iPhone.RowAnimationStyle.RIGHT});
-    //$.chatArea.insertRowBefore(0, row); //inicio
+    if (position == "First") {
+        $.chatArea.insertRowBefore(0, row);
+    }else{
+        $.chatArea.appendRow(row,{animationStyle:Titanium.UI.iPhone.RowAnimationStyle.RIGHT});
+        // scroll
+    }
     //$.chatArea.scrollToIndex($.chatArea.data[0].length);
     //$.chatArea.scrollToIndex(11);
 }
