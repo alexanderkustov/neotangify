@@ -104,7 +104,8 @@ function updateRadar(lat, longi){
 			//if(face != null){
 	    	//	var face = Ti.UI.createImageView({image: JSON.parse(this.responseText).people[i].presentation_picture.url });
 	    	//} else {
-	    		var face = Ti.UI.createImageView({image: '/person.png', top: 30+i, borderRadius: 50, borderWidth : "3", borderColor : 'white', width: 100, height: 100});
+	    		// var face = Ti.UI.createImageView({image: '/person.png', top: 30+i, borderRadius: 50, borderWidth : "3", borderColor : 'white', width: 100, height: 100});
+	    		var face = Ti.UI.createImageView({image: '/person.png', top: 30+i, width: 40, height: 40, borderRadius:20});
 	    	//}
 	    	
 	    	personView.addEventListener('click', function(e){
@@ -145,14 +146,14 @@ function profilemodal(userid){
 }
 
 
-//WEBSOCKETS
+	//WEBSOCKETS
 	uri = 'ws://tangifyapp.com:81';
 	Alloy.Globals.WS = require('net.iamyellow.tiws').createWS();
 		
 	Alloy.Globals.WS.addEventListener('open', function () {
 		Ti.API.info('websocket opened');
-		Alloy.Globals.WS.send(JSON.stringify(["connect",{"user":Ti.App.Properties.setString('saved_login'),"auth_token":Alloy.Globals.auth_token}]));
-		sendKeepAlives();	
+		Alloy.Globals.WS.send(JSON.stringify(["connect",{"user":"a@a.com","auth_token":Alloy.Globals.auth_token}]));
+		sendKeepAlives();
 	});
 		
 	Alloy.Globals.WS.addEventListener('close', function (ev) {
@@ -165,7 +166,7 @@ function profilemodal(userid){
 
 	Alloy.Globals.WS.addEventListener('message', function (ev) {
 		Ti.App.fireEvent("app:messageReceived", {
-       		ev : ev
+       		e : ev
     	});
 	});
 	
