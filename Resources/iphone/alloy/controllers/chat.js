@@ -3,6 +3,7 @@ function Controller() {
         console.log(e);
         message = JSON.parse(e.e.data);
         var event = message[0];
+        console.log(event);
         var data = message[1];
         console.log("Data" + JSON.stringify(data));
         switch (event) {

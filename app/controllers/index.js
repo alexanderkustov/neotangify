@@ -17,7 +17,7 @@ function getActivityFeed(e){
 	    		{
 	    			//var obj = parsedText[i];
 	    			 if(parsedText[i].subject_type == "Friendship")
-	    				$.status.text = parsedText[i].subject.user.name + " " + parsedText[i].direction +  " "  + parsedText[i].subject.friend.name ;
+	    				$.status.text = "Friendship Accepted from " + parsedText[i].subject.user.name + " " + parsedText[i].direction +  " "  + parsedText[i].subject.friend.name ;
 
 	    	 }
 	    },
