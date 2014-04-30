@@ -131,13 +131,8 @@ function sendMessage(message){
 function appendChatMessage(message, position){
     var row = Ti.UI.createTableViewRow({
         className          : "chat_message",
-        backgroundGradient : {
-            type          : 'linear',
-            colors        : [ "#fff", '#eeeeed' ],
-            startPoint    : { x : 0, y : 0 },
-            endPoint      : { x : 0, y : 70 },
-            backFillStart : false
-        }
+        color:'white',
+    	backgroundColor: 'transparent'
     });
 
     var imageAvatar = Ti.UI.createImageView({
@@ -154,7 +149,7 @@ function appendChatMessage(message, position){
         text   : message || "no-message",
         height : (OS_ANDROID) ? '50dp' : 'auto',
         width  : 'auto',
-        color  : "#111",
+        color  : "#fff",
         left   : 50,
         font   : {
             fontSize : (OS_ANDROID) ? '19dp' : 14,

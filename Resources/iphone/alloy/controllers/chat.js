@@ -1,4 +1,47 @@
 function Controller() {
+    function messageRoute(e) {
+        message = JSON.parse(e.data);
+        var event = message[0];
+        var data = message[1];
+        console.log("Data" + JSON.stringify(data));
+        switch (event) {
+          case "message":
+            console.log("Message Received");
+            appendChatMessage("message", "Last");
+            break;
+
+          case "conversation_with":
+            console.log("Conversation With... Received");
+            for (var i = 0; data.length > i; i++) appendChatMessage("message", "First");
+            break;
+
+          case "auth_response":
+            if ("authentication_success" == message[1]["data"]) {
+                getConversationWith(receiverId);
+                console.log("Authentication Success Received");
+            } else console.log("Authentication Failed Received");
+            break;
+
+          case "pong":
+            console.log("Pong Received");
+            break;
+
+          case "connection_success":
+            console.log("Connection Success Received");
+            break;
+
+          default:
+            console.log("WTF is this?");
+        }
+    }
+    function getConversationWith(friend_id) {
+        ws.send(JSON.stringify([ "get_conversation_with", {
+            user: Ti.App.Properties.setString("saved_login"),
+            auth_token: Alloy.Globals.auth_token,
+            friend_id: friend_id,
+            page: current_page
+        } ]));
+    }
     function sendMsg() {
         appendChatMessage($.textChat.value);
         sendMessage($.textChat.value);
@@ -8,28 +51,17 @@ function Controller() {
         if (!message) return;
         Ti.API.info("Message sent: " + Base64.encode(message));
         Alloy.Globals.WS.send(JSON.stringify([ "message", {
-            from: "2",
-            to: "253",
-            auth_token: "g2NnWq4GipQknAzHnWNh9Q",
+            user: Ti.App.Properties.setString("saved_login"),
+            auth_token: Alloy.Globals.auth_token,
+            receiver_id: "4",
             message: Base64.encode(message)
         } ]));
     }
-    function appendChatMessage(message) {
+    function appendChatMessage(message, position) {
         var row = Ti.UI.createTableViewRow({
             className: "chat_message",
-            backgroundGradient: {
-                type: "linear",
-                colors: [ "#fff", "#eeeeed" ],
-                startPoint: {
-                    x: 0,
-                    y: 0
-                },
-                endPoint: {
-                    x: 0,
-                    y: 70
-                },
-                backFillStart: false
-            }
+            color: "white",
+            backgroundColor: "transparent"
         });
         var imageAvatar = Ti.UI.createImageView({
             image: "profile.png",
@@ -46,7 +78,7 @@ function Controller() {
             text: message || "no-message",
             height: "auto",
             width: "auto",
-            color: "#111",
+            color: "#fff",
             left: 50,
             font: {
                 fontSize: 14,
@@ -54,21 +86,9 @@ function Controller() {
             }
         });
         row.add(label);
-        $.chatArea.appendRow(row, {
+        "First" == position ? $.chatArea.insertRowBefore(0, row) : $.chatArea.appendRow(row, {
             animationStyle: Titanium.UI.iPhone.RowAnimationStyle.RIGHT
         });
-        $.chatArea.insertRowBefore(0, row);
-        $.chatArea.insertRowBefore(0, row);
-        $.chatArea.insertRowBefore(0, row);
-        $.chatArea.insertRowBefore(0, row);
-        $.chatArea.insertRowBefore(0, row);
-        $.chatArea.insertRowBefore(0, row);
-        $.chatArea.insertRowBefore(0, row);
-        $.chatArea.insertRowBefore(0, row);
-        $.chatArea.insertRowBefore(0, row);
-        $.chatArea.insertRowBefore(0, row);
-        $.chatArea.insertRowBefore(0, row);
-        $.chatArea.scrollToIndex(11);
     }
     require("alloy/controllers/BaseController").apply(this, Array.prototype.slice.call(arguments));
     this.__controllerPath = "chat";
@@ -96,7 +116,8 @@ function Controller() {
     });
     $.__views.chatWindow.add($.__views.chatContaniner);
     $.__views.chatArea = Ti.UI.createTableView({
-        id: "chatArea"
+        id: "chatArea",
+        backgroundColor: "transparent"
     });
     $.__views.chatContaniner.add($.__views.chatArea);
     $.__views.chatBtn = Ti.UI.createView({
@@ -129,6 +150,10 @@ function Controller() {
     sendMsg ? $.__views.__alloyId0.addEventListener("click", sendMsg) : __defers["$.__views.__alloyId0!click!sendMsg"] = true;
     exports.destroy = function() {};
     _.extend($, $.__views);
+    var current_page = 1;
+    Ti.App.addEventListener("app:messageReceived", function(e) {
+        messageRoute(e);
+    });
     $.textChat.addEventListener("return", function() {
         appendChatMessage($.textChat.value);
         sendMessage($.textChat.value);

@@ -2,7 +2,7 @@
 	<Window id="chatWindow" title="chat">
 		 
 		<ScrollView id="chatContaniner" layout="vertical" contentWidth="auto" contentHeight="auto" showVerticalScrollIndicator="true" showHorizontalScrollIndicator="false" height="80%">		
-		<TableView id="chatArea">		
+		<TableView id="chatArea" backgroundColor="transparent">		
 		</TableView>	
 		</ScrollView>	
 		<View id="chatBtn" layout="horizontal" top="80%" backgroundColor="#0071bc">

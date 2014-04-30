@@ -359,8 +359,8 @@ function Controller() {
     Alloy.Globals.WS.addEventListener("open", function() {
         Ti.API.info("websocket opened");
         Alloy.Globals.WS.send(JSON.stringify([ "connect", {
-            user: "a@a.com",
-            auth_token: "_YW1MBm_cDBmNn985NnCdw"
+            user: Ti.App.Properties.setString("saved_login"),
+            auth_token: Alloy.Globals.auth_token
         } ]));
         sendKeepAlives();
     });
@@ -371,23 +371,9 @@ function Controller() {
         Ti.API.info(ev);
     });
     Alloy.Globals.WS.addEventListener("message", function(ev) {
-        message = JSON.parse(ev.data);
-        var event = message[0];
-        var data = message[1];
-        if ("message" == event) {
-            console.log("From " + data.from);
-            console.log("To " + data.to);
-            console.log("Message " + Base64.decode(data.message));
-        } else {
-            if ("pong" == event) {
-                console.log("pong");
-                return;
-            }
-            if ("new_user" == event) console.log("New user: " + data.data); else if ("user_left" == event) console.log("User left: " + data.data); else if ("room_state" == event) {
-                var names = data.data.split(",");
-                console.log(names[0]);
-            }
-        }
+        Ti.App.fireEvent("app:messageReceived", {
+            ev: ev
+        });
     });
     Alloy.Globals.WS.open(uri);
     Alloy.Globals.tabgroup = $.index;
