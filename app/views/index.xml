@@ -3,17 +3,17 @@
 		<Tab title="Profile" icon="profile.png">
 			<Window title="Profile">
 	            <RightNavButton>
-		            <Button id="add" title="Add" />
+		            <Button id="edut" title="Edit" onClick="editProfile"/>
 		        </RightNavButton>
 
 				<View layout="vertical">
 					
-					<Button height="40" width="Ti.UI.FILL" zIndex="100" right="10" textAlign="right" onClick="editProfile">Edit</Button>
+					
 					<ImageView image="/tangy_back.jpg" zIndex="1" height="160" top="-50" width="Ti.UI.FILL"></ImageView>
 					<ImageView image="/person.png" zIndex="5" top="-50" borderRadius="50%" borderWidth="3" borderColor="white"></ImageView>
-					<Label id="user_name">Your Name</Label>
-					<Label id="birthdate">Birthdate</Label>
-					<Label id="short_description">Short Description</Label>					
+					<Label id="user_name"></Label>
+					<Label id="birthdate"></Label>
+					<Label id="short_description"></Label>					
 				</View>
 			</Window>
 		</Tab>
@@ -47,7 +47,12 @@
 		
 		<Tab title="Settings" icon="settings.png">
 			<Window title="Chat">
-				<Label>I am Settings</Label>
+				<View layout="vertical">
+					<Label>I am Tangible on the Radar</Label>
+					<Switch id="basicSwitch" value="true" />
+					        		<Button height="40" width="Ti.UI.FILL" onClick="logout">Logout</Button>
+
+				</View>
 			</Window>
 		</Tab>
 	</TabGroup>

@@ -13,7 +13,7 @@ function editProfile(e) {
 	        
 	    },
 	    onerror : function(e) {
-	        alert('error' + e);
+	        alert('error: ' + e.code);
 	        console.log(e);
     },
     timeout : 60 * 1000

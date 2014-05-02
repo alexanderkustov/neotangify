@@ -5,7 +5,7 @@
     <version>1.0</version>
     <publisher>knuxus</publisher>
     <url>http://apptangify.pt</url>
-    <description>best app in the world</description>
+    <description>best app in the world, and the only one also</description>
     <copyright>2014 by knuxus</copyright>
     <icon>appicon.png</icon>
     <fullscreen>false</fullscreen>
@@ -13,6 +13,7 @@
     <analytics>false</analytics>
     <guid>54386565-fff9-4f66-a0e1-27c0627131a7</guid>
     <property name="ti.ui.defaultunit" type="string">dp</property>
+    <property name="ti.facebook.appid">391052681038594</property>
     <ios>
         <plist>
             <dict>
@@ -50,6 +51,8 @@
     <modules>
         <module platform="android">net.iamyellow.tiws</module>
         <module platform="iphone">net.iamyellow.tiws</module>
+        <module platform="android">facebook</module>
+        <module platform="iphone">facebook</module>
     </modules>
     <deployment-targets>
         <target device="android">false</target>

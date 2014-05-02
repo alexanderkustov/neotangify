@@ -8,19 +8,13 @@
 				 <View layout="vertical">
 				 	<ImageView image="/login-logo.png" height="160">
 				 		<View layout="horizontal">
-						
-							 
-							 
+						 
 					<TabbedBar id="bb1" platform="ios" backgroundColor="#fff" top="50" height="25" width="300">
 							<Labels>
 				               	<Label id="send_msg">Send a Msg</Label>
 				                <Label id="add_friend">Add Friend</Label>
-				                <Label id="block">Block</Label>
-				
+				                
 				            </Labels>
-				
-				           
-				
 				        </TabbedBar>
 						</View>
 						

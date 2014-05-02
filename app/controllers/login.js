@@ -1,3 +1,24 @@
+function facelogin(e)
+{
+
+var fb = require('facebook');
+fb.appid = 391052681038594;
+fb.permissions = ['email, public_profile, user_friends ']; // Permissions your app needs
+fb.forceDialogAuth = true;
+fb.addEventListener('login', function(e) {
+    if (e.success) {
+        alert('Logged In');
+    } else if (e.error) {
+        alert(e.error);
+    } else if (e.cancelled) {
+        alert("Canceled");
+    }
+});
+fb.authorize();
+
+}
+
+
 function login(e)
 {
 	//starting to send out the auth
@@ -8,7 +29,7 @@ function login(e)
 	    	Ti.API.info("Received text: " + this.responseText);
 
 			
-	      	//Alloy.Globals.tabgroup.setActiveTab(2);
+	      
 	  	 	//fica com auth token para sempre  	 
 	        Alloy.Globals.auth_token = JSON.parse(this.responseText).user.auth_token; 
 	        Ti.API.info("auth token:" +  Alloy.Globals.auth_token);
@@ -103,10 +124,11 @@ function autoLogin(user, pw){
 function openRegister(e)
 {
 	var win=Alloy.createController('register').getView();
-	win.open({transition:Ti.UI.iPhone.AnimationStyle.FLIP_FROM_RIGHT});
+	win.open({transition:Ti.UI.iPhone.AnimationStyle.NONE});
 }
 
-/*
+
+/* ESTA TRETA ERA PARA FAZER AUTO LOGIN, MAS AGORA FAZ ISSO A CADA 2 SECS...
 
 $.win1.addEventListener('focus', function(e) {
   

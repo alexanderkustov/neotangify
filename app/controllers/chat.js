@@ -13,15 +13,17 @@ Ti.App.addEventListener("app:messageReceived", function(e) {
 
 // Listen for Return Key Press
 $.textChat.addEventListener( 'return', function(e) {
-    appendChatMessage($.textChat.value);
+    appendChatMessage($.textChat.value, "Last");
     sendMessage($.textChat.value);
     $.textChat.value = "";
     //$.textChat.focus();
 });
 
 function messageRoute(e) {
-    message = JSON.parse(e.data);
+    console.log(e);
+    message = JSON.parse(e.e.data);
     var event = message[0];
+    console.log(event);
     var data = message[1];
     // console.log("Event " + event);  
     console.log("Data" + JSON.stringify(data));
@@ -29,9 +31,10 @@ function messageRoute(e) {
     case 'message':
         console.log("Message Received");
         // console.log(data);
-        // chatView.add("<div class=\"chat_message\">"+"From: "+ data.sender.name+ " To: "+ data.receiver.name + " -> "+
+        // ("<div class=\"chat_message\">"+"From: "+ data.sender.name+ " To: "+ data.receiver.name + " -> "+
         //     sanitize(Base64.decode(data.text))+"</div>", "Last");
-        appendChatMessage("message", "Last")
+        text = data.sender.name + ": " + Base64.decode(data.text);
+        appendChatMessage(text, "Last");
         break;
     case 'conversation_with':
         console.log("Conversation With... Received");
@@ -39,12 +42,13 @@ function messageRoute(e) {
             // chatView.add("<div class=\"chat_message\">"+
             //     "From: "+ data[i]['sender']['name']+ " To: "+ data[i]['receiver']['name'] + " -> "+
             //     sanitize(data[i]['text'])+"</div>", "First");
-            appendChatMessage("message", "First")
+            text = data.sender.name + ": " + Base64.decode(data.text);
+            appendChatMessage(text, "First");
         };
         break;
     case 'auth_response':
         if (message[1]['data'] == 'authentication_success') {
-            getConversationWith(receiverId);
+            // getConversationWith(4);
             console.log("Authentication Success Received");
         }else{
             console.log("Authentication Failed Received");    
@@ -62,12 +66,11 @@ function messageRoute(e) {
 }
 
 function getConversationWith(friend_id){
-    ws.send(JSON.stringify(["get_conversation_with",{
-        "user": Ti.App.Properties.setString('saved_login'),
-        "auth_token": Alloy.Globals.auth_token, 
-        "friend_id": friend_id, 
-        "page":current_page
-    }]));
+    // console.log(Ti.App.Properties.setString('saved_login'));
+    // console.log(Alloy.Globals.auth_token);
+    // console.log(friend_id);
+    // console.log(current_page);
+    Alloy.Globals.WS.send(JSON.stringify(["get_conversation_with",{"user": "a@a.com","auth_token": Alloy.Globals.auth_token, "friend_id": 16, "page":1}]));
 }
 
 function getMoreConversationWith(friend_id){
@@ -77,26 +80,26 @@ function getMoreConversationWith(friend_id){
 
 function sendMsg(e){
 		
-		/**
-		var message = $.textChat.value;
+		// *
+		// var message = $.textChat.value;
 		
-		var chatMsg = Ti.UI.createLabel({
-		  color: '#ffffff',
-		  font: { fontSize:14 },
-		  text: Alloy.Globals.user_name + ":" + message,
-		  top: 25,
-		  width: Ti.UI.SIZE, height: Ti.UI.SIZE
-		});
+		// var chatMsg = Ti.UI.createLabel({
+		//   color: '#ffffff',
+		//   font: { fontSize:14 },
+		//   text: Alloy.Globals.user_name + ":" + message,
+		//   top: 25,
+		//   width: Ti.UI.SIZE, height: Ti.UI.SIZE
+		// });
 				
-		if (message!=''){
-	    	Alloy.Globals.WS.send(JSON.stringify(["message",{"from":"eu","to":"Outro","message":Base64.encode(message)}]));        
-		}
-		//por o display chat msg com o nome atras, nao funciona
-		//display_chatMsg = Alloy.Globals.user_name + ' ' + chatMsg;
-		$.chatArea.add(chatMsg);
-		$.textChat.value="";
+		// if (message!=''){
+	 //    	Alloy.Globals.WS.send(JSON.stringify(["message",{"from":"eu","to":"Outro","message":Base64.encode(message)}]));        
+		// }
+		// //por o display chat msg com o nome atras, nao funciona
+		// //display_chatMsg = Alloy.Globals.user_name + ' ' + chatMsg;
+		// $.chatArea.add(chatMsg);
+		// $.textChat.value="";
 		
-		**/
+		// *
 	appendChatMessage($.textChat.value);
     sendMessage($.textChat.value);
     $.textChat.value="";
@@ -117,12 +120,7 @@ function sendMessage(message){
 	// });
 
 	Ti.API.info("Message sent: " + Base64.encode(message)); 
-    Alloy.Globals.WS.send(JSON.stringify(["message",{
-            "user": Ti.App.Properties.setString('saved_login'), 
-            "auth_token": Alloy.Globals.auth_token, 
-            "receiver_id": "4",
-            "message": Base64.encode(message)
-        }]));
+    Alloy.Globals.WS.send(JSON.stringify(["message",{"user": "a@a.com", "auth_token": Alloy.Globals.auth_token, "receiver_id": 16,"message": Base64.encode(message)}]));
         
 	// $.chatArea.add(chatMsg);
 	// $.textChat.value="";
@@ -133,15 +131,16 @@ function appendChatMessage(message, position){
         className          : "chat_message",
         color:'white',
     	backgroundColor: 'transparent'
+
     });
 
     var imageAvatar = Ti.UI.createImageView({
         image: 'profile.png',
-        left:10, top:5,
-        width:50, height:50,
+        left:5, top:5,
+        width:45, height:45,
         borderColor: '#fff',
-        borderRadius: 50,
-        borderWidth: 3
+        borderRadius: 20,
+        borderWidth: 1
     });
     row.add(imageAvatar);
 
@@ -170,5 +169,11 @@ function appendChatMessage(message, position){
     //$.chatArea.scrollToIndex(11);
 }
 
-
-appendChatMessage("Hello");
+// $.chatArea.addEventListener('open', function(e) { 
+//     getConversationWith("4");
+// })
+function conversation(e) {
+    getConversationWith(16);
+}
+// appendChatMessage("Hello");
+// getConversationWith(4);

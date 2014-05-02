@@ -6,8 +6,9 @@
 		</TableView>	
 		</ScrollView>	
 		<View id="chatBtn" layout="horizontal" top="80%" backgroundColor="#0071bc">
-			<TextField hintText="Enter Message..." height="40" width="70%" id="textChat"></TextField>
-			<Button height="40" width="20%" onClick="sendMsg">Send</Button>
+			<TextField hintText="Enter Message..." height="40" width="60%" id="textChat"></TextField>
+			<Button height="40" width="20%" onClick="sendMsg">Snd</Button>
+			<Button height="40" width="20%" onClick="conversation">Get</Button>
 		</View>
 	</Window>
 </Alloy>

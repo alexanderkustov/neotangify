@@ -1,6 +1,13 @@
 Ti.include("base64.js");
 
 
+function logout(e)
+{
+	var win=Alloy.createController('login').getView();
+	win.open({transition:Ti.UI.iPhone.AnimationStyle.NONE});
+	auth_token = null;
+}
+
 function getActivityFeed(e){
 		//starting to send out the auth
 	var url = mainserver + '/activities.json?' + 'auth_token=' + Alloy.Globals.auth_token ;
@@ -17,7 +24,7 @@ function getActivityFeed(e){
 	    		{
 	    			//var obj = parsedText[i];
 	    			 if(parsedText[i].subject_type == "Friendship")
-	    				$.status.text = parsedText[i].subject.user.name + " " + parsedText[i].direction +  " "  + parsedText[i].subject.friend.name ;
+	    				$.status.text = "Friendship Accepted from " + parsedText[i].subject.user.name + " " + parsedText[i].direction +  " "  + parsedText[i].subject.friend.name ;
 
 	    	 }
 	    },
@@ -99,12 +106,13 @@ function updateRadar(lat, longi){
 	   		
 	   		var personView = Ti.UI.createView({top: i*40, id: JSON.parse(this.responseText).people[i].id});
 	   
-	   		var label=Ti.UI.createLabel({text: JSON.parse(this.responseText).people[i].name, id: 'name', color: 'white', top: 10 });
+	   		//var label=Ti.UI.createLabel({text: JSON.parse(this.responseText).people[i].name, id: 'name', color: 'white', top: 10 });
 			
 			//if(face != null){
 	    	//	var face = Ti.UI.createImageView({image: JSON.parse(this.responseText).people[i].presentation_picture.url });
 	    	//} else {
-	    		var face = Ti.UI.createImageView({image: '/person.png', top: 30+i, borderRadius: 50, borderWidth : "3", borderColor : 'white', width: 100, height: 100});
+	    		// var face = Ti.UI.createImageView({image: '/person.png', top: 30+i, borderRadius: 50, borderWidth : "3", borderColor : 'white', width: 100, height: 100});
+	    		var face = Ti.UI.createImageView({image: '/person.png', top: 30+i, width: 40, height: 40, borderRadius:20});
 	    	//}
 	    	
 	    	personView.addEventListener('click', function(e){
@@ -113,7 +121,7 @@ function updateRadar(lat, longi){
 	    	});
 	    			
 	    	personView.add(face);
-	    	personView.add(label);
+	    	
 	    	$.radar.add(personView);
 	    	
 	      }
@@ -145,14 +153,14 @@ function profilemodal(userid){
 }
 
 
-//WEBSOCKETS
+	//WEBSOCKETS
 	uri = 'ws://tangifyapp.com:81';
 	Alloy.Globals.WS = require('net.iamyellow.tiws').createWS();
 		
 	Alloy.Globals.WS.addEventListener('open', function () {
 		Ti.API.info('websocket opened');
-		Alloy.Globals.WS.send(JSON.stringify(["connect",{"user":Ti.App.Properties.setString('saved_login'),"auth_token":Alloy.Globals.auth_token}]));
-		sendKeepAlives();	
+		Alloy.Globals.WS.send(JSON.stringify(["connect",{"user":"a@a.com","auth_token":Alloy.Globals.auth_token}]));
+		sendKeepAlives();
 	});
 		
 	Alloy.Globals.WS.addEventListener('close', function (ev) {
@@ -165,7 +173,7 @@ function profilemodal(userid){
 
 	Alloy.Globals.WS.addEventListener('message', function (ev) {
 		Ti.App.fireEvent("app:messageReceived", {
-       		ev : ev
+       		e : ev
     	});
 	});
 	
@@ -191,11 +199,5 @@ function loadData(e){
 Alloy.Globals.tabgroup = $.index;
 var win=Alloy.createController('login').getView();
 win.addEventListener('open', loadData);
-
 win.open({transition : Ti.UI.iPhone.AnimationStyle.NONE});
-
-
-
-
-
 

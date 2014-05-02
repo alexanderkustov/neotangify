@@ -4,9 +4,11 @@
 				
 		 <View layout="vertical">
 		 	<ImageView image="/login-logo.png" height="160">
-			<TextField hintText="Login" height="40" width="Ti.UI.FILL" id="login"></TextField>
-			<TextField hintText="Password" passwordMask="true" height="40" width="Ti.UI.FILL" id="password"></TextField>
+			<TextField value="a@a.com" hintText="Login" height="40" width="Ti.UI.FILL" id="login"></TextField>
+			<TextField hintText="Password" passwordMask="true" height="40" width="Ti.UI.FILL" id="password" value="123"></TextField>
 			<Button height="40" width="Ti.UI.FILL" onClick="login">Login</Button>
+			<Button height="40" width="Ti.UI.FILL" onClick="facelogin">Facebook</Button>
+
 			<Button height="40" width="Ti.UI.FILL" onClick="openRegister">Register</Button>
 		</View>
 	</Window>
