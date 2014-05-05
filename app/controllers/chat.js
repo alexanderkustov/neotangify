@@ -1,4 +1,5 @@
 var current_page = 1;
+var selected_friend;
 
 Ti.App.addEventListener("app:messageReceived", function(e) {
     // e.data...
@@ -70,7 +71,7 @@ function getConversationWith(friend_id){
     // console.log(Alloy.Globals.auth_token);
     // console.log(friend_id);
     // console.log(current_page);
-    Alloy.Globals.WS.send(JSON.stringify(["get_conversation_with",{"user": "a@a.com","auth_token": Alloy.Globals.auth_token, "friend_id": 16, "page":1}]));
+    Alloy.Globals.WS.send(JSON.stringify(["get_conversation_with",{"user": "a@a.com","auth_token": Alloy.Globals.auth_token, "friend_id": friend_id, "page":1}]));
 }
 
 function getMoreConversationWith(friend_id){
@@ -78,7 +79,7 @@ function getMoreConversationWith(friend_id){
     getConversationWith(friend_id);
 }
 
-function sendMsg(e){
+function sendMsg(){
 		
 		// *
 		// var message = $.textChat.value;
@@ -100,14 +101,16 @@ function sendMsg(e){
 		// $.textChat.value="";
 		
 		// *
+
+
 	appendChatMessage($.textChat.value);
-    sendMessage($.textChat.value);
+    sendMessage($.textChat.value, selected_friend);
     $.textChat.value="";
     //$.textChat.focus();
 }
 
 
-function sendMessage(message){
+function sendMessage(message, friend_id){
 	if (!message) return;
 
 	// var message = $.textChat.value;
@@ -119,8 +122,8 @@ function sendMessage(message){
 	//   width: Ti.UI.SIZE, height: Ti.UI.SIZE
 	// });
 
-	Ti.API.info("Message sent: " + Base64.encode(message)); 
-    Alloy.Globals.WS.send(JSON.stringify(["message",{"user": "a@a.com", "auth_token": Alloy.Globals.auth_token, "receiver_id": 16,"message": Base64.encode(message)}]));
+	Ti.API.info("Message sent: " + Base64.encode(message) + " frined_id: " + friend_id); 
+    Alloy.Globals.WS.send(JSON.stringify(["message",{"user": "a@a.com", "auth_token": Alloy.Globals.auth_token, "receiver_id": friend_id ,"message": Base64.encode(message)}]));
         
 	// $.chatArea.add(chatMsg);
 	// $.textChat.value="";
@@ -192,12 +195,16 @@ function getFriends(e){
                    title: parsedText[i].name,
                    top: 10,
                    width: 100,
-                   height: 50
+                   height: 50,
+                   id: parsedText[i].id
+
                 });
 
                 friendBtn.addEventListener('click',function(e)
                 {
-                   Titanium.API.info("You clicked" + this.value );
+                   Titanium.API.info("You clicked on friend " + this.title  + this.id);
+                   openChat(this.id);
+
                 });
 
                 $.friends.add(friendBtn);
@@ -215,6 +222,10 @@ function getFriends(e){
 
     client.open("GET", url);
     client.send();  
+}
+
+function openChat(friend_id){
+    selected_friend = friend_id;
 }
 
 $.chatWindow.addEventListener('focus', function() {
