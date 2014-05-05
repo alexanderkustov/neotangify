@@ -1,6 +1,6 @@
 <Alloy>
 		<NavigationWindow id="win1" platform="ios">
-			<Window title="Please login">
+			<Window>
 				
 		 <View layout="vertical">
 		 	<ImageView image="/login-logo.png" height="160">

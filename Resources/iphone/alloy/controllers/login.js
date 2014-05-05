@@ -5,7 +5,17 @@ function Controller() {
         fb.permissions = [ "email, public_profile, user_friends " ];
         fb.forceDialogAuth = true;
         fb.addEventListener("login", function(e) {
-            e.success ? alert("Logged In") : e.error ? alert(e.error) : e.cancelled && alert("Canceled");
+            e.success ? fb.requestWithGraphPath("me", {}, "GET", function(e) {
+                if (e.success) {
+                    var response = JSON.parse(e.result);
+                    var email = response.email;
+                    var age = response.age;
+                    var name = response.name;
+                    var gender = response.gender;
+                    alert(name + " " + email + " " + gender + " " + age);
+                    alert("Logged in Successfully");
+                } else e.error ? alert(e.error) : alert("Unknown response");
+            }) : e.error ? alert(e.error) : e.cancelled && alert("Canceled");
         });
         fb.authorize();
     }
@@ -59,7 +69,6 @@ function Controller() {
     $.__views.__alloyId23 = Ti.UI.createWindow({
         backgroundImage: "background.jpg",
         color: "#fff",
-        title: "Please login",
         id: "__alloyId23"
     });
     $.__views.__alloyId24 = Ti.UI.createView({

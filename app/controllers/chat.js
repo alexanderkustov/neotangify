@@ -175,5 +175,51 @@ function appendChatMessage(message, position){
 function conversation(e) {
     getConversationWith(16);
 }
+
+function getFriends(e){
+    var url = mainserver + '/friendships.json?' + 'auth_token=' + Alloy.Globals.auth_token ;
+    console.log(url);
+    
+    var client = Ti.Network.createHTTPClient({
+        // function called when the response data is available
+        onload : function(e) {
+            Ti.API.info("Get friends : " + this.responseText);
+            var parsedText = JSON.parse(this.responseText).friends;
+
+            for(var i=0; i < parsedText.length; i ++)
+                {
+                var friendBtn = Titanium.UI.createButton({
+                   title: parsedText[i].name,
+                   top: 10,
+                   width: 100,
+                   height: 50
+                });
+
+                friendBtn.addEventListener('click',function(e)
+                {
+                   Titanium.API.info("You clicked" + this.value );
+                });
+
+                $.friends.add(friendBtn);
+
+
+             }
+                  
+        },
+        onerror : function(e) {
+           alert('error' + e);
+           Ti.API.info("get friends error: " + this.responseText);
+    },
+    timeout : 60 * 1000
+    });
+
+    client.open("GET", url);
+    client.send();  
+}
+
+$.chatWindow.addEventListener('focus', function() {
+    getFriends();
+});
+
 // appendChatMessage("Hello");
 // getConversationWith(4);

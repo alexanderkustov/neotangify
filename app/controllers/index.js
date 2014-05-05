@@ -198,6 +198,9 @@ function loadData(e){
 
 Alloy.Globals.tabgroup = $.index;
 var win=Alloy.createController('login').getView();
+
+
 win.addEventListener('open', loadData);
 win.open({transition : Ti.UI.iPhone.AnimationStyle.NONE});
+
 

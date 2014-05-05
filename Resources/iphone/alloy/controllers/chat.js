@@ -96,6 +96,35 @@ function Controller() {
     function conversation() {
         getConversationWith(16);
     }
+    function getFriends() {
+        var url = mainserver + "/friendships.json?" + "auth_token=" + Alloy.Globals.auth_token;
+        console.log(url);
+        var client = Ti.Network.createHTTPClient({
+            onload: function() {
+                Ti.API.info("Get friends : " + this.responseText);
+                var parsedText = JSON.parse(this.responseText).friends;
+                for (var i = 0; parsedText.length > i; i++) {
+                    var friendBtn = Titanium.UI.createButton({
+                        title: parsedText[i].name,
+                        top: 10,
+                        width: 100,
+                        height: 50
+                    });
+                    friendBtn.addEventListener("click", function() {
+                        Titanium.API.info("You clicked" + this.value);
+                    });
+                    $.friends.add(friendBtn);
+                }
+            },
+            onerror: function(e) {
+                alert("error" + e);
+                Ti.API.info("get friends error: " + this.responseText);
+            },
+            timeout: 6e4
+        });
+        client.open("GET", url);
+        client.send();
+    }
     require("alloy/controllers/BaseController").apply(this, Array.prototype.slice.call(arguments));
     this.__controllerPath = "chat";
     arguments[0] ? arguments[0]["__parentSymbol"] : null;
@@ -111,6 +140,11 @@ function Controller() {
         title: "chat"
     });
     $.__views.chatWindow && $.addTopLevelView($.__views.chatWindow);
+    $.__views.friends = Ti.UI.createView({
+        layout: "vertical",
+        id: "friends"
+    });
+    $.__views.chatWindow.add($.__views.friends);
     $.__views.chatContaniner = Ti.UI.createScrollView({
         id: "chatContaniner",
         layout: "vertical",
@@ -129,7 +163,7 @@ function Controller() {
     $.__views.chatBtn = Ti.UI.createView({
         id: "chatBtn",
         layout: "horizontal",
-        top: "80%",
+        top: "50%",
         backgroundColor: "#0071bc"
     });
     $.__views.chatWindow.add($.__views.chatBtn);
@@ -172,6 +206,9 @@ function Controller() {
         appendChatMessage($.textChat.value, "Last");
         sendMessage($.textChat.value);
         $.textChat.value = "";
+    });
+    $.chatWindow.addEventListener("focus", function() {
+        getFriends();
     });
     __defers["$.__views.__alloyId0!click!sendMsg"] && $.__views.__alloyId0.addEventListener("click", sendMsg);
     __defers["$.__views.__alloyId1!click!conversation"] && $.__views.__alloyId1.addEventListener("click", conversation);

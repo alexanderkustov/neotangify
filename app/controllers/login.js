@@ -7,7 +7,22 @@ fb.permissions = ['email, public_profile, user_friends ']; // Permissions your a
 fb.forceDialogAuth = true;
 fb.addEventListener('login', function(e) {
     if (e.success) {
-        alert('Logged In');
+         fb.requestWithGraphPath('me', {}, 'GET', function(e) {
+            if (e.success) {
+                //alert(e.result);
+                var response = JSON.parse(e.result);
+                var email = response.email;
+                var age = response.age;
+                var name = response.name;
+                var gender = response.gender;
+                alert(name+' '+email+' '+gender + ' '+age);
+                alert('Logged in Successfully');
+            } else if (e.error) {
+                alert(e.error);
+            } else {
+                alert('Unknown response');
+            }
+        });
     } else if (e.error) {
         alert(e.error);
     } else if (e.cancelled) {
