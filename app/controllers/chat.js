@@ -35,7 +35,9 @@ function addFriendToTable(friend_id, friend_name, position){
  var row = Ti.UI.createTableViewRow({
         className          : "friend_row",
         color:'white',
-        backgroundColor: 'transparent'
+        backgroundColor: 'transparent',
+        id     : friend_id,
+       
 
     });
 
@@ -66,29 +68,13 @@ var label = Ti.UI.createLabel({
   
     row.add(label);
 
-  
-
-
-
      if (position == "First") {
         $.friendsTable.insertRowBefore(0, row);
     }else{
         $.friendsTable.appendRow(row,{animationStyle:Titanium.UI.iPhone.RowAnimationStyle.RIGHT});
         // scroll
     }
-
-     $.friendsTable.addEventListener('click', selectRow);
-
    
-}
-
-function selectRow(e) {
- var rowId = e.rowData.id;
- var myText = e.rowData.text;
-
-
-alert(rowId + " " + myText);
-
 }
 
 
@@ -100,8 +86,17 @@ function openChat(friend_id){
 }
 
 $.chatFriends.addEventListener('focus', function() {
+    var rd = []; 
+    $.friendsTable.data = rd;
     getFriends();
 });
+
+$.friendsTable.addEventListener('click', function(e) {
+  Ti.API.info('row clicked: ' + e.rowData.id + " index : "  + e.index + " texto: " + e.rowData.text);
+  openChat(e.rowData.id);
+});
+
+//$.friendsTable.addEventListener('click', selectRow);
 
 // appendChatMessage("Hello");
 // getConversationWith(4);

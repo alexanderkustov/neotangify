@@ -19,26 +19,11 @@
 		</Tab>
 		
 		<Tab title="Feed" icon="KS_nav_ui.png">
-			<Window title="Activity">
-				<View layout="vertical">
-					<Button height="40" width="Ti.UI.FILL" onClick="getActivityFeed">Refresh</Button>
-					<ScrollView id="feed_area" layout="vertical" contentWidth="auto" contentHeight="auto" showVerticalScrollIndicator="true" showHorizontalScrollIndicator="false" height="80%">
-				<Label id="status"></Label>
-				</ScrollView>	
-					
-				</View>
-			</Window>
+			<Require type="view" src="activity" id="activity"/>
 		</Tab>
 		
-		<Tab title="Radar" icon="radar.png">
-			<Window title="tangify" class="titleBar">
-				<View layout="vertical">
-        		<Button height="40" width="Ti.UI.FILL" onClick="geolocate">Geolocate</Button>
-        		<View id="radar" width="Ti.UI.FILL" height="460px" width="460px" backgroundImage="/radar_back.png">
-        			
-        		</View>
-    		</View>
-			</Window>
+		<Tab title="Radar" icon="radar.png" id="radar_window">
+			<Require type="view" src="radar" id="radar"/>
 		</Tab>
 		
 		<Tab title="Chat" icon="chat.png">

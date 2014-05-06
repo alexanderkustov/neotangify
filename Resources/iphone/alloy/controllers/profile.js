@@ -11,21 +11,23 @@ function Controller() {
                 alert("Profile updated!");
             },
             onerror: function(e) {
-                alert("error: " + e.code);
+                alert("Error updating profile: " + e.code);
                 console.log(e);
             },
             timeout: 6e4
         });
         var params = {
-            name: $.name.value,
-            email: $.email.value.toLowerCase(),
-            short_description: $.short_description.value,
-            password: $.password.value,
-            password_confirmation: $.password_confirmation.value
+            user: {
+                name: $.name.value,
+                email: $.email.value.toLowerCase(),
+                short_description: $.short_description.value,
+                password: $.password.value,
+                password_confirmation: $.password_confirmation.value
+            }
         };
-        auth_token = null;
-        client.open("POST", url);
+        client.open("PUT", url);
         client.send(params);
+        auth_token = null;
     }
     function takePicture() {
         var dialog = Titanium.UI.createOptionDialog({
@@ -67,11 +69,11 @@ function Controller() {
     var $ = this;
     var exports = {};
     var __defers = {};
-    $.__views.__alloyId30 = Ti.UI.createWindow({
+    $.__views.__alloyId26 = Ti.UI.createWindow({
         backgroundImage: "background.jpg",
         color: "#fff",
         title: "Registration",
-        id: "__alloyId30"
+        id: "__alloyId26"
     });
     $.__views.back = Ti.UI.createButton({
         color: "fff",
@@ -79,21 +81,21 @@ function Controller() {
         id: "back"
     });
     goback ? $.__views.back.addEventListener("click", goback) : __defers["$.__views.back!click!goback"] = true;
-    $.__views.__alloyId30.leftNavButton = $.__views.back;
-    $.__views.__alloyId32 = Ti.UI.createView({
+    $.__views.__alloyId26.leftNavButton = $.__views.back;
+    $.__views.__alloyId28 = Ti.UI.createView({
         layout: "vertical",
-        id: "__alloyId32"
+        id: "__alloyId28"
     });
-    $.__views.__alloyId30.add($.__views.__alloyId32);
-    $.__views.__alloyId33 = Ti.UI.createButton({
+    $.__views.__alloyId26.add($.__views.__alloyId28);
+    $.__views.__alloyId29 = Ti.UI.createButton({
         color: "fff",
         title: "Picture",
         height: "40",
         width: Ti.UI.FILL,
-        id: "__alloyId33"
+        id: "__alloyId29"
     });
-    $.__views.__alloyId32.add($.__views.__alloyId33);
-    takePicture ? $.__views.__alloyId33.addEventListener("click", takePicture) : __defers["$.__views.__alloyId33!click!takePicture"] = true;
+    $.__views.__alloyId28.add($.__views.__alloyId29);
+    takePicture ? $.__views.__alloyId29.addEventListener("click", takePicture) : __defers["$.__views.__alloyId29!click!takePicture"] = true;
     $.__views.name = Ti.UI.createTextField({
         color: "#333",
         borderStyle: Ti.UI.INPUT_BORDERSTYLE_ROUNDED,
@@ -105,7 +107,7 @@ function Controller() {
         hintText: "Name",
         id: "name"
     });
-    $.__views.__alloyId32.add($.__views.name);
+    $.__views.__alloyId28.add($.__views.name);
     $.__views.email = Ti.UI.createTextField({
         color: "#333",
         borderStyle: Ti.UI.INPUT_BORDERSTYLE_ROUNDED,
@@ -117,7 +119,7 @@ function Controller() {
         hintText: "Email",
         id: "email"
     });
-    $.__views.__alloyId32.add($.__views.email);
+    $.__views.__alloyId28.add($.__views.email);
     $.__views.short_description = Ti.UI.createTextField({
         color: "#333",
         borderStyle: Ti.UI.INPUT_BORDERSTYLE_ROUNDED,
@@ -129,8 +131,8 @@ function Controller() {
         hintText: "Short Description",
         id: "short_description"
     });
-    $.__views.__alloyId32.add($.__views.short_description);
-    $.__views.__alloyId34 = Ti.UI.createLabel({
+    $.__views.__alloyId28.add($.__views.short_description);
+    $.__views.__alloyId30 = Ti.UI.createLabel({
         width: Ti.UI.SIZE,
         height: Ti.UI.SIZE,
         color: "#fff",
@@ -140,9 +142,9 @@ function Controller() {
         },
         textAlign: "center",
         text: "Want to change your password? (Optional)",
-        id: "__alloyId34"
+        id: "__alloyId30"
     });
-    $.__views.__alloyId32.add($.__views.__alloyId34);
+    $.__views.__alloyId28.add($.__views.__alloyId30);
     $.__views.password = Ti.UI.createTextField({
         color: "#333",
         borderStyle: Ti.UI.INPUT_BORDERSTYLE_ROUNDED,
@@ -155,7 +157,7 @@ function Controller() {
         passwordMask: "true",
         id: "password"
     });
-    $.__views.__alloyId32.add($.__views.password);
+    $.__views.__alloyId28.add($.__views.password);
     $.__views.password_confirmation = Ti.UI.createTextField({
         color: "#333",
         borderStyle: Ti.UI.INPUT_BORDERSTYLE_ROUNDED,
@@ -168,26 +170,26 @@ function Controller() {
         passwordMask: "true",
         id: "password_confirmation"
     });
-    $.__views.__alloyId32.add($.__views.password_confirmation);
-    $.__views.__alloyId35 = Ti.UI.createButton({
+    $.__views.__alloyId28.add($.__views.password_confirmation);
+    $.__views.__alloyId31 = Ti.UI.createButton({
         color: "fff",
         title: "Submit",
         height: "40",
         width: Ti.UI.FILL,
-        id: "__alloyId35"
+        id: "__alloyId31"
     });
-    $.__views.__alloyId32.add($.__views.__alloyId35);
-    editProfile ? $.__views.__alloyId35.addEventListener("click", editProfile) : __defers["$.__views.__alloyId35!click!editProfile"] = true;
+    $.__views.__alloyId28.add($.__views.__alloyId31);
+    editProfile ? $.__views.__alloyId31.addEventListener("click", editProfile) : __defers["$.__views.__alloyId31!click!editProfile"] = true;
     $.__views.win1 = Ti.UI.iOS.createNavigationWindow({
-        window: $.__views.__alloyId30,
+        window: $.__views.__alloyId26,
         id: "win1"
     });
     $.__views.win1 && $.addTopLevelView($.__views.win1);
     exports.destroy = function() {};
     _.extend($, $.__views);
     __defers["$.__views.back!click!goback"] && $.__views.back.addEventListener("click", goback);
-    __defers["$.__views.__alloyId33!click!takePicture"] && $.__views.__alloyId33.addEventListener("click", takePicture);
-    __defers["$.__views.__alloyId35!click!editProfile"] && $.__views.__alloyId35.addEventListener("click", editProfile);
+    __defers["$.__views.__alloyId29!click!takePicture"] && $.__views.__alloyId29.addEventListener("click", takePicture);
+    __defers["$.__views.__alloyId31!click!editProfile"] && $.__views.__alloyId31.addEventListener("click", editProfile);
     _.extend($, exports);
 }
 

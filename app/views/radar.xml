@@ -1,0 +1,10 @@
+<Alloy>
+<Window title="tangify" class="titleBar" id="radar_window">
+				<View layout="vertical">
+        		<Button height="40" width="Ti.UI.FILL" onClick="geolocate">Geolocate</Button>
+        		<View id="radar" width="Ti.UI.FILL" height="460px" width="460px" backgroundImage="/radar_back.png">
+        			
+        		</View>
+    		</View>
+			</Window>
+		</Alloy>

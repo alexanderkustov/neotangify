@@ -156,24 +156,24 @@ function Controller() {
         id: "textChat"
     });
     $.__views.chatBtn.add($.__views.textChat);
-    $.__views.__alloyId1 = Ti.UI.createButton({
+    $.__views.__alloyId3 = Ti.UI.createButton({
         color: "fff",
         title: "Snd",
         height: "40",
         width: "20%",
-        id: "__alloyId1"
+        id: "__alloyId3"
     });
-    $.__views.chatBtn.add($.__views.__alloyId1);
-    sendMsg ? $.__views.__alloyId1.addEventListener("click", sendMsg) : __defers["$.__views.__alloyId1!click!sendMsg"] = true;
-    $.__views.__alloyId2 = Ti.UI.createButton({
+    $.__views.chatBtn.add($.__views.__alloyId3);
+    sendMsg ? $.__views.__alloyId3.addEventListener("click", sendMsg) : __defers["$.__views.__alloyId3!click!sendMsg"] = true;
+    $.__views.__alloyId4 = Ti.UI.createButton({
         color: "fff",
         title: "G",
         height: "40",
         width: "10%",
-        id: "__alloyId2"
+        id: "__alloyId4"
     });
-    $.__views.chatBtn.add($.__views.__alloyId2);
-    conversation ? $.__views.__alloyId2.addEventListener("click", conversation) : __defers["$.__views.__alloyId2!click!conversation"] = true;
+    $.__views.chatBtn.add($.__views.__alloyId4);
+    conversation ? $.__views.__alloyId4.addEventListener("click", conversation) : __defers["$.__views.__alloyId4!click!conversation"] = true;
     $.__views.win1 = Ti.UI.iOS.createNavigationWindow({
         window: $.__views.chatWindow,
         id: "win1"
@@ -191,8 +191,8 @@ function Controller() {
         $.textChat.value = "";
     });
     __defers["$.__views.back!click!goback"] && $.__views.back.addEventListener("click", goback);
-    __defers["$.__views.__alloyId1!click!sendMsg"] && $.__views.__alloyId1.addEventListener("click", sendMsg);
-    __defers["$.__views.__alloyId2!click!conversation"] && $.__views.__alloyId2.addEventListener("click", conversation);
+    __defers["$.__views.__alloyId3!click!sendMsg"] && $.__views.__alloyId3.addEventListener("click", sendMsg);
+    __defers["$.__views.__alloyId4!click!conversation"] && $.__views.__alloyId4.addEventListener("click", conversation);
     _.extend($, exports);
 }
 

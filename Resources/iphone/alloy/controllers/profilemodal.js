@@ -65,42 +65,42 @@ function Controller() {
     });
     goback ? $.__views.back.addEventListener("click", goback) : __defers["$.__views.back!click!goback"] = true;
     $.__views.profile_name.leftNavButton = $.__views.back;
-    $.__views.__alloyId37 = Ti.UI.createView({
+    $.__views.__alloyId33 = Ti.UI.createView({
         layout: "vertical",
-        id: "__alloyId37"
+        id: "__alloyId33"
     });
-    $.__views.profile_name.add($.__views.__alloyId37);
-    $.__views.__alloyId38 = Ti.UI.createImageView({
+    $.__views.profile_name.add($.__views.__alloyId33);
+    $.__views.__alloyId34 = Ti.UI.createImageView({
         image: "/login-logo.png",
         height: "160",
-        id: "__alloyId38"
+        id: "__alloyId34"
     });
-    $.__views.__alloyId37.add($.__views.__alloyId38);
-    $.__views.__alloyId39 = Ti.UI.createView({
+    $.__views.__alloyId33.add($.__views.__alloyId34);
+    $.__views.__alloyId35 = Ti.UI.createView({
         layout: "horizontal",
-        id: "__alloyId39"
+        id: "__alloyId35"
     });
-    $.__views.__alloyId37.add($.__views.__alloyId39);
-    var __alloyId41 = [];
-    var __alloyId42 = {
+    $.__views.__alloyId33.add($.__views.__alloyId35);
+    var __alloyId37 = [];
+    var __alloyId38 = {
         title: "Send a Msg",
         ns: "Alloy.Abstract"
     };
-    __alloyId41.push(__alloyId42);
-    var __alloyId43 = {
+    __alloyId37.push(__alloyId38);
+    var __alloyId39 = {
         title: "Add Friend",
         ns: "Alloy.Abstract"
     };
-    __alloyId41.push(__alloyId43);
+    __alloyId37.push(__alloyId39);
     $.__views.bb1 = Ti.UI.iOS.createTabbedBar({
-        labels: __alloyId41,
+        labels: __alloyId37,
         id: "bb1",
         backgroundColor: "#fff",
         top: "50",
         height: "25",
         width: "300"
     });
-    $.__views.__alloyId39.add($.__views.bb1);
+    $.__views.__alloyId35.add($.__views.bb1);
     $.__views.win1 = Ti.UI.iOS.createNavigationWindow({
         window: $.__views.profile_name,
         id: "win1"

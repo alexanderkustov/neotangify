@@ -10,43 +10,41 @@ function editProfile(e) {
 	    onload : function(e) {
 	    	Ti.API.info("Received text: " + this.responseText);
 	        alert('Profile updated!');
-	        
 	    },
 	    onerror : function(e) {
-	        alert('error: ' + e.code);
+	        alert('Error updating profile: ' + e.code);
 	        console.log(e);
     },
     timeout : 60 * 1000
 	});
-	
-	var params = {
-		'name': $.name.value,
-		'email': $.email.value.toLowerCase(),
-		'short_description': $.short_description.value,
-		'password' : $.password.value ,
-		'password_confirmation' : $.password_confirmation.value
-	};
-	auth_token = null;
-	client.open("POST", url);
+
+        var params = {
+        'user': { 
+            'name': $.name.value,
+            'email': $.email.value.toLowerCase(),
+            'short_description': $.short_description.value,
+            'password' : $.password.value ,
+            'password_confirmation' : $.password_confirmation.value
+                }
+        };
+
+	client.open("PUT", url);
 	
 	client.send(params);
+    auth_token = null;
 }		
 
-
-
-
-//ESTA FUNCAO NAO TEM UM RETURN PARA NADA POR ISSO E PRECISO AGARRAR NA FOTO E SUBMETER PARA A BD NO FORM EM QUESTAO
 //por agora a imagem fica nas Properties, ou seja e preciso fazer um getProperty(image) para ir busca la
 function takePicture(e){
 	//Create a dialog with options
-var dialog = Titanium.UI.createOptionDialog({
-    //title of dialog
-    title: 'Choose an image source...',
-    //options
-    options: ['Camera','Photo Gallery', 'Cancel'],
-    //index of cancel button
-    cancel:2
-});
+    var dialog = Titanium.UI.createOptionDialog({
+        //title of dialog
+        title: 'Choose an image source...',
+        //options
+        options: ['Camera','Photo Gallery', 'Cancel'],
+        //index of cancel button
+        cancel:2
+    });
  
 //add event listener
 dialog.addEventListener('click', function(e) {
