@@ -1,17 +1,10 @@
 <Alloy>
-	<Window id="chatWindow" title="chat">
-		<View layout="vertical" id="friends">
-			
-		</View>
-		<ScrollView id="chatContaniner" layout="vertical" contentWidth="auto" contentHeight="auto" showVerticalScrollIndicator="true" showHorizontalScrollIndicator="false" height="80%">		
-		<TableView id="chatArea" backgroundColor="transparent">		
+	<Window id="chatFriends" title="Chat">
+		<ScrollView id="chatContaniner" layout="vertical" contentWidth="auto" contentHeight="auto" showVerticalScrollIndicator="true" showHorizontalScrollIndicator="false" height="100%">
+		<TableView id="friendsTable" backgroundColor="transparent">
 		</TableView>	
-		</ScrollView>	
-		<View id="chatBtn" layout="horizontal" top="50%" backgroundColor="#0071bc">
-			<TextField hintText="Enter Message..." height="40" width="60%" id="textChat"></TextField>
-			<Button height="40" width="20%" onClick="sendMsg">Snd</Button>
-			<Button height="40" width="20%" onClick="conversation">Get</Button>
-		</View>
+	</ScrollView>
+		
 	</Window>
 </Alloy>
 

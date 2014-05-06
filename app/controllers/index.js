@@ -1,15 +1,12 @@
 Ti.include("base64.js");
 
-
-function logout(e)
-{
+function logout(e){
 	var win=Alloy.createController('login').getView();
 	win.open({transition:Ti.UI.iPhone.AnimationStyle.NONE});
 	auth_token = null;
 }
 
 function getActivityFeed(e){
-		//starting to send out the auth
 	var url = mainserver + '/activities.json?' + 'auth_token=' + Alloy.Globals.auth_token ;
 	console.log(url);
 	
@@ -186,13 +183,13 @@ function loadData(e){
 	Alloy.Globals.WS.open(uri);
 	//Meter esta num ponto inicial
 
-	function sendKeepAlives(){
+function sendKeepAlives(){
 		//if (WS && WS.readyState == WebSocket.OPEN){
 			// Send a ping to avoid TCP timeout.
         	Alloy.Globals.WS.send(JSON.stringify(["ping"])); 
 		//}
     	setTimeout("sendKeepAlives();", 30000);
-	}
+}
 	
 	
 

@@ -68,14 +68,14 @@ function login(e)
 	});
 	
 	var params = {
-		'auth_key': $.login.value.toLowerCase(),
+		'auth_key': $.loginInput.value.toLowerCase(),
 		'password' : $.password.value , 
 	    "provider":"identity",
 	    "Login": "",
 	    "format" : "json"  
 	};
 	
-	Ti.App.Properties.setString('saved_login', $.login.value.toLowerCase());
+	Ti.App.Properties.setString('saved_login', $.loginInput.value.toLowerCase());
 	
 	Ti.App.Properties.setString('saved_pw', $.password.value);
 	

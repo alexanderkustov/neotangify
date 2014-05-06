@@ -127,12 +127,12 @@ function Controller() {
     var $ = this;
     var exports = {};
     var __defers = {};
-    var __alloyId2 = [];
-    $.__views.__alloyId4 = Ti.UI.createWindow({
+    var __alloyId3 = [];
+    $.__views.__alloyId5 = Ti.UI.createWindow({
         backgroundImage: "background.jpg",
         color: "#fff",
         title: "Profile",
-        id: "__alloyId4"
+        id: "__alloyId5"
     });
     $.__views.edut = Ti.UI.createButton({
         color: "fff",
@@ -140,31 +140,31 @@ function Controller() {
         title: "Edit"
     });
     editProfile ? $.__views.edut.addEventListener("click", editProfile) : __defers["$.__views.edut!click!editProfile"] = true;
-    $.__views.__alloyId4.rightNavButton = $.__views.edut;
-    $.__views.__alloyId6 = Ti.UI.createView({
+    $.__views.__alloyId5.rightNavButton = $.__views.edut;
+    $.__views.__alloyId7 = Ti.UI.createView({
         layout: "vertical",
-        id: "__alloyId6"
+        id: "__alloyId7"
     });
-    $.__views.__alloyId4.add($.__views.__alloyId6);
-    $.__views.__alloyId7 = Ti.UI.createImageView({
+    $.__views.__alloyId5.add($.__views.__alloyId7);
+    $.__views.__alloyId8 = Ti.UI.createImageView({
         image: "/tangy_back.jpg",
         zIndex: "1",
         height: "160",
         top: "-50",
         width: Ti.UI.FILL,
-        id: "__alloyId7"
+        id: "__alloyId8"
     });
-    $.__views.__alloyId6.add($.__views.__alloyId7);
-    $.__views.__alloyId8 = Ti.UI.createImageView({
+    $.__views.__alloyId7.add($.__views.__alloyId8);
+    $.__views.__alloyId9 = Ti.UI.createImageView({
         image: "/person.png",
         zIndex: "5",
         top: "-50",
         borderRadius: "50%",
         borderWidth: "3",
         borderColor: "white",
-        id: "__alloyId8"
+        id: "__alloyId9"
     });
-    $.__views.__alloyId6.add($.__views.__alloyId8);
+    $.__views.__alloyId7.add($.__views.__alloyId9);
     $.__views.user_name = Ti.UI.createLabel({
         width: Ti.UI.SIZE,
         height: Ti.UI.SIZE,
@@ -176,7 +176,7 @@ function Controller() {
         textAlign: "center",
         id: "user_name"
     });
-    $.__views.__alloyId6.add($.__views.user_name);
+    $.__views.__alloyId7.add($.__views.user_name);
     $.__views.birthdate = Ti.UI.createLabel({
         width: Ti.UI.SIZE,
         height: Ti.UI.SIZE,
@@ -188,7 +188,7 @@ function Controller() {
         textAlign: "center",
         id: "birthdate"
     });
-    $.__views.__alloyId6.add($.__views.birthdate);
+    $.__views.__alloyId7.add($.__views.birthdate);
     $.__views.short_description = Ti.UI.createLabel({
         width: Ti.UI.SIZE,
         height: Ti.UI.SIZE,
@@ -200,34 +200,34 @@ function Controller() {
         textAlign: "center",
         id: "short_description"
     });
-    $.__views.__alloyId6.add($.__views.short_description);
-    $.__views.__alloyId3 = Ti.UI.createTab({
-        window: $.__views.__alloyId4,
+    $.__views.__alloyId7.add($.__views.short_description);
+    $.__views.__alloyId4 = Ti.UI.createTab({
+        window: $.__views.__alloyId5,
         title: "Profile",
         icon: "profile.png",
-        id: "__alloyId3"
+        id: "__alloyId4"
     });
-    __alloyId2.push($.__views.__alloyId3);
-    $.__views.__alloyId10 = Ti.UI.createWindow({
+    __alloyId3.push($.__views.__alloyId4);
+    $.__views.__alloyId11 = Ti.UI.createWindow({
         backgroundImage: "background.jpg",
         color: "#fff",
         title: "Activity",
-        id: "__alloyId10"
-    });
-    $.__views.__alloyId11 = Ti.UI.createView({
-        layout: "vertical",
         id: "__alloyId11"
     });
-    $.__views.__alloyId10.add($.__views.__alloyId11);
-    $.__views.__alloyId12 = Ti.UI.createButton({
+    $.__views.__alloyId12 = Ti.UI.createView({
+        layout: "vertical",
+        id: "__alloyId12"
+    });
+    $.__views.__alloyId11.add($.__views.__alloyId12);
+    $.__views.__alloyId13 = Ti.UI.createButton({
         color: "fff",
         title: "Refresh",
         height: "40",
         width: Ti.UI.FILL,
-        id: "__alloyId12"
+        id: "__alloyId13"
     });
-    $.__views.__alloyId11.add($.__views.__alloyId12);
-    getActivityFeed ? $.__views.__alloyId12.addEventListener("click", getActivityFeed) : __defers["$.__views.__alloyId12!click!getActivityFeed"] = true;
+    $.__views.__alloyId12.add($.__views.__alloyId13);
+    getActivityFeed ? $.__views.__alloyId13.addEventListener("click", getActivityFeed) : __defers["$.__views.__alloyId13!click!getActivityFeed"] = true;
     $.__views.feed_area = Ti.UI.createScrollView({
         id: "feed_area",
         layout: "vertical",
@@ -237,7 +237,7 @@ function Controller() {
         showHorizontalScrollIndicator: "false",
         height: "80%"
     });
-    $.__views.__alloyId11.add($.__views.feed_area);
+    $.__views.__alloyId12.add($.__views.feed_area);
     $.__views.status = Ti.UI.createLabel({
         width: Ti.UI.SIZE,
         height: Ti.UI.SIZE,
@@ -251,71 +251,71 @@ function Controller() {
         id: "status"
     });
     $.__views.feed_area.add($.__views.status);
-    $.__views.__alloyId9 = Ti.UI.createTab({
-        window: $.__views.__alloyId10,
+    $.__views.__alloyId10 = Ti.UI.createTab({
+        window: $.__views.__alloyId11,
         title: "Feed",
         icon: "KS_nav_ui.png",
-        id: "__alloyId9"
+        id: "__alloyId10"
     });
-    __alloyId2.push($.__views.__alloyId9);
-    $.__views.__alloyId14 = Ti.UI.createWindow({
+    __alloyId3.push($.__views.__alloyId10);
+    $.__views.__alloyId15 = Ti.UI.createWindow({
         backgroundImage: "background.jpg",
         color: "#fff",
         title: "tangify",
-        id: "__alloyId14"
-    });
-    $.__views.__alloyId15 = Ti.UI.createView({
-        layout: "vertical",
         id: "__alloyId15"
     });
-    $.__views.__alloyId14.add($.__views.__alloyId15);
-    $.__views.__alloyId16 = Ti.UI.createButton({
+    $.__views.__alloyId16 = Ti.UI.createView({
+        layout: "vertical",
+        id: "__alloyId16"
+    });
+    $.__views.__alloyId15.add($.__views.__alloyId16);
+    $.__views.__alloyId17 = Ti.UI.createButton({
         color: "fff",
         title: "Geolocate",
         height: "40",
         width: Ti.UI.FILL,
-        id: "__alloyId16"
+        id: "__alloyId17"
     });
-    $.__views.__alloyId15.add($.__views.__alloyId16);
-    geolocate ? $.__views.__alloyId16.addEventListener("click", geolocate) : __defers["$.__views.__alloyId16!click!geolocate"] = true;
+    $.__views.__alloyId16.add($.__views.__alloyId17);
+    geolocate ? $.__views.__alloyId17.addEventListener("click", geolocate) : __defers["$.__views.__alloyId17!click!geolocate"] = true;
     $.__views.radar = Ti.UI.createView({
         id: "radar",
         width: "460px",
         height: "460px",
         backgroundImage: "/radar_back.png"
     });
-    $.__views.__alloyId15.add($.__views.radar);
-    $.__views.__alloyId13 = Ti.UI.createTab({
-        window: $.__views.__alloyId14,
+    $.__views.__alloyId16.add($.__views.radar);
+    $.__views.__alloyId14 = Ti.UI.createTab({
+        window: $.__views.__alloyId15,
         title: "Radar",
         icon: "radar.png",
-        id: "__alloyId13"
+        id: "__alloyId14"
     });
-    __alloyId2.push($.__views.__alloyId13);
+    __alloyId3.push($.__views.__alloyId14);
     $.__views.chat = Alloy.createController("chat", {
         id: "chat"
     });
-    $.__views.__alloyId17 = Ti.UI.createTab({
+    $.__views.__alloyId18 = Ti.UI.createTab({
         window: $.__views.chat.getViewEx({
             recurse: true
         }),
         title: "Chat",
         icon: "chat.png",
-        id: "__alloyId17"
+        id: "__alloyId18"
     });
-    __alloyId2.push($.__views.__alloyId17);
-    $.__views.__alloyId19 = Ti.UI.createWindow({
+    __alloyId3.push($.__views.__alloyId18);
+    $.__views.__alloyId20 = Ti.UI.createWindow({
         backgroundImage: "background.jpg",
         color: "#fff",
         title: "Chat",
-        id: "__alloyId19"
-    });
-    $.__views.__alloyId20 = Ti.UI.createView({
-        layout: "vertical",
         id: "__alloyId20"
     });
-    $.__views.__alloyId19.add($.__views.__alloyId20);
-    $.__views.__alloyId21 = Ti.UI.createLabel({
+    $.__views.__alloyId21 = Ti.UI.createView({
+        layout: "vertical",
+        id: "__alloyId21"
+    });
+    $.__views.__alloyId20.add($.__views.__alloyId21);
+    $.__views.__alloyId22 = Ti.UI.createLabel({
         width: Ti.UI.SIZE,
         height: Ti.UI.SIZE,
         color: "#fff",
@@ -325,32 +325,32 @@ function Controller() {
         },
         textAlign: "center",
         text: "I am Tangible on the Radar",
-        id: "__alloyId21"
+        id: "__alloyId22"
     });
-    $.__views.__alloyId20.add($.__views.__alloyId21);
+    $.__views.__alloyId21.add($.__views.__alloyId22);
     $.__views.basicSwitch = Ti.UI.createSwitch({
         value: true,
         id: "basicSwitch"
     });
-    $.__views.__alloyId20.add($.__views.basicSwitch);
-    $.__views.__alloyId22 = Ti.UI.createButton({
+    $.__views.__alloyId21.add($.__views.basicSwitch);
+    $.__views.__alloyId23 = Ti.UI.createButton({
         color: "fff",
         title: "Logout",
         height: "40",
         width: Ti.UI.FILL,
-        id: "__alloyId22"
+        id: "__alloyId23"
     });
-    $.__views.__alloyId20.add($.__views.__alloyId22);
-    logout ? $.__views.__alloyId22.addEventListener("click", logout) : __defers["$.__views.__alloyId22!click!logout"] = true;
-    $.__views.__alloyId18 = Ti.UI.createTab({
-        window: $.__views.__alloyId19,
+    $.__views.__alloyId21.add($.__views.__alloyId23);
+    logout ? $.__views.__alloyId23.addEventListener("click", logout) : __defers["$.__views.__alloyId23!click!logout"] = true;
+    $.__views.__alloyId19 = Ti.UI.createTab({
+        window: $.__views.__alloyId20,
         title: "Settings",
         icon: "settings.png",
-        id: "__alloyId18"
+        id: "__alloyId19"
     });
-    __alloyId2.push($.__views.__alloyId18);
+    __alloyId3.push($.__views.__alloyId19);
     $.__views.index = Ti.UI.createTabGroup({
-        tabs: __alloyId2,
+        tabs: __alloyId3,
         id: "index"
     });
     $.__views.index && $.addTopLevelView($.__views.index);
@@ -386,9 +386,9 @@ function Controller() {
         transition: Ti.UI.iPhone.AnimationStyle.NONE
     });
     __defers["$.__views.edut!click!editProfile"] && $.__views.edut.addEventListener("click", editProfile);
-    __defers["$.__views.__alloyId12!click!getActivityFeed"] && $.__views.__alloyId12.addEventListener("click", getActivityFeed);
-    __defers["$.__views.__alloyId16!click!geolocate"] && $.__views.__alloyId16.addEventListener("click", geolocate);
-    __defers["$.__views.__alloyId22!click!logout"] && $.__views.__alloyId22.addEventListener("click", logout);
+    __defers["$.__views.__alloyId13!click!getActivityFeed"] && $.__views.__alloyId13.addEventListener("click", getActivityFeed);
+    __defers["$.__views.__alloyId17!click!geolocate"] && $.__views.__alloyId17.addEventListener("click", geolocate);
+    __defers["$.__views.__alloyId23!click!logout"] && $.__views.__alloyId23.addEventListener("click", logout);
     _.extend($, exports);
 }
 

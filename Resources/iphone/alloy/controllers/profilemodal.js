@@ -65,42 +65,42 @@ function Controller() {
     });
     goback ? $.__views.back.addEventListener("click", goback) : __defers["$.__views.back!click!goback"] = true;
     $.__views.profile_name.leftNavButton = $.__views.back;
-    $.__views.__alloyId36 = Ti.UI.createView({
+    $.__views.__alloyId37 = Ti.UI.createView({
         layout: "vertical",
-        id: "__alloyId36"
-    });
-    $.__views.profile_name.add($.__views.__alloyId36);
-    $.__views.__alloyId37 = Ti.UI.createImageView({
-        image: "/login-logo.png",
-        height: "160",
         id: "__alloyId37"
     });
-    $.__views.__alloyId36.add($.__views.__alloyId37);
-    $.__views.__alloyId38 = Ti.UI.createView({
-        layout: "horizontal",
+    $.__views.profile_name.add($.__views.__alloyId37);
+    $.__views.__alloyId38 = Ti.UI.createImageView({
+        image: "/login-logo.png",
+        height: "160",
         id: "__alloyId38"
     });
-    $.__views.__alloyId36.add($.__views.__alloyId38);
-    var __alloyId40 = [];
-    var __alloyId41 = {
+    $.__views.__alloyId37.add($.__views.__alloyId38);
+    $.__views.__alloyId39 = Ti.UI.createView({
+        layout: "horizontal",
+        id: "__alloyId39"
+    });
+    $.__views.__alloyId37.add($.__views.__alloyId39);
+    var __alloyId41 = [];
+    var __alloyId42 = {
         title: "Send a Msg",
         ns: "Alloy.Abstract"
     };
-    __alloyId40.push(__alloyId41);
-    var __alloyId42 = {
+    __alloyId41.push(__alloyId42);
+    var __alloyId43 = {
         title: "Add Friend",
         ns: "Alloy.Abstract"
     };
-    __alloyId40.push(__alloyId42);
+    __alloyId41.push(__alloyId43);
     $.__views.bb1 = Ti.UI.iOS.createTabbedBar({
-        labels: __alloyId40,
+        labels: __alloyId41,
         id: "bb1",
         backgroundColor: "#fff",
         top: "50",
         height: "25",
         width: "300"
     });
-    $.__views.__alloyId38.add($.__views.bb1);
+    $.__views.__alloyId39.add($.__views.bb1);
     $.__views.win1 = Ti.UI.iOS.createNavigationWindow({
         window: $.__views.profile_name,
         id: "win1"
