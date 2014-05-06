@@ -43,26 +43,14 @@ function updateRadar(lat, longi){
 	//console.log(url);
 	
 	var client = Ti.Network.createHTTPClient({
-	    // function called when the response data is available
-	    onload : function(e) {
+	   onload : function(e) {
 	    	Ti.API.info("update radar text: " + this.responseText);
 	    	Ti.API.info("pessoas a tua volta: " + JSON.parse(this.responseText).people.length);
-	   	//for das pessoas fixes
-	   	
+
 	   	for (var i = 0; i < JSON.parse(this.responseText).people.length; i++) {
-	   		
-	   		var persons_id = JSON.parse(this.responseText).people[i].id;
-	   		
-	   		var personView = Ti.UI.createView({top: i*40, id: JSON.parse(this.responseText).people[i].id});
-	   
-	   		//var label=Ti.UI.createLabel({text: JSON.parse(this.responseText).people[i].name, id: 'name', color: 'white', top: 10 });
-			
-			//if(face != null){
-	    	//	var face = Ti.UI.createImageView({image: JSON.parse(this.responseText).people[i].presentation_picture.url });
-	    	//} else {
-	    		// var face = Ti.UI.createImageView({image: '/person.png', top: 30+i, borderRadius: 50, borderWidth : "3", borderColor : 'white', width: 100, height: 100});
-	    		var face = Ti.UI.createImageView({image: '/person.png', top: 30+i, width: 40, height: 40, borderRadius:20});
-	    	//}
+	   			var persons_id = JSON.parse(this.responseText).people[i].id;
+	   			var personView = Ti.UI.createView({top: i*40, id: JSON.parse(this.responseText).people[i].id});
+	   			var face = Ti.UI.createImageView({image: '/person.png', top: 30+i, width: 40, height: 40, borderRadius:20});
 	    	
 	    	personView.addEventListener('click', function(e){
 	    			profilemodal(this.id);
@@ -75,7 +63,6 @@ function updateRadar(lat, longi){
 	    	
 	      }
 	    },
-	    // function called when an error occurs, including a timeout
 	    onerror : function(e) {
 	       alert('error' + e);
 	       Ti.API.info("Get radar error: " + this.responseText);
@@ -88,17 +75,13 @@ function updateRadar(lat, longi){
 	client.send(params);  
 }
 
-function profilemodal(userid){
+function profilemodal(userid){	
 	
-	var userNumber = userid;
-	console.log(userNumber + ' este e o user');
+	console.log(userid + ' este e o user');
 	
-	var profilewin=Alloy.createController('profilemodal', {userId: userNumber}).getView();
+	var profilewin = Alloy.createController('profilemodal', {userId: userid}).getView();
 
-	
-	profilewin.open({transition:Ti.UI.iPhone.AnimationStyle.CURL_DOWN});
-	
-	$.index.close();
+	profilewin.open();
 }
 
 

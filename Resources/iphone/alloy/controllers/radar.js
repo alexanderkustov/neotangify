@@ -68,15 +68,11 @@ function Controller() {
         client.send(params);
     }
     function profilemodal(userid) {
-        var userNumber = userid;
-        console.log(userNumber + " este e o user");
+        console.log(userid + " este e o user");
         var profilewin = Alloy.createController("profilemodal", {
-            userId: userNumber
+            userId: userid
         }).getView();
-        profilewin.open({
-            transition: Ti.UI.iPhone.AnimationStyle.CURL_DOWN
-        });
-        $.index.close();
+        profilewin.open();
     }
     require("alloy/controllers/BaseController").apply(this, Array.prototype.slice.call(arguments));
     this.__controllerPath = "radar";

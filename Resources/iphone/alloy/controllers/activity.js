@@ -38,7 +38,6 @@ function Controller() {
             height: "auto",
             width: "auto",
             color: "#fff",
-            left: 50,
             font: {
                 fontSize: 14,
                 fontWeight: "normal"

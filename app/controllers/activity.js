@@ -61,7 +61,6 @@ function addActivitiesToTable(activity_name, user_name, friend_name, position){
         height : (OS_ANDROID) ? '50dp' : 'auto',
         width  : 'auto',
         color  : "#fff",
-        left   : 50,
         font   : {
             fontSize : (OS_ANDROID) ? '19dp' : 14,
             fontWeight: (OS_ANDROID) ? 'bold' : 'normal'
