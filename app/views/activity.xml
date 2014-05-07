@@ -1,7 +1,10 @@
 <Alloy>
-	<Window title="Activity">
+	<Window title="Feed" id="activityWindow">
+		 <RightNavButton>
+		            <Button id="refresh" title="Refresh" onClick="getActivityFeed"/>
+		        </RightNavButton>
 				<View layout="vertical">
-					<Button height="40" width="Ti.UI.FILL" onClick="getActivityFeed">Refresh</Button>
+				
 				<ScrollView id="feed_area" layout="vertical" contentWidth="auto" contentHeight="auto" showVerticalScrollIndicator="true" showHorizontalScrollIndicator="false" height="80%">
 				<Label id="status"></Label>
 				

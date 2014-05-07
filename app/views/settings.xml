@@ -1,0 +1,10 @@
+<Alloy>
+<Window title="Chat">
+				<View layout="vertical">
+					<Label>I am Tangible on the Radar</Label>
+					<Switch id="basicSwitch" value="true" />
+					 <Button height="40" width="Ti.UI.FILL" onClick="logout">Logout</Button>
+
+				</View>
+			</Window>
+		</Alloy>

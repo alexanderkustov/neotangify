@@ -1,19 +1,5 @@
 Ti.include("base64.js");
 
-function logout(e){
-	var win=Alloy.createController('login').getView();
-	win.open({transition:Ti.UI.iPhone.AnimationStyle.NONE});
-	auth_token = null;
-}
-
-function editProfile(){
-	var win=Alloy.createController('profile').getView();
-	win.open();
-}
-
-
-
-
 	//WEBSOCKETS
 	uri = 'ws://tangifyapp.com:81';
 	Alloy.Globals.WS = require('net.iamyellow.tiws').createWS();
@@ -38,11 +24,6 @@ function editProfile(){
     	});
 	});
 	
-function loadData(e){	
-	$.user_name.text = Alloy.Globals.user_name;
-	$.birthdate.text = Alloy.Globals.birthdate;
-	$.short_description.text = Alloy.Globals.short_description;
-}
 
 	Alloy.Globals.WS.open(uri);
 	//Meter esta num ponto inicial
@@ -58,11 +39,11 @@ function sendKeepAlives(){
 
 
 
+
 Alloy.Globals.tabgroup = $.index;
 var win=Alloy.createController('login').getView();
 
 
-win.addEventListener('open', loadData);
 win.open({transition : Ti.UI.iPhone.AnimationStyle.NONE});
 
 

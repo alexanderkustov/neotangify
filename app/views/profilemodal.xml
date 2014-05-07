@@ -6,21 +6,18 @@
                 </LeftNavButton>
                 
 				 <View layout="vertical">
-				 	<ImageView image="/login-logo.png" height="160">
-				 		<View layout="horizontal">
+				 	<ImageView image="/tangy_back.jpg" zIndex="1" height="160" top="-50" width="Ti.UI.FILL"></ImageView>
+					<ImageView image="/person.png" zIndex="5" top="-50" borderRadius="50%" borderWidth="3" borderColor="white"></ImageView>
 						 
 					<TabbedBar id="bb1" platform="ios" backgroundColor="#fff" top="50" height="25" width="300">
 							<Labels>
 				               	<Label id="send_msg">Send a Msg</Label>
-				                <Label id="add_friend">Add Friend</Label>
-				                
+				                <Label id="add_friend">Accept Friend</Label>
+				                <Label>Reject</Label>
 				            </Labels>
+				           <Label id="short_description"></Label>	
 				        </TabbedBar>
-						</View>
-						
-						
-	    		</View>
-    		
+				</View>
     		</Window>
     </NavigationWindow>	  
 </Alloy>

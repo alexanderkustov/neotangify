@@ -2,13 +2,19 @@ function Controller() {
     function getActivityFeed() {
         var url = mainserver + "/activities.json?" + "auth_token=" + Alloy.Globals.auth_token;
         console.log(url);
+        var rd = [];
+        $.activityTable.data = rd;
         var client = Ti.Network.createHTTPClient({
             onload: function() {
                 Ti.API.info("Get feed text: " + this.responseText);
                 var parsedText = JSON.parse(this.responseText).activities;
-                for (var i = 0; parsedText.length > i; i++) switch (parsedText[i].subject_type) {
-                  case "Friendship":
-                    addActivitiesToTable(parsedText[i].name, parsedText[i].subject.user.name, parsedText[i].subject.friend.name, "Last");
+                for (var i = 0; parsedText.length > i; i++) switch (parsedText[i].name) {
+                  case "friend_request_accepted":
+                    false == parsedText[i].read && addActivitiesToTable(parsedText[i].subject.user.name, parsedText[i].subject.friend.name, "Last", parsedText[i].subject.friend.id);
+                    break;
+
+                  case "friend_request_recieved":
+                    addActivitiesToTable(parsedText[i].subject.user.name, parsedText[i].subject.friend.name, "Last", parsedText[i].subject.friend.id);
                     break;
 
                   default:
@@ -27,14 +33,33 @@ function Controller() {
         client.open("GET", url);
         client.send(params);
     }
-    function addActivitiesToTable(activity_name, user_name, friend_name, position) {
+    function addActivitiesToTable(user_name, friend_name, position, friend_id) {
         var row = Ti.UI.createTableViewRow({
             className: "activity_row",
             color: "white",
-            backgroundColor: "transparent"
+            rowID: friend_id,
+            backgroundColor: "transparent",
+            separatorStyle: Titanium.UI.iPhone.TableViewSeparatorStyle.NONE
         });
+        var imageAvatar = Ti.UI.createButton({
+            backgroundImage: "profile.png",
+            backgroundSelectedImage: "profile.png",
+            left: 5,
+            top: 5,
+            id: friend_id,
+            width: 45,
+            height: 45,
+            borderColor: "#fff",
+            borderRadius: 20,
+            borderWidth: 1
+        });
+        imageAvatar.addEventListener("click", function() {
+            Ti.API.info("You clicked the guy: " + this.id);
+            profilemodal(this.id);
+        });
+        row.add(imageAvatar);
         var label = Ti.UI.createLabel({
-            text: activity_name + " : " + user_name + " : " + friend_name,
+            text: "You've accepted " + friend_name,
             height: "auto",
             width: "auto",
             color: "#fff",
@@ -43,10 +68,34 @@ function Controller() {
                 fontWeight: "normal"
             }
         });
+        var readButton = Ti.UI.createButton({
+            title: "✖",
+            color: "#ff0000",
+            top: 10,
+            right: 0,
+            width: 20,
+            height: 50
+        });
+        var acceptButton = Ti.UI.createButton({
+            title: "✓",
+            color: "#00ff00",
+            top: 10,
+            right: 30,
+            width: 20,
+            height: 50
+        });
         row.add(label);
+        row.add(acceptButton);
+        row.add(readButton);
         "First" == position ? $.activityTable.insertRowBefore(0, row) : $.activityTable.appendRow(row, {
             animationStyle: Titanium.UI.iPhone.RowAnimationStyle.RIGHT
         });
+    }
+    function profilemodal(userid) {
+        var profilewin = Alloy.createController("profilemodal", {
+            userId: userid
+        }).getView();
+        profilewin.open();
     }
     require("alloy/controllers/BaseController").apply(this, Array.prototype.slice.call(arguments));
     this.__controllerPath = "activity";
@@ -56,27 +105,25 @@ function Controller() {
     var $ = this;
     var exports = {};
     var __defers = {};
-    $.__views.activity = Ti.UI.createWindow({
+    $.__views.activityWindow = Ti.UI.createWindow({
         backgroundImage: "background.jpg",
         color: "#fff",
-        title: "Activity",
-        id: "activity"
+        title: "Feed",
+        id: "activityWindow"
     });
-    $.__views.activity && $.addTopLevelView($.__views.activity);
-    $.__views.__alloyId0 = Ti.UI.createView({
-        layout: "vertical",
-        id: "__alloyId0"
-    });
-    $.__views.activity.add($.__views.__alloyId0);
-    $.__views.__alloyId1 = Ti.UI.createButton({
+    $.__views.activityWindow && $.addTopLevelView($.__views.activityWindow);
+    $.__views.refresh = Ti.UI.createButton({
         color: "fff",
-        title: "Refresh",
-        height: "40",
-        width: Ti.UI.FILL,
+        id: "refresh",
+        title: "Refresh"
+    });
+    getActivityFeed ? $.__views.refresh.addEventListener("click", getActivityFeed) : __defers["$.__views.refresh!click!getActivityFeed"] = true;
+    $.__views.activityWindow.rightNavButton = $.__views.refresh;
+    $.__views.__alloyId1 = Ti.UI.createView({
+        layout: "vertical",
         id: "__alloyId1"
     });
-    $.__views.__alloyId0.add($.__views.__alloyId1);
-    getActivityFeed ? $.__views.__alloyId1.addEventListener("click", getActivityFeed) : __defers["$.__views.__alloyId1!click!getActivityFeed"] = true;
+    $.__views.activityWindow.add($.__views.__alloyId1);
     $.__views.feed_area = Ti.UI.createScrollView({
         id: "feed_area",
         layout: "vertical",
@@ -86,7 +133,7 @@ function Controller() {
         showHorizontalScrollIndicator: "false",
         height: "80%"
     });
-    $.__views.__alloyId0.add($.__views.feed_area);
+    $.__views.__alloyId1.add($.__views.feed_area);
     $.__views.status = Ti.UI.createLabel({
         width: Ti.UI.SIZE,
         height: Ti.UI.SIZE,
@@ -107,32 +154,10 @@ function Controller() {
     $.__views.feed_area.add($.__views.activityTable);
     exports.destroy = function() {};
     _.extend($, $.__views);
-    $.activityTable.addEventListener("focus", function() {
-        var rd = [];
-        $.activityTable.data = rd;
+    $.activityWindow.addEventListener("focus", function() {
         getActivityFeed();
     });
-    $.activityTable.addEventListener("click", function() {
-        var dialog = Ti.UI.createAlertDialog({
-            message: "Accept Friend Request",
-            ok: "Yes",
-            title: "Friend Request"
-        }).show();
-        var dialog = Ti.UI.createAlertDialog({
-            cancel: 1,
-            buttonNames: [ "Confirm", "Cancel" ],
-            message: "Accept Friendship?",
-            title: "Friend Request"
-        });
-        dialog.addEventListener("click", function(e) {
-            e.index === e.source.cancel && Ti.API.info("The cancel button was clicked");
-            Ti.API.info("e.cancel: " + e.cancel);
-            Ti.API.info("e.source.cancel: " + e.source.cancel);
-            Ti.API.info("e.index: " + e.index);
-        });
-        dialog.show();
-    });
-    __defers["$.__views.__alloyId1!click!getActivityFeed"] && $.__views.__alloyId1.addEventListener("click", getActivityFeed);
+    __defers["$.__views.refresh!click!getActivityFeed"] && $.__views.refresh.addEventListener("click", getActivityFeed);
     _.extend($, exports);
 }
 

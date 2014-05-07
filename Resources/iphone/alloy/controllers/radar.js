@@ -89,33 +89,33 @@ function Controller() {
         id: "radar_window"
     });
     $.__views.radar_window && $.addTopLevelView($.__views.radar_window);
-    $.__views.__alloyId40 = Ti.UI.createView({
+    $.__views.__alloyId38 = Ti.UI.createView({
         layout: "vertical",
-        id: "__alloyId40"
+        id: "__alloyId38"
     });
-    $.__views.radar_window.add($.__views.__alloyId40);
-    $.__views.__alloyId41 = Ti.UI.createButton({
+    $.__views.radar_window.add($.__views.__alloyId38);
+    $.__views.__alloyId39 = Ti.UI.createButton({
         color: "fff",
         title: "Geolocate",
         height: "40",
         width: Ti.UI.FILL,
-        id: "__alloyId41"
+        id: "__alloyId39"
     });
-    $.__views.__alloyId40.add($.__views.__alloyId41);
-    geolocate ? $.__views.__alloyId41.addEventListener("click", geolocate) : __defers["$.__views.__alloyId41!click!geolocate"] = true;
+    $.__views.__alloyId38.add($.__views.__alloyId39);
+    geolocate ? $.__views.__alloyId39.addEventListener("click", geolocate) : __defers["$.__views.__alloyId39!click!geolocate"] = true;
     $.__views.radar = Ti.UI.createView({
         id: "radar",
         width: "460px",
         height: "460px",
         backgroundImage: "/radar_back.png"
     });
-    $.__views.__alloyId40.add($.__views.radar);
+    $.__views.__alloyId38.add($.__views.radar);
     exports.destroy = function() {};
     _.extend($, $.__views);
     $.radar_window.addEventListener("focus", function() {
         geolocate();
     });
-    __defers["$.__views.__alloyId41!click!geolocate"] && $.__views.__alloyId41.addEventListener("click", geolocate);
+    __defers["$.__views.__alloyId39!click!geolocate"] && $.__views.__alloyId39.addEventListener("click", geolocate);
     _.extend($, exports);
 }
 

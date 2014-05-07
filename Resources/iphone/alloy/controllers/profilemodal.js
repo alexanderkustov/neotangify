@@ -34,6 +34,7 @@ function Controller() {
                 console.log("pesosa nome: " + JSON.parse(this.responseText).user.name);
                 current_user_id = JSON.parse(this.responseText).user.id;
                 $.profile_name.title = JSON.parse(this.responseText).user.name;
+                $.profile_name.short_description = JSON.parse(this.responseText).user.short_description;
             },
             onerror: function(e) {
                 alert("error" + e);
@@ -65,42 +66,67 @@ function Controller() {
     });
     goback ? $.__views.back.addEventListener("click", goback) : __defers["$.__views.back!click!goback"] = true;
     $.__views.profile_name.leftNavButton = $.__views.back;
-    $.__views.__alloyId33 = Ti.UI.createView({
+    $.__views.__alloyId29 = Ti.UI.createView({
         layout: "vertical",
-        id: "__alloyId33"
+        id: "__alloyId29"
     });
-    $.__views.profile_name.add($.__views.__alloyId33);
-    $.__views.__alloyId34 = Ti.UI.createImageView({
-        image: "/login-logo.png",
+    $.__views.profile_name.add($.__views.__alloyId29);
+    $.__views.__alloyId30 = Ti.UI.createImageView({
+        image: "/tangy_back.jpg",
+        zIndex: "1",
         height: "160",
-        id: "__alloyId34"
+        top: "-50",
+        width: Ti.UI.FILL,
+        id: "__alloyId30"
     });
-    $.__views.__alloyId33.add($.__views.__alloyId34);
-    $.__views.__alloyId35 = Ti.UI.createView({
-        layout: "horizontal",
-        id: "__alloyId35"
+    $.__views.__alloyId29.add($.__views.__alloyId30);
+    $.__views.__alloyId31 = Ti.UI.createImageView({
+        image: "/person.png",
+        zIndex: "5",
+        top: "-50",
+        borderRadius: "50%",
+        borderWidth: "3",
+        borderColor: "white",
+        id: "__alloyId31"
     });
-    $.__views.__alloyId33.add($.__views.__alloyId35);
-    var __alloyId37 = [];
-    var __alloyId38 = {
+    $.__views.__alloyId29.add($.__views.__alloyId31);
+    var __alloyId33 = [];
+    var __alloyId35 = {
         title: "Send a Msg",
         ns: "Alloy.Abstract"
     };
-    __alloyId37.push(__alloyId38);
-    var __alloyId39 = {
-        title: "Add Friend",
+    __alloyId33.push(__alloyId35);
+    var __alloyId36 = {
+        title: "Accept Friend",
         ns: "Alloy.Abstract"
     };
-    __alloyId37.push(__alloyId39);
+    __alloyId33.push(__alloyId36);
+    var __alloyId37 = {
+        title: "Reject",
+        ns: "Alloy.Abstract"
+    };
+    __alloyId33.push(__alloyId37);
     $.__views.bb1 = Ti.UI.iOS.createTabbedBar({
-        labels: __alloyId37,
+        labels: __alloyId33,
         id: "bb1",
         backgroundColor: "#fff",
         top: "50",
         height: "25",
         width: "300"
     });
-    $.__views.__alloyId35.add($.__views.bb1);
+    $.__views.__alloyId29.add($.__views.bb1);
+    $.__views.short_description = Ti.UI.createLabel({
+        width: Ti.UI.SIZE,
+        height: Ti.UI.SIZE,
+        color: "#fff",
+        font: {
+            fontSize: 20,
+            fontFamily: "Helvetica Neue"
+        },
+        textAlign: "center",
+        id: "short_description"
+    });
+    $.__views.bb1.add($.__views.short_description);
     $.__views.win1 = Ti.UI.iOS.createNavigationWindow({
         window: $.__views.profile_name,
         id: "win1"

@@ -1,9 +1,5 @@
 var current_user_id;
 
-
-
-
-
 function sendMsg(e){
 	
 }
@@ -53,7 +49,8 @@ function getFriend(userid){
 	    	//$.profilewin.profile_name.text = 'lol';
 	    	console.log('pesosa nome: ' + JSON.parse(this.responseText).user.name);
 	    	current_user_id = JSON.parse(this.responseText).user.id;
-	    	 $.profile_name.title = JSON.parse(this.responseText).user.name;
+	    	$.profile_name.title = JSON.parse(this.responseText).user.name;
+	    	$.profile_name.short_description = JSON.parse(this.responseText).user.short_description;
 			
 	    },
 	    onerror : function(e) {

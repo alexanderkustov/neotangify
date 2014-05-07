@@ -1,65 +1,12 @@
 function Controller() {
-    function goback() {
-        var win = Alloy.createController("index").getView();
+    function editProfile() {
+        var win = Alloy.createController("editProfile").getView();
         win.open();
     }
-    function editProfile() {
-        var url = mainserver + "/users/" + Alloy.Globals.user_id + "/?format=json&auth_token=" + Alloy.Globals.auth_token;
-        var client = Ti.Network.createHTTPClient({
-            onload: function() {
-                Ti.API.info("Received text: " + this.responseText);
-                alert("Profile updated!");
-            },
-            onerror: function(e) {
-                alert("Error updating profile: " + e.code);
-                console.log(e);
-            },
-            timeout: 6e4
-        });
-        var params = {
-            user: {
-                name: $.name.value,
-                email: $.email.value.toLowerCase(),
-                short_description: $.short_description.value,
-                password: $.password.value,
-                password_confirmation: $.password_confirmation.value
-            }
-        };
-        client.open("PUT", url);
-        client.send(params);
-        auth_token = null;
-    }
-    function takePicture() {
-        var dialog = Titanium.UI.createOptionDialog({
-            title: "Choose an image source...",
-            options: [ "Camera", "Photo Gallery", "Cancel" ],
-            cancel: 2
-        });
-        dialog.addEventListener("click", function(e) {
-            0 == e.index ? Titanium.Media.showCamera({
-                success: function(event) {
-                    var image = event.media;
-                    event.mediaType == Ti.Media.MEDIA_TYPE_PHOTO && Ti.App.Properties.setString("image", image.nativePath);
-                },
-                cancel: function() {},
-                error: function(error) {
-                    var a = Titanium.UI.createAlertDialog({
-                        title: "Camera"
-                    });
-                    error.code == Titanium.Media.NO_CAMERA ? a.setMessage("Device does not have camera") : a.setMessage("Unexpected error: " + error.code);
-                    a.show();
-                },
-                allowImageEditing: true,
-                saveToPhotoGallery: true
-            }) : 1 == e.index && Titanium.Media.openPhotoGallery({
-                success: function(event) {
-                    var image = event.media;
-                    event.mediaType == Ti.Media.MEDIA_TYPE_PHOTO && Ti.App.Properties.setString("image", image.nativePath);
-                },
-                cancel: function() {}
-            });
-        });
-        dialog.show();
+    function loadData() {
+        $.user_name.text = Alloy.Globals.user_name;
+        $.birthdate.text = Alloy.Globals.birthdate;
+        $.short_description.text = Alloy.Globals.short_description;
     }
     require("alloy/controllers/BaseController").apply(this, Array.prototype.slice.call(arguments));
     this.__controllerPath = "profile";
@@ -69,70 +16,45 @@ function Controller() {
     var $ = this;
     var exports = {};
     var __defers = {};
-    $.__views.__alloyId26 = Ti.UI.createWindow({
+    $.__views.profile = Ti.UI.createWindow({
         backgroundImage: "background.jpg",
         color: "#fff",
-        title: "Registration",
+        title: "Profile",
+        id: "profile"
+    });
+    $.__views.profile && $.addTopLevelView($.__views.profile);
+    $.__views.edut = Ti.UI.createButton({
+        color: "fff",
+        id: "edut",
+        title: "Edit"
+    });
+    editProfile ? $.__views.edut.addEventListener("click", editProfile) : __defers["$.__views.edut!click!editProfile"] = true;
+    $.__views.profile.rightNavButton = $.__views.edut;
+    $.__views.__alloyId25 = Ti.UI.createView({
+        layout: "vertical",
+        id: "__alloyId25"
+    });
+    $.__views.profile.add($.__views.__alloyId25);
+    $.__views.__alloyId26 = Ti.UI.createImageView({
+        image: "/tangy_back.jpg",
+        zIndex: "1",
+        height: "160",
+        top: "-50",
+        width: Ti.UI.FILL,
         id: "__alloyId26"
     });
-    $.__views.back = Ti.UI.createButton({
-        color: "fff",
-        title: "Back",
-        id: "back"
+    $.__views.__alloyId25.add($.__views.__alloyId26);
+    $.__views.__alloyId27 = Ti.UI.createImageView({
+        image: "/person.png",
+        zIndex: "5",
+        top: "-50",
+        borderRadius: "50%",
+        borderWidth: "3",
+        borderColor: "white",
+        id: "__alloyId27"
     });
-    goback ? $.__views.back.addEventListener("click", goback) : __defers["$.__views.back!click!goback"] = true;
-    $.__views.__alloyId26.leftNavButton = $.__views.back;
-    $.__views.__alloyId28 = Ti.UI.createView({
-        layout: "vertical",
-        id: "__alloyId28"
-    });
-    $.__views.__alloyId26.add($.__views.__alloyId28);
-    $.__views.__alloyId29 = Ti.UI.createButton({
-        color: "fff",
-        title: "Picture",
-        height: "40",
-        width: Ti.UI.FILL,
-        id: "__alloyId29"
-    });
-    $.__views.__alloyId28.add($.__views.__alloyId29);
-    takePicture ? $.__views.__alloyId29.addEventListener("click", takePicture) : __defers["$.__views.__alloyId29!click!takePicture"] = true;
-    $.__views.name = Ti.UI.createTextField({
-        color: "#333",
-        borderStyle: Ti.UI.INPUT_BORDERSTYLE_ROUNDED,
-        top: 10,
-        left: 10,
-        right: 10,
-        width: Ti.UI.FILL,
-        height: "40",
-        hintText: "Name",
-        id: "name"
-    });
-    $.__views.__alloyId28.add($.__views.name);
-    $.__views.email = Ti.UI.createTextField({
-        color: "#333",
-        borderStyle: Ti.UI.INPUT_BORDERSTYLE_ROUNDED,
-        top: 10,
-        left: 10,
-        right: 10,
-        width: Ti.UI.FILL,
-        height: "40",
-        hintText: "Email",
-        id: "email"
-    });
-    $.__views.__alloyId28.add($.__views.email);
-    $.__views.short_description = Ti.UI.createTextField({
-        color: "#333",
-        borderStyle: Ti.UI.INPUT_BORDERSTYLE_ROUNDED,
-        top: 10,
-        left: 10,
-        right: 10,
-        width: Ti.UI.FILL,
-        height: "40",
-        hintText: "Short Description",
-        id: "short_description"
-    });
-    $.__views.__alloyId28.add($.__views.short_description);
-    $.__views.__alloyId30 = Ti.UI.createLabel({
+    $.__views.__alloyId25.add($.__views.__alloyId27);
+    $.__views.user_name = Ti.UI.createLabel({
         width: Ti.UI.SIZE,
         height: Ti.UI.SIZE,
         color: "#fff",
@@ -141,55 +63,37 @@ function Controller() {
             fontFamily: "Helvetica Neue"
         },
         textAlign: "center",
-        text: "Want to change your password? (Optional)",
-        id: "__alloyId30"
+        id: "user_name"
     });
-    $.__views.__alloyId28.add($.__views.__alloyId30);
-    $.__views.password = Ti.UI.createTextField({
-        color: "#333",
-        borderStyle: Ti.UI.INPUT_BORDERSTYLE_ROUNDED,
-        top: 10,
-        left: 10,
-        right: 10,
-        width: Ti.UI.FILL,
-        height: "40",
-        hintText: "Password",
-        passwordMask: "true",
-        id: "password"
+    $.__views.__alloyId25.add($.__views.user_name);
+    $.__views.birthdate = Ti.UI.createLabel({
+        width: Ti.UI.SIZE,
+        height: Ti.UI.SIZE,
+        color: "#fff",
+        font: {
+            fontSize: 20,
+            fontFamily: "Helvetica Neue"
+        },
+        textAlign: "center",
+        id: "birthdate"
     });
-    $.__views.__alloyId28.add($.__views.password);
-    $.__views.password_confirmation = Ti.UI.createTextField({
-        color: "#333",
-        borderStyle: Ti.UI.INPUT_BORDERSTYLE_ROUNDED,
-        top: 10,
-        left: 10,
-        right: 10,
-        width: Ti.UI.FILL,
-        height: "40",
-        hintText: "Confirm Password",
-        passwordMask: "true",
-        id: "password_confirmation"
+    $.__views.__alloyId25.add($.__views.birthdate);
+    $.__views.short_description = Ti.UI.createLabel({
+        width: Ti.UI.SIZE,
+        height: Ti.UI.SIZE,
+        color: "#fff",
+        font: {
+            fontSize: 20,
+            fontFamily: "Helvetica Neue"
+        },
+        textAlign: "center",
+        id: "short_description"
     });
-    $.__views.__alloyId28.add($.__views.password_confirmation);
-    $.__views.__alloyId31 = Ti.UI.createButton({
-        color: "fff",
-        title: "Submit",
-        height: "40",
-        width: Ti.UI.FILL,
-        id: "__alloyId31"
-    });
-    $.__views.__alloyId28.add($.__views.__alloyId31);
-    editProfile ? $.__views.__alloyId31.addEventListener("click", editProfile) : __defers["$.__views.__alloyId31!click!editProfile"] = true;
-    $.__views.win1 = Ti.UI.iOS.createNavigationWindow({
-        window: $.__views.__alloyId26,
-        id: "win1"
-    });
-    $.__views.win1 && $.addTopLevelView($.__views.win1);
+    $.__views.__alloyId25.add($.__views.short_description);
     exports.destroy = function() {};
     _.extend($, $.__views);
-    __defers["$.__views.back!click!goback"] && $.__views.back.addEventListener("click", goback);
-    __defers["$.__views.__alloyId29!click!takePicture"] && $.__views.__alloyId29.addEventListener("click", takePicture);
-    __defers["$.__views.__alloyId31!click!editProfile"] && $.__views.__alloyId31.addEventListener("click", editProfile);
+    $.profile.addEventListener("open", loadData);
+    __defers["$.__views.edut!click!editProfile"] && $.__views.edut.addEventListener("click", editProfile);
     _.extend($, exports);
 }
 

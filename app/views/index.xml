@@ -1,27 +1,12 @@
 <Alloy>
 	<TabGroup>
 		<Tab title="Profile" icon="profile.png">
-			<Window title="Profile">
-	            <RightNavButton>
-		            <Button id="edut" title="Edit" onClick="editProfile"/>
-		        </RightNavButton>
-
-				<View layout="vertical">
-					
-					
-					<ImageView image="/tangy_back.jpg" zIndex="1" height="160" top="-50" width="Ti.UI.FILL"></ImageView>
-					<ImageView image="/person.png" zIndex="5" top="-50" borderRadius="50%" borderWidth="3" borderColor="white"></ImageView>
-					<Label id="user_name"></Label>
-					<Label id="birthdate"></Label>
-					<Label id="short_description"></Label>					
-				</View>
-			</Window>
+			<Require type="view" src="profile" id="profile"/>
 		</Tab>
-		
 		<Tab title="Feed" icon="KS_nav_ui.png">
 			<Require type="view" src="activity" id="activity"/>
 		</Tab>
-		
+
 		<Tab title="Radar" icon="radar.png" id="radar_window">
 			<Require type="view" src="radar" id="radar"/>
 		</Tab>
@@ -31,14 +16,7 @@
 		</Tab>
 		
 		<Tab title="Settings" icon="settings.png">
-			<Window title="Chat">
-				<View layout="vertical">
-					<Label>I am Tangible on the Radar</Label>
-					<Switch id="basicSwitch" value="true" />
-					        		<Button height="40" width="Ti.UI.FILL" onClick="logout">Logout</Button>
-
-				</View>
-			</Window>
+			<Require type="view" src="settings" id="settings"/>
 		</Tab>
 	</TabGroup>
 </Alloy>
