@@ -31,27 +31,10 @@ function Controller() {
         var url = mainserver + "/people_nearby.json?" + "auth_token=" + Alloy.Globals.auth_token;
         var client = Ti.Network.createHTTPClient({
             onload: function() {
-                Ti.API.info("update radar text: " + this.responseText);
                 Ti.API.info("pessoas a tua volta: " + JSON.parse(this.responseText).people.length);
                 for (var i = 0; JSON.parse(this.responseText).people.length > i; i++) {
                     var persons_id = JSON.parse(this.responseText).people[i].id;
-                    var personView = Ti.UI.createView({
-                        top: 40 * i,
-                        id: JSON.parse(this.responseText).people[i].id
-                    });
-                    var face = Ti.UI.createImageView({
-                        image: "/person.png",
-                        top: 30 + i,
-                        width: 40,
-                        height: 40,
-                        borderRadius: 20
-                    });
-                    personView.addEventListener("click", function() {
-                        profilemodal(this.id);
-                        console.log("gaja a passar para modal: " + persons_id);
-                    });
-                    personView.add(face);
-                    $.radar.add(personView);
+                    addPersonToRadar(persons_id);
                 }
             },
             onerror: function(e) {
@@ -66,6 +49,25 @@ function Controller() {
         };
         client.open("GET", url);
         client.send(params);
+    }
+    function addPersonToRadar(personId) {
+        var personView = Ti.UI.createView({
+            top: 40 * personId,
+            id: personId
+        });
+        var face = Ti.UI.createImageView({
+            image: "/person.png",
+            top: 30 + personId,
+            width: 40,
+            height: 40,
+            borderRadius: 20
+        });
+        personView.addEventListener("click", function() {
+            profilemodal(this.id);
+            console.log("gaja a passar para modal: " + personId);
+        });
+        personView.add(face);
+        $.radar.add(personView);
     }
     function profilemodal(userid) {
         console.log(userid + " este e o user");
