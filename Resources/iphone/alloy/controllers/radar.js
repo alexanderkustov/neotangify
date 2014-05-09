@@ -52,7 +52,7 @@ function Controller() {
     }
     function addPersonToRadar(personId) {
         var personView = Ti.UI.createView({
-            top: 40 * (personId / 5),
+            top: 20 * personId * personId,
             id: personId
         });
         var face = Ti.UI.createImageView({

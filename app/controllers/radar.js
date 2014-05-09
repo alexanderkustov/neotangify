@@ -68,7 +68,7 @@ function updateRadar(lat, longi){
 function addPersonToRadar(personId){
 
 	var personView = Ti.UI.createView({
-		top: personId/5*40,
+		top: personId*personId*20,
 		id: personId
 	});
 
