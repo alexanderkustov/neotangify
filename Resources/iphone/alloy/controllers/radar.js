@@ -52,12 +52,12 @@ function Controller() {
     }
     function addPersonToRadar(personId) {
         var personView = Ti.UI.createView({
-            top: 40 * personId,
+            top: 40 * (personId / 5),
             id: personId
         });
         var face = Ti.UI.createImageView({
             image: "/person.png",
-            top: 30 + personId,
+            top: 30,
             width: 40,
             height: 40,
             borderRadius: 20
@@ -91,33 +91,33 @@ function Controller() {
         id: "radar_window"
     });
     $.__views.radar_window && $.addTopLevelView($.__views.radar_window);
-    $.__views.__alloyId37 = Ti.UI.createView({
+    $.__views.__alloyId44 = Ti.UI.createView({
         layout: "vertical",
-        id: "__alloyId37"
+        id: "__alloyId44"
     });
-    $.__views.radar_window.add($.__views.__alloyId37);
-    $.__views.__alloyId38 = Ti.UI.createButton({
+    $.__views.radar_window.add($.__views.__alloyId44);
+    $.__views.__alloyId45 = Ti.UI.createButton({
         color: "fff",
         title: "Geolocate",
         height: "40",
         width: Ti.UI.FILL,
-        id: "__alloyId38"
+        id: "__alloyId45"
     });
-    $.__views.__alloyId37.add($.__views.__alloyId38);
-    geolocate ? $.__views.__alloyId38.addEventListener("click", geolocate) : __defers["$.__views.__alloyId38!click!geolocate"] = true;
+    $.__views.__alloyId44.add($.__views.__alloyId45);
+    geolocate ? $.__views.__alloyId45.addEventListener("click", geolocate) : __defers["$.__views.__alloyId45!click!geolocate"] = true;
     $.__views.radar = Ti.UI.createView({
         id: "radar",
         width: "460px",
         height: "460px",
         backgroundImage: "/radar_back.png"
     });
-    $.__views.__alloyId37.add($.__views.radar);
+    $.__views.__alloyId44.add($.__views.radar);
     exports.destroy = function() {};
     _.extend($, $.__views);
     $.radar_window.addEventListener("focus", function() {
         geolocate();
     });
-    __defers["$.__views.__alloyId38!click!geolocate"] && $.__views.__alloyId38.addEventListener("click", geolocate);
+    __defers["$.__views.__alloyId45!click!geolocate"] && $.__views.__alloyId45.addEventListener("click", geolocate);
     _.extend($, exports);
 }
 

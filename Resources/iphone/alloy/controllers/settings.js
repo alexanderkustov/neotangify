@@ -21,12 +21,12 @@ function Controller() {
         id: "settings"
     });
     $.__views.settings && $.addTopLevelView($.__views.settings);
-    $.__views.__alloyId43 = Ti.UI.createView({
+    $.__views.__alloyId50 = Ti.UI.createView({
         layout: "vertical",
-        id: "__alloyId43"
+        id: "__alloyId50"
     });
-    $.__views.settings.add($.__views.__alloyId43);
-    $.__views.__alloyId44 = Ti.UI.createLabel({
+    $.__views.settings.add($.__views.__alloyId50);
+    $.__views.__alloyId51 = Ti.UI.createLabel({
         width: Ti.UI.SIZE,
         height: Ti.UI.SIZE,
         color: "#fff",
@@ -36,26 +36,26 @@ function Controller() {
         },
         textAlign: "center",
         text: "I am Tangible on the Radar",
-        id: "__alloyId44"
+        id: "__alloyId51"
     });
-    $.__views.__alloyId43.add($.__views.__alloyId44);
+    $.__views.__alloyId50.add($.__views.__alloyId51);
     $.__views.basicSwitch = Ti.UI.createSwitch({
         value: true,
         id: "basicSwitch"
     });
-    $.__views.__alloyId43.add($.__views.basicSwitch);
-    $.__views.__alloyId45 = Ti.UI.createButton({
+    $.__views.__alloyId50.add($.__views.basicSwitch);
+    $.__views.__alloyId52 = Ti.UI.createButton({
         color: "fff",
         title: "Logout",
         height: "40",
         width: Ti.UI.FILL,
-        id: "__alloyId45"
+        id: "__alloyId52"
     });
-    $.__views.__alloyId43.add($.__views.__alloyId45);
-    logout ? $.__views.__alloyId45.addEventListener("click", logout) : __defers["$.__views.__alloyId45!click!logout"] = true;
+    $.__views.__alloyId50.add($.__views.__alloyId52);
+    logout ? $.__views.__alloyId52.addEventListener("click", logout) : __defers["$.__views.__alloyId52!click!logout"] = true;
     exports.destroy = function() {};
     _.extend($, $.__views);
-    __defers["$.__views.__alloyId45!click!logout"] && $.__views.__alloyId45.addEventListener("click", logout);
+    __defers["$.__views.__alloyId52!click!logout"] && $.__views.__alloyId52.addEventListener("click", logout);
     _.extend($, exports);
 }
 

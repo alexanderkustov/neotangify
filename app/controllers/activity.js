@@ -149,7 +149,7 @@ function addActivitiesToTable(user_name, friend_name, position, friend_id, activ
 
 
 function profilemodal(userid){  
-    var profilewin = Alloy.createController('profilemodal', {userId: userid}).getView();
+    var profilewin = Alloy.createController('acceptFriend', {userId: userid}).getView();
     profilewin.open();
 }
 

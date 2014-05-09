@@ -97,7 +97,7 @@ function Controller() {
         });
     }
     function profilemodal(userid) {
-        var profilewin = Alloy.createController("profilemodal", {
+        var profilewin = Alloy.createController("acceptFriend", {
             userId: userid
         }).getView();
         profilewin.open();

@@ -68,13 +68,13 @@ function updateRadar(lat, longi){
 function addPersonToRadar(personId){
 
 	var personView = Ti.UI.createView({
-		top: personId*40,
+		top: personId/5*40,
 		id: personId
 	});
 
 	var face = Ti.UI.createImageView({
 		image: '/person.png',
-		top: 30+personId,
+		top: 30,
 		width: 40,
 		height: 40,
 		borderRadius:20

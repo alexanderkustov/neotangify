@@ -1,10 +1,12 @@
 <Alloy>
-<Window title="Chat">
+<Window title="Settings">
 				<View layout="vertical">
+					 <RightNavButton>
+		            <Button id="edut" title="Logout" onClick="logout"/>
+		        </RightNavButton>
 					<Label>I am Tangible on the Radar</Label>
 					<Switch id="basicSwitch" value="true" />
-					 <Button height="40" width="Ti.UI.FILL" onClick="logout">Logout</Button>
-
+					
 				</View>
 			</Window>
 		</Alloy>

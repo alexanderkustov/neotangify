@@ -10,31 +10,31 @@ function Controller() {
     arguments[0] ? arguments[0]["__itemTemplate"] : null;
     var $ = this;
     var exports = {};
-    var __alloyId10 = [];
+    var __alloyId19 = [];
     $.__views.profile = Alloy.createController("profile", {
         id: "profile"
     });
-    $.__views.__alloyId11 = Ti.UI.createTab({
+    $.__views.__alloyId20 = Ti.UI.createTab({
         window: $.__views.profile.getViewEx({
             recurse: true
         }),
         title: "Profile",
         icon: "profile.png",
-        id: "__alloyId11"
+        id: "__alloyId20"
     });
-    __alloyId10.push($.__views.__alloyId11);
+    __alloyId19.push($.__views.__alloyId20);
     $.__views.activity = Alloy.createController("activity", {
         id: "activity"
     });
-    $.__views.__alloyId13 = Ti.UI.createTab({
+    $.__views.__alloyId22 = Ti.UI.createTab({
         window: $.__views.activity.getViewEx({
             recurse: true
         }),
         title: "Feed",
         icon: "KS_nav_ui.png",
-        id: "__alloyId13"
+        id: "__alloyId22"
     });
-    __alloyId10.push($.__views.__alloyId13);
+    __alloyId19.push($.__views.__alloyId22);
     $.__views.radar = Alloy.createController("radar", {
         id: "radar"
     });
@@ -46,33 +46,33 @@ function Controller() {
         icon: "radar.png",
         id: "radar_window"
     });
-    __alloyId10.push($.__views.radar_window);
+    __alloyId19.push($.__views.radar_window);
     $.__views.chat = Alloy.createController("chat", {
         id: "chat"
     });
-    $.__views.__alloyId14 = Ti.UI.createTab({
+    $.__views.__alloyId23 = Ti.UI.createTab({
         window: $.__views.chat.getViewEx({
             recurse: true
         }),
         title: "Chat",
         icon: "chat.png",
-        id: "__alloyId14"
+        id: "__alloyId23"
     });
-    __alloyId10.push($.__views.__alloyId14);
+    __alloyId19.push($.__views.__alloyId23);
     $.__views.settings = Alloy.createController("settings", {
         id: "settings"
     });
-    $.__views.__alloyId15 = Ti.UI.createTab({
+    $.__views.__alloyId24 = Ti.UI.createTab({
         window: $.__views.settings.getViewEx({
             recurse: true
         }),
         title: "Settings",
         icon: "settings.png",
-        id: "__alloyId15"
+        id: "__alloyId24"
     });
-    __alloyId10.push($.__views.__alloyId15);
+    __alloyId19.push($.__views.__alloyId24);
     $.__views.index = Ti.UI.createTabGroup({
-        tabs: __alloyId10,
+        tabs: __alloyId19,
         id: "index"
     });
     $.__views.index && $.addTopLevelView($.__views.index);
