@@ -21,11 +21,11 @@ function Controller() {
         var row = Ti.UI.createTableViewRow({
             className: "friend_row",
             color: "white",
-            backgroundColor: "transparent",
+            backgroundColor: "rgba(0,0,0,0.2)",
             id: friend_id
         });
         var imageAvatar = Ti.UI.createImageView({
-            image: "profile.png",
+            image: "person.png",
             left: 5,
             top: 5,
             width: 45,
@@ -41,7 +41,7 @@ function Controller() {
             id: friend_id,
             width: "auto",
             color: "#fff",
-            left: 50,
+            left: 60,
             font: {
                 fontSize: 14,
                 fontWeight: "normal"

@@ -41,11 +41,12 @@ function getActivityFeed(e){
 	    			switch(parsedText[i].name){
     					case 'friend_request_accepted':
                             if(parsedText[i].read == false)
-    							addActivitiesToTable(parsedText[i].subject.user.name, parsedText[i].subject.friend.name, "Last", parsedText[i].subject.friend.id);
+    							addActivitiesToTable(parsedText[i].subject.user.name, parsedText[i].subject.friend.name, "Last", parsedText[i].subject.friend.id, parsedText[i].id);
     					break;
                         
                         case 'friend_request_recieved':
-                                addActivitiesToTable(parsedText[i].subject.user.name, parsedText[i].subject.friend.name, "Last", parsedText[i].subject.friend.id);
+                            if(parsedText[i].read == false)
+                                addActivitiesToTable(parsedText[i].subject.user.name, parsedText[i].subject.friend.name, "Last", parsedText[i].subject.friend.id, parsedText[i].id);
                         break;
 
     					default:
@@ -73,20 +74,20 @@ function getActivityFeed(e){
 }
 
 
-function addActivitiesToTable(user_name, friend_name, position, friend_id){
+function addActivitiesToTable(user_name, friend_name, position, friend_id, activity_id){
 
  var row = Ti.UI.createTableViewRow({
         className : "activity_row",
         color:'white',
         rowID: friend_id,
-        backgroundColor: 'transparent',
+        backgroundColor: 'rgba(0,0,0,0.2)',
         separatorStyle: Titanium.UI.iPhone.TableViewSeparatorStyle.NONE
 
     });
 
     var imageAvatar = Ti.UI.createButton({
-        backgroundImage: 'profile.png',
-        backgroundSelectedImage:'profile.png',
+        backgroundImage: 'person.png',
+        backgroundSelectedImage:'person.png',
         left:5, top:5,
         id: friend_id,
         width:45, height:45,
@@ -114,15 +115,17 @@ function addActivitiesToTable(user_name, friend_name, position, friend_id){
     });
 
     var readButton = Ti.UI.createButton({
-        title: '✖',
-        color: '#ff0000',
+        title: 'x',
+        color: '#fff',
+        id: activity_id,
         top: 10, right: 0, 
         width: 20, height: 50
     });
 
     var acceptButton = Ti.UI.createButton({
         title: '✓',
-        color: '#00ff00',
+        color: '#fff',
+      
         top: 10, right: 30, 
         width: 20, height: 50
     });
@@ -130,6 +133,11 @@ function addActivitiesToTable(user_name, friend_name, position, friend_id){
     row.add(label);
     row.add(acceptButton);
     row.add(readButton);
+
+    readButton.addEventListener('click',function(e){
+        Ti.API.info("You marking this as read: " + this.id);
+        markAsRead(this.id);
+    });
 
      if(position == "First") {
         $.activityTable.insertRowBefore(0, row);
@@ -144,6 +152,13 @@ function profilemodal(userid){
     var profilewin = Alloy.createController('profilemodal', {userId: userid}).getView();
     profilewin.open();
 }
+
+function markAsRead(activity_id){
+    console.log("marking this as read");
+    //falta por o codigo para fazer post do atributo read nas activiites
+
+}
+
 
 $.activityWindow.addEventListener('focus', function() {
     getActivityFeed();

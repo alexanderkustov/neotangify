@@ -66,55 +66,55 @@ function Controller() {
     });
     goback ? $.__views.back.addEventListener("click", goback) : __defers["$.__views.back!click!goback"] = true;
     $.__views.profile_name.leftNavButton = $.__views.back;
-    $.__views.__alloyId29 = Ti.UI.createView({
+    $.__views.__alloyId28 = Ti.UI.createView({
         layout: "vertical",
-        id: "__alloyId29"
+        id: "__alloyId28"
     });
-    $.__views.profile_name.add($.__views.__alloyId29);
-    $.__views.__alloyId30 = Ti.UI.createImageView({
+    $.__views.profile_name.add($.__views.__alloyId28);
+    $.__views.__alloyId29 = Ti.UI.createImageView({
         image: "/tangy_back.jpg",
         zIndex: "1",
         height: "160",
         top: "-50",
         width: Ti.UI.FILL,
-        id: "__alloyId30"
+        id: "__alloyId29"
     });
-    $.__views.__alloyId29.add($.__views.__alloyId30);
-    $.__views.__alloyId31 = Ti.UI.createImageView({
+    $.__views.__alloyId28.add($.__views.__alloyId29);
+    $.__views.__alloyId30 = Ti.UI.createImageView({
         image: "/person.png",
         zIndex: "5",
         top: "-50",
         borderRadius: "50%",
         borderWidth: "3",
         borderColor: "white",
-        id: "__alloyId31"
+        id: "__alloyId30"
     });
-    $.__views.__alloyId29.add($.__views.__alloyId31);
-    var __alloyId33 = [];
-    var __alloyId35 = {
+    $.__views.__alloyId28.add($.__views.__alloyId30);
+    var __alloyId32 = [];
+    var __alloyId34 = {
         title: "Send a Msg",
         ns: "Alloy.Abstract"
     };
-    __alloyId33.push(__alloyId35);
-    var __alloyId36 = {
+    __alloyId32.push(__alloyId34);
+    var __alloyId35 = {
         title: "Accept Friend",
         ns: "Alloy.Abstract"
     };
-    __alloyId33.push(__alloyId36);
-    var __alloyId37 = {
+    __alloyId32.push(__alloyId35);
+    var __alloyId36 = {
         title: "Reject",
         ns: "Alloy.Abstract"
     };
-    __alloyId33.push(__alloyId37);
+    __alloyId32.push(__alloyId36);
     $.__views.bb1 = Ti.UI.iOS.createTabbedBar({
-        labels: __alloyId33,
+        labels: __alloyId32,
         id: "bb1",
         backgroundColor: "#fff",
         top: "50",
         height: "25",
         width: "300"
     });
-    $.__views.__alloyId29.add($.__views.bb1);
+    $.__views.__alloyId28.add($.__views.bb1);
     $.__views.short_description = Ti.UI.createLabel({
         width: Ti.UI.SIZE,
         height: Ti.UI.SIZE,

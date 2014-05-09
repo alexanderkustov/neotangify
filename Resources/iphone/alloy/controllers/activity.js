@@ -10,11 +10,11 @@ function Controller() {
                 var parsedText = JSON.parse(this.responseText).activities;
                 for (var i = 0; parsedText.length > i; i++) switch (parsedText[i].name) {
                   case "friend_request_accepted":
-                    false == parsedText[i].read && addActivitiesToTable(parsedText[i].subject.user.name, parsedText[i].subject.friend.name, "Last", parsedText[i].subject.friend.id);
+                    false == parsedText[i].read && addActivitiesToTable(parsedText[i].subject.user.name, parsedText[i].subject.friend.name, "Last", parsedText[i].subject.friend.id, parsedText[i].id);
                     break;
 
                   case "friend_request_recieved":
-                    addActivitiesToTable(parsedText[i].subject.user.name, parsedText[i].subject.friend.name, "Last", parsedText[i].subject.friend.id);
+                    false == parsedText[i].read && addActivitiesToTable(parsedText[i].subject.user.name, parsedText[i].subject.friend.name, "Last", parsedText[i].subject.friend.id, parsedText[i].id);
                     break;
 
                   default:
@@ -33,17 +33,17 @@ function Controller() {
         client.open("GET", url);
         client.send(params);
     }
-    function addActivitiesToTable(user_name, friend_name, position, friend_id) {
+    function addActivitiesToTable(user_name, friend_name, position, friend_id, activity_id) {
         var row = Ti.UI.createTableViewRow({
             className: "activity_row",
             color: "white",
             rowID: friend_id,
-            backgroundColor: "transparent",
+            backgroundColor: "rgba(0,0,0,0.2)",
             separatorStyle: Titanium.UI.iPhone.TableViewSeparatorStyle.NONE
         });
         var imageAvatar = Ti.UI.createButton({
-            backgroundImage: "profile.png",
-            backgroundSelectedImage: "profile.png",
+            backgroundImage: "person.png",
+            backgroundSelectedImage: "person.png",
             left: 5,
             top: 5,
             id: friend_id,
@@ -69,8 +69,9 @@ function Controller() {
             }
         });
         var readButton = Ti.UI.createButton({
-            title: "✖",
-            color: "#ff0000",
+            title: "x",
+            color: "#fff",
+            id: activity_id,
             top: 10,
             right: 0,
             width: 20,
@@ -78,7 +79,7 @@ function Controller() {
         });
         var acceptButton = Ti.UI.createButton({
             title: "✓",
-            color: "#00ff00",
+            color: "#fff",
             top: 10,
             right: 30,
             width: 20,
@@ -87,6 +88,10 @@ function Controller() {
         row.add(label);
         row.add(acceptButton);
         row.add(readButton);
+        readButton.addEventListener("click", function() {
+            Ti.API.info("You marking this as read: " + this.id);
+            markAsRead(this.id);
+        });
         "First" == position ? $.activityTable.insertRowBefore(0, row) : $.activityTable.appendRow(row, {
             animationStyle: Titanium.UI.iPhone.RowAnimationStyle.RIGHT
         });
@@ -96,6 +101,9 @@ function Controller() {
             userId: userid
         }).getView();
         profilewin.open();
+    }
+    function markAsRead() {
+        console.log("marking this as read");
     }
     require("alloy/controllers/BaseController").apply(this, Array.prototype.slice.call(arguments));
     this.__controllerPath = "activity";
@@ -119,11 +127,6 @@ function Controller() {
     });
     getActivityFeed ? $.__views.refresh.addEventListener("click", getActivityFeed) : __defers["$.__views.refresh!click!getActivityFeed"] = true;
     $.__views.activityWindow.rightNavButton = $.__views.refresh;
-    $.__views.__alloyId1 = Ti.UI.createView({
-        layout: "vertical",
-        id: "__alloyId1"
-    });
-    $.__views.activityWindow.add($.__views.__alloyId1);
     $.__views.feed_area = Ti.UI.createScrollView({
         id: "feed_area",
         layout: "vertical",
@@ -131,22 +134,9 @@ function Controller() {
         contentHeight: "auto",
         showVerticalScrollIndicator: "true",
         showHorizontalScrollIndicator: "false",
-        height: "80%"
+        height: "100%"
     });
-    $.__views.__alloyId1.add($.__views.feed_area);
-    $.__views.status = Ti.UI.createLabel({
-        width: Ti.UI.SIZE,
-        height: Ti.UI.SIZE,
-        color: "#fff",
-        font: {
-            fontSize: "16"
-        },
-        textAlign: "center",
-        left: "5",
-        right: "5",
-        id: "status"
-    });
-    $.__views.feed_area.add($.__views.status);
+    $.__views.activityWindow.add($.__views.feed_area);
     $.__views.activityTable = Ti.UI.createTableView({
         id: "activityTable",
         backgroundColor: "transparent"
