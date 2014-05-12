@@ -102,8 +102,26 @@ function Controller() {
         }).getView();
         profilewin.open();
     }
-    function markAsRead() {
-        console.log("marking this as read");
+    function markAsRead(activity_id) {
+        var url = mainserver + "/activities.json?" + activity_id + "&auth_token=" + Alloy.Globals.auth_token;
+        var client = Ti.Network.createHTTPClient({
+            onload: function() {
+                Ti.API.info("Received text: " + this.responseText);
+                Ti.API.info("activity read!");
+            },
+            onerror: function(e) {
+                alert("error" + e);
+                console.log(e);
+            },
+            timeout: 6e4
+        });
+        var params = {
+            activity: {
+                read: "true"
+            }
+        };
+        client.open("PUT", url);
+        client.send(params);
     }
     require("alloy/controllers/BaseController").apply(this, Array.prototype.slice.call(arguments));
     this.__controllerPath = "activity";

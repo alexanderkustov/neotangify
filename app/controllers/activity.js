@@ -154,9 +154,32 @@ function profilemodal(userid){
 }
 
 function markAsRead(activity_id){
-    console.log("marking this as read");
-    //falta por o codigo para fazer post do atributo read nas activiites
+   
+    var url = mainserver + '/activities.json?' + activity_id +  '&auth_token=' + Alloy.Globals.auth_token ;
+    
+    var client = Ti.Network.createHTTPClient({
+        onload : function(e) {
+            Ti.API.info("Received text: " + this.responseText);
+            Ti.API.info("activity read!")
+            
+            
+        },
+        onerror : function(e) {
+            alert('error' + e);
+            console.log(e);
+        },
+        timeout : 60 * 1000
+    });
+    
+            var params = {
+        'activity': { 
+            'read': "true"
+    }
+            };
 
+    client.open("PUT", url);
+    client.send(params); 
+    
 }
 
 
