@@ -34,7 +34,10 @@ function Controller() {
                 Ti.API.info("pessoas a tua volta: " + JSON.parse(this.responseText).people.length);
                 for (var i = 0; JSON.parse(this.responseText).people.length > i; i++) {
                     var persons_id = JSON.parse(this.responseText).people[i].id;
-                    addPersonToRadar(persons_id);
+                    var lat = JSON.parse(this.responseText).people[i].position.latitude;
+                    var longi = JSON.parse(this.responseText).people[i].position.longitude;
+                    Ti.API.info("pessoa: " + persons_id + " " + lat + " " + longi);
+                    addPersonToRadar(persons_id, lat, longi);
                 }
             },
             onerror: function(e) {
@@ -50,14 +53,14 @@ function Controller() {
         client.open("GET", url);
         client.send(params);
     }
-    function addPersonToRadar(personId) {
+    function addPersonToRadar(personId, lat, longi) {
         var personView = Ti.UI.createView({
-            top: 20 * personId * personId,
+            top: offsetLat(lat),
+            left: offsetLong(longi),
             id: personId
         });
         var face = Ti.UI.createImageView({
             image: "/person.png",
-            top: 30,
             width: 40,
             height: 40,
             borderRadius: 20
@@ -68,6 +71,12 @@ function Controller() {
         });
         personView.add(face);
         $.radar.add(personView);
+    }
+    function offsetLat(lat) {
+        return cur_latitude - lat;
+    }
+    function offsetLong(longi) {
+        return cur_longitude - longi;
     }
     function profilemodal(userid) {
         console.log(userid + " este e o user");
@@ -114,6 +123,7 @@ function Controller() {
     $.__views.__alloyId44.add($.__views.radar);
     exports.destroy = function() {};
     _.extend($, $.__views);
+    var cur_longitude, cur_latitude;
     $.radar_window.addEventListener("focus", function() {
         geolocate();
     });

@@ -1,3 +1,5 @@
+var cur_longitude, cur_latitude;
+
 function geolocate(e)
 {
 	var cur_longitude, cur_latitude, cur_loc_timestamp;
@@ -19,7 +21,6 @@ function changePosition(lat, longi){
 	    onload : function(e) {
 	    	Ti.API.info("Received text: " + this.responseText);
 	    	updateRadar(lat,longi);
-	    	
 	    },
 	    // function called when an error occurs, including a timeout
 	    onerror : function(e) {
@@ -28,10 +29,7 @@ function changePosition(lat, longi){
 	    timeout : 60 * 1000
 	});
 	
-	var params = {
-		'latitude': lat,
-		'longitude' : longi
-	};
+	var params = { 'latitude': lat, 'longitude' : longi };
 	
 	client.open("POST", url);
 	client.send(params);
@@ -49,8 +47,13 @@ function updateRadar(lat, longi){
 
 			
 			for (var i = 0; i < JSON.parse(this.responseText).people.length; i++) {
+
 				var persons_id = JSON.parse(this.responseText).people[i].id;
-				addPersonToRadar(persons_id);
+				var lat = JSON.parse(this.responseText).people[i].position.latitude;
+				var longi = JSON.parse(this.responseText).people[i].position.longitude;
+				Ti.API.info("pessoa: " + persons_id + " " + lat + " " + longi );
+
+				addPersonToRadar(persons_id, lat, longi);
 			}
 		},
 		onerror : function(e) {
@@ -65,16 +68,17 @@ function updateRadar(lat, longi){
 	client.send(params);  
 }
 
-function addPersonToRadar(personId){
+function addPersonToRadar(personId, lat, longi){
 
 	var personView = Ti.UI.createView({
-		top: personId*personId*20,
+		top: offsetLat(lat), //centro mais offset
+		left: offsetLong(longi), //centro mais offset
 		id: personId
 	});
 
 	var face = Ti.UI.createImageView({
 		image: '/person.png',
-		top: 30,
+		
 		width: 40,
 		height: 40,
 		borderRadius:20
@@ -88,6 +92,33 @@ function addPersonToRadar(personId){
 	personView.add(face);
 	
 	$.radar.add(personView);
+}
+
+function offsetLat(lat){
+	return cur_latitude - lat;
+}
+
+function offsetLong(longi){
+	return cur_longitude - longi;
+}
+
+
+
+//nao usada ainda mas pode ser util para depois fazer cenas em metros
+function measure(lat1, lon1, lat2, lon2){  // generally used geo measurement function
+    var R = 6378.137; // Radius of earth in KM
+    var dLat = (lat2 - lat1) * Math.PI / 180;
+    var dLon = (lon2 - lon1) * Math.PI / 180;
+    
+    var a = Math.sin(dLat/2) * Math.sin(dLat/2) +
+    Math.cos(lat1 * Math.PI / 180) * Math.cos(lat2 * Math.PI / 180) *
+    Math.sin(dLon/2) * Math.sin(dLon/2);
+
+    var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
+
+    var d = R * c;
+    
+    return d * 1000; // meters
 }
 
 

@@ -41,12 +41,12 @@ function getActivityFeed(e){
 	    			switch(parsedText[i].name){
     					case 'friend_request_accepted':
                             if(parsedText[i].read == false)
-    							addActivitiesToTable(parsedText[i].subject.user.name, parsedText[i].subject.friend.name, "Last", parsedText[i].subject.friend.id, parsedText[i].id);
+    							addActivitiesToTable(parsedText[i].subject.user.name, parsedText[i].subject.friend.name, "Last", parsedText[i].subject.friend.id, parsedText[i].id, "accepted");
     					break;
                         
                         case 'friend_request_recieved':
                             if(parsedText[i].read == false)
-                                addActivitiesToTable(parsedText[i].subject.user.name, parsedText[i].subject.friend.name, "Last", parsedText[i].subject.friend.id, parsedText[i].id);
+                                addActivitiesToTable(parsedText[i].subject.user.name, parsedText[i].subject.friend.name, "Last", parsedText[i].subject.friend.id, parsedText[i].id, "recieved");
                         break;
 
     					default:
@@ -74,7 +74,7 @@ function getActivityFeed(e){
 }
 
 
-function addActivitiesToTable(user_name, friend_name, position, friend_id, activity_id){
+function addActivitiesToTable(user_name, friend_name, position, friend_id, activity_id, type){
 
  var row = Ti.UI.createTableViewRow({
         className : "activity_row",
@@ -131,7 +131,9 @@ function addActivitiesToTable(user_name, friend_name, position, friend_id, activ
     });
   
     row.add(label);
-    row.add(acceptButton);
+    if(type == "recieved"){
+        row.add(acceptButton);
+    }
     row.add(readButton);
 
     readButton.addEventListener('click',function(e){
@@ -160,7 +162,6 @@ function markAsRead(activity_id){
     var client = Ti.Network.createHTTPClient({
         onload : function(e) {
             Ti.API.info("Received text: " + this.responseText);
-            Ti.API.info("activity read!")
             
             
         },

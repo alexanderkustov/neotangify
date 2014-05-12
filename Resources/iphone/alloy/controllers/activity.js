@@ -10,11 +10,11 @@ function Controller() {
                 var parsedText = JSON.parse(this.responseText).activities;
                 for (var i = 0; parsedText.length > i; i++) switch (parsedText[i].name) {
                   case "friend_request_accepted":
-                    false == parsedText[i].read && addActivitiesToTable(parsedText[i].subject.user.name, parsedText[i].subject.friend.name, "Last", parsedText[i].subject.friend.id, parsedText[i].id);
+                    false == parsedText[i].read && addActivitiesToTable(parsedText[i].subject.user.name, parsedText[i].subject.friend.name, "Last", parsedText[i].subject.friend.id, parsedText[i].id, "accepted");
                     break;
 
                   case "friend_request_recieved":
-                    false == parsedText[i].read && addActivitiesToTable(parsedText[i].subject.user.name, parsedText[i].subject.friend.name, "Last", parsedText[i].subject.friend.id, parsedText[i].id);
+                    false == parsedText[i].read && addActivitiesToTable(parsedText[i].subject.user.name, parsedText[i].subject.friend.name, "Last", parsedText[i].subject.friend.id, parsedText[i].id, "recieved");
                     break;
 
                   default:
@@ -33,7 +33,7 @@ function Controller() {
         client.open("GET", url);
         client.send(params);
     }
-    function addActivitiesToTable(user_name, friend_name, position, friend_id, activity_id) {
+    function addActivitiesToTable(user_name, friend_name, position, friend_id, activity_id, type) {
         var row = Ti.UI.createTableViewRow({
             className: "activity_row",
             color: "white",
@@ -86,7 +86,7 @@ function Controller() {
             height: 50
         });
         row.add(label);
-        row.add(acceptButton);
+        "recieved" == type && row.add(acceptButton);
         row.add(readButton);
         readButton.addEventListener("click", function() {
             Ti.API.info("You marking this as read: " + this.id);
@@ -107,7 +107,6 @@ function Controller() {
         var client = Ti.Network.createHTTPClient({
             onload: function() {
                 Ti.API.info("Received text: " + this.responseText);
-                Ti.API.info("activity read!");
             },
             onerror: function(e) {
                 alert("error" + e);
