@@ -1,6 +1,5 @@
 function Controller() {
     function geolocate() {
-        var cur_longitude, cur_latitude;
         Titanium.Geolocation.getCurrentPosition(function(e) {
             cur_longitude = e.coords.longitude;
             cur_latitude = e.coords.latitude;
@@ -54,6 +53,8 @@ function Controller() {
         client.send(params);
     }
     function addPersonToRadar(personId, lat, longi) {
+        console.log("offsetLat " + offsetLat(lat));
+        console.log("offsetLong " + offsetLong(longi));
         var personView = Ti.UI.createView({
             top: offsetLat(lat),
             left: offsetLong(longi),
