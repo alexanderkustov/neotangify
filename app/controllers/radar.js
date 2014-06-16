@@ -17,12 +17,10 @@ function changePosition(lat, longi){
 	var url = mainserver + '/change_position.json?' + 'auth_token=' + Alloy.Globals.auth_token ;
 	
 	var client = Ti.Network.createHTTPClient({
-	    // function called when the response data is available
 	    onload : function(e) {
 	    	Ti.API.info("Received text: " + this.responseText);
 	    	updateRadar(lat,longi);
 	    },
-	    // function called when an error occurs, including a timeout
 	    onerror : function(e) {
 	    	alert('error' + e);
 	    },
@@ -38,7 +36,6 @@ function changePosition(lat, longi){
 
 function updateRadar(lat, longi){
 	var url = mainserver + '/people_nearby.json?' + 'auth_token=' + Alloy.Globals.auth_token ;
-	//console.log(url);
 	
 	var client = Ti.Network.createHTTPClient({
 		onload : function(e) {

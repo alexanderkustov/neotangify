@@ -139,7 +139,7 @@ function autoLogin(user, pw){
 function openRegister(e)
 {
 	var win=Alloy.createController('register').getView();
-	win.open({transition:Ti.UI.iPhone.AnimationStyle.NONE});
+	win.open();
 }
 
 

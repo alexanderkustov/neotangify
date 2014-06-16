@@ -8,7 +8,6 @@
 			<TextField hintText="Password" passwordMask="true" height="40" width="Ti.UI.FILL" id="password" value="123"></TextField>
 			<Button height="40" width="Ti.UI.FILL" onClick="login">Login</Button>
 			<Button height="40" width="Ti.UI.FILL" onClick="facelogin">Facebook</Button>
-
 			<Button height="40" width="Ti.UI.FILL" onClick="openRegister">Register</Button>
 		</View>
 	</Window>

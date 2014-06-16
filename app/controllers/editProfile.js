@@ -19,13 +19,13 @@ function editProfile(e) {
 	});
 
         var params = {
-        'user': { 
+        'user': {
             'name': $.name.value,
             'email': $.email.value.toLowerCase(),
             'short_description': $.short_description.value,
             'password' : $.password.value ,
             'password_confirmation' : $.password_confirmation.value
-                }
+            }
         };
 
 	client.open("PUT", url);

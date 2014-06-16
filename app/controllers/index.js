@@ -36,14 +36,10 @@ function sendKeepAlives(){
     	setTimeout("sendKeepAlives();", 30000);
 }
 
-
-
-
-
 Alloy.Globals.tabgroup = $.index;
+
 var win=Alloy.createController('login').getView();
 
-
-win.open({transition : Ti.UI.iPhone.AnimationStyle.NONE});
+win.open();
 
 
