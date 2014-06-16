@@ -2,7 +2,7 @@ var cur_longitude, cur_latitude;
 
 function geolocate(e)
 {
-	var cur_longitude, cur_latitude, cur_loc_timestamp;
+	var cur_loc_timestamp;
 	Titanium.Geolocation.getCurrentPosition(function(e)
 	{
 		cur_longitude = e.coords.longitude;                     
@@ -66,7 +66,9 @@ function updateRadar(lat, longi){
 }
 
 function addPersonToRadar(personId, lat, longi){
-
+	console.log("offsetLat "+offsetLat(lat));
+	console.log("offsetLong "+offsetLong(longi));
+	
 	var personView = Ti.UI.createView({
 		top: offsetLat(lat), //centro mais offset
 		left: offsetLong(longi), //centro mais offset
@@ -92,11 +94,11 @@ function addPersonToRadar(personId, lat, longi){
 }
 
 function offsetLat(lat){
-	return cur_latitude - lat;
+	return (cur_latitude - lat);
 }
 
 function offsetLong(longi){
-	return cur_longitude - longi;
+	return (cur_longitude - longi);
 }
 
 
