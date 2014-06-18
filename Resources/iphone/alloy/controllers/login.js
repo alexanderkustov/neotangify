@@ -1,5 +1,5 @@
 function Controller() {
-    function facelogin() {
+    function facebookLogin() {
         var fb = require("facebook");
         fb.appid = 391052681038594;
         fb.permissions = [ "email, public_profile, user_friends " ];
@@ -13,7 +13,7 @@ function Controller() {
                     var name = response.name;
                     var gender = response.gender;
                     alert(name + " " + email + " " + gender + " " + age);
-                    alert("Logged in Successfully");
+                    autologin(email, email);
                 } else e.error ? alert(e.error) : alert("Unknown response");
             }) : e.error ? alert(e.error) : e.cancelled && alert("Canceled");
         });
@@ -54,9 +54,7 @@ function Controller() {
     }
     function openRegister() {
         var win = Alloy.createController("register").getView();
-        win.open({
-            transition: Ti.UI.iPhone.AnimationStyle.NONE
-        });
+        win.open();
     }
     require("alloy/controllers/BaseController").apply(this, Array.prototype.slice.call(arguments));
     this.__controllerPath = "login";
@@ -125,7 +123,7 @@ function Controller() {
         id: "__alloyId30"
     });
     $.__views.__alloyId27.add($.__views.__alloyId30);
-    facelogin ? $.__views.__alloyId30.addEventListener("click", facelogin) : __defers["$.__views.__alloyId30!click!facelogin"] = true;
+    facebookLogin ? $.__views.__alloyId30.addEventListener("click", facebookLogin) : __defers["$.__views.__alloyId30!click!facebookLogin"] = true;
     $.__views.__alloyId31 = Ti.UI.createButton({
         color: "fff",
         title: "Register",
@@ -143,7 +141,7 @@ function Controller() {
     exports.destroy = function() {};
     _.extend($, $.__views);
     __defers["$.__views.__alloyId29!click!login"] && $.__views.__alloyId29.addEventListener("click", login);
-    __defers["$.__views.__alloyId30!click!facelogin"] && $.__views.__alloyId30.addEventListener("click", facelogin);
+    __defers["$.__views.__alloyId30!click!facebookLogin"] && $.__views.__alloyId30.addEventListener("click", facebookLogin);
     __defers["$.__views.__alloyId31!click!openRegister"] && $.__views.__alloyId31.addEventListener("click", openRegister);
     _.extend($, exports);
 }

@@ -3,7 +3,6 @@ function editProfile(){
 	win.open();
 }
 
-
 function loadData(e){	
 	$.user_name.text = Alloy.Globals.user_name;
 	$.birthdate.text = Alloy.Globals.birthdate;

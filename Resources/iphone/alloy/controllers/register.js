@@ -23,7 +23,7 @@ function Controller() {
         client.send(params);
     }
     function goback() {
-        var win = Alloy.createController("index").getView();
+        var win = Alloy.createController("login").getView();
         win.open();
     }
     require("alloy/controllers/BaseController").apply(this, Array.prototype.slice.call(arguments));

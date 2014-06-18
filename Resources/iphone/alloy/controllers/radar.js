@@ -74,10 +74,12 @@ function Controller() {
         $.radar.add(personView);
     }
     function offsetLat(lat) {
-        return cur_latitude - lat;
+        console.log(cur_latitude - lat);
+        return .1 * (cur_latitude - lat);
     }
     function offsetLong(longi) {
-        return cur_longitude - longi;
+        console.log(cur_longitude - longi);
+        return .1 * (cur_longitude - longi);
     }
     function profilemodal(userid) {
         console.log(userid + " este e o user");

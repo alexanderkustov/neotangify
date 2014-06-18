@@ -1,36 +1,34 @@
-function facelogin(e)
+function facebookLogin(e)
 {
-
-var fb = require('facebook');
-fb.appid = 391052681038594;
-fb.permissions = ['email, public_profile, user_friends ']; // Permissions your app needs
-fb.forceDialogAuth = true;
-fb.addEventListener('login', function(e) {
-    if (e.success) {
-         fb.requestWithGraphPath('me', {}, 'GET', function(e) {
-            if (e.success) {
-                //alert(e.result);
-                var response = JSON.parse(e.result);
-                var email = response.email;
-                var age = response.age;
-                var name = response.name;
-                var gender = response.gender;
-                alert(name+' '+email+' '+gender + ' '+age);
-                alert('Logged in Successfully');
-            } else if (e.error) {
-                alert(e.error);
-            } else {
-                alert('Unknown response');
-            }
-        });
-    } else if (e.error) {
-        alert(e.error);
-    } else if (e.cancelled) {
-        alert("Canceled");
-    }
-});
-fb.authorize();
-
+	var fb = require('facebook');
+	fb.appid = 391052681038594;
+	fb.permissions = ['email, public_profile, user_friends ']; // Permissions your app needs
+	fb.forceDialogAuth = true;
+	fb.addEventListener('login', function(e) {
+	    if (e.success) {
+	         fb.requestWithGraphPath('me', {}, 'GET', function(e) {
+	            if (e.success) {
+	                //alert(e.result);
+	                var response = JSON.parse(e.result);
+	                var email = response.email;
+	                var age = response.age;
+	                var name = response.name;
+	                var gender = response.gender;
+	                alert(name+' '+email+' '+gender + ' '+age);
+	                autologin(email, email);
+	            } else if (e.error) {
+	                alert(e.error);
+	            } else {
+	                alert('Unknown response');
+	            }
+	        });
+	    } else if (e.error) {
+	        alert(e.error);
+	    } else if (e.cancelled) {
+	        alert("Canceled");
+	    }
+	});
+	fb.authorize();
 }
 
 
@@ -42,9 +40,7 @@ function login(e)
 	var client = Ti.Network.createHTTPClient({	    
 	    onload : function(e) {
 	    	Ti.API.info("Received text: " + this.responseText);
-
-			
-	      
+	    	 
 	  	 	//fica com auth token para sempre  	 
 	        Alloy.Globals.auth_token = JSON.parse(this.responseText).user.auth_token; 
 	        Ti.API.info("auth token:" +  Alloy.Globals.auth_token);

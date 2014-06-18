@@ -94,11 +94,14 @@ function addPersonToRadar(personId, lat, longi){
 }
 
 function offsetLat(lat){
-	return (cur_latitude - lat);
+		console.log((cur_latitude - lat));
+
+	return (cur_latitude - lat)*0.1;
 }
 
 function offsetLong(longi){
-	return (cur_longitude - longi);
+	console.log((cur_longitude - longi));
+	return (cur_longitude - longi)*0.1;
 }
 
 

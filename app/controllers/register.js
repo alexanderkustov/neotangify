@@ -31,7 +31,6 @@ function register(e){
 }
 
 function goback(e){
-	var win=Alloy.createController('index').getView();
+	var win=Alloy.createController('login').getView();
 	win.open();
-	
 }

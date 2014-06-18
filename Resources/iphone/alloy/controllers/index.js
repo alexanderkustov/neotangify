@@ -1,8 +1,4 @@
 function Controller() {
-    function sendKeepAlives() {
-        Alloy.Globals.WS.send(JSON.stringify([ "ping" ]));
-        setTimeout("sendKeepAlives();", 3e4);
-    }
     require("alloy/controllers/BaseController").apply(this, Array.prototype.slice.call(arguments));
     this.__controllerPath = "index";
     arguments[0] ? arguments[0]["__parentSymbol"] : null;
@@ -78,34 +74,11 @@ function Controller() {
     $.__views.index && $.addTopLevelView($.__views.index);
     exports.destroy = function() {};
     _.extend($, $.__views);
-    Ti.include("base64.js");
-    uri = "ws://tangifyapp.com:81";
-    Alloy.Globals.WS = require("net.iamyellow.tiws").createWS();
-    Alloy.Globals.WS.addEventListener("open", function() {
-        Ti.API.info("websocket opened");
-        Alloy.Globals.WS.send(JSON.stringify([ "connect", {
-            user: "a@a.com",
-            auth_token: Alloy.Globals.auth_token
-        } ]));
-        sendKeepAlives();
-    });
-    Alloy.Globals.WS.addEventListener("close", function(ev) {
-        Ti.API.info(ev);
-    });
-    Alloy.Globals.WS.addEventListener("error", function(ev) {
-        Ti.API.info(ev);
-    });
-    Alloy.Globals.WS.addEventListener("message", function(ev) {
-        Ti.App.fireEvent("app:messageReceived", {
-            e: ev
-        });
-    });
-    Alloy.Globals.WS.open(uri);
     Alloy.Globals.tabgroup = $.index;
     var win = Alloy.createController("login").getView();
-    win.open({
-        transition: Ti.UI.iPhone.AnimationStyle.NONE
-    });
+    win.open();
+    Ti.include("base64.js");
+    Ti.include("websockets.js");
     _.extend($, exports);
 }
 
