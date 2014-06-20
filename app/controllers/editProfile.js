@@ -4,7 +4,7 @@ function goback(e) {
 }
 
 function editProfile(e) {
-	var url = mainserver + "/users/"+Alloy.Globals.user_id+"/?format=json&auth_token=" + Alloy.Globals.auth_token ;
+	var url = mainserver + "/users/"+Alloy.Globals.user_id+".json?auth_token=" + Alloy.Globals.auth_token ;
 	
 	var client = Ti.Network.createHTTPClient({
 	    onload : function(e) {
@@ -15,7 +15,7 @@ function editProfile(e) {
 	        alert('Error updating profile: ' + e.code);
 	        console.log(e);
     },
-    timeout : 60 * 1000
+    	timeout : 60 * 1000
 	});
 
         var params = {
@@ -31,7 +31,7 @@ function editProfile(e) {
 	client.open("PUT", url);
 	
 	client.send(params);
-    auth_token = null;
+   // auth_token = null;
 }		
 
 //por agora a imagem fica nas Properties, ou seja e preciso fazer um getProperty(image) para ir busca la

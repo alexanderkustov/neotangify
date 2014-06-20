@@ -1,4 +1,3 @@
-
 var current_page = 1;
 
 var friend_id = Ti.App.SelectedFriend;
@@ -17,7 +16,7 @@ Ti.App.addEventListener("app:messageReceived", function(e) {
 // Listen for Return Key Press
 $.textChat.addEventListener( 'return', function(e) {
     appendChatMessage($.textChat.value, "Last");
-    sendMessage($.textChat.value);
+    sendMessage($.textChat.value, friend_id );
     $.textChat.value = "";
     //$.textChat.focus();
 });
@@ -129,7 +128,7 @@ function sendMessage(message, friend_id){
     //   width: Ti.UI.SIZE, height: Ti.UI.SIZE
     // });
 
-    Ti.API.info("Message sent: " + Base64.encode(message) + " frined_id: " + friend_id); 
+    Ti.API.info("Message sent: " + Base64.encode(message) + " frined_id: " + friend_id + "auth_token" + Alloy.Globals.auth_token); 
     Alloy.Globals.WS.send(JSON.stringify(["message",{"user": "a@a.com", "auth_token": Alloy.Globals.auth_token, "receiver_id": friend_id ,"message": Base64.encode(message)}]));
         
     // $.chatArea.add(chatMsg);
@@ -177,11 +176,4 @@ function appendChatMessage(message, position){
     }
     //$.chatArea.scrollToIndex($.chatArea.data[0].length);
     //$.chatArea.scrollToIndex(11);
-}
-
-// $.chatArea.addEventListener('open', function(e) { 
-//     getConversationWith("4");
-// })
-function conversation(e) {
-    getConversationWith(16);
 }

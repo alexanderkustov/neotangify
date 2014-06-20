@@ -4,7 +4,7 @@
 				
 		 <View layout="vertical">
 		 	<ImageView image="/login-logo.png" height="160">
-			<TextField value="a@a.com" height="40" width="Ti.UI.FILL" id="loginInput"></TextField>
+			<TextField value="u@u.com" height="40" width="Ti.UI.FILL" id="loginInput"></TextField>
 			<TextField hintText="Password" passwordMask="true" height="40" width="Ti.UI.FILL" id="password" value="123"></TextField>
 			<Button height="40" width="Ti.UI.FILL" onClick="login">Login</Button>
 			<Button height="40" width="Ti.UI.FILL" onClick="facebookLogin">Facebook</Button>

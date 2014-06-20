@@ -30,7 +30,6 @@ function Controller() {
         var url = mainserver + "/people_nearby.json?" + "auth_token=" + Alloy.Globals.auth_token;
         var client = Ti.Network.createHTTPClient({
             onload: function() {
-                Ti.API.info("pessoas a tua volta: " + JSON.parse(this.responseText).people.length);
                 for (var i = 0; JSON.parse(this.responseText).people.length > i; i++) {
                     var persons_id = JSON.parse(this.responseText).people[i].id;
                     var lat = JSON.parse(this.responseText).people[i].position.latitude;
@@ -53,12 +52,10 @@ function Controller() {
         client.send(params);
     }
     function addPersonToRadar(personId, lat, longi) {
-        console.log("offsetLat " + offsetLat(lat));
-        console.log("offsetLong " + offsetLong(longi));
+        console.log("metros de diferenca " + measure(lat, longi, cur_longitude, cur_latitude));
         var personView = Ti.UI.createView({
-            top: offsetLat(lat),
-            left: offsetLong(longi),
-            id: personId
+            id: personId,
+            left: percentualCalculate(lat, longi)
         });
         var face = Ti.UI.createImageView({
             image: "/person.png",
@@ -73,13 +70,17 @@ function Controller() {
         personView.add(face);
         $.radar.add(personView);
     }
-    function offsetLat(lat) {
-        console.log(cur_latitude - lat);
-        return .1 * (cur_latitude - lat);
+    function percentualCalculate(lat, longi) {
+        return 240 * measure(lat, longi, cur_longitude, cur_latitude) / 25;
     }
-    function offsetLong(longi) {
-        console.log(cur_longitude - longi);
-        return .1 * (cur_longitude - longi);
+    function measure(lat1, lon1, lat2, lon2) {
+        var R = 6378.137;
+        var dLat = (lat2 - lat1) * Math.PI / 180;
+        var dLon = (lon2 - lon1) * Math.PI / 180;
+        var a = Math.sin(dLat / 2) * Math.sin(dLat / 2) + Math.cos(lat1 * Math.PI / 180) * Math.cos(lat2 * Math.PI / 180) * Math.sin(dLon / 2) * Math.sin(dLon / 2);
+        var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+        var d = R * c;
+        return 1e3 * d;
     }
     function profilemodal(userid) {
         console.log(userid + " este e o user");
@@ -103,34 +104,44 @@ function Controller() {
         id: "radar_window"
     });
     $.__views.radar_window && $.addTopLevelView($.__views.radar_window);
-    $.__views.__alloyId44 = Ti.UI.createView({
+    $.__views.__alloyId42 = Ti.UI.createView({
         layout: "vertical",
-        id: "__alloyId44"
+        id: "__alloyId42"
     });
-    $.__views.radar_window.add($.__views.__alloyId44);
-    $.__views.__alloyId45 = Ti.UI.createButton({
+    $.__views.radar_window.add($.__views.__alloyId42);
+    $.__views.__alloyId43 = Ti.UI.createButton({
         color: "fff",
         title: "Geolocate",
         height: "40",
         width: Ti.UI.FILL,
-        id: "__alloyId45"
+        id: "__alloyId43"
     });
-    $.__views.__alloyId44.add($.__views.__alloyId45);
-    geolocate ? $.__views.__alloyId45.addEventListener("click", geolocate) : __defers["$.__views.__alloyId45!click!geolocate"] = true;
+    $.__views.__alloyId42.add($.__views.__alloyId43);
+    geolocate ? $.__views.__alloyId43.addEventListener("click", geolocate) : __defers["$.__views.__alloyId43!click!geolocate"] = true;
+    $.__views.__alloyId44 = Ti.UI.createButton({
+        color: "fff",
+        title: "Filter",
+        height: "40",
+        width: Ti.UI.FILL,
+        id: "__alloyId44"
+    });
+    $.__views.__alloyId42.add($.__views.__alloyId44);
+    geolocate ? $.__views.__alloyId44.addEventListener("click", geolocate) : __defers["$.__views.__alloyId44!click!geolocate"] = true;
     $.__views.radar = Ti.UI.createView({
         id: "radar",
         width: "460px",
         height: "460px",
         backgroundImage: "/radar_back.png"
     });
-    $.__views.__alloyId44.add($.__views.radar);
+    $.__views.__alloyId42.add($.__views.radar);
     exports.destroy = function() {};
     _.extend($, $.__views);
     var cur_longitude, cur_latitude;
     $.radar_window.addEventListener("focus", function() {
         geolocate();
     });
-    __defers["$.__views.__alloyId45!click!geolocate"] && $.__views.__alloyId45.addEventListener("click", geolocate);
+    __defers["$.__views.__alloyId43!click!geolocate"] && $.__views.__alloyId43.addEventListener("click", geolocate);
+    __defers["$.__views.__alloyId44!click!geolocate"] && $.__views.__alloyId44.addEventListener("click", geolocate);
     _.extend($, exports);
 }
 

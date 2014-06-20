@@ -53,8 +53,7 @@ function Controller() {
         });
     }
     function openChat(friend_id) {
-        selected_friend = friend_id;
-        Ti.App.SelectedFriend = selected_friend;
+        Ti.App.SelectedFriend = friend_id;
         var win = Alloy.createController("chatWindow").getView();
         win.open();
     }
@@ -89,7 +88,6 @@ function Controller() {
     $.__views.chatContaniner.add($.__views.friendsTable);
     exports.destroy = function() {};
     _.extend($, $.__views);
-    var selected_friend;
     $.chatFriends.addEventListener("focus", function() {
         var rd = [];
         $.friendsTable.data = rd;

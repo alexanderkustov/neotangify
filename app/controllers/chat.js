@@ -79,8 +79,8 @@ var label = Ti.UI.createLabel({
 
 
 function openChat(friend_id){
-    selected_friend = friend_id;
-    Ti.App.SelectedFriend = selected_friend;   
+   
+    Ti.App.SelectedFriend = friend_id;   
     var win=Alloy.createController('chatWindow').getView();
     win.open();
 }

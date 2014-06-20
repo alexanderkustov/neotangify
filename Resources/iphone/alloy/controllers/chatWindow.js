@@ -41,14 +41,6 @@ function Controller() {
             console.log("WTF is this?");
         }
     }
-    function getConversationWith(friend_id) {
-        Alloy.Globals.WS.send(JSON.stringify([ "get_conversation_with", {
-            user: "a@a.com",
-            auth_token: Alloy.Globals.auth_token,
-            friend_id: friend_id,
-            page: 1
-        } ]));
-    }
     function sendMsg() {
         appendChatMessage($.textChat.value);
         sendMessage($.textChat.value, friend_id);
@@ -56,7 +48,7 @@ function Controller() {
     }
     function sendMessage(message, friend_id) {
         if (!message) return;
-        Ti.API.info("Message sent: " + Base64.encode(message) + " frined_id: " + friend_id);
+        Ti.API.info("Message sent: " + Base64.encode(message) + " frined_id: " + friend_id + "auth_token" + Alloy.Globals.auth_token);
         Alloy.Globals.WS.send(JSON.stringify([ "message", {
             user: "a@a.com",
             auth_token: Alloy.Globals.auth_token,
@@ -97,9 +89,6 @@ function Controller() {
             animationStyle: Titanium.UI.iPhone.RowAnimationStyle.RIGHT
         });
     }
-    function conversation() {
-        getConversationWith(16);
-    }
     require("alloy/controllers/BaseController").apply(this, Array.prototype.slice.call(arguments));
     this.__controllerPath = "chatWindow";
     arguments[0] ? arguments[0]["__parentSymbol"] : null;
@@ -128,12 +117,13 @@ function Controller() {
         contentHeight: "auto",
         showVerticalScrollIndicator: "true",
         showHorizontalScrollIndicator: "false",
-        height: "80%"
+        height: "100%"
     });
     $.__views.chatWindow.add($.__views.chatContaniner);
     $.__views.chatArea = Ti.UI.createTableView({
         id: "chatArea",
-        backgroundColor: "transparent"
+        backgroundColor: "transparent",
+        height: "88%"
     });
     $.__views.chatContaniner.add($.__views.chatArea);
     $.__views.chatBtn = Ti.UI.createView({
@@ -143,7 +133,7 @@ function Controller() {
         height: "170px",
         backgroundColor: "#0071bc"
     });
-    $.__views.chatWindow.add($.__views.chatBtn);
+    $.__views.chatContaniner.add($.__views.chatBtn);
     $.__views.textChat = Ti.UI.createTextField({
         color: "#333",
         borderStyle: Ti.UI.INPUT_BORDERSTYLE_ROUNDED,
@@ -158,22 +148,13 @@ function Controller() {
     $.__views.chatBtn.add($.__views.textChat);
     $.__views.__alloyId11 = Ti.UI.createButton({
         color: "fff",
-        title: "Snd",
+        title: "Send",
         height: "40",
         width: "20%",
         id: "__alloyId11"
     });
     $.__views.chatBtn.add($.__views.__alloyId11);
     sendMsg ? $.__views.__alloyId11.addEventListener("click", sendMsg) : __defers["$.__views.__alloyId11!click!sendMsg"] = true;
-    $.__views.__alloyId12 = Ti.UI.createButton({
-        color: "fff",
-        title: "G",
-        height: "40",
-        width: "10%",
-        id: "__alloyId12"
-    });
-    $.__views.chatBtn.add($.__views.__alloyId12);
-    conversation ? $.__views.__alloyId12.addEventListener("click", conversation) : __defers["$.__views.__alloyId12!click!conversation"] = true;
     $.__views.win1 = Ti.UI.iOS.createNavigationWindow({
         window: $.__views.chatWindow,
         id: "win1"
@@ -187,12 +168,11 @@ function Controller() {
     });
     $.textChat.addEventListener("return", function() {
         appendChatMessage($.textChat.value, "Last");
-        sendMessage($.textChat.value);
+        sendMessage($.textChat.value, friend_id);
         $.textChat.value = "";
     });
     __defers["$.__views.back!click!goback"] && $.__views.back.addEventListener("click", goback);
     __defers["$.__views.__alloyId11!click!sendMsg"] && $.__views.__alloyId11.addEventListener("click", sendMsg);
-    __defers["$.__views.__alloyId12!click!conversation"] && $.__views.__alloyId12.addEventListener("click", conversation);
     _.extend($, exports);
 }
 

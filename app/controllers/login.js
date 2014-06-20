@@ -31,7 +31,6 @@ function facebookLogin(e)
 	fb.authorize();
 }
 
-
 function login(e)
 {
 	//starting to send out the auth
@@ -49,11 +48,17 @@ function login(e)
 	       	Alloy.Globals.short_description = JSON.parse(this.responseText).user.short_description; 
 	       	Alloy.Globals.user_id = JSON.parse(this.responseText).user.id; 
 	       	
-
-	        var win=Alloy.createController('index').getView();
+	       	//picture issues
+	       	/*
+	       	if(!JSON.parse(this.responseText).user.presentation_picture.url)
+	       	{
+	       		console.log("PICTURE : " +  JSON.parse(this.responseText).user.presentation_picture.url);
+	       		Alloy.Globals.user_pic = JSON.parse(this.responseText).user.presentation_picture.url;
+	       	}
+	       */
+	      var win=Alloy.createController('index').getView();
 	        win.open();
-			
-			
+
 	    },
 	    // function called when an error occurs, including a timeout
 	    onerror : function(e) {
@@ -80,8 +85,7 @@ function login(e)
 	client.open("POST", url);
 	client.send(params);
 }
-
-
+/**
 function autoLogin(user, pw){
 		//starting to send out the auth
 	var url = mainserver + "/auth/identity/callback?format=json";
@@ -131,28 +135,9 @@ function autoLogin(user, pw){
 	client.open("POST", url);
 	client.send(params);
 }
-
+*/
 function openRegister(e)
 {
 	var win=Alloy.createController('register').getView();
 	win.open();
 }
-
-
-/* ESTA TRETA ERA PARA FAZER AUTO LOGIN, MAS AGORA FAZ ISSO A CADA 2 SECS...
-
-$.win1.addEventListener('focus', function(e) {
-  
-   
-	for (var i=0; i<1; i++){
-	   
-	if(Ti.App.Properties.getString('saved_login') != null && Ti.App.Properties.getString('saved_pw') != null && i == 0 ){
-		autoLogin(Ti.App.Properties.getString('saved_login'), Ti.App.Properties.getString('saved_pw'));
-		flag=false;
-		
-	}
-$.win1.close();
-}
-});
-
-*/

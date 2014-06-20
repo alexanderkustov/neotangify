@@ -40,7 +40,7 @@ function updateRadar(lat, longi){
 	var client = Ti.Network.createHTTPClient({
 		onload : function(e) {
 			
-			Ti.API.info("pessoas a tua volta: " + JSON.parse(this.responseText).people.length);
+			//Ti.API.info("pessoas a tua volta: " + JSON.parse(this.responseText).people.length);
 
 			
 			for (var i = 0; i < JSON.parse(this.responseText).people.length; i++) {
@@ -66,15 +66,13 @@ function updateRadar(lat, longi){
 }
 
 function addPersonToRadar(personId, lat, longi){
-	console.log("offsetLat "+offsetLat(lat));
-	console.log("offsetLong "+offsetLong(longi));
+	console.log("metros de diferenca " + measure(lat, longi, cur_longitude, cur_latitude));
 	
-	var personView = Ti.UI.createView({
-		top: offsetLat(lat), //centro mais offset
-		left: offsetLong(longi), //centro mais offset
-		id: personId
+	var personView = Ti.UI.createView({		
+		id: personId,
+		left: percentualCalculate(lat, longi)
 	});
-
+	
 	var face = Ti.UI.createImageView({
 		image: '/person.png',
 		
@@ -83,30 +81,20 @@ function addPersonToRadar(personId, lat, longi){
 		borderRadius:20
 	});
 	
-	personView.addEventListener('click', function(e){
-		profilemodal(this.id);
-		console.log("gaja a passar para modal: " + personId);
-	});
-	
-	personView.add(face);
-	
-	$.radar.add(personView);
+		personView.addEventListener('click', function(e){
+			profilemodal(this.id);
+			console.log("gaja a passar para modal: " + personId);
+		});
+		
+		personView.add(face);
+		
+		$.radar.add(personView);
 }
 
-function offsetLat(lat){
-		console.log((cur_latitude - lat));
-
-	return (cur_latitude - lat)*0.1;
+function percentualCalculate(lat, longi){
+	return (measure(lat, longi, cur_longitude, cur_latitude) * 240)/25;
 }
 
-function offsetLong(longi){
-	console.log((cur_longitude - longi));
-	return (cur_longitude - longi)*0.1;
-}
-
-
-
-//nao usada ainda mas pode ser util para depois fazer cenas em metros
 function measure(lat1, lon1, lat2, lon2){  // generally used geo measurement function
     var R = 6378.137; // Radius of earth in KM
     var dLat = (lat2 - lat1) * Math.PI / 180;
