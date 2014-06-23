@@ -4,7 +4,7 @@ function goback(e) {
 }
 
 function editProfile(e) {
-	var url = mainserver + "/users/"+Alloy.Globals.user_id+".json?auth_token=" + Alloy.Globals.auth_token ;
+	var url = mainserver + "/users/"+Alloy.Globals.user_id;
 	
 	var client = Ti.Network.createHTTPClient({
 	    onload : function(e) {
@@ -18,19 +18,21 @@ function editProfile(e) {
     	timeout : 60 * 1000
 	});
 
+
         var params = {
-        'user': {
-            'name': $.name.value,
-            'email': $.email.value.toLowerCase(),
-            'short_description': $.short_description.value,
-            'password' : $.password.value ,
-            'password_confirmation' : $.password_confirmation.value
-            }
+        "user":{"name":$.name.value,
+            "email":$.email.value.toLowerCase(),
+            "short_description":$.short_description.value,
+            //"password":$.password.value ,
+            //"password_confirmation":$.password_confirmation.value,
+            "presentation_picture":Ti.App.Properties.getProperty(image)
+           },
+            "auth_token":Alloy.Globals.auth_token
         };
 
 	client.open("PUT", url);
-	
-	client.send(params);
+	client.setRequestHeader("content-type", "application/json; charset=utf-8");
+	client.send(JSON.stringify(params));
    // auth_token = null;
 }		
 
@@ -65,8 +67,6 @@ dialog.addEventListener('click', function(e) {
                     //we may create image view with contents from image variable
                     //or simply save path to image
                     Ti.App.Properties.setString("image", image.nativePath);
-                    
-                   
                 }
             },
             cancel:function()

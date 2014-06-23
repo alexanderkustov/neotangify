@@ -3,7 +3,7 @@ function Controller() {
         Titanium.Geolocation.getCurrentPosition(function(e) {
             cur_longitude = e.coords.longitude;
             cur_latitude = e.coords.latitude;
-            console.log("current location long " + cur_longitude.toFixed(3) + " lat " + cur_latitude.toFixed(3));
+            console.log("current location long " + cur_longitude + " lat " + cur_latitude);
             changePosition(cur_longitude, cur_latitude);
         });
     }
@@ -30,6 +30,7 @@ function Controller() {
         var url = mainserver + "/people_nearby.json?" + "auth_token=" + Alloy.Globals.auth_token;
         var client = Ti.Network.createHTTPClient({
             onload: function() {
+                Ti.API.info("pessoas a tua volta: " + JSON.parse(this.responseText).people.length);
                 for (var i = 0; JSON.parse(this.responseText).people.length > i; i++) {
                     var persons_id = JSON.parse(this.responseText).people[i].id;
                     var lat = JSON.parse(this.responseText).people[i].position.latitude;

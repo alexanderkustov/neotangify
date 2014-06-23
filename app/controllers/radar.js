@@ -7,7 +7,7 @@ function geolocate(e)
 	{
 		cur_longitude = e.coords.longitude;                     
 		cur_latitude = e.coords.latitude;
-		console.log('current location long ' + cur_longitude.toFixed(3) + ' lat ' + cur_latitude.toFixed(3));
+		console.log('current location long ' + cur_longitude + ' lat ' + cur_latitude);
 		changePosition(cur_longitude, cur_latitude);
 	});
 }
@@ -40,7 +40,7 @@ function updateRadar(lat, longi){
 	var client = Ti.Network.createHTTPClient({
 		onload : function(e) {
 			
-			//Ti.API.info("pessoas a tua volta: " + JSON.parse(this.responseText).people.length);
+			Ti.API.info("pessoas a tua volta: " + JSON.parse(this.responseText).people.length);
 
 			
 			for (var i = 0; i < JSON.parse(this.responseText).people.length; i++) {
@@ -71,11 +71,11 @@ function addPersonToRadar(personId, lat, longi){
 	var personView = Ti.UI.createView({		
 		id: personId,
 		left: percentualCalculate(lat, longi)
+		
 	});
 	
 	var face = Ti.UI.createImageView({
 		image: '/person.png',
-		
 		width: 40,
 		height: 40,
 		borderRadius:20

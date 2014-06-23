@@ -4,7 +4,7 @@ function Controller() {
         win.open();
     }
     function editProfile() {
-        var url = mainserver + "/users/" + Alloy.Globals.user_id + ".json?auth_token=" + Alloy.Globals.auth_token;
+        var url = mainserver + "/users/" + Alloy.Globals.user_id;
         var client = Ti.Network.createHTTPClient({
             onload: function() {
                 Ti.API.info("Received text: " + this.responseText);
@@ -21,12 +21,13 @@ function Controller() {
                 name: $.name.value,
                 email: $.email.value.toLowerCase(),
                 short_description: $.short_description.value,
-                password: $.password.value,
-                password_confirmation: $.password_confirmation.value
-            }
+                presentation_picture: Ti.App.Properties.getProperty(image)
+            },
+            auth_token: Alloy.Globals.auth_token
         };
         client.open("PUT", url);
-        client.send(params);
+        client.setRequestHeader("content-type", "application/json; charset=utf-8");
+        client.send(JSON.stringify(params));
     }
     function takePicture() {
         var dialog = Titanium.UI.createOptionDialog({
