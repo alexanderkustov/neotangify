@@ -1,12 +1,21 @@
 "Window": {
 	backgroundImage: "background.jpg",
-	color: "#fff"
+	color: "#fff",
+	translucent: 'false',
+    barColor: '#fff'
+},
+"#myTitleLabel":{
+    backgroundColor: '#fff',
+    color: '#333'
 },
 "TextField": {
 	color: "#333",
 	borderStyle: Ti.UI.INPUT_BORDERSTYLE_ROUNDED,
   top: 10, left: 10, right: 10,
   width: 250, height: 60
+},
+".white":{
+	color:"white"
 },
 
 "Label": {
@@ -20,7 +29,7 @@
 	textAlign: 'center'
 },
 "Button": {
-	color:"fff"
+	color:"#fff"
 },
 "#profileRadar": {
 	borderRadius : "50",

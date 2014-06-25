@@ -41,6 +41,14 @@ function Controller() {
             console.log("WTF is this?");
         }
     }
+    function getConversationWith(friend_id) {
+        Alloy.Globals.WS.send(JSON.stringify([ "get_conversation_with", {
+            user: "a@a.com",
+            auth_token: Alloy.Globals.auth_token,
+            friend_id: friend_id,
+            page: 1
+        } ]));
+    }
     function sendMsg() {
         appendChatMessage($.textChat.value);
         sendMessage($.textChat.value, friend_id);
@@ -100,11 +108,13 @@ function Controller() {
     $.__views.chatWindow = Ti.UI.createWindow({
         backgroundImage: "background.jpg",
         color: "#fff",
+        translucent: "false",
+        barColor: "#fff",
         id: "chatWindow",
         title: ""
     });
     $.__views.back = Ti.UI.createButton({
-        color: "fff",
+        color: "white",
         title: "Back",
         id: "back"
     });
@@ -147,7 +157,7 @@ function Controller() {
     });
     $.__views.chatBtn.add($.__views.textChat);
     $.__views.__alloyId11 = Ti.UI.createButton({
-        color: "fff",
+        color: "#fff",
         title: "Send",
         height: "40",
         width: "20%",
@@ -155,6 +165,15 @@ function Controller() {
     });
     $.__views.chatBtn.add($.__views.__alloyId11);
     sendMsg ? $.__views.__alloyId11.addEventListener("click", sendMsg) : __defers["$.__views.__alloyId11!click!sendMsg"] = true;
+    $.__views.__alloyId12 = Ti.UI.createButton({
+        color: "#fff",
+        title: "g",
+        height: "40",
+        width: "20%",
+        id: "__alloyId12"
+    });
+    $.__views.chatBtn.add($.__views.__alloyId12);
+    getConversationWith ? $.__views.__alloyId12.addEventListener("click", getConversationWith) : __defers["$.__views.__alloyId12!click!getConversationWith"] = true;
     $.__views.win1 = Ti.UI.iOS.createNavigationWindow({
         window: $.__views.chatWindow,
         id: "win1"
@@ -173,6 +192,7 @@ function Controller() {
     });
     __defers["$.__views.back!click!goback"] && $.__views.back.addEventListener("click", goback);
     __defers["$.__views.__alloyId11!click!sendMsg"] && $.__views.__alloyId11.addEventListener("click", sendMsg);
+    __defers["$.__views.__alloyId12!click!getConversationWith"] && $.__views.__alloyId12.addEventListener("click", getConversationWith);
     _.extend($, exports);
 }
 

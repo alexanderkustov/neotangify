@@ -17,23 +17,25 @@ function Controller() {
     $.__views.settings = Ti.UI.createWindow({
         backgroundImage: "background.jpg",
         color: "#fff",
+        translucent: "false",
+        barColor: "#fff",
         title: "Settings",
         id: "settings"
     });
     $.__views.settings && $.addTopLevelView($.__views.settings);
     $.__views.logout = Ti.UI.createButton({
-        color: "fff",
+        color: "#fff",
         id: "logout",
         title: "Logout"
     });
     logout ? $.__views.logout.addEventListener("click", logout) : __defers["$.__views.logout!click!logout"] = true;
     $.__views.settings.rightNavButton = $.__views.logout;
-    $.__views.__alloyId49 = Ti.UI.createView({
+    $.__views.__alloyId50 = Ti.UI.createView({
         layout: "vertical",
-        id: "__alloyId49"
+        id: "__alloyId50"
     });
-    $.__views.settings.add($.__views.__alloyId49);
-    $.__views.__alloyId50 = Ti.UI.createLabel({
+    $.__views.settings.add($.__views.__alloyId50);
+    $.__views.__alloyId51 = Ti.UI.createLabel({
         width: Ti.UI.SIZE,
         height: Ti.UI.SIZE,
         color: "#fff",
@@ -43,14 +45,14 @@ function Controller() {
         },
         textAlign: "center",
         text: "I am Tangible on the Radar",
-        id: "__alloyId50"
+        id: "__alloyId51"
     });
-    $.__views.__alloyId49.add($.__views.__alloyId50);
+    $.__views.__alloyId50.add($.__views.__alloyId51);
     $.__views.basicSwitch = Ti.UI.createSwitch({
         value: true,
         id: "basicSwitch"
     });
-    $.__views.__alloyId49.add($.__views.basicSwitch);
+    $.__views.__alloyId50.add($.__views.basicSwitch);
     exports.destroy = function() {};
     _.extend($, $.__views);
     __defers["$.__views.logout!click!logout"] && $.__views.logout.addEventListener("click", logout);

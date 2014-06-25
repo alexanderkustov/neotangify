@@ -2,7 +2,7 @@
 	<NavigationWindow id="win1" platform="ios">
 		<Window id="chatWindow" title="">
 			<LeftNavButton>
-	            <Button id="back" onClick="goback">Back</Button>
+	            <Button id="back" onClick="goback" color="white" class="white">Back</Button>
 	        </LeftNavButton>
 			<ScrollView id="chatContaniner" layout="vertical" contentWidth="auto" contentHeight="auto" showVerticalScrollIndicator="true" showHorizontalScrollIndicator="false" height="100%">		
 			<TableView id="chatArea" backgroundColor="transparent" height="88%">
@@ -10,6 +10,7 @@
 			<View id="chatBtn" layout="horizontal" bottom="0%" height="170px" backgroundColor="#0071bc">
 				<TextField hintText="Enter Message..." height="40" width="60%" id="textChat"></TextField>
 				<Button height="40" width="20%" onClick="sendMsg">Send</Button>
+				<Button height="40" width="20%" onClick="getConversationWith">g</Button>
 				
 			</View>
 			</ScrollView>	

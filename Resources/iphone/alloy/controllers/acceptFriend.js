@@ -15,11 +15,13 @@ function Controller() {
     $.__views.profile_name = Ti.UI.createWindow({
         backgroundImage: "background.jpg",
         color: "#fff",
+        translucent: "false",
+        barColor: "#fff",
         id: "profile_name",
         title: ""
     });
     $.__views.back = Ti.UI.createButton({
-        color: "fff",
+        color: "#fff",
         title: "Back",
         id: "back"
     });

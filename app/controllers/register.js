@@ -7,6 +7,7 @@ function register(e){
 	    onload : function(e) {
 	    	Ti.API.info("Received text: " + this.responseText);
 	        alert('success');
+	        goBack();
 	        
 	    },
 	    // function called when an error occurs, including a timeout

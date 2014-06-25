@@ -103,7 +103,7 @@ function Controller() {
         profilewin.open();
     }
     function markAsRead(activity_id) {
-        var url = mainserver + "/activities.json?" + activity_id + "&auth_token=" + Alloy.Globals.auth_token;
+        var url = mainserver + "/read_activity.json?" + activity_id + "&auth_token=" + Alloy.Globals.auth_token;
         var client = Ti.Network.createHTTPClient({
             onload: function() {
                 Ti.API.info("Received text: " + this.responseText);
@@ -133,12 +133,14 @@ function Controller() {
     $.__views.activityWindow = Ti.UI.createWindow({
         backgroundImage: "background.jpg",
         color: "#fff",
+        translucent: "false",
+        barColor: "#fff",
         title: "Feed",
         id: "activityWindow"
     });
     $.__views.activityWindow && $.addTopLevelView($.__views.activityWindow);
     $.__views.refresh = Ti.UI.createButton({
-        color: "fff",
+        color: "#fff",
         id: "refresh",
         title: "Refresh"
     });

@@ -19,31 +19,33 @@ function Controller() {
     $.__views.profile = Ti.UI.createWindow({
         backgroundImage: "background.jpg",
         color: "#fff",
+        translucent: "false",
+        barColor: "#fff",
         title: "Profile",
         id: "profile"
     });
     $.__views.profile && $.addTopLevelView($.__views.profile);
     $.__views.edut = Ti.UI.createButton({
-        color: "fff",
+        color: "#fff",
         id: "edut",
         title: "Edit"
     });
     editProfile ? $.__views.edut.addEventListener("click", editProfile) : __defers["$.__views.edut!click!editProfile"] = true;
     $.__views.profile.rightNavButton = $.__views.edut;
-    $.__views.__alloyId32 = Ti.UI.createView({
+    $.__views.__alloyId33 = Ti.UI.createView({
         layout: "vertical",
-        id: "__alloyId32"
+        id: "__alloyId33"
     });
-    $.__views.profile.add($.__views.__alloyId32);
-    $.__views.__alloyId33 = Ti.UI.createImageView({
+    $.__views.profile.add($.__views.__alloyId33);
+    $.__views.__alloyId34 = Ti.UI.createImageView({
         image: "/tangy_back.jpg",
         zIndex: "1",
         height: "160",
         top: "-50",
         width: Ti.UI.FILL,
-        id: "__alloyId33"
+        id: "__alloyId34"
     });
-    $.__views.__alloyId32.add($.__views.__alloyId33);
+    $.__views.__alloyId33.add($.__views.__alloyId34);
     $.__views.user_picture = Ti.UI.createImageView({
         image: "/person.png",
         zIndex: "5",
@@ -53,7 +55,7 @@ function Controller() {
         borderColor: "white",
         id: "user_picture"
     });
-    $.__views.__alloyId32.add($.__views.user_picture);
+    $.__views.__alloyId33.add($.__views.user_picture);
     $.__views.user_name = Ti.UI.createLabel({
         width: Ti.UI.SIZE,
         height: Ti.UI.SIZE,
@@ -65,7 +67,7 @@ function Controller() {
         textAlign: "center",
         id: "user_name"
     });
-    $.__views.__alloyId32.add($.__views.user_name);
+    $.__views.__alloyId33.add($.__views.user_name);
     $.__views.birthdate = Ti.UI.createLabel({
         width: Ti.UI.SIZE,
         height: Ti.UI.SIZE,
@@ -77,7 +79,7 @@ function Controller() {
         textAlign: "center",
         id: "birthdate"
     });
-    $.__views.__alloyId32.add($.__views.birthdate);
+    $.__views.__alloyId33.add($.__views.birthdate);
     $.__views.short_description = Ti.UI.createLabel({
         width: Ti.UI.SIZE,
         height: Ti.UI.SIZE,
@@ -89,7 +91,7 @@ function Controller() {
         textAlign: "center",
         id: "short_description"
     });
-    $.__views.__alloyId32.add($.__views.short_description);
+    $.__views.__alloyId33.add($.__views.short_description);
     exports.destroy = function() {};
     _.extend($, $.__views);
     $.profile.addEventListener("open", loadData);

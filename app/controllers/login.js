@@ -40,7 +40,6 @@ function login(e)
 	    onload : function(e) {
 	    	Ti.API.info("Received text: " + this.responseText);
 	    	 
-	    	 
 	  	 	//fica com auth token para sempre  	 
 	        Alloy.Globals.auth_token = JSON.parse(this.responseText).user.auth_token; 
 	        Ti.API.info("auth token:" +  Alloy.Globals.auth_token);
@@ -137,6 +136,14 @@ function autoLogin(user, pw){
 	client.send(params);
 }
 */
+
+$.loginInput.addEventListener('click', function()
+	{
+		$.loginInput.blur();
+		$.loginInput.keyboardType = Titanium.UI.KEYBOARD_EMAIL;
+		$.loginInput.focus();
+	});
+	
 function openRegister(e)
 {
 	var win=Alloy.createController('register').getView();

@@ -157,7 +157,7 @@ function profilemodal(userid){
 
 function markAsRead(activity_id){
    
-    var url = mainserver + '/activities.json?' + activity_id +  '&auth_token=' + Alloy.Globals.auth_token ;
+    var url = mainserver + '/read_activity.json?' + activity_id +  '&auth_token=' + Alloy.Globals.auth_token ;
     
     var client = Ti.Network.createHTTPClient({
         onload : function(e) {

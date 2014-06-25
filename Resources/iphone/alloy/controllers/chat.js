@@ -67,6 +67,8 @@ function Controller() {
     $.__views.chatFriends = Ti.UI.createWindow({
         backgroundImage: "background.jpg",
         color: "#fff",
+        translucent: "false",
+        barColor: "#fff",
         id: "chatFriends",
         title: "Chat"
     });

@@ -48,9 +48,8 @@ function updateRadar(lat, longi){
 				var lat = JSON.parse(this.responseText).people[i].position.latitude;
 				var longi = JSON.parse(this.responseText).people[i].position.longitude;
 				Ti.API.info("pessoa: " + persons_id + " " + lat + " " + longi );
-				if(persons_id != Alloy.Globals.user_id){
-					addPersonToRadar(persons_id, lat, longi);
-				}
+
+				addPersonToRadar(persons_id, lat, longi);
 			}
 		},
 		onerror : function(e) {
@@ -111,11 +110,6 @@ function measure(lat1, lon1, lat2, lon2){  // generally used geo measurement fun
     return d * 1000; // meters
 }
 
-
-function filter(e){
-	var win=Alloy.createController('radarQuery').getView();
-	win.open();
-}
 
 function profilemodal(userid){	
 	

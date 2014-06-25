@@ -36,7 +36,7 @@ function Controller() {
                     var lat = JSON.parse(this.responseText).people[i].position.latitude;
                     var longi = JSON.parse(this.responseText).people[i].position.longitude;
                     Ti.API.info("pessoa: " + persons_id + " " + lat + " " + longi);
-                    persons_id != Alloy.Globals.user_id && addPersonToRadar(persons_id, lat, longi);
+                    addPersonToRadar(persons_id, lat, longi);
                 }
             },
             onerror: function(e) {
@@ -83,10 +83,6 @@ function Controller() {
         var d = R * c;
         return 1e3 * d;
     }
-    function filter() {
-        var win = Alloy.createController("radarQuery").getView();
-        win.open();
-    }
     function profilemodal(userid) {
         console.log(userid + " este e o user");
         var profilewin = Alloy.createController("profilemodal", {
@@ -95,56 +91,78 @@ function Controller() {
         profilewin.open();
     }
     require("alloy/controllers/BaseController").apply(this, Array.prototype.slice.call(arguments));
-    this.__controllerPath = "radar";
+    this.__controllerPath = "radarQuery";
     arguments[0] ? arguments[0]["__parentSymbol"] : null;
     arguments[0] ? arguments[0]["$model"] : null;
     arguments[0] ? arguments[0]["__itemTemplate"] : null;
     var $ = this;
     var exports = {};
     var __defers = {};
-    $.__views.radar_window = Ti.UI.createWindow({
+    $.__views.__alloyId42 = Ti.UI.createWindow({
         backgroundImage: "background.jpg",
         color: "#fff",
         translucent: "false",
         barColor: "#fff",
-        title: "tangify",
-        id: "radar_window"
+        id: "__alloyId42"
     });
-    $.__views.radar_window && $.addTopLevelView($.__views.radar_window);
-    $.__views.refresh = Ti.UI.createButton({
-        color: "#fff",
-        title: "Refresh",
-        id: "refresh"
+    $.__views.myTitleLabel = Ti.UI.createLabel({
+        width: Ti.UI.SIZE,
+        height: Ti.UI.SIZE,
+        color: "#333",
+        font: {
+            fontSize: 20,
+            fontFamily: "Helvetica Neue"
+        },
+        textAlign: "center",
+        backgroundColor: "#fff",
+        text: "Radar",
+        id: "myTitleLabel"
     });
-    geolocate ? $.__views.refresh.addEventListener("click", geolocate) : __defers["$.__views.refresh!click!geolocate"] = true;
-    $.__views.radar_window.leftNavButton = $.__views.refresh;
-    $.__views.back = Ti.UI.createButton({
-        color: "#fff",
-        title: "Filter",
-        id: "back"
-    });
-    filter ? $.__views.back.addEventListener("click", filter) : __defers["$.__views.back!click!filter"] = true;
-    $.__views.radar_window.rightNavButton = $.__views.back;
-    $.__views.__alloyId41 = Ti.UI.createView({
+    $.__views.__alloyId42.titleControl = $.__views.myTitleLabel;
+    $.__views.__alloyId44 = Ti.UI.createView({
         layout: "vertical",
-        id: "__alloyId41"
+        id: "__alloyId44"
     });
-    $.__views.radar_window.add($.__views.__alloyId41);
+    $.__views.__alloyId42.add($.__views.__alloyId44);
+    $.__views.__alloyId45 = Ti.UI.createButton({
+        color: "#fff",
+        title: "Geolocate",
+        height: "40",
+        width: Ti.UI.FILL,
+        id: "__alloyId45"
+    });
+    $.__views.__alloyId44.add($.__views.__alloyId45);
+    geolocate ? $.__views.__alloyId45.addEventListener("click", geolocate) : __defers["$.__views.__alloyId45!click!geolocate"] = true;
+    $.__views.age = Ti.UI.createTextField({
+        color: "#333",
+        borderStyle: Ti.UI.INPUT_BORDERSTYLE_ROUNDED,
+        top: 10,
+        left: 10,
+        right: 10,
+        width: Ti.UI.FILL,
+        height: "40",
+        id: "age"
+    });
+    $.__views.__alloyId44.add($.__views.age);
     $.__views.radar = Ti.UI.createView({
         id: "radar",
         width: "460px",
         height: "460px",
         backgroundImage: "/radar_back.png"
     });
-    $.__views.__alloyId41.add($.__views.radar);
+    $.__views.__alloyId44.add($.__views.radar);
+    $.__views.win1 = Ti.UI.iOS.createNavigationWindow({
+        window: $.__views.__alloyId42,
+        id: "win1"
+    });
+    $.__views.win1 && $.addTopLevelView($.__views.win1);
     exports.destroy = function() {};
     _.extend($, $.__views);
     var cur_longitude, cur_latitude;
     $.radar_window.addEventListener("focus", function() {
         geolocate();
     });
-    __defers["$.__views.refresh!click!geolocate"] && $.__views.refresh.addEventListener("click", geolocate);
-    __defers["$.__views.back!click!filter"] && $.__views.back.addEventListener("click", filter);
+    __defers["$.__views.__alloyId45!click!geolocate"] && $.__views.__alloyId45.addEventListener("click", geolocate);
     _.extend($, exports);
 }
 

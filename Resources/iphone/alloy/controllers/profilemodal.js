@@ -1,11 +1,17 @@
 function Controller() {
+    function sendMsg() {
+        Ti.App.SelectedFriend = current_user_id;
+        var win = Alloy.createController("chatWindow").getView();
+        win.open();
+    }
     function addFriend() {
         console.log("friends are magical");
-        var url = mainserver + "/friendships?format=json";
+        var url = mainserver + "/friendships.json";
         var client = Ti.Network.createHTTPClient({
             onload: function() {
                 Ti.API.info("Received text: " + this.responseText);
                 console.log("enviado para o :" + current_user_id);
+                alert("Friend Request Sent!");
             },
             onerror: function(e) {
                 alert("Error, try again!");
@@ -56,72 +62,56 @@ function Controller() {
     $.__views.profile_name = Ti.UI.createWindow({
         backgroundImage: "background.jpg",
         color: "#fff",
+        translucent: "false",
+        barColor: "#fff",
         id: "profile_name",
         title: ""
     });
     $.__views.back = Ti.UI.createButton({
-        color: "fff",
+        color: "#fff",
         title: "Back",
         id: "back"
     });
     goback ? $.__views.back.addEventListener("click", goback) : __defers["$.__views.back!click!goback"] = true;
     $.__views.profile_name.leftNavButton = $.__views.back;
-    $.__views.__alloyId35 = Ti.UI.createView({
+    $.__views.__alloyId36 = Ti.UI.createView({
         layout: "vertical",
-        id: "__alloyId35"
+        id: "__alloyId36"
     });
-    $.__views.profile_name.add($.__views.__alloyId35);
-    $.__views.__alloyId36 = Ti.UI.createImageView({
+    $.__views.profile_name.add($.__views.__alloyId36);
+    $.__views.__alloyId37 = Ti.UI.createImageView({
         image: "/tangy_back.jpg",
         zIndex: "1",
         height: "160",
         top: "-50",
         width: Ti.UI.FILL,
-        id: "__alloyId36"
+        id: "__alloyId37"
     });
-    $.__views.__alloyId35.add($.__views.__alloyId36);
-    $.__views.__alloyId37 = Ti.UI.createImageView({
+    $.__views.__alloyId36.add($.__views.__alloyId37);
+    $.__views.__alloyId38 = Ti.UI.createImageView({
         image: "/person.png",
         zIndex: "5",
         top: "-50",
         borderRadius: "50%",
         borderWidth: "3",
         borderColor: "white",
-        id: "__alloyId37"
+        id: "__alloyId38"
     });
-    $.__views.__alloyId35.add($.__views.__alloyId37);
-    var __alloyId39 = [];
-    var __alloyId40 = {
-        title: "Send a Message",
-        ns: "Alloy.Abstract"
-    };
-    __alloyId39.push(__alloyId40);
-    var __alloyId41 = {
-        title: "Block",
-        ns: "Alloy.Abstract"
-    };
-    __alloyId39.push(__alloyId41);
-    $.__views.bb1 = Ti.UI.iOS.createTabbedBar({
-        labels: __alloyId39,
-        id: "bb1",
-        backgroundColor: "#fff",
-        top: "50",
-        height: "25",
-        width: "300"
-    });
-    $.__views.__alloyId35.add($.__views.bb1);
-    $.__views.short_description = Ti.UI.createLabel({
-        width: Ti.UI.SIZE,
-        height: Ti.UI.SIZE,
+    $.__views.__alloyId36.add($.__views.__alloyId38);
+    $.__views.back = Ti.UI.createButton({
         color: "#fff",
-        font: {
-            fontSize: 20,
-            fontFamily: "Helvetica Neue"
-        },
-        textAlign: "center",
-        id: "short_description"
+        title: "Send a Message",
+        id: "back"
     });
-    $.__views.bb1.add($.__views.short_description);
+    $.__views.__alloyId36.add($.__views.back);
+    sendMsg ? $.__views.back.addEventListener("click", sendMsg) : __defers["$.__views.back!click!sendMsg"] = true;
+    $.__views.back = Ti.UI.createButton({
+        color: "#fff",
+        title: "Add a Friend",
+        id: "back"
+    });
+    $.__views.__alloyId36.add($.__views.back);
+    addFriend ? $.__views.back.addEventListener("click", addFriend) : __defers["$.__views.back!click!addFriend"] = true;
     $.__views.win1 = Ti.UI.iOS.createNavigationWindow({
         window: $.__views.profile_name,
         id: "win1"
@@ -133,11 +123,9 @@ function Controller() {
     var args = arguments[0] || {};
     console.log("About to get user with id " + args.userId);
     getFriend(args.userId);
-    $.bb1.addEventListener("click", function(e) {
-        console.log(e.index);
-        (e.index = 1) && addFriend();
-    });
     __defers["$.__views.back!click!goback"] && $.__views.back.addEventListener("click", goback);
+    __defers["$.__views.back!click!sendMsg"] && $.__views.back.addEventListener("click", sendMsg);
+    __defers["$.__views.back!click!addFriend"] && $.__views.back.addEventListener("click", addFriend);
     _.extend($, exports);
 }
 

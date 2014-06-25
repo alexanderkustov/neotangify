@@ -1,0 +1,17 @@
+<Alloy>
+<NavigationWindow id="win1" platform="ios">
+			<Window>
+				<TitleControl>
+					<Label id="myTitleLabel">Radar</Label>
+				</TitleControl>
+	<View layout="vertical">
+		<Button height="40" width="Ti.UI.FILL" onClick="geolocate">Geolocate</Button>
+		<TextField height="40" width="Ti.UI.FILL" id="age"></TextField>
+		
+		<View id="radar" width="Ti.UI.FILL" height="460px" width="460px" backgroundImage="/radar_back.png"></View>
+	</View>
+</Window>
+</NavigationWindow>
+		</Alloy>
+		
+	

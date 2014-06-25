@@ -1,18 +1,21 @@
 var current_user_id;
 
 function sendMsg(e){
-	
+	Ti.App.SelectedFriend = current_user_id;   
+    	var win=Alloy.createController('chatWindow').getView();
+    	win.open();
 }
 
 function addFriend(e){
 	console.log("friends are magical");
 	//starting to send out the auth
-	var url = mainserver + "/friendships?format=json";
+	var url = mainserver + "/friendships.json";
 	
 	var client = Ti.Network.createHTTPClient({	    
 	    onload : function(e) {
 	    	Ti.API.info("Received text: " + this.responseText);
 	    	console.log("enviado para o :" + current_user_id);
+	    	alert('Friend Request Sent!');
 	    },
 	    // function called when an error occurs, including a timeout
 	    onerror : function(e) {
@@ -69,12 +72,14 @@ var args = arguments[0] || {};
 console.log('About to get user with id ' + args.userId);
 getFriend(args.userId);
 
-
-
-
+/*
 $.bb1.addEventListener('click', function(e){
     console.log(e.index);
     if(e.index=1){
     	addFriend();
+    } 
+   else{
+    	sendMsg();
     }
 });
+*/
