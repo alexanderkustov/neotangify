@@ -147,7 +147,6 @@ function Controller() {
     openRegister ? $.__views.__alloyId30.addEventListener("click", openRegister) : __defers["$.__views.__alloyId30!click!openRegister"] = true;
     $.__views.__alloyId31 = Ti.UI.createButton({
         color: "#fff",
-        title: "Facebook",
         height: "40",
         width: Ti.UI.FILL,
         id: "__alloyId31"

@@ -53,10 +53,11 @@ function Controller() {
         client.send(params);
     }
     function addPersonToRadar(personId, lat, longi) {
-        console.log("metros de diferenca " + measure(lat, longi, cur_longitude, cur_latitude));
+        var measuremetres = 1e9 * measure(lat, longi, cur_longitude, cur_latitude).toFixed(10);
+        console.log("personId " + personId + " metros de diferenca " + 1e9 * measure(lat, longi, cur_longitude, cur_latitude).toFixed(10) + " latr= " + lat + " longr= " + longi);
         var personView = Ti.UI.createView({
             id: personId,
-            left: percentualCalculate(lat, longi)
+            left: measuremetres
         });
         var face = Ti.UI.createImageView({
             image: "/person.png",
@@ -64,15 +65,16 @@ function Controller() {
             height: 40,
             borderRadius: 20
         });
+        var label = Ti.UI.createLabel({
+            text: measuremetres
+        });
         personView.addEventListener("click", function() {
             profilemodal(this.id);
             console.log("gaja a passar para modal: " + personId);
         });
         personView.add(face);
+        personView.add(label);
         $.radar.add(personView);
-    }
-    function percentualCalculate(lat, longi) {
-        return 240 * measure(lat, longi, cur_longitude, cur_latitude) / 25;
     }
     function measure(lat1, lon1, lat2, lon2) {
         var R = 6378.137;

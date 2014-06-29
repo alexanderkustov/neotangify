@@ -120,7 +120,3 @@ function profilemodal(userid){
 	profilewin.open();
 }
 
-
-$.radar_window.addEventListener('focus', function() {
-	geolocate();
-});

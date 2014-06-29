@@ -3,6 +3,35 @@ function goback(e) {
 	win.open();
 }
 
+/*
+POST /users/:user_id/pictures(.:format)
+Params para { picture: {image: ...}, user_id: 1}
+*/
+function uploadPic(e){
+	Titanium.Media.openPhotoGallery({
+	success:function(event) {
+		/* success callback fired after media retrieved from gallery */
+		var xhr = Titanium.Network.createHTTPClient();
+		xhr.onload = function(e) {
+			Ti.UI.createAlertDialog({
+			      title:'Success',
+			      message:'status code ' + this.status
+		    }).show();
+		};
+		xhr.open('POST', mainserver + "/users/"+Alloy.Globals.user_id + "/pictures.json");
+		xhr.send(JSON.stringify(params));
+		  
+		  var params = {
+        "user":{"image":event.media,
+           
+           },
+            "user_id":Alloy.Globals.user_id
+        };
+
+	}
+});
+}
+
 function editProfile(e) {
 	var url = mainserver + "/users/"+Alloy.Globals.user_id;
 	

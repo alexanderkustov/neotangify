@@ -159,9 +159,6 @@ function Controller() {
     exports.destroy = function() {};
     _.extend($, $.__views);
     var cur_longitude, cur_latitude;
-    $.radar_window.addEventListener("focus", function() {
-        geolocate();
-    });
     __defers["$.__views.__alloyId45!click!geolocate"] && $.__views.__alloyId45.addEventListener("click", geolocate);
     _.extend($, exports);
 }
