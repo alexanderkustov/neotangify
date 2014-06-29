@@ -3,13 +3,10 @@
 	<LeftNavButton>
 	            <Button id="refresh" onClick="geolocate" >Refresh</Button>
 	</LeftNavButton>
-	<RightNavButton>
-			            <Button id="back" onClick="filter">Filter</Button>
-
-		</RightNavButton>
+	
 	<View layout="vertical">
 		
-		<View id="radar" width="Ti.UI.FILL" height="460px" width="460px" backgroundImage="/radar_back.png"></View>
+		<View id="radar" width="Ti.UI.FILL" height="460px" width="460px" top="20px" backgroundImage="/radar_back.png"></View>
 	</View>
 </Window>
 		</Alloy>

@@ -57,7 +57,9 @@ function login(e)
 	       	}
 	       */
 	      var win=Alloy.createController('index').getView();
-	        win.open();
+	      $.win1.close();
+	      win.open();
+	        
 
 	    },
 	    // function called when an error occurs, including a timeout
@@ -139,13 +141,15 @@ function autoLogin(user, pw){
 
 $.loginInput.addEventListener('click', function()
 	{
-		$.loginInput.blur();
 		$.loginInput.keyboardType = Titanium.UI.KEYBOARD_EMAIL;
 		$.loginInput.focus();
 	});
 	
 function openRegister(e)
 {
+	$.win1.close();
+	$.win1 = null;
 	var win=Alloy.createController('register').getView();
 	win.open();
+	
 }

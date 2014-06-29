@@ -6,7 +6,6 @@
 		<Tab title="Feed" icon="KS_nav_ui.png">
 			<Require type="view" src="activity" id="activity"/>
 		</Tab>
-
 		<Tab title="Radar" icon="radar.png" id="radar_window">
 			<Require type="view" src="radar" id="radar"/>
 		</Tab>
@@ -14,7 +13,6 @@
 		<Tab title="Chat" icon="chat.png">
 			<Require type="view" src="chat" id="chat"/>
 		</Tab>
-		
 		<Tab title="Settings" icon="settings.png">
 			<Require type="view" src="settings" id="settings"/>
 		</Tab>

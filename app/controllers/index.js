@@ -1,4 +1,4 @@
-Alloy.Globals.tabgroup = $.index;
+var loginWindow = Alloy.createController('login').getView();
+loginWindow.open();
 
-var win = Alloy.createController('login').getView();
-win.open();
+Alloy.Globals.tabgroup = $.index;

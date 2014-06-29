@@ -1,5 +1,5 @@
 function Controller() {
-    function facelogin() {
+    function facebookLogin() {
         var fb = require("facebook");
         fb.appid = 391052681038594;
         fb.permissions = [ "email, public_profile, user_friends " ];
@@ -13,7 +13,7 @@ function Controller() {
                     var name = response.name;
                     var gender = response.gender;
                     alert(name + " " + email + " " + gender + " " + age);
-                    alert("Logged in Successfully");
+                    autologin(email, email);
                 } else e.error ? alert(e.error) : alert("Unknown response");
             }) : e.error ? alert(e.error) : e.cancelled && alert("Canceled");
         });
@@ -66,9 +66,14 @@ function Controller() {
     var __defers = {};
     exports.destroy = function() {};
     _.extend($, $.__views);
+    $.loginInput.addEventListener("click", function() {
+        $.loginInput.blur();
+        $.loginInput.keyboardType = Titanium.UI.KEYBOARD_EMAIL;
+        $.loginInput.focus();
+    });
     __defers["$.__views.__alloyId29!click!login"] && $.__views.__alloyId29.addEventListener("click", login);
-    __defers["$.__views.__alloyId30!click!facelogin"] && $.__views.__alloyId30.addEventListener("click", facelogin);
-    __defers["$.__views.__alloyId31!click!openRegister"] && $.__views.__alloyId31.addEventListener("click", openRegister);
+    __defers["$.__views.__alloyId30!click!openRegister"] && $.__views.__alloyId30.addEventListener("click", openRegister);
+    __defers["$.__views.__alloyId31!click!facebookLogin"] && $.__views.__alloyId31.addEventListener("click", facebookLogin);
     _.extend($, exports);
 }
 

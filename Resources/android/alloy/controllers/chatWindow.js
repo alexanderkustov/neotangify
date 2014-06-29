@@ -56,7 +56,7 @@ function Controller() {
     }
     function sendMessage(message, friend_id) {
         if (!message) return;
-        Ti.API.info("Message sent: " + Base64.encode(message) + " frined_id: " + friend_id);
+        Ti.API.info("Message sent: " + Base64.encode(message) + " frined_id: " + friend_id + "auth_token" + Alloy.Globals.auth_token);
         Alloy.Globals.WS.send(JSON.stringify([ "message", {
             user: "a@a.com",
             auth_token: Alloy.Globals.auth_token,
@@ -97,9 +97,6 @@ function Controller() {
             animationStyle: Titanium.UI.iPhone.RowAnimationStyle.RIGHT
         });
     }
-    function conversation() {
-        getConversationWith(16);
-    }
     require("alloy/controllers/BaseController").apply(this, Array.prototype.slice.call(arguments));
     this.__controllerPath = "chatWindow";
     arguments[0] ? arguments[0]["__parentSymbol"] : null;
@@ -116,12 +113,12 @@ function Controller() {
     });
     $.textChat.addEventListener("return", function() {
         appendChatMessage($.textChat.value, "Last");
-        sendMessage($.textChat.value);
+        sendMessage($.textChat.value, friend_id);
         $.textChat.value = "";
     });
     __defers["$.__views.back!click!goback"] && $.__views.back.addEventListener("click", goback);
     __defers["$.__views.__alloyId11!click!sendMsg"] && $.__views.__alloyId11.addEventListener("click", sendMsg);
-    __defers["$.__views.__alloyId12!click!conversation"] && $.__views.__alloyId12.addEventListener("click", conversation);
+    __defers["$.__views.__alloyId12!click!getConversationWith"] && $.__views.__alloyId12.addEventListener("click", getConversationWith);
     _.extend($, exports);
 }
 

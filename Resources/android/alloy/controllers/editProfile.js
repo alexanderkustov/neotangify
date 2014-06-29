@@ -3,8 +3,29 @@ function Controller() {
         var win = Alloy.createController("index").getView();
         win.open();
     }
+    function uploadPic() {
+        Titanium.Media.openPhotoGallery({
+            success: function(event) {
+                var xhr = Titanium.Network.createHTTPClient();
+                xhr.onload = function() {
+                    Ti.UI.createAlertDialog({
+                        title: "Success",
+                        message: "status code " + this.status
+                    }).show();
+                };
+                xhr.open("POST", mainserver + "/users/" + Alloy.Globals.user_id + "/pictures.json");
+                xhr.send(JSON.stringify(params));
+                var params = {
+                    user: {
+                        image: event.media
+                    },
+                    user_id: Alloy.Globals.user_id
+                };
+            }
+        });
+    }
     function editProfile() {
-        var url = mainserver + "/users/" + Alloy.Globals.user_id + "/?format=json&auth_token=" + Alloy.Globals.auth_token;
+        var url = mainserver + "/users/" + Alloy.Globals.user_id;
         var client = Ti.Network.createHTTPClient({
             onload: function() {
                 Ti.API.info("Received text: " + this.responseText);
@@ -23,43 +44,12 @@ function Controller() {
                 short_description: $.short_description.value,
                 password: $.password.value,
                 password_confirmation: $.password_confirmation.value
-            }
+            },
+            auth_token: Alloy.Globals.auth_token
         };
         client.open("PUT", url);
-        client.send(params);
-        auth_token = null;
-    }
-    function takePicture() {
-        var dialog = Titanium.UI.createOptionDialog({
-            title: "Choose an image source...",
-            options: [ "Camera", "Photo Gallery", "Cancel" ],
-            cancel: 2
-        });
-        dialog.addEventListener("click", function(e) {
-            0 == e.index ? Titanium.Media.showCamera({
-                success: function(event) {
-                    var image = event.media;
-                    event.mediaType == Ti.Media.MEDIA_TYPE_PHOTO && Ti.App.Properties.setString("image", image.nativePath);
-                },
-                cancel: function() {},
-                error: function(error) {
-                    var a = Titanium.UI.createAlertDialog({
-                        title: "Camera"
-                    });
-                    error.code == Titanium.Media.NO_CAMERA ? a.setMessage("Device does not have camera") : a.setMessage("Unexpected error: " + error.code);
-                    a.show();
-                },
-                allowImageEditing: true,
-                saveToPhotoGallery: true
-            }) : 1 == e.index && Titanium.Media.openPhotoGallery({
-                success: function(event) {
-                    var image = event.media;
-                    event.mediaType == Ti.Media.MEDIA_TYPE_PHOTO && Ti.App.Properties.setString("image", image.nativePath);
-                },
-                cancel: function() {}
-            });
-        });
-        dialog.show();
+        client.setRequestHeader("content-type", "application/json; charset=utf-8");
+        client.send(JSON.stringify(params));
     }
     require("alloy/controllers/BaseController").apply(this, Array.prototype.slice.call(arguments));
     this.__controllerPath = "editProfile";
@@ -72,7 +62,7 @@ function Controller() {
     exports.destroy = function() {};
     _.extend($, $.__views);
     __defers["$.__views.back!click!goback"] && $.__views.back.addEventListener("click", goback);
-    __defers["$.__views.__alloyId16!click!takePicture"] && $.__views.__alloyId16.addEventListener("click", takePicture);
+    __defers["$.__views.__alloyId16!click!uploadPic"] && $.__views.__alloyId16.addEventListener("click", uploadPic);
     __defers["$.__views.__alloyId18!click!editProfile"] && $.__views.__alloyId18.addEventListener("click", editProfile);
     _.extend($, exports);
 }

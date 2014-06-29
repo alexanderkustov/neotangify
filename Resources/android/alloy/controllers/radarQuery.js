@@ -1,10 +1,10 @@
 function Controller() {
     function geolocate() {
         Titanium.Geolocation.getCurrentPosition(function(e) {
-            cur_long = e.coords.longitude;
-            cur_lat = e.coords.latitude;
-            console.log("Tua posicao " + cur_long + " " + cur_lat);
-            changePosition(cur_lat, cur_long);
+            cur_longitude = e.coords.longitude;
+            cur_latitude = e.coords.latitude;
+            console.log("current location long " + cur_longitude + " lat " + cur_latitude);
+            changePosition(cur_longitude, cur_latitude);
         });
     }
     function changePosition(lat, longi) {
@@ -28,7 +28,6 @@ function Controller() {
     }
     function updateRadar(lat, longi) {
         var url = mainserver + "/people_nearby.json?" + "auth_token=" + Alloy.Globals.auth_token;
-        clearRadar();
         var client = Ti.Network.createHTTPClient({
             onload: function() {
                 Ti.API.info("pessoas a tua volta: " + JSON.parse(this.responseText).people.length);
@@ -53,14 +52,11 @@ function Controller() {
         client.open("GET", url);
         client.send(params);
     }
-    function clearRadar() {
-        if ($.radar.children) for (var c = $.radar.children.length - 1; c >= 0; c--) $.radar.remove($.radar.children[c]);
-    }
     function addPersonToRadar(personId, lat, longi) {
-        var measuremetres = measure(lat, longi, cur_lat, cur_long);
-        console.log("personId " + personId + " metros de diferenca " + measuremetres + " latr= " + lat + " longr= " + longi);
+        console.log("metros de diferenca " + measure(lat, longi, cur_longitude, cur_latitude));
         var personView = Ti.UI.createView({
-            id: personId
+            id: personId,
+            left: percentualCalculate(lat, longi)
         });
         var face = Ti.UI.createImageView({
             image: "/person.png",
@@ -68,16 +64,15 @@ function Controller() {
             height: 40,
             borderRadius: 20
         });
-        var label = Ti.UI.createLabel({
-            text: measuremetres.toFixed()
-        });
         personView.addEventListener("click", function() {
             profilemodal(this.id);
             console.log("gaja a passar para modal: " + personId);
         });
         personView.add(face);
-        personView.add(label);
         $.radar.add(personView);
+    }
+    function percentualCalculate(lat, longi) {
+        return 240 * measure(lat, longi, cur_longitude, cur_latitude) / 25;
     }
     function measure(lat1, lon1, lat2, lon2) {
         var R = 6378.137;
@@ -88,10 +83,6 @@ function Controller() {
         var d = R * c;
         return 1e3 * d;
     }
-    function filter() {
-        var win = Alloy.createController("radarQuery").getView();
-        win.open();
-    }
     function profilemodal(userid) {
         console.log(userid + " este e o user");
         var profilewin = Alloy.createController("profilemodal", {
@@ -100,57 +91,17 @@ function Controller() {
         profilewin.open();
     }
     require("alloy/controllers/BaseController").apply(this, Array.prototype.slice.call(arguments));
-    this.__controllerPath = "radar";
+    this.__controllerPath = "radarQuery";
     arguments[0] ? arguments[0]["__parentSymbol"] : null;
     arguments[0] ? arguments[0]["$model"] : null;
     arguments[0] ? arguments[0]["__itemTemplate"] : null;
     var $ = this;
     var exports = {};
     var __defers = {};
-    $.__views.radar_window = Ti.UI.createWindow({
-        backgroundImage: "background.jpg",
-        color: "#fff",
-        translucent: "false",
-        barColor: "#fff",
-        title: "tangify",
-        id: "radar_window"
-    });
-    $.__views.radar_window && $.addTopLevelView($.__views.radar_window);
-    $.__views.refresh = Ti.UI.createButton({
-        color: "#fff",
-        title: "Refresh",
-        id: "refresh"
-    });
-    geolocate ? $.__views.refresh.addEventListener("click", geolocate) : __defers["$.__views.refresh!click!geolocate"] = true;
-    $.__views.radar_window.leftNavButton = $.__views.refresh;
-    $.__views.back = Ti.UI.createButton({
-        color: "#fff",
-        title: "Filter",
-        id: "back"
-    });
-    filter ? $.__views.back.addEventListener("click", filter) : __defers["$.__views.back!click!filter"] = true;
-    $.__views.radar_window.rightNavButton = $.__views.back;
-    $.__views.__alloyId40 = Ti.UI.createView({
-        layout: "vertical",
-        id: "__alloyId40"
-    });
-    $.__views.radar_window.add($.__views.__alloyId40);
-    $.__views.radar = Ti.UI.createView({
-        id: "radar",
-        width: "460px",
-        height: "460px",
-        top: "20px",
-        backgroundImage: "/radar_back.png"
-    });
-    $.__views.__alloyId40.add($.__views.radar);
     exports.destroy = function() {};
     _.extend($, $.__views);
-    var cur_long, cur_lat;
-    $.radar_window.addEventListener("focus", function() {
-        geolocate();
-    });
-    __defers["$.__views.refresh!click!geolocate"] && $.__views.refresh.addEventListener("click", geolocate);
-    __defers["$.__views.back!click!filter"] && $.__views.back.addEventListener("click", filter);
+    var cur_longitude, cur_latitude;
+    __defers["$.__views.__alloyId45!click!geolocate"] && $.__views.__alloyId45.addEventListener("click", geolocate);
     _.extend($, exports);
 }
 

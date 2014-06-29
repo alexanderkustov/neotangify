@@ -1,11 +1,17 @@
 function Controller() {
+    function sendMsg() {
+        Ti.App.SelectedFriend = current_user_id;
+        var win = Alloy.createController("chatWindow").getView();
+        win.open();
+    }
     function addFriend() {
         console.log("friends are magical");
-        var url = mainserver + "/friendships?format=json";
+        var url = mainserver + "/friendships.json";
         var client = Ti.Network.createHTTPClient({
             onload: function() {
                 Ti.API.info("Received text: " + this.responseText);
                 console.log("enviado para o :" + current_user_id);
+                alert("Friend Request Sent!");
             },
             onerror: function(e) {
                 alert("Error, try again!");
@@ -59,11 +65,9 @@ function Controller() {
     var args = arguments[0] || {};
     console.log("About to get user with id " + args.userId);
     getFriend(args.userId);
-    $.bb1.addEventListener("click", function(e) {
-        console.log(e.index);
-        (e.index = 1) && addFriend();
-    });
     __defers["$.__views.back!click!goback"] && $.__views.back.addEventListener("click", goback);
+    __defers["$.__views.back!click!sendMsg"] && $.__views.back.addEventListener("click", sendMsg);
+    __defers["$.__views.back!click!addFriend"] && $.__views.back.addEventListener("click", addFriend);
     _.extend($, exports);
 }
 

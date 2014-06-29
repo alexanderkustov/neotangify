@@ -74,9 +74,9 @@ function Controller() {
     $.__views.index && $.addTopLevelView($.__views.index);
     exports.destroy = function() {};
     _.extend($, $.__views);
+    var loginWindow = Alloy.createController("login").getView();
+    loginWindow.open();
     Alloy.Globals.tabgroup = $.index;
-    var win = Alloy.createController("login").getView();
-    win.open();
     _.extend($, exports);
 }
 

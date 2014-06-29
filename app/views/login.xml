@@ -1,5 +1,5 @@
 <Alloy>
-		<NavigationWindow id="win1" platform="ios">
+		<NavigationWindow id="win1" platform="ios" exitOnClose="true">
 			<Window>
 				<TitleControl>
 					<Label id="myTitleLabel">Please Login</Label>

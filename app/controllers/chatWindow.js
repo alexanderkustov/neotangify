@@ -143,14 +143,18 @@ function appendChatMessage(message, position){
 
     });
 
-    var imageAvatar = Ti.UI.createImageView({
-        image: 'profile.png',
+    
+    var imageAvatar = Ti.UI.createButton({
+        backgroundImage: 'person.png',
+        backgroundSelectedImage:'person.png',
         left:5, top:5,
+        id: friend_id,
         width:45, height:45,
         borderColor: '#fff',
         borderRadius: 20,
         borderWidth: 1
     });
+
     row.add(imageAvatar);
 
     var label = Ti.UI.createLabel({

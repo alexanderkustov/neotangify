@@ -31,6 +31,7 @@ function Controller() {
                 Alloy.Globals.short_description = JSON.parse(this.responseText).user.short_description;
                 Alloy.Globals.user_id = JSON.parse(this.responseText).user.id;
                 var win = Alloy.createController("index").getView();
+                $.win1.close();
                 win.open();
             },
             onerror: function(e) {
@@ -53,6 +54,8 @@ function Controller() {
         client.send(params);
     }
     function openRegister() {
+        $.win1.close();
+        $.win1 = null;
         var win = Alloy.createController("register").getView();
         win.open();
     }
@@ -64,12 +67,12 @@ function Controller() {
     var $ = this;
     var exports = {};
     var __defers = {};
-    $.__views.__alloyId26 = Ti.UI.createWindow({
+    $.__views.__alloyId25 = Ti.UI.createWindow({
         backgroundImage: "background.jpg",
         color: "#fff",
         translucent: "false",
         barColor: "#fff",
-        id: "__alloyId26"
+        id: "__alloyId25"
     });
     $.__views.myTitleLabel = Ti.UI.createLabel({
         width: Ti.UI.SIZE,
@@ -84,7 +87,7 @@ function Controller() {
         text: "Please Login",
         id: "myTitleLabel"
     });
-    $.__views.__alloyId26.titleControl = $.__views.myTitleLabel;
+    $.__views.__alloyId25.titleControl = $.__views.myTitleLabel;
     $.__views.mainLogin = Ti.UI.createScrollView({
         id: "mainLogin",
         layout: "vertical",
@@ -94,13 +97,13 @@ function Controller() {
         showHorizontalScrollIndicator: "false",
         height: "100%"
     });
-    $.__views.__alloyId26.add($.__views.mainLogin);
-    $.__views.__alloyId28 = Ti.UI.createImageView({
+    $.__views.__alloyId25.add($.__views.mainLogin);
+    $.__views.__alloyId27 = Ti.UI.createImageView({
         image: "/login-logo.png",
         height: "160",
-        id: "__alloyId28"
+        id: "__alloyId27"
     });
-    $.__views.mainLogin.add($.__views.__alloyId28);
+    $.__views.mainLogin.add($.__views.__alloyId27);
     $.__views.loginInput = Ti.UI.createTextField({
         color: "#333",
         borderStyle: Ti.UI.INPUT_BORDERSTYLE_ROUNDED,
@@ -127,47 +130,47 @@ function Controller() {
         value: "123"
     });
     $.__views.mainLogin.add($.__views.password);
-    $.__views.__alloyId29 = Ti.UI.createButton({
+    $.__views.__alloyId28 = Ti.UI.createButton({
         color: "#fff",
         title: "Login",
+        height: "40",
+        width: Ti.UI.FILL,
+        id: "__alloyId28"
+    });
+    $.__views.mainLogin.add($.__views.__alloyId28);
+    login ? $.__views.__alloyId28.addEventListener("click", login) : __defers["$.__views.__alloyId28!click!login"] = true;
+    $.__views.__alloyId29 = Ti.UI.createButton({
+        color: "#fff",
+        title: "Register",
         height: "40",
         width: Ti.UI.FILL,
         id: "__alloyId29"
     });
     $.__views.mainLogin.add($.__views.__alloyId29);
-    login ? $.__views.__alloyId29.addEventListener("click", login) : __defers["$.__views.__alloyId29!click!login"] = true;
+    openRegister ? $.__views.__alloyId29.addEventListener("click", openRegister) : __defers["$.__views.__alloyId29!click!openRegister"] = true;
     $.__views.__alloyId30 = Ti.UI.createButton({
         color: "#fff",
-        title: "Register",
         height: "40",
         width: Ti.UI.FILL,
         id: "__alloyId30"
     });
     $.__views.mainLogin.add($.__views.__alloyId30);
-    openRegister ? $.__views.__alloyId30.addEventListener("click", openRegister) : __defers["$.__views.__alloyId30!click!openRegister"] = true;
-    $.__views.__alloyId31 = Ti.UI.createButton({
-        color: "#fff",
-        height: "40",
-        width: Ti.UI.FILL,
-        id: "__alloyId31"
-    });
-    $.__views.mainLogin.add($.__views.__alloyId31);
-    facebookLogin ? $.__views.__alloyId31.addEventListener("click", facebookLogin) : __defers["$.__views.__alloyId31!click!facebookLogin"] = true;
+    facebookLogin ? $.__views.__alloyId30.addEventListener("click", facebookLogin) : __defers["$.__views.__alloyId30!click!facebookLogin"] = true;
     $.__views.win1 = Ti.UI.iOS.createNavigationWindow({
-        window: $.__views.__alloyId26,
-        id: "win1"
+        window: $.__views.__alloyId25,
+        id: "win1",
+        exitOnClose: "true"
     });
     $.__views.win1 && $.addTopLevelView($.__views.win1);
     exports.destroy = function() {};
     _.extend($, $.__views);
     $.loginInput.addEventListener("click", function() {
-        $.loginInput.blur();
         $.loginInput.keyboardType = Titanium.UI.KEYBOARD_EMAIL;
         $.loginInput.focus();
     });
-    __defers["$.__views.__alloyId29!click!login"] && $.__views.__alloyId29.addEventListener("click", login);
-    __defers["$.__views.__alloyId30!click!openRegister"] && $.__views.__alloyId30.addEventListener("click", openRegister);
-    __defers["$.__views.__alloyId31!click!facebookLogin"] && $.__views.__alloyId31.addEventListener("click", facebookLogin);
+    __defers["$.__views.__alloyId28!click!login"] && $.__views.__alloyId28.addEventListener("click", login);
+    __defers["$.__views.__alloyId29!click!openRegister"] && $.__views.__alloyId29.addEventListener("click", openRegister);
+    __defers["$.__views.__alloyId30!click!facebookLogin"] && $.__views.__alloyId30.addEventListener("click", facebookLogin);
     _.extend($, exports);
 }
 

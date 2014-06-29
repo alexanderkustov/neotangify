@@ -1,5 +1,5 @@
 <Alloy>
-<Window title="Settings">
+<Window title="Settings" id="settings">
 	 <RightNavButton>
 		            <Button id="logout" title="Logout" onClick="logout"/>
 		        </RightNavButton>

@@ -1,34 +1,16 @@
-var cur_longitude, cur_latitude;
+var cur_long, cur_lat;
 
 function geolocate(e)
 {
 	var cur_loc_timestamp;
 	Titanium.Geolocation.getCurrentPosition(function(e)
 	{
-		cur_longitude = e.coords.longitude;                     
-		cur_latitude = e.coords.latitude;
-		console.log('current location long ' + cur_longitude + ' lat ' + cur_latitude);
-		changePosition(cur_longitude, cur_latitude);
+		cur_long = e.coords.longitude;                     
+		cur_lat = e.coords.latitude;
+		console.log("Tua posicao " + cur_long + " " + cur_lat);
+		changePosition(cur_lat, cur_long);
+		
 	});
-}
-//unused
-function distributeFields(e) {
-    var radius = 200;
-    var fields = $('.field'), container = $('#container'),
-        width = container.width(), height = container.height(),
-        angle = 0, step = (2*Math.PI) / fields.length;
-    fields.each(function() {
-        var x = Math.round(width/2 + radius * Math.cos(angle) - $(this).width()/2);
-        var y = Math.round(height/2 + radius * Math.sin(angle) - $(this).height()/2);
-        if(window.console) {
-            console.log($(this).text(), x, y);
-        }
-        $(this).css({
-            left: x + 'px',
-            top: y + 'px'
-        });
-        angle += step;
-    });
 }
 
 function changePosition(lat, longi){
@@ -49,12 +31,11 @@ function changePosition(lat, longi){
 	
 	client.open("POST", url);
 	client.send(params);
-	
 }
 
 function updateRadar(lat, longi){
 	var url = mainserver + '/people_nearby.json?' + 'auth_token=' + Alloy.Globals.auth_token ;
-	
+	clearRadar();
 	var client = Ti.Network.createHTTPClient({
 		onload : function(e) {
 			
@@ -65,12 +46,12 @@ function updateRadar(lat, longi){
 				var persons_id = JSON.parse(this.responseText).people[i].id;
 				var lat = JSON.parse(this.responseText).people[i].position.latitude;
 				var longi = JSON.parse(this.responseText).people[i].position.longitude;
+				
 				Ti.API.info("pessoa: " + persons_id + " " + lat + " " + longi );
 					
-				if(persons_id != Alloy.Globals.user_id){
-					
+				
 					addPersonToRadar(persons_id, lat, longi);
-				}
+				
 			}
 		},
 		onerror : function(e) {
@@ -85,18 +66,24 @@ function updateRadar(lat, longi){
 	client.send(params);  
 }
 
+function clearRadar(e){
+	if ($.radar.children) {
+        for (var c = $.radar.children.length - 1; c >= 0; c--) {
+            $.radar.remove($.radar.children[c]);
+        }
+    }
+	
+}
+
 
 function addPersonToRadar(personId, lat, longi){
-	var latr = (cur_latitude - lat) ;
-	var longr = (cur_longitude - longi);
-	var measuremetres = (measure(lat, longi, cur_longitude, cur_latitude).toFixed(10)*1000000000);
-	console.log("personId " + personId + " metros de diferenca " + (measure(lat, longi, cur_longitude, cur_latitude).toFixed(10)*1000000000) + " latr= " + lat + " longr= " +longi);
+	
+	var measuremetres = measure(lat, longi, cur_lat, cur_long);
+	
+	console.log("personId " + personId + " metros de diferenca " + measuremetres + " latr= " + lat + " longr= " + longi);
 	
 	var personView = Ti.UI.createView({		
-		id: personId,
-		left:measuremetres,
-		
-		
+		id: personId
 	});
 	
 	var face = Ti.UI.createImageView({
@@ -107,7 +94,7 @@ function addPersonToRadar(personId, lat, longi){
 	});
 	
 	var label = Ti.UI.createLabel({
-		text: measuremetres
+		text: measuremetres.toFixed()
 		});
 	
 		personView.addEventListener('click', function(e){
@@ -118,22 +105,6 @@ function addPersonToRadar(personId, lat, longi){
 		personView.add(face);
 		personView.add(label);
 			$.radar.add(personView);
-}
-
-function percentualCalculate(lat, longi){
-
-	return (measure(lat, longi, cur_longitude, cur_latitude) * 240)/25;
-}
-
-function radiusCalc(lat, longi){
-	
-	console.log("radius " + Math.sqrt(lat*lat+longi*longi));
-	return Math.sqrt(lat*lat+longi*longi);
-}
-
-function anguleCalc(lat, longi){
-	console.log("angulo "+ Math.atan(longi/lat));
-	return Math.atan(longi/lat);
 }
 
 function measure(lat1, lon1, lat2, lon2){  // generally used geo measurement function
@@ -165,6 +136,23 @@ function profilemodal(userid){
 
 	profilewin.open();
 }
+
+function percentualCalculate(lat, longi){
+
+	return (measure(lat, longi, cur_long, cur_lat) * 460)/25;
+}
+
+function radiusCalc(lat, longi){
+	
+	console.log("radius " + Math.sqrt(lat*lat+longi*longi));
+	return Math.sqrt(lat*lat+longi*longi);
+}
+
+function anguleCalc(lat, longi){
+	console.log("angulo "+ Math.atan(longi/lat));
+	return Math.atan(longi/lat);
+}
+
 
 
 $.radar_window.addEventListener('focus', function() {

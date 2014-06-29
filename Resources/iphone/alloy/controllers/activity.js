@@ -38,7 +38,7 @@ function Controller() {
             className: "activity_row",
             color: "white",
             rowID: friend_id,
-            backgroundColor: "rgba(0,0,0,0.2)",
+            backgroundColor: "transparent",
             separatorStyle: Titanium.UI.iPhone.TableViewSeparatorStyle.NONE
         });
         var imageAvatar = Ti.UI.createButton({

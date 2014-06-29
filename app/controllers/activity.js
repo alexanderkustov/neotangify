@@ -80,7 +80,7 @@ function addActivitiesToTable(user_name, friend_name, position, friend_id, activ
         className : "activity_row",
         color:'white',
         rowID: friend_id,
-        backgroundColor: 'rgba(0,0,0,0.2)',
+        backgroundColor: 'transparent',
         separatorStyle: Titanium.UI.iPhone.TableViewSeparatorStyle.NONE
 
     });

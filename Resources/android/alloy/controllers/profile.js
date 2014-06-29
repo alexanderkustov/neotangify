@@ -19,12 +19,14 @@ function Controller() {
     $.__views.profile = Ti.UI.createWindow({
         backgroundImage: "background.jpg",
         color: "#fff",
+        translucent: "false",
+        barColor: "#fff",
         title: "Profile",
         id: "profile"
     });
     $.__views.profile && $.addTopLevelView($.__views.profile);
     $.__views.edut = Ti.UI.createButton({
-        color: "fff",
+        color: "#fff",
         id: "edut",
         title: "Edit"
     });
@@ -44,16 +46,16 @@ function Controller() {
         id: "__alloyId34"
     });
     $.__views.__alloyId33.add($.__views.__alloyId34);
-    $.__views.__alloyId35 = Ti.UI.createImageView({
+    $.__views.user_picture = Ti.UI.createImageView({
         image: "/person.png",
         zIndex: "5",
         top: "-50",
         borderRadius: "50%",
         borderWidth: "3",
         borderColor: "white",
-        id: "__alloyId35"
+        id: "user_picture"
     });
-    $.__views.__alloyId33.add($.__views.__alloyId35);
+    $.__views.__alloyId33.add($.__views.user_picture);
     $.__views.user_name = Ti.UI.createLabel({
         width: Ti.UI.SIZE,
         height: Ti.UI.SIZE,
@@ -93,6 +95,8 @@ function Controller() {
     exports.destroy = function() {};
     _.extend($, $.__views);
     $.profile.addEventListener("open", loadData);
+    Ti.include("base64.js");
+    Ti.include("websockets.js");
     __defers["$.__views.edut!click!editProfile"] && $.__views.edut.addEventListener("click", editProfile);
     _.extend($, exports);
 }
