@@ -4,6 +4,7 @@ function Controller() {
             cur_long = e.coords.longitude;
             cur_lat = e.coords.latitude;
             console.log("Tua posicao " + cur_lat + " " + cur_long);
+            clearRadar();
             changePosition(cur_lat, cur_long);
         });
     }
@@ -30,7 +31,6 @@ function Controller() {
         var url = mainserver + "/people_nearby.json?" + "auth_token=" + Alloy.Globals.auth_token;
         var client = Ti.Network.createHTTPClient({
             onload: function() {
-                alert("pessoas a tua volta: " + JSON.parse(this.responseText).people.length);
                 if (JSON.parse(this.responseText).people.length > 0) {
                     for (var i = 0; JSON.parse(this.responseText).people.length > i; i++) {
                         var persons_id = JSON.parse(this.responseText).people[i].id;
@@ -71,13 +71,18 @@ function Controller() {
             borderRadius: 15,
             zIndex: 999
         });
-        alert(dlat.toFixed(5) + " " + dlong.toFixed(5) + " " + topOffset.toFixed(5) + " " + leftOffset.toFixed(5) + " " + thisPerson);
         $.radar.add(persons[personId]);
     }
     function addClickstoRadar() {
         if ($.radar.children) for (var i = 0; $.radar.children.length > i; i++) $.radar.children[i].addEventListener("click", function() {
             profilemodal(this.id);
         });
+    }
+    function clearRadar() {
+        if ($.radar.children) {
+            for (var c = $.radar.children.length - 1; c >= 0; c--) $.radar.remove($.radar.children[c]);
+            $.radar.children = null;
+        }
     }
     function profilemodal(userid) {
         console.log(userid + " este e o user");

@@ -12,6 +12,7 @@ function geolocate(e){
 		cur_lat = e.coords.latitude;
 		
 		console.log("Tua posicao " + cur_lat +  ' ' + cur_long);
+		clearRadar();
 		changePosition(cur_lat, cur_long);
 		
 	});
