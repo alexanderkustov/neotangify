@@ -1,12 +1,4 @@
 function Controller() {
-    function geolocate() {
-        Titanium.Geolocation.getCurrentPosition(function(e) {
-            cur_long = e.coords.longitude;
-            cur_lat = e.coords.latitude;
-            console.log("Tua posicao " + cur_long + " " + cur_lat);
-            changePosition(cur_lat, cur_long);
-        });
-    }
     function changePosition(lat, longi) {
         var url = mainserver + "/change_position.json?" + "auth_token=" + Alloy.Globals.auth_token;
         var client = Ti.Network.createHTTPClient({
@@ -63,21 +55,26 @@ function Controller() {
         var dlong = cur_long - longi;
         var topOffset = -1 * 200 * (dlat / LATCONV / 25);
         var leftOffset = -1 * 200 * (dlong / LONGCONV / 25);
-        var personView = Ti.UI.createView({
+        persons[personId] = Ti.UI.createView({
             id: thisPerson,
             myIndex: thisPerson,
-            top: topOffset,
-            left: leftOffset
+            top: topOffset + 100,
+            left: leftOffset + 100,
+            width: 30,
+            height: 30,
+            zIndex: 2
         });
         var face = Ti.UI.createImageView({
             image: "/person.png",
             id: thisPerson,
+            myIndex: thisPerson,
             width: 30,
             height: 30,
-            borderRadius: 15
+            borderRadius: 15,
+            zIndex: 999
         });
-        personView.add(face);
-        $.radar.add(personView);
+        persons[personId].add(face);
+        $.radar.add(persons[personId]);
     }
     function addClickstoRadar() {
         if ($.radar.children) {
@@ -97,6 +94,14 @@ function Controller() {
             for (var c = $.radar.children.length - 1; c >= 0; c--) $.radar.remove($.radar.children[c]);
             $.radar.children = null;
         }
+    }
+    function geolocate() {
+        Titanium.Geolocation.getCurrentPosition(function(e) {
+            cur_long = e.coords.longitude;
+            cur_lat = e.coords.latitude;
+            console.log("Tua posicao " + cur_long + " " + cur_lat);
+            changePosition(cur_lat, cur_long);
+        });
     }
     require("alloy/controllers/BaseController").apply(this, Array.prototype.slice.call(arguments));
     this.__controllerPath = "radar";
@@ -140,7 +145,7 @@ function Controller() {
     var cur_long, cur_lat;
     const LATCONV = 89928e-10;
     const LONGCONV = 101857e-10;
-    new Array();
+    var persons = new Array();
     $.radar_window.addEventListener("focus", function() {
         geolocate();
         setInterval(function() {

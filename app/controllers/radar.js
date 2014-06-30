@@ -82,8 +82,13 @@ function addPersonToRadar(personId, lat, longi, i){
 		id: thisPerson,
 		myIndex: thisPerson,
 		top:topOffset,
-		left:leftOffset
+		left:leftOffset,
+		width: 30,
+		height: 30,
+		zIndex: 2
 	});
+	
+	
 	
 	var face = Ti.UI.createImageView({
 		image: '/person.png',
@@ -91,14 +96,13 @@ function addPersonToRadar(personId, lat, longi, i){
 		myIndex: thisPerson,
 		width: 30,
 		height: 30,
-		borderRadius:15
+		borderRadius:15,
+		zIndex: 999
 	});
+	
 	persons[personId].add(face);
 	
-	persons[personId].addEventListener('click', function(e){
-		var person_id = e.source.id;
-		alert('you clicked ' + person_id + ' ' + e.source.id + ' '+ e.source.myIndex);
-	});
+	
 		
 		/* 
 		var texto = Ti.UI.createLabel({
@@ -106,7 +110,10 @@ function addPersonToRadar(personId, lat, longi, i){
 		});
 		personView.add(texto);
 		
-		
+		persons[personId].addEventListener('click', function(e){
+		var person_id = e.source.id;
+		alert('you clicked ' + person_id + ' ' + e.source.id + ' '+ e.source.myIndex + e.source);
+	});
 		
 		*/
 	$.radar.add(persons[personId]);		
