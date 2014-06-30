@@ -3,20 +3,6 @@ const LATCONV = 0.0000089928;
 const LONGCONV = 0.0000101857;
 var persons = new Array();
 
-
-function geolocate(e)
-{
-	var cur_loc_timestamp;
-	Titanium.Geolocation.getCurrentPosition(function(e)
-	{
-		cur_long = e.coords.longitude;                     
-		cur_lat = e.coords.latitude;
-		console.log("Tua posicao " + cur_long + " " + cur_lat);
-		changePosition(cur_lat, cur_long);
-		
-	});
-}
-
 function changePosition(lat, longi){
 	
 	var url = mainserver + '/change_position.json?' + 'auth_token=' + Alloy.Globals.auth_token ;
@@ -92,7 +78,7 @@ function addPersonToRadar(personId, lat, longi, i){
 	var topOffset = (((dlat/LATCONV) / 25) * 200) * (-1);
 	var leftOffset = (((dlong/LONGCONV) / 25) * 200) * (-1);
 	
-	var personView = Ti.UI.createView({		
+	persons[personId] = Ti.UI.createView({		
 		id: thisPerson,
 		myIndex: thisPerson,
 		top:topOffset,
@@ -102,17 +88,17 @@ function addPersonToRadar(personId, lat, longi, i){
 	var face = Ti.UI.createImageView({
 		image: '/person.png',
 		id: thisPerson,
+		myIndex: thisPerson,
 		width: 30,
 		height: 30,
 		borderRadius:15
 	});
+	persons[personId].add(face);
 	
-		
-		personView.addEventListener('click', function(e){
-			var person_id = e.source.id;
-			alert('you clicked ' + person_id + ' ' + e.source.id + ' '+ e.source.myIndex);
-		});
-		
+	persons[personId].addEventListener('click', function(e){
+		var person_id = e.source.id;
+		alert('you clicked ' + person_id + ' ' + e.source.id + ' '+ e.source.myIndex);
+	});
 		
 		/* 
 		var texto = Ti.UI.createLabel({
@@ -123,8 +109,7 @@ function addPersonToRadar(personId, lat, longi, i){
 		
 		
 		*/
-		personView.add(face);
-		$.radar.add(personView);		
+	$.radar.add(persons[personId]);		
 }
 
 function addClickstoRadar(e){
@@ -194,4 +179,17 @@ function profilemodal(userid){
 	var profilewin = Alloy.createController('profilemodal', {userId: userid}).getView();
 
 	profilewin.open();
+}
+
+function geolocate(e)
+{
+	var cur_loc_timestamp;
+	Titanium.Geolocation.getCurrentPosition(function(e)
+	{
+		cur_long = e.coords.longitude;                     
+		cur_lat = e.coords.latitude;
+		console.log("Tua posicao " + cur_long + " " + cur_lat);
+		changePosition(cur_lat, cur_long);
+		
+	});
 }
