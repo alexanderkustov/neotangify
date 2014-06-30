@@ -44,17 +44,17 @@ function updateRadar(lat, longi){
 					var longi = JSON.parse(this.responseText).people[i].position.longitude;
 					
 						
-					if(persons_id != Alloy.Globals.user_id){
+					//if(persons_id != Alloy.Globals.user_id){
 						Ti.API.info("pessoa: " + persons_id + " nome " + persons_name + " " + lat + " " + longi );
 						addPersonToRadar(persons_id, lat, longi, i);
-					}
-					addClickstoRadar();
+					//}
+					
 				}
 			} else {
 				alert("Nobody's here");
 			};
 			
-			
+			addClickstoRadar();
 			
 		},
 		onerror : function(e) {
@@ -75,32 +75,22 @@ function addPersonToRadar(personId, lat, longi, i){
 	var dlat = cur_lat - lat;
 	var dlong = cur_long - longi;
 	
-	var topOffset = (((dlat/LATCONV) / 25) * 200) * (-1);
-	var leftOffset = (((dlong/LONGCONV) / 25) * 200) * (-1);
+	var topOffset = (((dlat/LATCONV) / 50) * 200) + 100;
+	var leftOffset = (((dlong/LONGCONV) / 50) * 200) + 100;
 	
-	persons[personId] = Ti.UI.createView({		
+	persons[personId] = Ti.UI.createImageView({
+		image: '/person.png',
 		id: thisPerson,
 		myIndex: thisPerson,
 		top:topOffset,
 		left:leftOffset,
 		width: 30,
 		height: 30,
-		zIndex: 2
-	});
-	
-	
-	
-	var face = Ti.UI.createImageView({
-		image: '/person.png',
-		id: thisPerson,
-		myIndex: thisPerson,
-		width: 30,
-		height: 30,
 		borderRadius:15,
 		zIndex: 999
 	});
 	
-	persons[personId].add(face);
+	
 	
 	
 		
@@ -128,8 +118,8 @@ function addClickstoRadar(e){
         	console.log( $.radar.children[i].id );
         	console.log( $.radar.children[i].myIndex );
         	$.radar.children[i].addEventListener('click',function(e){
-       			console.log("ALERTA " + e.source.id + e.source.myIndex + this.id);
-    });
+       			profilemodal(this.id);
+   			});
 
    		}
    	}

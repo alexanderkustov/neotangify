@@ -29,12 +29,10 @@ function Controller() {
                     var persons_name = JSON.parse(this.responseText).people[i].name;
                     var lat = JSON.parse(this.responseText).people[i].position.latitude;
                     var longi = JSON.parse(this.responseText).people[i].position.longitude;
-                    if (persons_id != Alloy.Globals.user_id) {
-                        Ti.API.info("pessoa: " + persons_id + " nome " + persons_name + " " + lat + " " + longi);
-                        addPersonToRadar(persons_id, lat, longi, i);
-                    }
-                    addClickstoRadar();
+                    Ti.API.info("pessoa: " + persons_id + " nome " + persons_name + " " + lat + " " + longi);
+                    addPersonToRadar(persons_id, lat, longi, i);
                 } else alert("Nobody's here");
+                addClickstoRadar();
             },
             onerror: function(e) {
                 alert("error" + e);
@@ -53,27 +51,19 @@ function Controller() {
         var thisPerson = personId;
         var dlat = cur_lat - lat;
         var dlong = cur_long - longi;
-        var topOffset = -1 * 200 * (dlat / LATCONV / 25);
-        var leftOffset = -1 * 200 * (dlong / LONGCONV / 25);
-        persons[personId] = Ti.UI.createView({
-            id: thisPerson,
-            myIndex: thisPerson,
-            top: topOffset + 100,
-            left: leftOffset + 100,
-            width: 30,
-            height: 30,
-            zIndex: 2
-        });
-        var face = Ti.UI.createImageView({
+        var topOffset = 200 * (dlat / LATCONV / 50) + 100;
+        var leftOffset = 200 * (dlong / LONGCONV / 50) + 100;
+        persons[personId] = Ti.UI.createImageView({
             image: "/person.png",
             id: thisPerson,
             myIndex: thisPerson,
+            top: topOffset,
+            left: leftOffset,
             width: 30,
             height: 30,
             borderRadius: 15,
             zIndex: 999
         });
-        persons[personId].add(face);
         $.radar.add(persons[personId]);
     }
     function addClickstoRadar() {
@@ -83,8 +73,8 @@ function Controller() {
             for (var i = 0; $.radar.children.length > i; i++) {
                 console.log($.radar.children[i].id);
                 console.log($.radar.children[i].myIndex);
-                $.radar.children[i].addEventListener("click", function(e) {
-                    console.log("ALERTA " + e.source.id + e.source.myIndex + this.id);
+                $.radar.children[i].addEventListener("click", function() {
+                    profilemodal(this.id);
                 });
             }
         }
@@ -94,6 +84,13 @@ function Controller() {
             for (var c = $.radar.children.length - 1; c >= 0; c--) $.radar.remove($.radar.children[c]);
             $.radar.children = null;
         }
+    }
+    function profilemodal(userid) {
+        console.log(userid + " este e o user");
+        var profilewin = Alloy.createController("profilemodal", {
+            userId: userid
+        }).getView();
+        profilewin.open();
     }
     function geolocate() {
         Titanium.Geolocation.getCurrentPosition(function(e) {
@@ -136,7 +133,7 @@ function Controller() {
         id: "radar",
         width: "460px",
         height: "460px",
-        top: "20px",
+        top: "40px",
         backgroundImage: "/radar_back.png"
     });
     $.__views.__alloyId39.add($.__views.radar);

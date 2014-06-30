@@ -6,7 +6,7 @@
 	
 	<View layout="vertical">
 		
-		<View id="radar" width="Ti.UI.FILL" height="460px" width="460px" top="20px" backgroundImage="/radar_back.png">
+		<View id="radar" width="Ti.UI.FILL" height="460px" width="460px" top="40px" backgroundImage="/radar_back.png">
 			
 		</View>
 	</View>
