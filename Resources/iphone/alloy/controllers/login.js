@@ -32,6 +32,7 @@ function Controller() {
                 Alloy.Globals.user_id = JSON.parse(this.responseText).user.id;
                 var win = Alloy.createController("index").getView();
                 $.win1.close();
+                $.win1 = null;
                 win.open();
             },
             onerror: function(e) {
@@ -54,7 +55,6 @@ function Controller() {
         client.send(params);
     }
     function openRegister() {
-        $.win1.close();
         $.win1 = null;
         var win = Alloy.createController("register").getView();
         win.open();

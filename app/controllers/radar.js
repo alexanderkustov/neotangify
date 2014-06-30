@@ -1,4 +1,8 @@
 var cur_long, cur_lat;
+const LATCONV = 0.0000089928;
+const LONGCONV = 0.0000101857;
+var persons = new Array();
+
 
 function geolocate(e)
 {
@@ -14,6 +18,7 @@ function geolocate(e)
 }
 
 function changePosition(lat, longi){
+	
 	var url = mainserver + '/change_position.json?' + 'auth_token=' + Alloy.Globals.auth_token ;
 	
 	var client = Ti.Network.createHTTPClient({
@@ -34,25 +39,37 @@ function changePosition(lat, longi){
 }
 
 function updateRadar(lat, longi){
-	var url = mainserver + '/people_nearby.json?' + 'auth_token=' + Alloy.Globals.auth_token ;
+	
 	clearRadar();
+	
+	var url = mainserver + '/people_nearby.json?' + 'auth_token=' + Alloy.Globals.auth_token ;
+	
 	var client = Ti.Network.createHTTPClient({
 		onload : function(e) {
 			
 			Ti.API.info("pessoas a tua volta: " + JSON.parse(this.responseText).people.length);
-			
-			for (var i = 0; i < JSON.parse(this.responseText).people.length; i++) {
-
-				var persons_id = JSON.parse(this.responseText).people[i].id;
-				var lat = JSON.parse(this.responseText).people[i].position.latitude;
-				var longi = JSON.parse(this.responseText).people[i].position.longitude;
-				
-				Ti.API.info("pessoa: " + persons_id + " " + lat + " " + longi );
+			if(JSON.parse(this.responseText).people.length > 0){
+				for (var i = 0; i < JSON.parse(this.responseText).people.length; i++) {
+	
+					var persons_id = JSON.parse(this.responseText).people[i].id;
+					var persons_name = JSON.parse(this.responseText).people[i].name;
+	
+					var lat = JSON.parse(this.responseText).people[i].position.latitude;
+					var longi = JSON.parse(this.responseText).people[i].position.longitude;
 					
-				
-					addPersonToRadar(persons_id, lat, longi);
-				
-			}
+						
+					if(persons_id != Alloy.Globals.user_id){
+						Ti.API.info("pessoa: " + persons_id + " nome " + persons_name + " " + lat + " " + longi );
+						addPersonToRadar(persons_id, lat, longi, i);
+					}
+					addClickstoRadar();
+				}
+			} else {
+				alert("Nobody's here");
+			};
+			
+			
+			
 		},
 		onerror : function(e) {
 			alert('error' + e);
@@ -66,46 +83,74 @@ function updateRadar(lat, longi){
 	client.send(params);  
 }
 
-function clearRadar(e){
-	if ($.radar.children) {
-        for (var c = $.radar.children.length - 1; c >= 0; c--) {
-            $.radar.remove($.radar.children[c]);
-        }
-    }
-	
-}
 
-
-function addPersonToRadar(personId, lat, longi){
+function addPersonToRadar(personId, lat, longi, i){
+	var thisPerson = personId;
+	var dlat = cur_lat - lat;
+	var dlong = cur_long - longi;
 	
-	var measuremetres = measure(lat, longi, cur_lat, cur_long);
-	
-	console.log("personId " + personId + " metros de diferenca " + measuremetres + " latr= " + lat + " longr= " + longi);
+	var topOffset = (((dlat/LATCONV) / 25) * 200) * (-1);
+	var leftOffset = (((dlong/LONGCONV) / 25) * 200) * (-1);
 	
 	var personView = Ti.UI.createView({		
-		id: personId
+		id: thisPerson,
+		myIndex: thisPerson,
+		top:topOffset,
+		left:leftOffset
 	});
 	
 	var face = Ti.UI.createImageView({
 		image: '/person.png',
-		width: 40,
-		height: 40,
-		borderRadius:20
+		id: thisPerson,
+		width: 30,
+		height: 30,
+		borderRadius:15
 	});
 	
-	var label = Ti.UI.createLabel({
-		text: measuremetres.toFixed()
-		});
-	
+		
 		personView.addEventListener('click', function(e){
-			profilemodal(this.id);
-			console.log("gaja a passar para modal: " + personId);
+			var person_id = e.source.id;
+			alert('you clicked ' + person_id + ' ' + e.source.id + ' '+ e.source.myIndex);
 		});
 		
+		
+		/* 
+		var texto = Ti.UI.createLabel({
+			text: topOffset.toFixed(3) + " " + leftOffset.toFixed(3)
+		});
+		personView.add(texto);
+		
+		
+		
+		*/
 		personView.add(face);
-		personView.add(label);
-			$.radar.add(personView);
+		$.radar.add(personView);		
 }
+
+function addClickstoRadar(e){
+	if ($.radar.children){
+		console.log($.radar.children);
+		console.log(JSON.stringify($.radar.children));
+
+        for (var i=0; i<$.radar.children.length; i++) {
+        	console.log( $.radar.children[i].id );
+        	console.log( $.radar.children[i].myIndex );
+        	$.radar.children[i].addEventListener('click',function(e){
+       			console.log("ALERTA " + e.source.id + e.source.myIndex + this.id);
+    });
+
+   		}
+   	}
+}
+
+
+$.radar_window.addEventListener('focus', function() {
+	geolocate();
+	setInterval(function(){geolocate();},35000);
+	
+});
+
+//CENAS INUTEIS POR AGORA
 
 function measure(lat1, lon1, lat2, lon2){  // generally used geo measurement function
     var R = 6378.137; // Radius of earth in KM
@@ -123,6 +168,20 @@ function measure(lat1, lon1, lat2, lon2){  // generally used geo measurement fun
     return d * 1000; // meters
 }
 
+
+
+
+function clearRadar(e){
+	if ($.radar.children) {
+        for (var c = $.radar.children.length - 1; c >= 0; c--) {
+            $.radar.remove($.radar.children[c]);
+            
+        }
+        $.radar.children = null;
+    }
+	
+}
+
 function filter(e){
 	var win=Alloy.createController('radarQuery').getView();
 	win.open();
@@ -136,25 +195,3 @@ function profilemodal(userid){
 
 	profilewin.open();
 }
-
-function percentualCalculate(lat, longi){
-
-	return (measure(lat, longi, cur_long, cur_lat) * 460)/25;
-}
-
-function radiusCalc(lat, longi){
-	
-	console.log("radius " + Math.sqrt(lat*lat+longi*longi));
-	return Math.sqrt(lat*lat+longi*longi);
-}
-
-function anguleCalc(lat, longi){
-	console.log("angulo "+ Math.atan(longi/lat));
-	return Math.atan(longi/lat);
-}
-
-
-
-$.radar_window.addEventListener('focus', function() {
-	geolocate();
-});

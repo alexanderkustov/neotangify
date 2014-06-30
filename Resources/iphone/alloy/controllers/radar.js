@@ -27,18 +27,22 @@ function Controller() {
         client.send(params);
     }
     function updateRadar(lat, longi) {
-        var url = mainserver + "/people_nearby.json?" + "auth_token=" + Alloy.Globals.auth_token;
         clearRadar();
+        var url = mainserver + "/people_nearby.json?" + "auth_token=" + Alloy.Globals.auth_token;
         var client = Ti.Network.createHTTPClient({
             onload: function() {
                 Ti.API.info("pessoas a tua volta: " + JSON.parse(this.responseText).people.length);
-                for (var i = 0; JSON.parse(this.responseText).people.length > i; i++) {
+                if (JSON.parse(this.responseText).people.length > 0) for (var i = 0; JSON.parse(this.responseText).people.length > i; i++) {
                     var persons_id = JSON.parse(this.responseText).people[i].id;
+                    var persons_name = JSON.parse(this.responseText).people[i].name;
                     var lat = JSON.parse(this.responseText).people[i].position.latitude;
                     var longi = JSON.parse(this.responseText).people[i].position.longitude;
-                    Ti.API.info("pessoa: " + persons_id + " " + lat + " " + longi);
-                    addPersonToRadar(persons_id, lat, longi);
-                }
+                    if (persons_id != Alloy.Globals.user_id) {
+                        Ti.API.info("pessoa: " + persons_id + " nome " + persons_name + " " + lat + " " + longi);
+                        addPersonToRadar(persons_id, lat, longi, i);
+                    }
+                    addClickstoRadar();
+                } else alert("Nobody's here");
             },
             onerror: function(e) {
                 alert("error" + e);
@@ -53,51 +57,46 @@ function Controller() {
         client.open("GET", url);
         client.send(params);
     }
-    function clearRadar() {
-        if ($.radar.children) for (var c = $.radar.children.length - 1; c >= 0; c--) $.radar.remove($.radar.children[c]);
-    }
     function addPersonToRadar(personId, lat, longi) {
-        var measuremetres = measure(lat, longi, cur_lat, cur_long);
-        console.log("personId " + personId + " metros de diferenca " + measuremetres + " latr= " + lat + " longr= " + longi);
+        var thisPerson = personId;
+        var dlat = cur_lat - lat;
+        var dlong = cur_long - longi;
+        var topOffset = -1 * 200 * (dlat / LATCONV / 25);
+        var leftOffset = -1 * 200 * (dlong / LONGCONV / 25);
         var personView = Ti.UI.createView({
-            id: personId
+            id: thisPerson,
+            myIndex: thisPerson,
+            top: topOffset,
+            left: leftOffset
         });
         var face = Ti.UI.createImageView({
             image: "/person.png",
-            width: 40,
-            height: 40,
-            borderRadius: 20
-        });
-        var label = Ti.UI.createLabel({
-            text: measuremetres.toFixed()
-        });
-        personView.addEventListener("click", function() {
-            profilemodal(this.id);
-            console.log("gaja a passar para modal: " + personId);
+            id: thisPerson,
+            width: 30,
+            height: 30,
+            borderRadius: 15
         });
         personView.add(face);
-        personView.add(label);
         $.radar.add(personView);
     }
-    function measure(lat1, lon1, lat2, lon2) {
-        var R = 6378.137;
-        var dLat = (lat2 - lat1) * Math.PI / 180;
-        var dLon = (lon2 - lon1) * Math.PI / 180;
-        var a = Math.sin(dLat / 2) * Math.sin(dLat / 2) + Math.cos(lat1 * Math.PI / 180) * Math.cos(lat2 * Math.PI / 180) * Math.sin(dLon / 2) * Math.sin(dLon / 2);
-        var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
-        var d = R * c;
-        return 1e3 * d;
+    function addClickstoRadar() {
+        if ($.radar.children) {
+            console.log($.radar.children);
+            console.log(JSON.stringify($.radar.children));
+            for (var i = 0; $.radar.children.length > i; i++) {
+                console.log($.radar.children[i].id);
+                console.log($.radar.children[i].myIndex);
+                $.radar.children[i].addEventListener("click", function(e) {
+                    console.log("ALERTA " + e.source.id + e.source.myIndex + this.id);
+                });
+            }
+        }
     }
-    function filter() {
-        var win = Alloy.createController("radarQuery").getView();
-        win.open();
-    }
-    function profilemodal(userid) {
-        console.log(userid + " este e o user");
-        var profilewin = Alloy.createController("profilemodal", {
-            userId: userid
-        }).getView();
-        profilewin.open();
+    function clearRadar() {
+        if ($.radar.children) {
+            for (var c = $.radar.children.length - 1; c >= 0; c--) $.radar.remove($.radar.children[c]);
+            $.radar.children = null;
+        }
     }
     require("alloy/controllers/BaseController").apply(this, Array.prototype.slice.call(arguments));
     this.__controllerPath = "radar";
@@ -123,18 +122,11 @@ function Controller() {
     });
     geolocate ? $.__views.refresh.addEventListener("click", geolocate) : __defers["$.__views.refresh!click!geolocate"] = true;
     $.__views.radar_window.leftNavButton = $.__views.refresh;
-    $.__views.back = Ti.UI.createButton({
-        color: "#fff",
-        title: "Filter",
-        id: "back"
-    });
-    filter ? $.__views.back.addEventListener("click", filter) : __defers["$.__views.back!click!filter"] = true;
-    $.__views.radar_window.rightNavButton = $.__views.back;
-    $.__views.__alloyId40 = Ti.UI.createView({
+    $.__views.__alloyId39 = Ti.UI.createView({
         layout: "vertical",
-        id: "__alloyId40"
+        id: "__alloyId39"
     });
-    $.__views.radar_window.add($.__views.__alloyId40);
+    $.__views.radar_window.add($.__views.__alloyId39);
     $.__views.radar = Ti.UI.createView({
         id: "radar",
         width: "460px",
@@ -142,15 +134,20 @@ function Controller() {
         top: "20px",
         backgroundImage: "/radar_back.png"
     });
-    $.__views.__alloyId40.add($.__views.radar);
+    $.__views.__alloyId39.add($.__views.radar);
     exports.destroy = function() {};
     _.extend($, $.__views);
     var cur_long, cur_lat;
+    const LATCONV = 89928e-10;
+    const LONGCONV = 101857e-10;
+    new Array();
     $.radar_window.addEventListener("focus", function() {
         geolocate();
+        setInterval(function() {
+            geolocate();
+        }, 35e3);
     });
     __defers["$.__views.refresh!click!geolocate"] && $.__views.refresh.addEventListener("click", geolocate);
-    __defers["$.__views.back!click!filter"] && $.__views.back.addEventListener("click", filter);
     _.extend($, exports);
 }
 

@@ -98,12 +98,12 @@ function Controller() {
     var $ = this;
     var exports = {};
     var __defers = {};
-    $.__views.__alloyId41 = Ti.UI.createWindow({
+    $.__views.__alloyId40 = Ti.UI.createWindow({
         backgroundImage: "background.jpg",
         color: "#fff",
         translucent: "false",
         barColor: "#fff",
-        id: "__alloyId41"
+        id: "__alloyId40"
     });
     $.__views.myTitleLabel = Ti.UI.createLabel({
         width: Ti.UI.SIZE,
@@ -118,21 +118,21 @@ function Controller() {
         text: "Radar",
         id: "myTitleLabel"
     });
-    $.__views.__alloyId41.titleControl = $.__views.myTitleLabel;
-    $.__views.__alloyId43 = Ti.UI.createView({
+    $.__views.__alloyId40.titleControl = $.__views.myTitleLabel;
+    $.__views.__alloyId42 = Ti.UI.createView({
         layout: "vertical",
-        id: "__alloyId43"
+        id: "__alloyId42"
     });
-    $.__views.__alloyId41.add($.__views.__alloyId43);
-    $.__views.__alloyId44 = Ti.UI.createButton({
+    $.__views.__alloyId40.add($.__views.__alloyId42);
+    $.__views.__alloyId43 = Ti.UI.createButton({
         color: "#fff",
         title: "Geolocate",
         height: "40",
         width: Ti.UI.FILL,
-        id: "__alloyId44"
+        id: "__alloyId43"
     });
-    $.__views.__alloyId43.add($.__views.__alloyId44);
-    geolocate ? $.__views.__alloyId44.addEventListener("click", geolocate) : __defers["$.__views.__alloyId44!click!geolocate"] = true;
+    $.__views.__alloyId42.add($.__views.__alloyId43);
+    geolocate ? $.__views.__alloyId43.addEventListener("click", geolocate) : __defers["$.__views.__alloyId43!click!geolocate"] = true;
     $.__views.age = Ti.UI.createTextField({
         color: "#333",
         borderStyle: Ti.UI.INPUT_BORDERSTYLE_ROUNDED,
@@ -143,23 +143,23 @@ function Controller() {
         height: "40",
         id: "age"
     });
-    $.__views.__alloyId43.add($.__views.age);
+    $.__views.__alloyId42.add($.__views.age);
     $.__views.radar = Ti.UI.createView({
         id: "radar",
         width: "460px",
         height: "460px",
         backgroundImage: "/radar_back.png"
     });
-    $.__views.__alloyId43.add($.__views.radar);
+    $.__views.__alloyId42.add($.__views.radar);
     $.__views.win1 = Ti.UI.iOS.createNavigationWindow({
-        window: $.__views.__alloyId41,
+        window: $.__views.__alloyId40,
         id: "win1"
     });
     $.__views.win1 && $.addTopLevelView($.__views.win1);
     exports.destroy = function() {};
     _.extend($, $.__views);
     var cur_longitude, cur_latitude;
-    __defers["$.__views.__alloyId44!click!geolocate"] && $.__views.__alloyId44.addEventListener("click", geolocate);
+    __defers["$.__views.__alloyId43!click!geolocate"] && $.__views.__alloyId43.addEventListener("click", geolocate);
     _.extend($, exports);
 }
 

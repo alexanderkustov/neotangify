@@ -34,5 +34,6 @@ function register(e){
 function goback(e){
 	var win=Alloy.createController('login').getView();
 	$.register.close();
+	$.register = null;
 	win.open();
 }

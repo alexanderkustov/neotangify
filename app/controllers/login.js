@@ -58,6 +58,7 @@ function login(e)
 	       */
 	      var win=Alloy.createController('index').getView();
 	      $.win1.close();
+	      $.win1 = null;
 	      win.open();
 	        
 
@@ -147,7 +148,7 @@ $.loginInput.addEventListener('click', function()
 	
 function openRegister(e)
 {
-	$.win1.close();
+	
 	$.win1 = null;
 	var win=Alloy.createController('register').getView();
 	win.open();
