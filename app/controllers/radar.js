@@ -1,7 +1,21 @@
-var cur_long, cur_lat;
+var cur_long;
+var cur_lat;
 const LATCONV = 0.0000089928;
 const LONGCONV = 0.0000101857;
 var persons = new Array();
+
+function geolocate(e){
+	//var cur_loc_timestamp;
+	Titanium.Geolocation.getCurrentPosition(function(e)
+	{
+		cur_long = e.coords.longitude;                     
+		cur_lat = e.coords.latitude;
+		
+		console.log("Tua posicao " + cur_lat +  ' ' + cur_long);
+		changePosition(cur_lat, cur_long);
+		
+	});
+}
 
 function changePosition(lat, longi){
 	
@@ -25,36 +39,34 @@ function changePosition(lat, longi){
 }
 
 function updateRadar(lat, longi){
-	
-	clearRadar();
-	
 	var url = mainserver + '/people_nearby.json?' + 'auth_token=' + Alloy.Globals.auth_token ;
 	
 	var client = Ti.Network.createHTTPClient({
 		onload : function(e) {
 			
-			Ti.API.info("pessoas a tua volta: " + JSON.parse(this.responseText).people.length);
+			//alert("pessoas a tua volta: " + JSON.parse(this.responseText).people.length);
+			
 			if(JSON.parse(this.responseText).people.length > 0){
+				
 				for (var i = 0; i < JSON.parse(this.responseText).people.length; i++) {
 	
 					var persons_id = JSON.parse(this.responseText).people[i].id;
-					var persons_name = JSON.parse(this.responseText).people[i].name;
-	
 					var lat = JSON.parse(this.responseText).people[i].position.latitude;
 					var longi = JSON.parse(this.responseText).people[i].position.longitude;
 					
-						
-					//if(persons_id != Alloy.Globals.user_id){
-						Ti.API.info("pessoa: " + persons_id + " nome " + persons_name + " " + lat + " " + longi );
-						addPersonToRadar(persons_id, lat, longi, i);
-					//}
+					
+						Ti.API.info("pessoa: " + persons_id + " " + lat + " " + longi );
+						if(persons_id != Alloy.Globals.user_id)
+							addPersonToRadar(persons_id, lat, longi, i);
+					
 					
 				}
+					addClickstoRadar();
 			} else {
 				alert("Nobody's here");
 			};
 			
-			addClickstoRadar();
+		
 			
 		},
 		onerror : function(e) {
@@ -72,6 +84,7 @@ function updateRadar(lat, longi){
 
 function addPersonToRadar(personId, lat, longi, i){
 	var thisPerson = personId;
+	
 	var dlat = cur_lat - lat;
 	var dlong = cur_long - longi;
 	
@@ -80,47 +93,26 @@ function addPersonToRadar(personId, lat, longi, i){
 	
 	persons[personId] = Ti.UI.createImageView({
 		image: '/person.png',
+		top: topOffset,
+		left: leftOffset,
 		id: thisPerson,
-		myIndex: thisPerson,
-		top:topOffset,
-		left:leftOffset,
 		width: 30,
 		height: 30,
 		borderRadius:15,
 		zIndex: 999
 	});
 	
+	//alert(dlat.toFixed(5) + " " + dlong.toFixed(5)   + " " + topOffset.toFixed(5)  + " " + leftOffset.toFixed(5)  + " " + thisPerson);
 	
-	
-	
-		
-		/* 
-		var texto = Ti.UI.createLabel({
-			text: topOffset.toFixed(3) + " " + leftOffset.toFixed(3)
-		});
-		personView.add(texto);
-		
-		persons[personId].addEventListener('click', function(e){
-		var person_id = e.source.id;
-		alert('you clicked ' + person_id + ' ' + e.source.id + ' '+ e.source.myIndex + e.source);
-	});
-		
-		*/
 	$.radar.add(persons[personId]);		
 }
 
 function addClickstoRadar(e){
 	if ($.radar.children){
-		console.log($.radar.children);
-		console.log(JSON.stringify($.radar.children));
-
         for (var i=0; i<$.radar.children.length; i++) {
-        	console.log( $.radar.children[i].id );
-        	console.log( $.radar.children[i].myIndex );
         	$.radar.children[i].addEventListener('click',function(e){
        			profilemodal(this.id);
    			});
-
    		}
    	}
 }
@@ -128,12 +120,10 @@ function addClickstoRadar(e){
 
 $.radar_window.addEventListener('focus', function() {
 	geolocate();
-	setInterval(function(){geolocate();},35000);
-	
+	//setInterval(function(){geolocate();},35000);
 });
 
 //CENAS INUTEIS POR AGORA
-
 function measure(lat1, lon1, lat2, lon2){  // generally used geo measurement function
     var R = 6378.137; // Radius of earth in KM
     var dLat = (lat2 - lat1) * Math.PI / 180;
@@ -149,8 +139,6 @@ function measure(lat1, lon1, lat2, lon2){  // generally used geo measurement fun
     
     return d * 1000; // meters
 }
-
-
 
 
 function clearRadar(e){
@@ -170,23 +158,7 @@ function filter(e){
 }
 
 function profilemodal(userid){	
-	
 	console.log(userid + ' este e o user');
-	
 	var profilewin = Alloy.createController('profilemodal', {userId: userid}).getView();
-
 	profilewin.open();
-}
-
-function geolocate(e)
-{
-	var cur_loc_timestamp;
-	Titanium.Geolocation.getCurrentPosition(function(e)
-	{
-		cur_long = e.coords.longitude;                     
-		cur_lat = e.coords.latitude;
-		console.log("Tua posicao " + cur_long + " " + cur_lat);
-		changePosition(cur_lat, cur_long);
-		
-	});
 }

@@ -1,24 +1,4 @@
 function Controller() {
-    function facebookLogin() {
-        var fb = require("facebook");
-        fb.appid = 391052681038594;
-        fb.permissions = [ "email, public_profile, user_friends " ];
-        fb.forceDialogAuth = true;
-        fb.addEventListener("login", function(e) {
-            e.success ? fb.requestWithGraphPath("me", {}, "GET", function(e) {
-                if (e.success) {
-                    var response = JSON.parse(e.result);
-                    var email = response.email;
-                    var age = response.age;
-                    var name = response.name;
-                    var gender = response.gender;
-                    alert(name + " " + email + " " + gender + " " + age);
-                    autologin(email, email);
-                } else e.error ? alert(e.error) : alert("Unknown response");
-            }) : e.error ? alert(e.error) : e.cancelled && alert("Canceled");
-        });
-        fb.authorize();
-    }
     function login() {
         var url = mainserver + "/auth/identity/callback?format=json";
         var client = Ti.Network.createHTTPClient({
@@ -27,6 +7,7 @@ function Controller() {
                 Alloy.Globals.auth_token = JSON.parse(this.responseText).user.auth_token;
                 Ti.API.info("auth token:" + Alloy.Globals.auth_token);
                 Alloy.Globals.user_name = JSON.parse(this.responseText).user.name;
+                Alloy.Globals.user_email = JSON.parse(this.responseText).user.email;
                 Alloy.Globals.birthdate = JSON.parse(this.responseText).user.birthdate;
                 Alloy.Globals.short_description = JSON.parse(this.responseText).user.short_description;
                 Alloy.Globals.user_id = JSON.parse(this.responseText).user.id;
@@ -148,14 +129,6 @@ function Controller() {
     });
     $.__views.mainLogin.add($.__views.__alloyId29);
     openRegister ? $.__views.__alloyId29.addEventListener("click", openRegister) : __defers["$.__views.__alloyId29!click!openRegister"] = true;
-    $.__views.__alloyId30 = Ti.UI.createButton({
-        color: "#fff",
-        height: "40",
-        width: Ti.UI.FILL,
-        id: "__alloyId30"
-    });
-    $.__views.mainLogin.add($.__views.__alloyId30);
-    facebookLogin ? $.__views.__alloyId30.addEventListener("click", facebookLogin) : __defers["$.__views.__alloyId30!click!facebookLogin"] = true;
     $.__views.win1 = Ti.UI.iOS.createNavigationWindow({
         window: $.__views.__alloyId25,
         id: "win1",
@@ -170,7 +143,6 @@ function Controller() {
     });
     __defers["$.__views.__alloyId28!click!login"] && $.__views.__alloyId28.addEventListener("click", login);
     __defers["$.__views.__alloyId29!click!openRegister"] && $.__views.__alloyId29.addEventListener("click", openRegister);
-    __defers["$.__views.__alloyId30!click!facebookLogin"] && $.__views.__alloyId30.addEventListener("click", facebookLogin);
     _.extend($, exports);
 }
 

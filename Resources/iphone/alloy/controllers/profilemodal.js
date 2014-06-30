@@ -74,43 +74,43 @@ function Controller() {
     });
     goback ? $.__views.back.addEventListener("click", goback) : __defers["$.__views.back!click!goback"] = true;
     $.__views.profile_name.leftNavButton = $.__views.back;
-    $.__views.__alloyId35 = Ti.UI.createView({
+    $.__views.__alloyId34 = Ti.UI.createView({
         layout: "vertical",
-        id: "__alloyId35"
+        id: "__alloyId34"
     });
-    $.__views.profile_name.add($.__views.__alloyId35);
-    $.__views.__alloyId36 = Ti.UI.createImageView({
+    $.__views.profile_name.add($.__views.__alloyId34);
+    $.__views.__alloyId35 = Ti.UI.createImageView({
         image: "/tangy_back.jpg",
         zIndex: "1",
         height: "160",
         top: "-50",
         width: Ti.UI.FILL,
-        id: "__alloyId36"
+        id: "__alloyId35"
     });
-    $.__views.__alloyId35.add($.__views.__alloyId36);
-    $.__views.__alloyId37 = Ti.UI.createImageView({
+    $.__views.__alloyId34.add($.__views.__alloyId35);
+    $.__views.__alloyId36 = Ti.UI.createImageView({
         image: "/person.png",
         zIndex: "5",
         top: "-50",
         borderRadius: "50%",
         borderWidth: "3",
         borderColor: "white",
-        id: "__alloyId37"
+        id: "__alloyId36"
     });
-    $.__views.__alloyId35.add($.__views.__alloyId37);
+    $.__views.__alloyId34.add($.__views.__alloyId36);
     $.__views.back = Ti.UI.createButton({
         color: "#fff",
         title: "Send a Message",
         id: "back"
     });
-    $.__views.__alloyId35.add($.__views.back);
+    $.__views.__alloyId34.add($.__views.back);
     sendMsg ? $.__views.back.addEventListener("click", sendMsg) : __defers["$.__views.back!click!sendMsg"] = true;
     $.__views.back = Ti.UI.createButton({
         color: "#fff",
         title: "Add a Friend",
         id: "back"
     });
-    $.__views.__alloyId35.add($.__views.back);
+    $.__views.__alloyId34.add($.__views.back);
     addFriend ? $.__views.back.addEventListener("click", addFriend) : __defers["$.__views.back!click!addFriend"] = true;
     $.__views.win1 = Ti.UI.iOS.createNavigationWindow({
         window: $.__views.profile_name,

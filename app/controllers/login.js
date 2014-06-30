@@ -44,6 +44,7 @@ function login(e)
 	        Alloy.Globals.auth_token = JSON.parse(this.responseText).user.auth_token; 
 	        Ti.API.info("auth token:" +  Alloy.Globals.auth_token);
 	       	Alloy.Globals.user_name = JSON.parse(this.responseText).user.name; 
+	       	Alloy.Globals.user_email = JSON.parse(this.responseText).user.email;
 	       	Alloy.Globals.birthdate = JSON.parse(this.responseText).user.birthdate; 
 	       	Alloy.Globals.short_description = JSON.parse(this.responseText).user.short_description; 
 	       	Alloy.Globals.user_id = JSON.parse(this.responseText).user.id; 

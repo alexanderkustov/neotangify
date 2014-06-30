@@ -73,11 +73,7 @@ function messageRoute(e) {
 }
 
 function getConversationWith(friend_id){
-    // console.log(Ti.App.Properties.setString('saved_login'));
-    // console.log(Alloy.Globals.auth_token);
-    // console.log(friend_id);
-    // console.log(current_page);
-    Alloy.Globals.WS.send(JSON.stringify(["get_conversation_with",{"user": "a@a.com","auth_token": Alloy.Globals.auth_token, "friend_id": friend_id, "page":1}]));
+    Alloy.Globals.WS.send(JSON.stringify(["get_conversation_with",{"user": Alloy.Globals.user_email,"auth_token": Alloy.Globals.auth_token, "friend_id": friend_id, "page":1}]));
 }
 
 function getMoreConversationWith(friend_id){
@@ -129,7 +125,7 @@ function sendMessage(message, friend_id){
     // });
 
     Ti.API.info("Message sent: " + Base64.encode(message) + " frined_id: " + friend_id + "auth_token" + Alloy.Globals.auth_token); 
-    Alloy.Globals.WS.send(JSON.stringify(["message",{"user": "a@a.com", "auth_token": Alloy.Globals.auth_token, "receiver_id": friend_id ,"message": Base64.encode(message)}]));
+    Alloy.Globals.WS.send(JSON.stringify(["message",{"user": Alloy.Globals.user_email, "auth_token": Alloy.Globals.auth_token, "receiver_id": friend_id ,"message": Base64.encode(message)}]));
         
     // $.chatArea.add(chatMsg);
     // $.textChat.value="";

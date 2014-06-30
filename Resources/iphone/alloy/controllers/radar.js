@@ -1,4 +1,12 @@
 function Controller() {
+    function geolocate() {
+        Titanium.Geolocation.getCurrentPosition(function(e) {
+            cur_long = e.coords.longitude;
+            cur_lat = e.coords.latitude;
+            console.log("Tua posicao " + cur_lat + " " + cur_long);
+            changePosition(cur_lat, cur_long);
+        });
+    }
     function changePosition(lat, longi) {
         var url = mainserver + "/change_position.json?" + "auth_token=" + Alloy.Globals.auth_token;
         var client = Ti.Network.createHTTPClient({
@@ -19,20 +27,20 @@ function Controller() {
         client.send(params);
     }
     function updateRadar(lat, longi) {
-        clearRadar();
         var url = mainserver + "/people_nearby.json?" + "auth_token=" + Alloy.Globals.auth_token;
         var client = Ti.Network.createHTTPClient({
             onload: function() {
-                Ti.API.info("pessoas a tua volta: " + JSON.parse(this.responseText).people.length);
-                if (JSON.parse(this.responseText).people.length > 0) for (var i = 0; JSON.parse(this.responseText).people.length > i; i++) {
-                    var persons_id = JSON.parse(this.responseText).people[i].id;
-                    var persons_name = JSON.parse(this.responseText).people[i].name;
-                    var lat = JSON.parse(this.responseText).people[i].position.latitude;
-                    var longi = JSON.parse(this.responseText).people[i].position.longitude;
-                    Ti.API.info("pessoa: " + persons_id + " nome " + persons_name + " " + lat + " " + longi);
-                    addPersonToRadar(persons_id, lat, longi, i);
+                alert("pessoas a tua volta: " + JSON.parse(this.responseText).people.length);
+                if (JSON.parse(this.responseText).people.length > 0) {
+                    for (var i = 0; JSON.parse(this.responseText).people.length > i; i++) {
+                        var persons_id = JSON.parse(this.responseText).people[i].id;
+                        var lat = JSON.parse(this.responseText).people[i].position.latitude;
+                        var longi = JSON.parse(this.responseText).people[i].position.longitude;
+                        Ti.API.info("pessoa: " + persons_id + " " + lat + " " + longi);
+                        persons_id != Alloy.Globals.user_id && addPersonToRadar(persons_id, lat, longi, i);
+                    }
+                    addClickstoRadar();
                 } else alert("Nobody's here");
-                addClickstoRadar();
             },
             onerror: function(e) {
                 alert("error" + e);
@@ -55,35 +63,21 @@ function Controller() {
         var leftOffset = 200 * (dlong / LONGCONV / 50) + 100;
         persons[personId] = Ti.UI.createImageView({
             image: "/person.png",
-            id: thisPerson,
-            myIndex: thisPerson,
             top: topOffset,
             left: leftOffset,
+            id: thisPerson,
             width: 30,
             height: 30,
             borderRadius: 15,
             zIndex: 999
         });
+        alert(dlat.toFixed(5) + " " + dlong.toFixed(5) + " " + topOffset.toFixed(5) + " " + leftOffset.toFixed(5) + " " + thisPerson);
         $.radar.add(persons[personId]);
     }
     function addClickstoRadar() {
-        if ($.radar.children) {
-            console.log($.radar.children);
-            console.log(JSON.stringify($.radar.children));
-            for (var i = 0; $.radar.children.length > i; i++) {
-                console.log($.radar.children[i].id);
-                console.log($.radar.children[i].myIndex);
-                $.radar.children[i].addEventListener("click", function() {
-                    profilemodal(this.id);
-                });
-            }
-        }
-    }
-    function clearRadar() {
-        if ($.radar.children) {
-            for (var c = $.radar.children.length - 1; c >= 0; c--) $.radar.remove($.radar.children[c]);
-            $.radar.children = null;
-        }
+        if ($.radar.children) for (var i = 0; $.radar.children.length > i; i++) $.radar.children[i].addEventListener("click", function() {
+            profilemodal(this.id);
+        });
     }
     function profilemodal(userid) {
         console.log(userid + " este e o user");
@@ -91,14 +85,6 @@ function Controller() {
             userId: userid
         }).getView();
         profilewin.open();
-    }
-    function geolocate() {
-        Titanium.Geolocation.getCurrentPosition(function(e) {
-            cur_long = e.coords.longitude;
-            cur_lat = e.coords.latitude;
-            console.log("Tua posicao " + cur_long + " " + cur_lat);
-            changePosition(cur_lat, cur_long);
-        });
     }
     require("alloy/controllers/BaseController").apply(this, Array.prototype.slice.call(arguments));
     this.__controllerPath = "radar";
@@ -124,11 +110,6 @@ function Controller() {
     });
     geolocate ? $.__views.refresh.addEventListener("click", geolocate) : __defers["$.__views.refresh!click!geolocate"] = true;
     $.__views.radar_window.leftNavButton = $.__views.refresh;
-    $.__views.__alloyId39 = Ti.UI.createView({
-        layout: "vertical",
-        id: "__alloyId39"
-    });
-    $.__views.radar_window.add($.__views.__alloyId39);
     $.__views.radar = Ti.UI.createView({
         id: "radar",
         width: "460px",
@@ -136,18 +117,16 @@ function Controller() {
         top: "40px",
         backgroundImage: "/radar_back.png"
     });
-    $.__views.__alloyId39.add($.__views.radar);
+    $.__views.radar_window.add($.__views.radar);
     exports.destroy = function() {};
     _.extend($, $.__views);
-    var cur_long, cur_lat;
+    var cur_long;
+    var cur_lat;
     const LATCONV = 89928e-10;
     const LONGCONV = 101857e-10;
     var persons = new Array();
     $.radar_window.addEventListener("focus", function() {
         geolocate();
-        setInterval(function() {
-            geolocate();
-        }, 35e3);
     });
     __defers["$.__views.refresh!click!geolocate"] && $.__views.refresh.addEventListener("click", geolocate);
     _.extend($, exports);

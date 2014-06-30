@@ -7,7 +7,10 @@ function register(e){
 	    onload : function(e) {
 	    	Ti.API.info("Received text: " + this.responseText);
 	        alert('success');
-	        goBack();
+	        var win=Alloy.createController('login').getView();
+			$.register.close();
+			$.register = null;
+			win.open();
 	        
 	    },
 	    // function called when an error occurs, including a timeout
