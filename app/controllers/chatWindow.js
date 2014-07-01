@@ -49,7 +49,8 @@ function messageRoute(e) {
             // chatView.add("<div class=\"chat_message\">"+
             //     "From: "+ data[i]['sender']['name']+ " To: "+ data[i]['receiver']['name'] + " -> "+
             //     sanitize(data[i]['text'])+"</div>", "First");
-            text = data[i].sender.name + ": " + Base64.decode(data[i].text);
+            console.log(data[i].text);
+            text = data[i].sender.name + ": " + (data[i].text);
             appendChatMessage(text, "First");
         };
         break;
@@ -176,8 +177,15 @@ function appendChatMessage(message, position){
     
     //$.chatArea.insertRowAfter( 0, row );
     if (position == "First") {
-        $.chatArea.appendRow(row,{animationStyle:Titanium.UI.iPhone.RowAnimationStyle.RIGHT});
-        
+    //    $.chatArea.appendRow(row,{animationStyle:Titanium.UI.iPhone.RowAnimationStyle.RIGHT});
+       console.log("CARALHO " + $.chatArea.data.length);
+       if ($.chatArea.data.length == 0) {
+       		$.chatArea.appendRow(row);
+       } else{
+       		$.chatArea.insertRowBefore(0, row);
+       };
+       
+
     }else{
        	$.chatArea.appendRow(row,{animationStyle:Titanium.UI.iPhone.RowAnimationStyle.RIGHT});
         // scroll

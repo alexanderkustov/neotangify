@@ -20,7 +20,8 @@ function Controller() {
           case "conversation_with":
             console.log("Conversation With... Received");
             for (var i = 0; data.length > i; i++) {
-                text = data[i].sender.name + ": " + Base64.decode(data[i].text);
+                console.log(data[i].text);
+                text = data[i].sender.name + ": " + data[i].text;
                 appendChatMessage(text, "First");
             }
             break;
@@ -56,7 +57,7 @@ function Controller() {
     }
     function sendMessage(message, friend_id) {
         if (!message) return;
-        Ti.API.info("Message sent: " + Base64.encode(message) + " frined_id: " + friend_id + "auth_token" + Alloy.Globals.auth_token);
+        Ti.API.info("Message sent: " + Base64.encode(message) + " friend_id: " + friend_id + " auth_token" + Alloy.Globals.auth_token);
         Alloy.Globals.WS.send(JSON.stringify([ "message", {
             user: Alloy.Globals.user_email,
             auth_token: Alloy.Globals.auth_token,
@@ -95,9 +96,10 @@ function Controller() {
             }
         });
         row.add(label);
-        "First" == position ? $.chatArea.appendRow(row, {
-            animationStyle: Titanium.UI.iPhone.RowAnimationStyle.RIGHT
-        }) : $.chatArea.appendRow(row, {
+        if ("First" == position) {
+            console.log("CARALHO " + $.chatArea.data.length);
+            0 == $.chatArea.data.length ? $.chatArea.appendRow(row) : $.chatArea.insertRowBefore(0, row);
+        } else $.chatArea.appendRow(row, {
             animationStyle: Titanium.UI.iPhone.RowAnimationStyle.RIGHT
         });
     }
