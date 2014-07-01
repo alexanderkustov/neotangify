@@ -6,6 +6,7 @@ var persons = new Array();
 
 function geolocate(e){
 	//var cur_loc_timestamp;
+	Titanium.Geolocation.ACCURACY_BEST;	
 	Titanium.Geolocation.getCurrentPosition(function(e)
 	{
 		cur_long = e.coords.longitude;                     
@@ -45,22 +46,21 @@ function updateRadar(lat, longi){
 	var client = Ti.Network.createHTTPClient({
 		onload : function(e) {
 			
-			//alert("pessoas a tua volta: " + JSON.parse(this.responseText).people.length);
+			alert("pessoas a tua volta: " + JSON.parse(this.responseText).people.length);
 			
 			if(JSON.parse(this.responseText).people.length > 0){
 				
 				for (var i = 0; i < JSON.parse(this.responseText).people.length; i++) {
-	
+					var persons_name = JSON.parse(this.responseText).people[i].name;
 					var persons_id = JSON.parse(this.responseText).people[i].id;
 					var lat = JSON.parse(this.responseText).people[i].position.latitude;
 					var longi = JSON.parse(this.responseText).people[i].position.longitude;
 					
 					
-						Ti.API.info("pessoa: " + persons_id + " " + lat + " " + longi );
+						alert("pessoa: " + persons_name + " " + lat + " " + longi );
 						if(persons_id != Alloy.Globals.user_id)
+							//(persons_id + ' ' + lat + " " + longi + " " + i);
 							addPersonToRadar(persons_id, lat, longi, i);
-					
-					
 				}
 					addClickstoRadar();
 			} else {
@@ -92,6 +92,9 @@ function addPersonToRadar(personId, lat, longi, i){
 	var topOffset = (((dlat/LATCONV) / 50) * 200) + 100;
 	var leftOffset = (((dlong/LONGCONV) / 50) * 200) + 100;
 	
+	alert(cur_lat.toFixed(5) + " " + cur_long.toFixed(5));
+	alert(lat.toFixed(5) + " " + longi.toFixed(5));
+	
 	persons[personId] = Ti.UI.createImageView({
 		image: '/person.png',
 		top: topOffset,
@@ -102,6 +105,7 @@ function addPersonToRadar(personId, lat, longi, i){
 		borderRadius:15,
 		zIndex: 999
 	});
+	
 	
 	//alert(dlat.toFixed(5) + " " + dlong.toFixed(5)   + " " + topOffset.toFixed(5)  + " " + leftOffset.toFixed(5)  + " " + thisPerson);
 	

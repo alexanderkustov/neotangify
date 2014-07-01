@@ -1,5 +1,6 @@
 function Controller() {
     function geolocate() {
+        Titanium.Geolocation.ACCURACY_BEST;
         Titanium.Geolocation.getCurrentPosition(function(e) {
             cur_long = e.coords.longitude;
             cur_lat = e.coords.latitude;
@@ -31,12 +32,14 @@ function Controller() {
         var url = mainserver + "/people_nearby.json?" + "auth_token=" + Alloy.Globals.auth_token;
         var client = Ti.Network.createHTTPClient({
             onload: function() {
+                alert("pessoas a tua volta: " + JSON.parse(this.responseText).people.length);
                 if (JSON.parse(this.responseText).people.length > 0) {
                     for (var i = 0; JSON.parse(this.responseText).people.length > i; i++) {
+                        var persons_name = JSON.parse(this.responseText).people[i].name;
                         var persons_id = JSON.parse(this.responseText).people[i].id;
                         var lat = JSON.parse(this.responseText).people[i].position.latitude;
                         var longi = JSON.parse(this.responseText).people[i].position.longitude;
-                        Ti.API.info("pessoa: " + persons_id + " " + lat + " " + longi);
+                        alert("pessoa: " + persons_name + " " + lat + " " + longi);
                         persons_id != Alloy.Globals.user_id && addPersonToRadar(persons_id, lat, longi, i);
                     }
                     addClickstoRadar();
@@ -61,6 +64,8 @@ function Controller() {
         var dlong = cur_long - longi;
         var topOffset = 200 * (dlat / LATCONV / 50) + 100;
         var leftOffset = 200 * (dlong / LONGCONV / 50) + 100;
+        alert(cur_lat.toFixed(5) + " " + cur_long.toFixed(5));
+        alert(lat.toFixed(5) + " " + longi.toFixed(5));
         persons[personId] = Ti.UI.createImageView({
             image: "/person.png",
             top: topOffset,
