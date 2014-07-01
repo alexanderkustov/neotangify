@@ -15,9 +15,13 @@ Ti.App.addEventListener("app:messageReceived", function(e) {
 
 // Listen for Return Key Press
 $.textChat.addEventListener( 'return', function(e) {
-    appendChatMessage($.textChat.value, "Last");
-    sendMessage($.textChat.value, friend_id );
-    $.textChat.value = "";
+	if ($.textChat.value == '') {
+		console.log("Está vazio");
+	} else{
+		appendChatMessage($.textChat.value, "Last");
+    	sendMessage($.textChat.value, friend_id );
+    	$.textChat.value = "";	
+	}; 
     //$.textChat.focus();
 });
 
@@ -49,7 +53,6 @@ function messageRoute(e) {
             // chatView.add("<div class=\"chat_message\">"+
             //     "From: "+ data[i]['sender']['name']+ " To: "+ data[i]['receiver']['name'] + " -> "+
             //     sanitize(data[i]['text'])+"</div>", "First");
-            console.log(data[i].text);
             text = data[i].sender.name + ": " + (data[i].text);
             appendChatMessage(text, "First");
         };
@@ -110,10 +113,14 @@ function sendMsg(){
         
         // *
 
-
-    appendChatMessage($.textChat.value);
-    sendMessage($.textChat.value, friend_id);
-    $.textChat.value="";
+	if ($.textChat.value == '') {
+		console.log("está vazio");
+	} else{
+		appendChatMessage($.textChat.value);
+    	sendMessage($.textChat.value, friend_id);
+    	$.textChat.value="";	
+	};
+    
     //$.textChat.focus();
 }
 
@@ -145,7 +152,8 @@ function appendChatMessage(message, position){
     var row = Ti.UI.createTableViewRow({
         className          : "chat_message",
         color:'white',
-        backgroundColor: 'transparent'
+        backgroundColor: 'transparent',
+        selecttionStyle: 'none'
     });
     
     var imageAvatar = Ti.UI.createButton({
@@ -178,18 +186,27 @@ function appendChatMessage(message, position){
     //$.chatArea.insertRowAfter( 0, row );
     if (position == "First") {
     //    $.chatArea.appendRow(row,{animationStyle:Titanium.UI.iPhone.RowAnimationStyle.RIGHT});
-       console.log("CARALHO " + $.chatArea.data.length);
+		//Catch 22. chatArea.data -> matriz de sections. Depois de introduzirmos a primeira row, ficamos com data[0].rows[]     
        if ($.chatArea.data.length == 0) {
        		$.chatArea.appendRow(row);
        } else{
        		$.chatArea.insertRowBefore(0, row);
+			//Será chato quando se pede mais conversa ele vir para baixo? Ainda se pode corrigir.        		
+       		console.log("Este é o length" + $.chatArea.data[0].rows.length);
+       		$.chatArea.scrollToIndex($.chatArea.data[0].rows.length-1);
        };
        
 
     }else{
-       	$.chatArea.appendRow(row,{animationStyle:Titanium.UI.iPhone.RowAnimationStyle.RIGHT});
+       	// $.chatArea.appendRow(row,{animationStyle:Titanium.UI.iPhone.RowAnimationStyle.RIGHT});
+       	$.chatArea.appendRow(row);
+       	console.log("Este é o length" + $.chatArea.data[0].rows.length);
+       	$.chatArea.scrollToIndex($.chatArea.data[0].rows.length-1);
         // scroll
     }
+    row = null;
+    imageAvatar = null;
+    label = null;
     //$.chatArea.scrollToIndex($.chatArea.data[0].length);
     //$.chatArea.scrollToIndex(11);
 }

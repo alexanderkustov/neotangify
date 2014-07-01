@@ -20,7 +20,6 @@ function Controller() {
           case "conversation_with":
             console.log("Conversation With... Received");
             for (var i = 0; data.length > i; i++) {
-                console.log(data[i].text);
                 text = data[i].sender.name + ": " + data[i].text;
                 appendChatMessage(text, "First");
             }
@@ -51,9 +50,11 @@ function Controller() {
         } ]));
     }
     function sendMsg() {
-        appendChatMessage($.textChat.value);
-        sendMessage($.textChat.value, friend_id);
-        $.textChat.value = "";
+        if ("" == $.textChat.value) console.log("está vazio"); else {
+            appendChatMessage($.textChat.value);
+            sendMessage($.textChat.value, friend_id);
+            $.textChat.value = "";
+        }
     }
     function sendMessage(message, friend_id) {
         if (!message) return;
@@ -69,7 +70,8 @@ function Controller() {
         var row = Ti.UI.createTableViewRow({
             className: "chat_message",
             color: "white",
-            backgroundColor: "transparent"
+            backgroundColor: "transparent",
+            selecttionStyle: "none"
         });
         var imageAvatar = Ti.UI.createButton({
             backgroundImage: "person.png",
@@ -96,12 +98,18 @@ function Controller() {
             }
         });
         row.add(label);
-        if ("First" == position) {
-            console.log("CARALHO " + $.chatArea.data.length);
-            0 == $.chatArea.data.length ? $.chatArea.appendRow(row) : $.chatArea.insertRowBefore(0, row);
-        } else $.chatArea.appendRow(row, {
-            animationStyle: Titanium.UI.iPhone.RowAnimationStyle.RIGHT
-        });
+        if ("First" == position) if (0 == $.chatArea.data.length) $.chatArea.appendRow(row); else {
+            $.chatArea.insertRowBefore(0, row);
+            console.log("Este é o length" + $.chatArea.data[0].rows.length);
+            $.chatArea.scrollToIndex($.chatArea.data[0].rows.length - 1);
+        } else {
+            $.chatArea.appendRow(row);
+            console.log("Este é o length" + $.chatArea.data[0].rows.length);
+            $.chatArea.scrollToIndex($.chatArea.data[0].rows.length - 1);
+        }
+        row = null;
+        imageAvatar = null;
+        label = null;
     }
     require("alloy/controllers/BaseController").apply(this, Array.prototype.slice.call(arguments));
     this.__controllerPath = "chatWindow";
@@ -192,9 +200,11 @@ function Controller() {
         messageRoute(e);
     });
     $.textChat.addEventListener("return", function() {
-        appendChatMessage($.textChat.value, "Last");
-        sendMessage($.textChat.value, friend_id);
-        $.textChat.value = "";
+        if ("" == $.textChat.value) console.log("Está vazio"); else {
+            appendChatMessage($.textChat.value, "Last");
+            sendMessage($.textChat.value, friend_id);
+            $.textChat.value = "";
+        }
     });
     $.chatWindow.addEventListener("focus", function() {
         getConversationWith(friend_id);
