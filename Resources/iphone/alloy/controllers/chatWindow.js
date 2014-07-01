@@ -14,7 +14,7 @@ function Controller() {
           case "message":
             console.log("Message Received");
             text = data.sender.name + ": " + Base64.decode(data.text);
-            appendChatMessage(text, "Last");
+            appendChatMessage(text, "Last", false);
             break;
 
           case "conversation_with":
@@ -46,13 +46,6 @@ function Controller() {
             page: 1
         } ]));
     }
-    function sendMsg() {
-        if ("" == $.textChat.value) console.log("está vazio"); else {
-            appendChatMessage($.textChat.value);
-            sendMessage($.textChat.value, friend_id);
-            $.textChat.value = "";
-        }
-    }
     function sendMessage(message, friend_id) {
         if (!message) return;
         Ti.API.info("Message sent: " + Base64.encode(message) + " friend_id: " + friend_id + " auth_token" + Alloy.Globals.auth_token);
@@ -82,6 +75,7 @@ function Controller() {
             borderRadius: 20,
             borderWidth: 1
         });
+        null != Alloy.Globals.user_pic && (imageAvatar.image = mainserver + Alloy.Globals.user_pic);
         row.add(imageAvatar);
         var label = Ti.UI.createLabel({
             text: message || "no-message",
@@ -118,6 +112,7 @@ function Controller() {
             });
             var imageAvatar = Ti.UI.createButton({
                 backgroundImage: "person.png",
+                id: "cover_picture",
                 backgroundSelectedImage: "person.png",
                 left: 5,
                 top: 5,
@@ -128,6 +123,7 @@ function Controller() {
                 borderRadius: 20,
                 borderWidth: 1
             });
+            null != Alloy.Globals.user_pic && data[i].sender.id == Alloy.Globals.user_id && (imageAvatar.image = mainserver + Alloy.Globals.user_pic);
             row.add(imageAvatar);
             var label = Ti.UI.createLabel({
                 text: text || "no-message",
@@ -193,7 +189,7 @@ function Controller() {
         id: "chatBtn",
         layout: "horizontal",
         bottom: "0%",
-        height: "170px",
+        height: "100px",
         backgroundColor: "#0071bc"
     });
     $.__views.chatContaniner.add($.__views.chatBtn);
@@ -203,30 +199,12 @@ function Controller() {
         top: 10,
         left: 10,
         right: 10,
-        width: "60%",
-        height: "40",
+        width: "93%",
+        height: "30",
         hintText: "Enter Message...",
         id: "textChat"
     });
     $.__views.chatBtn.add($.__views.textChat);
-    $.__views.__alloyId11 = Ti.UI.createButton({
-        color: "#fff",
-        title: "Send",
-        height: "40",
-        width: "20%",
-        id: "__alloyId11"
-    });
-    $.__views.chatBtn.add($.__views.__alloyId11);
-    sendMsg ? $.__views.__alloyId11.addEventListener("click", sendMsg) : __defers["$.__views.__alloyId11!click!sendMsg"] = true;
-    $.__views.__alloyId12 = Ti.UI.createButton({
-        color: "#fff",
-        title: "g",
-        height: "40",
-        width: "20%",
-        id: "__alloyId12"
-    });
-    $.__views.chatBtn.add($.__views.__alloyId12);
-    getConversationWith ? $.__views.__alloyId12.addEventListener("click", getConversationWith) : __defers["$.__views.__alloyId12!click!getConversationWith"] = true;
     $.__views.win_chat = Ti.UI.iOS.createNavigationWindow({
         window: $.__views.chatWindow,
         id: "win_chat"
@@ -240,7 +218,7 @@ function Controller() {
     });
     $.textChat.addEventListener("return", function() {
         if ("" == $.textChat.value) console.log("Está vazio"); else {
-            appendChatMessage($.textChat.value, "Last");
+            appendChatMessage($.textChat.value, "Last", true);
             sendMessage($.textChat.value, friend_id);
             $.textChat.value = "";
         }
@@ -249,8 +227,6 @@ function Controller() {
         getConversationWith(friend_id);
     });
     __defers["$.__views.back!click!goback"] && $.__views.back.addEventListener("click", goback);
-    __defers["$.__views.__alloyId11!click!sendMsg"] && $.__views.__alloyId11.addEventListener("click", sendMsg);
-    __defers["$.__views.__alloyId12!click!getConversationWith"] && $.__views.__alloyId12.addEventListener("click", getConversationWith);
     _.extend($, exports);
 }
 

@@ -18,7 +18,7 @@ $.textChat.addEventListener( 'return', function(e) {
 	if ($.textChat.value == '') {
 		console.log("Está vazio");
 	} else{
-		appendChatMessage($.textChat.value, "Last");
+		appendChatMessage($.textChat.value, "Last", true);
     	sendMessage($.textChat.value, friend_id );
     	$.textChat.value = "";	
 	}; 
@@ -45,7 +45,7 @@ function messageRoute(e) {
         // ("<div class=\"chat_message\">"+"From: "+ data.sender.name+ " To: "+ data.receiver.name + " -> "+
         //     sanitize(Base64.decode(data.text))+"</div>", "Last");
         text = data.sender.name + ": " + Base64.decode(data.text);
-        appendChatMessage(text, "Last");
+        appendChatMessage(text, "Last",false);
         break;
     case 'conversation_with':
         console.log("Conversation With... Received");
@@ -118,7 +118,7 @@ function sendMsg(){
 	if ($.textChat.value == '') {
 		console.log("está vazio");
 	} else{
-		appendChatMessage($.textChat.value);
+		appendChatMessage($.textChat.value, true);
     	sendMessage($.textChat.value, friend_id);
     	$.textChat.value="";	
 	};
@@ -150,7 +150,7 @@ function sendMessage(message, friend_id){
     // $.textChat.value="";
 }
 
-function appendChatMessage(message, position){
+function appendChatMessage(message, position, is_sender){
     var row = Ti.UI.createTableViewRow({
         className          : "chat_message",
         color:'white',
@@ -169,6 +169,9 @@ function appendChatMessage(message, position){
         borderWidth: 1
     });
 
+    if(Alloy.Globals.user_pic != null)
+            imageAvatar.image = mainserver + Alloy.Globals.user_pic;
+        
     row.add(imageAvatar);
 
     var label = Ti.UI.createLabel({
@@ -211,7 +214,7 @@ function appendChatMessage(message, position){
     //$.chatArea.scrollToIndex(11);
 }
 
-function appendChatConversation(data){
+function appendChatConversation(data, is_sender){
 	var rows = [];
 	for (var i = 0; i < data.length; i++) {
         text = data[i].sender.name + ": " + (data[i].text);
@@ -223,8 +226,11 @@ function appendChatConversation(data){
 	        selecttionStyle: 'none'
 	    });
 	    
+	   
+	    
 	    var imageAvatar = Ti.UI.createButton({
 	        backgroundImage: 'person.png',
+	        id: "cover_picture",
 	        backgroundSelectedImage:'person.png',
 	        left:5, top:5,
 	        id: friend_id,
@@ -233,9 +239,19 @@ function appendChatConversation(data){
 	        borderRadius: 20,
 	        borderWidth: 1
 	    });
-	
+		
+		if(Alloy.Globals.user_pic != null)
+			if(data[i].sender.id == Alloy.Globals.user_id)
+           		 imageAvatar.image = mainserver + Alloy.Globals.user_pic;
+           	 else{
+           	 	
+           	 }
+        
+		
 	    row.add(imageAvatar);
-	
+		
+
+			
 	    var label = Ti.UI.createLabel({
 	        text   : text || "no-message",
 	        height : (OS_ANDROID) ? '50dp' : 'auto',
