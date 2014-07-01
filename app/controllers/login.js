@@ -1,36 +1,3 @@
-function facebookLogin(e)
-{
-	var fb = require('facebook');
-	fb.appid = 391052681038594;
-	fb.permissions = ['email, public_profile, user_friends ']; // Permissions your app needs
-	fb.forceDialogAuth = true;
-	fb.addEventListener('login', function(e) {
-	    if (e.success) {
-	         fb.requestWithGraphPath('me', {}, 'GET', function(e) {
-	            if (e.success) {
-	                //alert(e.result);
-	                var response = JSON.parse(e.result);
-	                var email = response.email;
-	                var age = response.age;
-	                var name = response.name;
-	                var gender = response.gender;
-	                alert(name+' '+email+' '+gender + ' '+age);
-	                autologin(email, email);
-	            } else if (e.error) {
-	                alert(e.error);
-	            } else {
-	                alert('Unknown response');
-	            }
-	        });
-	    } else if (e.error) {
-	        alert(e.error);
-	    } else if (e.cancelled) {
-	        alert("Canceled");
-	    }
-	});
-	fb.authorize();
-}
-
 function login(e)
 {
 	//starting to send out the auth
@@ -140,18 +107,45 @@ function autoLogin(user, pw){
 	client.send(params);
 }
 */
-
-$.loginInput.addEventListener('click', function()
-	{
-		$.loginInput.keyboardType = Titanium.UI.KEYBOARD_EMAIL;
-		$.loginInput.focus();
-	});
 	
 function openRegister(e)
 {
-	
 	$.win1 = null;
 	var win=Alloy.createController('register').getView();
 	win.open();
 	
 }
+/*
+function facebookLogin(e)
+{
+	var fb = require('facebook');
+	fb.appid = 391052681038594;
+	fb.permissions = ['email, public_profile, user_friends ']; // Permissions your app needs
+	fb.forceDialogAuth = true;
+	fb.addEventListener('login', function(e) {
+	    if (e.success) {
+	         fb.requestWithGraphPath('me', {}, 'GET', function(e) {
+	            if (e.success) {
+	                //alert(e.result);
+	                var response = JSON.parse(e.result);
+	                var email = response.email;
+	                var age = response.age;
+	                var name = response.name;
+	                var gender = response.gender;
+	                alert(name+' '+email+' '+gender + ' '+age);
+	                autologin(email, email);
+	            } else if (e.error) {
+	                alert(e.error);
+	            } else {
+	                alert('Unknown response');
+	            }
+	        });
+	    } else if (e.error) {
+	        alert(e.error);
+	    } else if (e.cancelled) {
+	        alert("Canceled");
+	    }
+	});
+	fb.authorize();
+}
+*/

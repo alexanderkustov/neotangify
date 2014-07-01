@@ -137,10 +137,6 @@ function Controller() {
     $.__views.win1 && $.addTopLevelView($.__views.win1);
     exports.destroy = function() {};
     _.extend($, $.__views);
-    $.loginInput.addEventListener("click", function() {
-        $.loginInput.keyboardType = Titanium.UI.KEYBOARD_EMAIL;
-        $.loginInput.focus();
-    });
     __defers["$.__views.__alloyId28!click!login"] && $.__views.__alloyId28.addEventListener("click", login);
     __defers["$.__views.__alloyId29!click!openRegister"] && $.__views.__alloyId29.addEventListener("click", openRegister);
     _.extend($, exports);
