@@ -49,13 +49,15 @@ function messageRoute(e) {
         break;
     case 'conversation_with':
         console.log("Conversation With... Received");
-        for (var i = 0; i < data.length; i++) {
-            // chatView.add("<div class=\"chat_message\">"+
-            //     "From: "+ data[i]['sender']['name']+ " To: "+ data[i]['receiver']['name'] + " -> "+
-            //     sanitize(data[i]['text'])+"</div>", "First");
-            text = data[i].sender.name + ": " + (data[i].text);
-            appendChatMessage(text, "First");
-        };
+        appendChatConversation(data);
+        // for (var i = 0; i < data.length; i++) {
+            // // chatView.add("<div class=\"chat_message\">"+
+            // //     "From: "+ data[i]['sender']['name']+ " To: "+ data[i]['receiver']['name'] + " -> "+
+            // //     sanitize(data[i]['text'])+"</div>", "First");
+            // text = data[i].sender.name + ": " + (data[i].text);
+            // appendChatMessage(text, "First");
+            // //Mudar aqui 
+        // };
         break;
     case 'auth_response':
         if (message[1]['data'] == 'authentication_success') {
@@ -192,7 +194,6 @@ function appendChatMessage(message, position){
        } else{
        		$.chatArea.insertRowBefore(0, row);
 			//Será chato quando se pede mais conversa ele vir para baixo? Ainda se pode corrigir.        		
-       		console.log("Este é o length" + $.chatArea.data[0].rows.length);
        		$.chatArea.scrollToIndex($.chatArea.data[0].rows.length-1);
        };
        
@@ -200,7 +201,6 @@ function appendChatMessage(message, position){
     }else{
        	// $.chatArea.appendRow(row,{animationStyle:Titanium.UI.iPhone.RowAnimationStyle.RIGHT});
        	$.chatArea.appendRow(row);
-       	console.log("Este é o length" + $.chatArea.data[0].rows.length);
        	$.chatArea.scrollToIndex($.chatArea.data[0].rows.length-1);
         // scroll
     }
@@ -209,6 +209,53 @@ function appendChatMessage(message, position){
     label = null;
     //$.chatArea.scrollToIndex($.chatArea.data[0].length);
     //$.chatArea.scrollToIndex(11);
+}
+
+function appendChatConversation(data){
+	var rows = [];
+	for (var i = 0; i < data.length; i++) {
+        text = data[i].sender.name + ": " + (data[i].text);
+    	
+    	var row = Ti.UI.createTableViewRow({
+	        className: "chat_message",
+	        color:'white',
+	        backgroundColor: 'transparent',
+	        selecttionStyle: 'none'
+	    });
+	    
+	    var imageAvatar = Ti.UI.createButton({
+	        backgroundImage: 'person.png',
+	        backgroundSelectedImage:'person.png',
+	        left:5, top:5,
+	        id: friend_id,
+	        width:45, height:45,
+	        borderColor: '#fff',
+	        borderRadius: 20,
+	        borderWidth: 1
+	    });
+	
+	    row.add(imageAvatar);
+	
+	    var label = Ti.UI.createLabel({
+	        text   : text || "no-message",
+	        height : (OS_ANDROID) ? '50dp' : 'auto',
+	        width  : 'auto',
+	        color  : "#fff",
+	        left   : 50,
+	        font   : {
+	            fontSize : (OS_ANDROID) ? '19dp' : 14,
+	            fontWeight: (OS_ANDROID) ? 'bold' : 'normal'
+	        }
+	    });
+	    row.add(label);
+    	rows.push(row);
+    	row=null;
+    	imageAvatar = null;
+    	label = null;
+    };
+    $.chatArea.data=rows;
+    $.chatArea.scrollToIndex($.chatArea.data[0].rows.length-1);
+    rows=null;
 }
 
 

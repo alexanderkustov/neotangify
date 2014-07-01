@@ -19,10 +19,7 @@ function Controller() {
 
           case "conversation_with":
             console.log("Conversation With... Received");
-            for (var i = 0; data.length > i; i++) {
-                text = data[i].sender.name + ": " + data[i].text;
-                appendChatMessage(text, "First");
-            }
+            appendChatConversation(data);
             break;
 
           case "auth_response":
@@ -100,16 +97,58 @@ function Controller() {
         row.add(label);
         if ("First" == position) if (0 == $.chatArea.data.length) $.chatArea.appendRow(row); else {
             $.chatArea.insertRowBefore(0, row);
-            console.log("Este é o length" + $.chatArea.data[0].rows.length);
             $.chatArea.scrollToIndex($.chatArea.data[0].rows.length - 1);
         } else {
             $.chatArea.appendRow(row);
-            console.log("Este é o length" + $.chatArea.data[0].rows.length);
             $.chatArea.scrollToIndex($.chatArea.data[0].rows.length - 1);
         }
         row = null;
         imageAvatar = null;
         label = null;
+    }
+    function appendChatConversation(data) {
+        var rows = [];
+        for (var i = 0; data.length > i; i++) {
+            text = data[i].sender.name + ": " + data[i].text;
+            var row = Ti.UI.createTableViewRow({
+                className: "chat_message",
+                color: "white",
+                backgroundColor: "transparent",
+                selecttionStyle: "none"
+            });
+            var imageAvatar = Ti.UI.createButton({
+                backgroundImage: "person.png",
+                backgroundSelectedImage: "person.png",
+                left: 5,
+                top: 5,
+                id: friend_id,
+                width: 45,
+                height: 45,
+                borderColor: "#fff",
+                borderRadius: 20,
+                borderWidth: 1
+            });
+            row.add(imageAvatar);
+            var label = Ti.UI.createLabel({
+                text: text || "no-message",
+                height: "auto",
+                width: "auto",
+                color: "#fff",
+                left: 50,
+                font: {
+                    fontSize: 14,
+                    fontWeight: "normal"
+                }
+            });
+            row.add(label);
+            rows.push(row);
+            row = null;
+            imageAvatar = null;
+            label = null;
+        }
+        $.chatArea.data = rows;
+        $.chatArea.scrollToIndex($.chatArea.data[0].rows.length - 1);
+        rows = null;
     }
     require("alloy/controllers/BaseController").apply(this, Array.prototype.slice.call(arguments));
     this.__controllerPath = "chatWindow";
