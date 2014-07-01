@@ -10,13 +10,11 @@ function getFriends(e){
             Ti.API.info("Get friends : " + this.responseText);
             var parsedText = JSON.parse(this.responseText).friends;
 
-            for(var i=0; i < parsedText.length; i ++)
-                {
+            for(var i=0; i < parsedText.length; i ++){
 
-                addFriendToTable(parsedText[i].id, parsedText[i].name, "Last");
+            	addFriendToTable(parsedText[i].id, parsedText[i].name, "Last");
                 
-
-             }
+            }
                   
         },
         onerror : function(e) {

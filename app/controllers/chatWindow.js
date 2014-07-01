@@ -49,7 +49,7 @@ function messageRoute(e) {
             // chatView.add("<div class=\"chat_message\">"+
             //     "From: "+ data[i]['sender']['name']+ " To: "+ data[i]['receiver']['name'] + " -> "+
             //     sanitize(data[i]['text'])+"</div>", "First");
-            text = data.sender.name + ": " + Base64.decode(data.text);
+            text = data[i].sender.name + ": " + Base64.decode(data[i].text);
             appendChatMessage(text, "First");
         };
         break;
@@ -73,7 +73,12 @@ function messageRoute(e) {
 }
 
 function getConversationWith(friend_id){
-    Alloy.Globals.WS.send(JSON.stringify(["get_conversation_with",{"user": Alloy.Globals.user_email,"auth_token": Alloy.Globals.auth_token, "friend_id": friend_id, "page":1}]));
+    Alloy.Globals.WS.send(
+    	JSON.stringify(["get_conversation_with",{
+    		"user": Alloy.Globals.user_email,
+    	"auth_token": Alloy.Globals.auth_token,
+    	 "friend_id": friend_id,
+    	 "page":1}]));
 }
 
 function getMoreConversationWith(friend_id){
@@ -136,9 +141,7 @@ function appendChatMessage(message, position){
         className          : "chat_message",
         color:'white',
         backgroundColor: 'transparent'
-
     });
-
     
     var imageAvatar = Ti.UI.createButton({
         backgroundImage: 'person.png',
@@ -169,11 +172,18 @@ function appendChatMessage(message, position){
     
     //$.chatArea.insertRowAfter( 0, row );
     if (position == "First") {
-        $.chatArea.insertRowBefore(0, row);
-    }else{
         $.chatArea.appendRow(row,{animationStyle:Titanium.UI.iPhone.RowAnimationStyle.RIGHT});
+        
+    }else{
+       	$.chatArea.appendRow(row,{animationStyle:Titanium.UI.iPhone.RowAnimationStyle.RIGHT});
         // scroll
     }
     //$.chatArea.scrollToIndex($.chatArea.data[0].length);
     //$.chatArea.scrollToIndex(11);
 }
+
+
+$.chatWindow.addEventListener('focus', function() {
+	getConversationWith(friend_id);
+	//setInterval(function(){geolocate();},35000);
+});

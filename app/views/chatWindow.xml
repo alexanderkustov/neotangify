@@ -1,5 +1,5 @@
 <Alloy>
-	<NavigationWindow id="win1" platform="ios">
+	<NavigationWindow id="win_chat" platform="ios">
 		<Window id="chatWindow" title="">
 			<LeftNavButton>
 	            <Button id="back" onClick="goback" color="white" class="white">Back</Button>

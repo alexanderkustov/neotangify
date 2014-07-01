@@ -20,7 +20,7 @@ function Controller() {
           case "conversation_with":
             console.log("Conversation With... Received");
             for (var i = 0; data.length > i; i++) {
-                text = data.sender.name + ": " + Base64.decode(data.text);
+                text = data[i].sender.name + ": " + Base64.decode(data[i].text);
                 appendChatMessage(text, "First");
             }
             break;
@@ -95,7 +95,9 @@ function Controller() {
             }
         });
         row.add(label);
-        "First" == position ? $.chatArea.insertRowBefore(0, row) : $.chatArea.appendRow(row, {
+        "First" == position ? $.chatArea.appendRow(row, {
+            animationStyle: Titanium.UI.iPhone.RowAnimationStyle.RIGHT
+        }) : $.chatArea.appendRow(row, {
             animationStyle: Titanium.UI.iPhone.RowAnimationStyle.RIGHT
         });
     }
@@ -176,11 +178,11 @@ function Controller() {
     });
     $.__views.chatBtn.add($.__views.__alloyId12);
     getConversationWith ? $.__views.__alloyId12.addEventListener("click", getConversationWith) : __defers["$.__views.__alloyId12!click!getConversationWith"] = true;
-    $.__views.win1 = Ti.UI.iOS.createNavigationWindow({
+    $.__views.win_chat = Ti.UI.iOS.createNavigationWindow({
         window: $.__views.chatWindow,
-        id: "win1"
+        id: "win_chat"
     });
-    $.__views.win1 && $.addTopLevelView($.__views.win1);
+    $.__views.win_chat && $.addTopLevelView($.__views.win_chat);
     exports.destroy = function() {};
     _.extend($, $.__views);
     var friend_id = Ti.App.SelectedFriend;
@@ -191,6 +193,9 @@ function Controller() {
         appendChatMessage($.textChat.value, "Last");
         sendMessage($.textChat.value, friend_id);
         $.textChat.value = "";
+    });
+    $.chatWindow.addEventListener("focus", function() {
+        getConversationWith(friend_id);
     });
     __defers["$.__views.back!click!goback"] && $.__views.back.addEventListener("click", goback);
     __defers["$.__views.__alloyId11!click!sendMsg"] && $.__views.__alloyId11.addEventListener("click", sendMsg);
