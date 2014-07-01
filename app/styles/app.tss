@@ -17,6 +17,11 @@
 ".white":{
 	color:"white"
 },
+"#user_picture":{
+	width:100,
+	height:100,
+	borderRadius : "50",
+}
 
 "Label": {
 	width: Ti.UI.SIZE,

@@ -7,30 +7,55 @@ function goback(e) {
 POST /users/:user_id/pictures(.:format)
 Params para { picture: {image: ...}, user_id: 1}
 */
-function uploadPic(e){
-	Titanium.Media.openPhotoGallery({
-	success:function(event) {
-		/* success callback fired after media retrieved from gallery */
-		var xhr = Titanium.Network.createHTTPClient();
-		xhr.onload = function(e) {
-			Ti.UI.createAlertDialog({
-			      title:'Success',
-			      message:'status code ' + this.status
-		    }).show();
-		};
-		xhr.open('POST', mainserver + "/users/"+Alloy.Globals.user_id + "/pictures.json");
-		xhr.send(JSON.stringify(params));
-		  
-		  var params = {
-        "user":{"image":event.media,
-           
-           },
-            "user_id":Alloy.Globals.user_id
-        };
 
+function uploadPic(e){
+
+Titanium.Media.openPhotoGallery({
+		success:function(event) {
+			
+			var xhr = Titanium.Network.createHTTPClient();
+			xhr.onload = function(e) {
+				Ti.UI.createAlertDialog({
+				      title:'Success',
+				      message:'status code ' + this.status
+			    }).show();
+		};
+		xhr.open('POST', mainserver + "/users/"+Alloy.Globals.user_id + "/picture_upload.json?" + 'auth_token=' + Alloy.Globals.auth_token );
+		
+		xhr.send({"picture": event.media});
+		  
+		xhr.setRequestHeader('enctype', 'multipart/form-data');
+		xhr.setRequestHeader('Content-Type', 'image/png');
 	}
 });
+
+
 }
+
+function uploadCoverPic(e){
+
+Titanium.Media.openPhotoGallery({
+		success:function(event) {
+			
+			var xhr = Titanium.Network.createHTTPClient();
+			xhr.onload = function(e) {
+				Ti.UI.createAlertDialog({
+				      title:'Success',
+				      message:'status code ' + this.status
+			    }).show();
+		};
+		xhr.open('POST', mainserver + "/users/"+Alloy.Globals.user_id + "/cover_upload.json?" + 'auth_token=' + Alloy.Globals.auth_token );
+		
+		xhr.send({"cover": event.media});
+		  
+		xhr.setRequestHeader('enctype', 'multipart/form-data');
+		xhr.setRequestHeader('Content-Type', 'image/png');
+	}
+});
+
+
+}
+
 
 function editProfile(e) {
 	var url = mainserver + "/users/"+Alloy.Globals.user_id;

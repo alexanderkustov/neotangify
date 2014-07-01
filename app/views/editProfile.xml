@@ -6,6 +6,8 @@
                 </LeftNavButton>
 	
 				 <View layout="vertical">
+				 	<Button height="40" width="Ti.UI.FILL" onClick="uploadCoverPic">Cover Picture</Button>
+					
 				 	<Button height="40" width="Ti.UI.FILL" onClick="uploadPic">Picture</Button>
 					
 				 	<TextField hintText="Name" height="40" width="Ti.UI.FILL" id="name"></TextField>
