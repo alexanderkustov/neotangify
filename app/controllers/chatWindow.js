@@ -129,8 +129,12 @@ function sendMessage(message, friend_id){
     //   width: Ti.UI.SIZE, height: Ti.UI.SIZE
     // });
 
-    Ti.API.info("Message sent: " + Base64.encode(message) + " frined_id: " + friend_id + "auth_token" + Alloy.Globals.auth_token); 
-    Alloy.Globals.WS.send(JSON.stringify(["message",{"user": Alloy.Globals.user_email, "auth_token": Alloy.Globals.auth_token, "receiver_id": friend_id ,"message": Base64.encode(message)}]));
+    Ti.API.info("Message sent: " + Base64.encode(message) + " friend_id: " + friend_id + " auth_token" + Alloy.Globals.auth_token); 
+    Alloy.Globals.WS.send(JSON.stringify(["message",{
+    	"user": Alloy.Globals.user_email, 
+    	"auth_token": Alloy.Globals.auth_token, 
+    	"receiver_id": friend_id,
+    	"message": Base64.encode(message)}]));
         
     // $.chatArea.add(chatMsg);
     // $.textChat.value="";
