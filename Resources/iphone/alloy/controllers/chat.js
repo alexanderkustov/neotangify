@@ -6,7 +6,11 @@ function Controller() {
             onload: function() {
                 Ti.API.info("Get friends : " + this.responseText);
                 var parsedText = JSON.parse(this.responseText).friends;
-                for (var i = 0; parsedText.length > i; i++) addFriendToTable(parsedText[i].id, parsedText[i].name, "Last", mainserver + parsedText[i].presentation_picture.url);
+                var person_image;
+                for (var i = 0; parsedText.length > i; i++) {
+                    person_image = null != parsedText[i].presentation_picture.url ? null != mainserver + parsedText[i].presentation_picture.url : "person.png";
+                    addFriendToTable(parsedText[i].id, parsedText[i].name, "Last", person_image);
+                }
             },
             onerror: function(e) {
                 alert("error" + e);
@@ -17,7 +21,7 @@ function Controller() {
         client.open("GET", url);
         client.send();
     }
-    function addFriendToTable(friend_id, friend_name, position, presentation_pictures) {
+    function addFriendToTable(friend_id, friend_name, position, presentation_picture) {
         var row = Ti.UI.createTableViewRow({
             className: "friend_row",
             color: "white",
@@ -25,7 +29,7 @@ function Controller() {
             id: friend_id
         });
         var imageAvatar = Ti.UI.createImageView({
-            image: presentation_pictures,
+            image: presentation_picture,
             left: 5,
             top: 5,
             width: 45,
@@ -57,11 +61,8 @@ function Controller() {
     }
     function openChat(friend_id) {
         Ti.App.SelectedFriend = friend_id;
-        console.log("Lets get view");
         var win = Alloy.createController("chatWindow").getView();
-        console.log("Lets open");
         win.open();
-        console.log("opened");
     }
     require("alloy/controllers/BaseController").apply(this, Array.prototype.slice.call(arguments));
     this.__controllerPath = "chat";

@@ -8,17 +8,24 @@ function Controller() {
             onload: function() {
                 Ti.API.info("Get feed text: " + this.responseText);
                 var parsedText = JSON.parse(this.responseText).activities;
-                for (var i = 0; parsedText.length > i; i++) switch (parsedText[i].name) {
-                  case "friend_request_accepted":
-                    false == parsedText[i].read && addActivitiesToTable(parsedText[i].subject.user.name, parsedText[i].subject.friend.name, "Last", parsedText[i].subject.friend.id, parsedText[i].id, "accepted");
-                    break;
+                for (var i = 0; parsedText.length > i; i++) {
+                    if (null != parsedText[i].subject.friend.presentation_picture_url) {
+                        friend_image = mainserver + parsedText[i].subject.friend.presentation_picture_url;
+                        console.log(friend_image);
+                    } else friend_image = "person.png";
+                    console.log(friend_image);
+                    switch (parsedText[i].name) {
+                      case "friend_request_accepted":
+                        false == parsedText[i].read && addActivitiesToTable(parsedText[i].subject.user.name, parsedText[i].subject.friend.name, "Last", parsedText[i].subject.friend.id, parsedText[i].id, "accepted", friend_image);
+                        break;
 
-                  case "friend_request_recieved":
-                    false == parsedText[i].read && addActivitiesToTable(parsedText[i].subject.user.name, parsedText[i].subject.friend.name, "Last", parsedText[i].subject.friend.id, parsedText[i].id, "recieved");
-                    break;
+                      case "friend_request_recieved":
+                        false == parsedText[i].read && addActivitiesToTable(parsedText[i].subject.user.name, parsedText[i].subject.friend.name, "Last", parsedText[i].subject.friend.id, parsedText[i].id, "recieved", friend_image);
+                        break;
 
-                  default:
-                    console.log("default feed stuff");
+                      default:
+                        console.log("default feed stuff");
+                    }
                 }
             },
             onerror: function(e) {
@@ -33,7 +40,7 @@ function Controller() {
         client.open("GET", url);
         client.send(params);
     }
-    function addActivitiesToTable(user_name, friend_name, position, friend_id, activity_id, type) {
+    function addActivitiesToTable(user_name, friend_name, position, friend_id, activity_id, type, friend_image) {
         var row = Ti.UI.createTableViewRow({
             className: "activity_row",
             color: "white",
@@ -42,8 +49,7 @@ function Controller() {
             separatorStyle: Titanium.UI.iPhone.TableViewSeparatorStyle.NONE
         });
         var imageAvatar = Ti.UI.createButton({
-            backgroundImage: "person.png",
-            backgroundSelectedImage: "person.png",
+            backgroundImage: friend_image,
             left: 5,
             top: 5,
             id: friend_id,
