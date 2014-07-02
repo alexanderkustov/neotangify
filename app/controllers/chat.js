@@ -30,7 +30,7 @@ function getFriends(e){
 
 function addFriendToTable(friend_id, friend_name, position){
 
- var row = Ti.UI.createTableViewRow({
+    var row = Ti.UI.createTableViewRow({
         className          : "friend_row",
         color:'white',
         backgroundColor: 'rgba(0,0,0,0.2)',
@@ -39,7 +39,7 @@ function addFriendToTable(friend_id, friend_name, position){
 
     });
 
- var imageAvatar = Ti.UI.createImageView({
+    var imageAvatar = Ti.UI.createImageView({
         image: 'person.png',
         left:5, top:5,
         width:45, height:45,
@@ -48,9 +48,9 @@ function addFriendToTable(friend_id, friend_name, position){
         borderWidth: 1
     });
 
-row.add(imageAvatar);
+    row.add(imageAvatar);
 
-var label = Ti.UI.createLabel({
+    var label = Ti.UI.createLabel({
         text   : friend_name,
         height : (OS_ANDROID) ? '50dp' : 'auto',
         id     : friend_id,
@@ -66,19 +66,21 @@ var label = Ti.UI.createLabel({
   
     row.add(label);
 
-     if (position == "First") {
+    if (position == "First") {
         $.friendsTable.insertRowBefore(0, row);
     }else{
-        $.friendsTable.appendRow(row,{animationStyle:Titanium.UI.iPhone.RowAnimationStyle.RIGHT});
+        $.friendsTable.appendRow(row);
         // scroll
+        $.friendsTable.scrollToIndex($.friendsTable.data[0].rows.length-1);
     }
-   
+    row = null;
+    imageAvatar = null;
 }
 
 
 function openChat(friend_id){
-   
-    Ti.App.SelectedFriend = friend_id;   
+    
+    Ti.App.SelectedFriend = friend_id;
     var win=Alloy.createController('chatWindow').getView();
     win.open();
 }

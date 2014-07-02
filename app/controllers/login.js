@@ -30,7 +30,8 @@ function login(e)
 	      
 	      var win=Alloy.createController('index').getView();
 	      win.open();
-	        
+	      // loginWindow.close();
+	      // loginWindow=null; n encontra assim.
 
 	    },
 	    // function called when an error occurs, including a timeout

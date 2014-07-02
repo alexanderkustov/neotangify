@@ -48,14 +48,20 @@ function Controller() {
             }
         });
         row.add(label);
-        "First" == position ? $.friendsTable.insertRowBefore(0, row) : $.friendsTable.appendRow(row, {
-            animationStyle: Titanium.UI.iPhone.RowAnimationStyle.RIGHT
-        });
+        if ("First" == position) $.friendsTable.insertRowBefore(0, row); else {
+            $.friendsTable.appendRow(row);
+            $.friendsTable.scrollToIndex($.friendsTable.data[0].rows.length - 1);
+        }
+        row = null;
+        imageAvatar = null;
     }
     function openChat(friend_id) {
         Ti.App.SelectedFriend = friend_id;
+        console.log("Lets get view");
         var win = Alloy.createController("chatWindow").getView();
+        console.log("Lets open");
         win.open();
+        console.log("opened");
     }
     require("alloy/controllers/BaseController").apply(this, Array.prototype.slice.call(arguments));
     this.__controllerPath = "chat";

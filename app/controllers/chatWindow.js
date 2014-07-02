@@ -27,6 +27,14 @@ $.textChat.addEventListener( 'return', function(e) {
 
 function goback(e) {
     //var win=Alloy.createController('chat').getView();
+    if ($.chatArea.children) {
+        for (var c = $.chatArea.children.length - 1; c >= 0; c--) {
+            $.chatArea.remove($.chatArea.children[c]);
+            $.chatArea.children[c] = null;
+        }
+    }
+    $.chatArea.data = null;
+    
     $.win_chat.close();
     $.win_chat = null;
 }
@@ -80,6 +88,7 @@ function messageRoute(e) {
 }
 
 function getConversationWith(friend_id){
+    console.log('Lets send request for conversation with');
     Alloy.Globals.WS.send(
     	JSON.stringify(["get_conversation_with",{
     		"user": Alloy.Globals.user_email,
@@ -276,6 +285,7 @@ function appendChatConversation(data, is_sender){
 }
 
 $.win_chat.addEventListener('focus', function() {
+    console.log('Chat Window Focus');
 	getConversationWith(friend_id);
 	//setInterval(function(){geolocate();},35000);
 });
