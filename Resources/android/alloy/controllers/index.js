@@ -74,8 +74,8 @@ function Controller() {
     $.__views.index && $.addTopLevelView($.__views.index);
     exports.destroy = function() {};
     _.extend($, $.__views);
-    var loginWindow = Alloy.createController("loginWindow").getView();
-    Ti.Android ? loginWindow.open() : Titanium.UI.currentTab.open(loginWindow);
+    var loginWindow = Alloy.createController("login").getView();
+    loginWindow.open();
     _.extend($, exports);
 }
 

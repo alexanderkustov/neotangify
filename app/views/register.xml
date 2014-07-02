@@ -1,5 +1,5 @@
 <Alloy>
-<NavigationWindow id="register" platform="ios">
+<NavigationWindow id="register">
 	<Window title="Registration">
 	
 	

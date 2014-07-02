@@ -98,6 +98,64 @@ function Controller() {
     var $ = this;
     var exports = {};
     var __defers = {};
+    $.__views.__alloyId35 = Ti.UI.createWindow({
+        backgroundImage: "background.jpg",
+        color: "#fff",
+        translucent: "false",
+        barColor: "#fff",
+        id: "__alloyId35"
+    });
+    $.__views.myTitleLabel = Ti.UI.createLabel({
+        width: Ti.UI.SIZE,
+        height: Ti.UI.SIZE,
+        color: "#333",
+        font: {
+            fontSize: 20,
+            fontFamily: "Helvetica Neue"
+        },
+        textAlign: "center",
+        backgroundColor: "#fff",
+        text: "Radar",
+        id: "myTitleLabel"
+    });
+    $.__views.__alloyId35.titleControl = $.__views.myTitleLabel;
+    $.__views.__alloyId37 = Ti.UI.createView({
+        layout: "vertical",
+        id: "__alloyId37"
+    });
+    $.__views.__alloyId35.add($.__views.__alloyId37);
+    $.__views.__alloyId38 = Ti.UI.createButton({
+        color: "#fff",
+        title: "Geolocate",
+        height: "40",
+        width: Ti.UI.FILL,
+        id: "__alloyId38"
+    });
+    $.__views.__alloyId37.add($.__views.__alloyId38);
+    geolocate ? $.__views.__alloyId38.addEventListener("click", geolocate) : __defers["$.__views.__alloyId38!click!geolocate"] = true;
+    $.__views.age = Ti.UI.createTextField({
+        color: "#333",
+        borderStyle: Ti.UI.INPUT_BORDERSTYLE_ROUNDED,
+        top: 10,
+        left: 10,
+        right: 10,
+        width: Ti.UI.FILL,
+        height: "40",
+        id: "age"
+    });
+    $.__views.__alloyId37.add($.__views.age);
+    $.__views.radar = Ti.UI.createView({
+        id: "radar",
+        width: "460px",
+        height: "460px",
+        backgroundImage: "/radar_back.png"
+    });
+    $.__views.__alloyId37.add($.__views.radar);
+    $.__views.win1 = Ti.UI.iOS.createNavigationWindow({
+        window: $.__views.__alloyId35,
+        id: "win1"
+    });
+    $.__views.win1 && $.addTopLevelView($.__views.win1);
     exports.destroy = function() {};
     _.extend($, $.__views);
     var cur_longitude, cur_latitude;

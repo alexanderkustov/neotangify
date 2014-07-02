@@ -117,6 +117,7 @@ function openRegister(e)
 	win.open();
 	
 }
+
 /*
 function facebookLogin(e)
 {

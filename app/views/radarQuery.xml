@@ -1,5 +1,5 @@
 <Alloy>
-<NavigationWindow id="win1" platform="ios">
+<NavigationWindow id="win1">
 			<Window>
 				<TitleControl>
 					<Label id="myTitleLabel">Radar</Label>

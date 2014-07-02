@@ -58,6 +58,64 @@ function Controller() {
     var $ = this;
     var exports = {};
     var __defers = {};
+    $.__views.profile_name = Ti.UI.createWindow({
+        backgroundImage: "background.jpg",
+        color: "#fff",
+        translucent: "false",
+        barColor: "#fff",
+        id: "profile_name",
+        title: ""
+    });
+    $.__views.back = Ti.UI.createButton({
+        color: "#fff",
+        title: "Back",
+        id: "back"
+    });
+    goback ? $.__views.back.addEventListener("click", goback) : __defers["$.__views.back!click!goback"] = true;
+    $.__views.profile_name.leftNavButton = $.__views.back;
+    $.__views.__alloyId31 = Ti.UI.createView({
+        layout: "vertical",
+        id: "__alloyId31"
+    });
+    $.__views.profile_name.add($.__views.__alloyId31);
+    $.__views.__alloyId32 = Ti.UI.createImageView({
+        image: "/tangy_back.jpg",
+        zIndex: "1",
+        height: "160",
+        top: "-50",
+        width: Ti.UI.FILL,
+        id: "__alloyId32"
+    });
+    $.__views.__alloyId31.add($.__views.__alloyId32);
+    $.__views.__alloyId33 = Ti.UI.createImageView({
+        image: "/person.png",
+        zIndex: "5",
+        top: "-50",
+        borderRadius: "50%",
+        borderWidth: "3",
+        borderColor: "white",
+        id: "__alloyId33"
+    });
+    $.__views.__alloyId31.add($.__views.__alloyId33);
+    $.__views.back = Ti.UI.createButton({
+        color: "#fff",
+        title: "Send a Message",
+        id: "back"
+    });
+    $.__views.__alloyId31.add($.__views.back);
+    sendMsg ? $.__views.back.addEventListener("click", sendMsg) : __defers["$.__views.back!click!sendMsg"] = true;
+    $.__views.back = Ti.UI.createButton({
+        color: "#fff",
+        title: "Add a Friend",
+        id: "back"
+    });
+    $.__views.__alloyId31.add($.__views.back);
+    addFriend ? $.__views.back.addEventListener("click", addFriend) : __defers["$.__views.back!click!addFriend"] = true;
+    $.__views.win_profilemodal = Ti.UI.iOS.createNavigationWindow({
+        window: $.__views.profile_name,
+        id: "win_profilemodal"
+    });
+    $.__views.win_profilemodal && $.addTopLevelView($.__views.win_profilemodal);
     exports.destroy = function() {};
     _.extend($, $.__views);
     var current_user_id;

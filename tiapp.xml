@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ti:app xmlns:ti="http://ti.appcelerator.org">
     <id>com.inspiring.tangify</id>
-    <name>neonTangify</name>
+    <name>tangify</name>
     <version>1.0</version>
     <publisher>knuxus</publisher>
     <url>http://apptangify.pt</url>
@@ -38,8 +38,16 @@
                 <string>UIStatusBarStyleDefault</string>
             </dict>
         </plist>
-    </ios>
-    <android xmlns:android="http://schemas.android.com/apk/res/android"/>
+    </ios> 	
+   <android xmlns:android="http://schemas.android.com/apk/res/android">
+    <tool-api-level>14</tool-api-level>
+    <manifest>
+        <application android:screenOrientation="portrait" android:theme="@style/MyTheme" />
+        <uses-sdk android:minSdkVersion="14"/>
+        <uses-sdk android:targetSdkVersion="16"/>
+    </manifest>
+</android>
+    
     <mobileweb>
         <precache/>
         <splash>
