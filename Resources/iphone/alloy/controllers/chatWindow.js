@@ -108,7 +108,7 @@ function Controller() {
     }
     function appendChatConversation(data) {
         var rows = [];
-        for (var i = 0; data.length > i; i++) {
+        for (var i = data.length - 1; i >= 0; i--) {
             text = data[i].sender.name + ": " + data[i].text;
             var row = Ti.UI.createTableViewRow({
                 className: "chat_message",

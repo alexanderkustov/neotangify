@@ -36,12 +36,13 @@ function Controller() {
         var client = Ti.Network.createHTTPClient({
             onload: function() {
                 Ti.API.info("pessoa selecionada: " + this.responseText);
-                console.log("pesosa nome: " + JSON.parse(this.responseText).user.name);
+                console.log("pesosa nome: " + JSON.parse(this.responseText));
                 current_user_id = JSON.parse(this.responseText).user.id;
-                $.profile_name.user_name = JSON.parse(this.responseText).user.name;
-                $.profile_name.short_description = JSON.parse(this.responseText).user.short_description;
-                $.profile_name.cover_picture = mainserver + JSON.parse(this.responseText).user.cover_picture.url;
-                $.profile_name.person_picture = mainserver + JSON.parse(this.responseText).user.presentation_picture.url;
+                $.user_name.text = JSON.parse(this.responseText).user.name;
+                $.short_description.text = JSON.parse(this.responseText).user.short_description;
+                null != JSON.parse(this.responseText).user.presentation_picture.thumb.url && ($.person_picture.image = mainserver + JSON.parse(this.responseText).user.presentation_picture.thumb.url);
+                null != JSON.parse(this.responseText).user.cover_picture.small.url && ($.cover_picture.image = mainserver + JSON.parse(this.responseText).user.cover_picture.small.url);
+                console.log($.profile_name.person_picture);
             },
             onerror: function(e) {
                 alert("error" + e);
@@ -90,13 +91,15 @@ function Controller() {
     });
     $.__views.__alloyId32.add($.__views.cover_picture);
     $.__views.person_picture = Ti.UI.createImageView({
-        id: "person_picture",
         image: "/person.png",
         zIndex: "5",
         top: "-50",
-        borderRadius: "50%",
+        borderRadius: "50",
         borderWidth: "3",
-        borderColor: "white"
+        borderColor: "white",
+        width: "100",
+        height: "100",
+        id: "person_picture"
     });
     $.__views.__alloyId32.add($.__views.person_picture);
     $.__views.user_name = Ti.UI.createLabel({

@@ -47,13 +47,17 @@ function getFriend(userid){
 	    onload : function(e) {
 	    	Ti.API.info("pessoa selecionada: " + this.responseText);
 	    	//$.profilewin.profile_name.text = 'lol';
-	    	console.log('pesosa nome: ' + JSON.parse(this.responseText).user.name);
+	    	console.log('pesosa nome: ' + JSON.parse(this.responseText));
 	    	current_user_id = JSON.parse(this.responseText).user.id;
-	    	$.profile_name.user_name = JSON.parse(this.responseText).user.name;
-	    	$.profile_name.short_description = JSON.parse(this.responseText).user.short_description;
-	    	$.profile_name.cover_picture = mainserver + JSON.parse(this.responseText).user.cover_picture.url;
-			$.profile_name.person_picture = mainserver + JSON.parse(this.responseText).user.presentation_picture.url;
-
+	    	$.user_name.text = JSON.parse(this.responseText).user.name;
+	    	$.short_description.text = JSON.parse(this.responseText).user.short_description;
+	    	
+	    	if(JSON.parse(this.responseText).user.presentation_picture.thumb.url != null)
+			$.person_picture.image = mainserver + JSON.parse(this.responseText).user.presentation_picture.thumb.url;
+	
+			if(JSON.parse(this.responseText).user.cover_picture.small.url != null)
+	    	$.cover_picture.image = mainserver + JSON.parse(this.responseText).user.cover_picture.small.url;
+			console.log($.profile_name.person_picture);
 			
 	    },
 	    onerror : function(e) {

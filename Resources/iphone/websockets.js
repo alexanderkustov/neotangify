@@ -25,6 +25,7 @@ Alloy.Globals.WS.addEventListener("error", function(ev) {
 });
 
 Alloy.Globals.WS.addEventListener("message", function(ev) {
+    console.log("Message received" + ev);
     Ti.App.fireEvent("app:messageReceived", {
         e: ev
     });

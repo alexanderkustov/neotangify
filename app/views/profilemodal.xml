@@ -7,12 +7,13 @@
                 
 				 <View layout="vertical">
 				 	<ImageView id="cover_picture" image="/tangy_back.jpg" zIndex="1" height="160" top="-50" width="Ti.UI.FILL"></ImageView>
-					<ImageView id="person_picture" image="/person.png" zIndex="5" top="-50" borderRadius="50%" borderWidth="3" borderColor="white"></ImageView>
-						 
+					<ImageView image="/person.png" zIndex="5" top="-50" borderRadius="50" borderWidth="3" borderColor="white" width="100" height="100" id="person_picture"></ImageView>
+
+	
 					<Label id="user_name"></Label>
 					<Label id="birthdate"></Label>
 					<Label id="short_description"></Label>		
-				   	            <Button id="back" onClick="sendMsg">Send a Message</Button>
+				   	      <Button id="back" onClick="sendMsg">Send a Message</Button>
 				   	            <Button id="back" onClick="addFriend">Add a Friend</Button>
 
 				</View>
