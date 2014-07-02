@@ -8,7 +8,7 @@ function Controller() {
                 var parsedText = JSON.parse(this.responseText).friends;
                 var person_image;
                 for (var i = 0; parsedText.length > i; i++) {
-                    person_image = null != parsedText[i].presentation_picture.url ? null != mainserver + parsedText[i].presentation_picture.url : "person.png";
+                    person_image = null != parsedText[i].presentation_picture.url ? mainserver + parsedText[i].presentation_picture.url : "person.png";
                     addFriendToTable(parsedText[i].id, parsedText[i].name, "Last", person_image);
                 }
             },

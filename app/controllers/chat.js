@@ -9,18 +9,19 @@ function getFriends(e){
         onload : function(e) {
             Ti.API.info("Get friends : " + this.responseText);
             var parsedText = JSON.parse(this.responseText).friends;
+            
 			var person_image ;
-            for(var i=0; i < parsedText.length; i ++){
+            for(var i=0; i < parsedText.length; i ++)
+            	{
 				
-				if(parsedText[i].presentation_picture.url != null){
-						person_image = mainserver + parsedText[i].presentation_picture.url != null;
-					}
-					else{
+					if(parsedText[i].presentation_picture.url != null){
+						person_image = mainserver + parsedText[i].presentation_picture.url;
+					}else{
 					 person_image = "person.png";
 					}
 				
 					
-            	addFriendToTable(parsedText[i].id, parsedText[i].name, "Last",person_image );
+            	addFriendToTable(parsedText[i].id, parsedText[i].name, "Last", person_image );
                 
             }
                   
@@ -39,11 +40,10 @@ function getFriends(e){
 function addFriendToTable(friend_id, friend_name, position, presentation_picture){
 
     var row = Ti.UI.createTableViewRow({
-        className          : "friend_row",
-        color:'white',
-        backgroundColor: 'rgba(0,0,0,0.2)',
+        className : "friend_row",
+        color : 'white',
+        backgroundColor : 'rgba(0,0,0,0.2)',
         id     : friend_id,
-       
 
     });
 
