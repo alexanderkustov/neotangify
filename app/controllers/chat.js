@@ -36,7 +36,7 @@ function getFriends(e){
     client.send();  
 }
 
-function addFriendToTable(friend_id, friend_name, position, presentation_pictures){
+function addFriendToTable(friend_id, friend_name, position, presentation_picture){
 
     var row = Ti.UI.createTableViewRow({
         className          : "friend_row",
@@ -49,7 +49,7 @@ function addFriendToTable(friend_id, friend_name, position, presentation_picture
 
 
  var imageAvatar = Ti.UI.createImageView({
-        image: presentation_pictures,
+        image: presentation_picture,
         left:5, top:5,
         width:45, height:45,
         borderColor: '#fff',
