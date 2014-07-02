@@ -10,6 +10,7 @@
 		
 	Alloy.Globals.WS.addEventListener('close', function (ev) {
 		Ti.API.info(ev);
+		Alloy.Globals.WS.open(uri);
 	});
 		
 	Alloy.Globals.WS.addEventListener('error', function (ev) {
@@ -27,10 +28,10 @@
 	Alloy.Globals.WS.open(uri);
 	//Meter esta num ponto inicial
 
-function sendKeepAlives(){
+	function sendKeepAlives(){
 		//if (WS && WS.readyState == WebSocket.OPEN){
 			// Send a ping to avoid TCP timeout.
-        	Alloy.Globals.WS.send(JSON.stringify(["ping"])); 
+        Alloy.Globals.WS.send(JSON.stringify(["ping"])); 
 		//}
     	setTimeout("sendKeepAlives();", 30000);
-}
+	}
