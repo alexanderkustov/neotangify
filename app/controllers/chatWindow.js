@@ -231,7 +231,7 @@ function appendChatMessage(message, position, is_sender){
 
 function appendChatConversation(data, is_sender){
 	var rows = [];
-	for (var i = 0; i < data.length; i++) {
+	for (var i = data.length-1; i >= 0; i--) {
         text = data[i].sender.name + ": " + (data[i].text);
     	
     	var row = Ti.UI.createTableViewRow({
