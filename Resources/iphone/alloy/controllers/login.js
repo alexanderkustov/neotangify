@@ -80,12 +80,12 @@ function Controller() {
         height: "100%"
     });
     $.__views.loginWindow.add($.__views.mainLogin);
-    $.__views.__alloyId25 = Ti.UI.createImageView({
+    $.__views.__alloyId26 = Ti.UI.createImageView({
         image: "/login-logo.png",
         height: "160",
-        id: "__alloyId25"
+        id: "__alloyId26"
     });
-    $.__views.mainLogin.add($.__views.__alloyId25);
+    $.__views.mainLogin.add($.__views.__alloyId26);
     $.__views.loginInput = Ti.UI.createTextField({
         color: "#333",
         borderStyle: Ti.UI.INPUT_BORDERSTYLE_ROUNDED,
@@ -112,24 +112,24 @@ function Controller() {
         value: "123"
     });
     $.__views.mainLogin.add($.__views.password);
-    $.__views.__alloyId26 = Ti.UI.createButton({
-        color: "#fff",
-        title: "Login",
-        height: "40",
-        width: Ti.UI.FILL,
-        id: "__alloyId26"
-    });
-    $.__views.mainLogin.add($.__views.__alloyId26);
-    login ? $.__views.__alloyId26.addEventListener("click", login) : __defers["$.__views.__alloyId26!click!login"] = true;
     $.__views.__alloyId27 = Ti.UI.createButton({
         color: "#fff",
-        title: "Register",
+        title: "Login",
         height: "40",
         width: Ti.UI.FILL,
         id: "__alloyId27"
     });
     $.__views.mainLogin.add($.__views.__alloyId27);
-    openRegister ? $.__views.__alloyId27.addEventListener("click", openRegister) : __defers["$.__views.__alloyId27!click!openRegister"] = true;
+    login ? $.__views.__alloyId27.addEventListener("click", login) : __defers["$.__views.__alloyId27!click!login"] = true;
+    $.__views.__alloyId28 = Ti.UI.createButton({
+        color: "#fff",
+        title: "Register",
+        height: "40",
+        width: Ti.UI.FILL,
+        id: "__alloyId28"
+    });
+    $.__views.mainLogin.add($.__views.__alloyId28);
+    openRegister ? $.__views.__alloyId28.addEventListener("click", openRegister) : __defers["$.__views.__alloyId28!click!openRegister"] = true;
     $.__views.loginWindow = Ti.UI.iOS.createNavigationWindow({
         window: $.__views.loginWindow,
         id: "loginWindow",
@@ -138,8 +138,8 @@ function Controller() {
     $.__views.loginWindow && $.addTopLevelView($.__views.loginWindow);
     exports.destroy = function() {};
     _.extend($, $.__views);
-    __defers["$.__views.__alloyId26!click!login"] && $.__views.__alloyId26.addEventListener("click", login);
-    __defers["$.__views.__alloyId27!click!openRegister"] && $.__views.__alloyId27.addEventListener("click", openRegister);
+    __defers["$.__views.__alloyId27!click!login"] && $.__views.__alloyId27.addEventListener("click", login);
+    __defers["$.__views.__alloyId28!click!openRegister"] && $.__views.__alloyId28.addEventListener("click", openRegister);
     _.extend($, exports);
 }
 

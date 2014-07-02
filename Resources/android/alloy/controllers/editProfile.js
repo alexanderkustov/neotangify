@@ -79,9 +79,9 @@ function Controller() {
     exports.destroy = function() {};
     _.extend($, $.__views);
     __defers["$.__views.back!click!goback"] && $.__views.back.addEventListener("click", goback);
-    __defers["$.__views.__alloyId14!click!uploadCoverPic"] && $.__views.__alloyId14.addEventListener("click", uploadCoverPic);
-    __defers["$.__views.__alloyId15!click!uploadPic"] && $.__views.__alloyId15.addEventListener("click", uploadPic);
-    __defers["$.__views.__alloyId17!click!editProfile"] && $.__views.__alloyId17.addEventListener("click", editProfile);
+    __defers["$.__views.__alloyId15!click!uploadCoverPic"] && $.__views.__alloyId15.addEventListener("click", uploadCoverPic);
+    __defers["$.__views.__alloyId16!click!uploadPic"] && $.__views.__alloyId16.addEventListener("click", uploadPic);
+    __defers["$.__views.__alloyId18!click!editProfile"] && $.__views.__alloyId18.addEventListener("click", editProfile);
     _.extend($, exports);
 }
 

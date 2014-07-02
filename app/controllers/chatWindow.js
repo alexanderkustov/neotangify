@@ -275,8 +275,7 @@ function appendChatConversation(data, is_sender){
     rows=null;
 }
 
-
-$.chatWindow.addEventListener('focus', function() {
+$.win_chat.addEventListener('focus', function() {
 	getConversationWith(friend_id);
 	//setInterval(function(){geolocate();},35000);
 });

@@ -40,11 +40,9 @@
         </plist>
     </ios> 	
    <android xmlns:android="http://schemas.android.com/apk/res/android">
-    <tool-api-level>14</tool-api-level>
     <manifest>
-        <application android:screenOrientation="portrait" android:theme="@style/MyTheme" />
-        <uses-sdk android:minSdkVersion="14"/>
-        <uses-sdk android:targetSdkVersion="16"/>
+        <application android:screenOrientation="portrait"/>
+        <uses-sdk android:minSdkVersion="16" android:targetSdkVersion="16" android:maxSdkVersion="19"/>
     </manifest>
 </android>
     

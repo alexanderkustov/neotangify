@@ -154,6 +154,62 @@ function Controller() {
     var $ = this;
     var exports = {};
     var __defers = {};
+    $.__views.__alloyId10 = Ti.UI.createWindow({
+        backgroundImage: "background.jpg",
+        color: "#fff",
+        translucent: "false",
+        barColor: "#fff",
+        title: "",
+        id: "__alloyId10"
+    });
+    $.__views.back = Ti.UI.createButton({
+        color: "white",
+        title: "Back",
+        id: "back"
+    });
+    goback ? $.__views.back.addEventListener("click", goback) : __defers["$.__views.back!click!goback"] = true;
+    $.__views.__alloyId10.leftNavButton = $.__views.back;
+    $.__views.chatContaniner = Ti.UI.createScrollView({
+        id: "chatContaniner",
+        layout: "vertical",
+        contentWidth: "auto",
+        contentHeight: "auto",
+        showVerticalScrollIndicator: "true",
+        showHorizontalScrollIndicator: "false",
+        height: "100%"
+    });
+    $.__views.__alloyId10.add($.__views.chatContaniner);
+    $.__views.chatArea = Ti.UI.createTableView({
+        id: "chatArea",
+        backgroundColor: "transparent",
+        height: "88%"
+    });
+    $.__views.chatContaniner.add($.__views.chatArea);
+    $.__views.chatBtn = Ti.UI.createView({
+        id: "chatBtn",
+        layout: "horizontal",
+        bottom: "0%",
+        height: "100px",
+        backgroundColor: "#0071bc"
+    });
+    $.__views.chatContaniner.add($.__views.chatBtn);
+    $.__views.textChat = Ti.UI.createTextField({
+        color: "#333",
+        borderStyle: Ti.UI.INPUT_BORDERSTYLE_ROUNDED,
+        top: 10,
+        left: 10,
+        right: 10,
+        width: "93%",
+        height: "30",
+        hintText: "Enter Message...",
+        id: "textChat"
+    });
+    $.__views.chatBtn.add($.__views.textChat);
+    $.__views.win_chat = Ti.UI.iOS.createNavigationWindow({
+        window: $.__views.__alloyId10,
+        id: "win_chat"
+    });
+    $.__views.win_chat && $.addTopLevelView($.__views.win_chat);
     exports.destroy = function() {};
     _.extend($, $.__views);
     var friend_id = Ti.App.SelectedFriend;
@@ -167,7 +223,7 @@ function Controller() {
             $.textChat.value = "";
         }
     });
-    $.chatWindow.addEventListener("focus", function() {
+    $.win_chat.addEventListener("focus", function() {
         getConversationWith(friend_id);
     });
     __defers["$.__views.back!click!goback"] && $.__views.back.addEventListener("click", goback);
