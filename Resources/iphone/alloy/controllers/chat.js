@@ -6,7 +6,7 @@ function Controller() {
             onload: function() {
                 Ti.API.info("Get friends : " + this.responseText);
                 var parsedText = JSON.parse(this.responseText).friends;
-                for (var i = 0; parsedText.length > i; i++) addFriendToTable(parsedText[i].id, parsedText[i].name, "Last");
+                for (var i = 0; parsedText.length > i; i++) addFriendToTable(parsedText[i].id, parsedText[i].name, "Last", mainserver + parsedText[i].presentation_picture.url);
             },
             onerror: function(e) {
                 alert("error" + e);
@@ -17,7 +17,7 @@ function Controller() {
         client.open("GET", url);
         client.send();
     }
-    function addFriendToTable(friend_id, friend_name, position) {
+    function addFriendToTable(friend_id, friend_name, position, presentation_pictures) {
         var row = Ti.UI.createTableViewRow({
             className: "friend_row",
             color: "white",
@@ -25,7 +25,7 @@ function Controller() {
             id: friend_id
         });
         var imageAvatar = Ti.UI.createImageView({
-            image: "person.png",
+            image: presentation_pictures,
             left: 5,
             top: 5,
             width: 45,

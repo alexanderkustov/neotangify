@@ -35,6 +35,14 @@ function getActivityFeed(e){
 	    	
 	    	var parsedText = JSON.parse(this.responseText).activities;
 	    	
+	    	if(parsedText[i].presentation_picture.url != null){
+				person_image = mainserver + parsedText[i].presentation_picture.url != null;
+			}
+			else{
+			person_image = "person.png";
+			}
+
+	    	
 	    	for(var i=0; i < parsedText.length; i ++)
 	    		{
 	    			//var obj = parsedText[i];
@@ -74,7 +82,7 @@ function getActivityFeed(e){
 }
 
 
-function addActivitiesToTable(user_name, friend_name, position, friend_id, activity_id, type){
+function addActivitiesToTable(user_name, friend_name, position, friend_id, activity_id, type, person_image){
 
  var row = Ti.UI.createTableViewRow({
         className : "activity_row",

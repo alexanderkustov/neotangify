@@ -38,8 +38,10 @@ function Controller() {
                 Ti.API.info("pessoa selecionada: " + this.responseText);
                 console.log("pesosa nome: " + JSON.parse(this.responseText).user.name);
                 current_user_id = JSON.parse(this.responseText).user.id;
-                $.profile_name.title = JSON.parse(this.responseText).user.name;
+                $.profile_name.user_name = JSON.parse(this.responseText).user.name;
                 $.profile_name.short_description = JSON.parse(this.responseText).user.short_description;
+                $.profile_name.cover_picture = mainserver + JSON.parse(this.responseText).user.cover_picture.url;
+                $.profile_name.person_picture = mainserver + JSON.parse(this.responseText).user.presentation_picture.url;
             },
             onerror: function(e) {
                 alert("error" + e);
@@ -78,25 +80,61 @@ function Controller() {
         id: "__alloyId32"
     });
     $.__views.profile_name.add($.__views.__alloyId32);
-    $.__views.__alloyId33 = Ti.UI.createImageView({
+    $.__views.cover_picture = Ti.UI.createImageView({
+        id: "cover_picture",
         image: "/tangy_back.jpg",
         zIndex: "1",
         height: "160",
         top: "-50",
-        width: Ti.UI.FILL,
-        id: "__alloyId33"
+        width: Ti.UI.FILL
     });
-    $.__views.__alloyId32.add($.__views.__alloyId33);
-    $.__views.__alloyId34 = Ti.UI.createImageView({
+    $.__views.__alloyId32.add($.__views.cover_picture);
+    $.__views.person_picture = Ti.UI.createImageView({
+        id: "person_picture",
         image: "/person.png",
         zIndex: "5",
         top: "-50",
         borderRadius: "50%",
         borderWidth: "3",
-        borderColor: "white",
-        id: "__alloyId34"
+        borderColor: "white"
     });
-    $.__views.__alloyId32.add($.__views.__alloyId34);
+    $.__views.__alloyId32.add($.__views.person_picture);
+    $.__views.user_name = Ti.UI.createLabel({
+        width: Ti.UI.SIZE,
+        height: Ti.UI.SIZE,
+        color: "#fff",
+        font: {
+            fontSize: 20,
+            fontFamily: "Helvetica Neue"
+        },
+        textAlign: "center",
+        id: "user_name"
+    });
+    $.__views.__alloyId32.add($.__views.user_name);
+    $.__views.birthdate = Ti.UI.createLabel({
+        width: Ti.UI.SIZE,
+        height: Ti.UI.SIZE,
+        color: "#fff",
+        font: {
+            fontSize: 20,
+            fontFamily: "Helvetica Neue"
+        },
+        textAlign: "center",
+        id: "birthdate"
+    });
+    $.__views.__alloyId32.add($.__views.birthdate);
+    $.__views.short_description = Ti.UI.createLabel({
+        width: Ti.UI.SIZE,
+        height: Ti.UI.SIZE,
+        color: "#fff",
+        font: {
+            fontSize: 20,
+            fontFamily: "Helvetica Neue"
+        },
+        textAlign: "center",
+        id: "short_description"
+    });
+    $.__views.__alloyId32.add($.__views.short_description);
     $.__views.back = Ti.UI.createButton({
         color: "#fff",
         title: "Send a Message",

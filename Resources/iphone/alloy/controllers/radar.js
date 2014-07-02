@@ -34,12 +34,12 @@ function Controller() {
             onload: function() {
                 if (JSON.parse(this.responseText).people.length > 0) {
                     for (var i = 0; JSON.parse(this.responseText).people.length > i; i++) {
-                        var persons_name = JSON.parse(this.responseText).people[i].name;
+                        JSON.parse(this.responseText).people[i].name;
                         var persons_id = JSON.parse(this.responseText).people[i].id;
                         var lat = JSON.parse(this.responseText).people[i].position.latitude;
                         var longi = JSON.parse(this.responseText).people[i].position.longitude;
-                        alert("pessoa: " + persons_name + " " + lat + " " + longi);
-                        persons_id != Alloy.Globals.user_id && addPersonToRadar(persons_id, lat, longi, i);
+                        if (null != JSON.parse(this.responseText).people[i].presentation_picture.url) var person_image = mainserver + JSON.parse(this.responseText).people[i].presentation_picture.url; else var person_image = "person.png";
+                        persons_id != Alloy.Globals.user_id && addPersonToRadar(persons_id, lat, longi, i, person_image);
                     }
                     addClickstoRadar();
                 } else alert("Nobody's here");
@@ -57,16 +57,14 @@ function Controller() {
         client.open("GET", url);
         client.send(params);
     }
-    function addPersonToRadar(personId, lat, longi) {
+    function addPersonToRadar(personId, lat, longi, i, person_image) {
         var thisPerson = personId;
         var dlat = cur_lat - lat;
         var dlong = cur_long - longi;
         var topOffset = 200 * (dlat / LATCONV / 50) + 100;
         var leftOffset = 200 * (dlong / LONGCONV / 50) + 100;
-        alert(cur_lat.toFixed(5) + " " + cur_long.toFixed(5));
-        alert(lat.toFixed(5) + " " + longi.toFixed(5));
         persons[personId] = Ti.UI.createImageView({
-            image: "/person.png",
+            image: person_image,
             top: topOffset,
             left: leftOffset,
             id: thisPerson,
@@ -129,8 +127,7 @@ function Controller() {
     $.__views.radar_window.add($.__views.radar);
     exports.destroy = function() {};
     _.extend($, $.__views);
-    var cur_long;
-    var cur_lat;
+    var cur_long, cur_lat;
     const LATCONV = 89928e-10;
     const LONGCONV = 101857e-10;
     var persons = new Array();

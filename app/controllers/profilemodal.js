@@ -49,8 +49,11 @@ function getFriend(userid){
 	    	//$.profilewin.profile_name.text = 'lol';
 	    	console.log('pesosa nome: ' + JSON.parse(this.responseText).user.name);
 	    	current_user_id = JSON.parse(this.responseText).user.id;
-	    	$.profile_name.title = JSON.parse(this.responseText).user.name;
+	    	$.profile_name.user_name = JSON.parse(this.responseText).user.name;
 	    	$.profile_name.short_description = JSON.parse(this.responseText).user.short_description;
+	    	$.profile_name.cover_picture = mainserver + JSON.parse(this.responseText).user.cover_picture.url;
+			$.profile_name.person_picture = mainserver + JSON.parse(this.responseText).user.presentation_picture.url;
+
 			
 	    },
 	    onerror : function(e) {

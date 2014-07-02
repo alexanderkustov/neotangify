@@ -1,5 +1,4 @@
-var cur_long;
-var cur_lat;
+var cur_long, cur_lat;
 const LATCONV = 0.0000089928;
 const LONGCONV = 0.0000101857;
 var persons = new Array();
@@ -51,23 +50,28 @@ function updateRadar(lat, longi){
 			if(JSON.parse(this.responseText).people.length > 0){
 				
 				for (var i = 0; i < JSON.parse(this.responseText).people.length; i++) {
+					
 					var persons_name = JSON.parse(this.responseText).people[i].name;
 					var persons_id = JSON.parse(this.responseText).people[i].id;
 					var lat = JSON.parse(this.responseText).people[i].position.latitude;
 					var longi = JSON.parse(this.responseText).people[i].position.longitude;
 					
+					if(JSON.parse(this.responseText).people[i].presentation_picture.url != null){
+						var person_image = mainserver + JSON.parse(this.responseText).people[i].presentation_picture.url;
+					}
+					else{
+						var person_image = "person.png";
+					}
 					
-						alert("pessoa: " + persons_name + " " + lat + " " + longi );
+						//alert("pessoa: " + persons_name + " " + lat + " " + longi );
 						if(persons_id != Alloy.Globals.user_id)
 							//(persons_id + ' ' + lat + " " + longi + " " + i);
-							addPersonToRadar(persons_id, lat, longi, i);
+							addPersonToRadar(persons_id, lat, longi, i, person_image);
 				}
 					addClickstoRadar();
 			} else {
 				alert("Nobody's here");
 			};
-			
-		
 			
 		},
 		onerror : function(e) {
@@ -83,7 +87,7 @@ function updateRadar(lat, longi){
 }
 
 
-function addPersonToRadar(personId, lat, longi, i){
+function addPersonToRadar(personId, lat, longi, i, person_image){
 	var thisPerson = personId;
 	
 	var dlat = cur_lat - lat;
@@ -92,11 +96,11 @@ function addPersonToRadar(personId, lat, longi, i){
 	var topOffset = (((dlat/LATCONV) / 50) * 200) + 100;
 	var leftOffset = (((dlong/LONGCONV) / 50) * 200) + 100;
 	
-	alert(cur_lat.toFixed(5) + " " + cur_long.toFixed(5));
-	alert(lat.toFixed(5) + " " + longi.toFixed(5));
+	//alert(cur_lat.toFixed(5) + " " + cur_long.toFixed(5));
+	//alert(lat.toFixed(5) + " " + longi.toFixed(5));
 	
 	persons[personId] = Ti.UI.createImageView({
-		image: '/person.png',
+		image: person_image,
 		top: topOffset,
 		left: leftOffset,
 		id: thisPerson,
@@ -105,6 +109,7 @@ function addPersonToRadar(personId, lat, longi, i){
 		borderRadius:15,
 		zIndex: 999
 	});
+	
 	
 	
 	//alert(dlat.toFixed(5) + " " + dlong.toFixed(5)   + " " + topOffset.toFixed(5)  + " " + leftOffset.toFixed(5)  + " " + thisPerson);
