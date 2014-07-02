@@ -39,6 +39,11 @@ function goback(e) {
     $.win_chat = null;
 }
 
+
+$.win_chat.addEventListener('close', function() {
+    console.log("Yeah im closing, clean some shit");
+});
+
 function messageRoute(e) {
     console.log(e);
     message = JSON.parse(e.e.data);
@@ -284,8 +289,10 @@ function appendChatConversation(data, is_sender){
     rows=null;
 }
 
-$.win_chat.addEventListener('focus', function() {
-    console.log('Chat Window Focus');
+//setInterval(function(){geolocate();},35000);
+$.win_chat.addEventListener('focus', listener = function() {
 	getConversationWith(friend_id);
-	//setInterval(function(){geolocate();},35000);
+    $.win_chat.removeEventListener('focus', listener);
+    listener = null;
 });
+

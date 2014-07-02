@@ -97,10 +97,10 @@ function Controller() {
     $.__views.chatContaniner.add($.__views.friendsTable);
     exports.destroy = function() {};
     _.extend($, $.__views);
-    $.chatFriends.addEventListener("focus", function() {
-        var rd = [];
-        $.friendsTable.data = rd;
+    $.chatFriends.addEventListener("focus", listener = function() {
         getFriends();
+        $.chatFriends.removeEventListener("focus", listener);
+        listener = null;
     });
     $.friendsTable.addEventListener("click", function(e) {
         Ti.API.info("row clicked: " + e.rowData.id + " index : " + e.index + " texto: " + e.rowData.text);

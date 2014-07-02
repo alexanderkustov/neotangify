@@ -94,10 +94,12 @@ function openChat(friend_id){
     win.open();
 }
 
-$.chatFriends.addEventListener('focus', function() {
-    var rd = []; 
-    $.friendsTable.data = rd;
+$.chatFriends.addEventListener('focus', listener = function() {
+    // var rd = []; 
+    // $.friendsTable.data = rd;
     getFriends();
+    $.chatFriends.removeEventListener('focus', listener);
+    listener = null;
 });
 
 $.friendsTable.addEventListener('click', function(e) {

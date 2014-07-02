@@ -229,9 +229,13 @@ function Controller() {
             $.textChat.value = "";
         }
     });
-    $.win_chat.addEventListener("focus", function() {
-        console.log("Chat Window Focus");
+    $.win_chat.addEventListener("close", function() {
+        console.log("Yeah im closing, clean some shit");
+    });
+    $.win_chat.addEventListener("focus", listener = function() {
         getConversationWith(friend_id);
+        $.win_chat.removeEventListener("focus", listener);
+        listener = null;
     });
     __defers["$.__views.back!click!goback"] && $.__views.back.addEventListener("click", goback);
     _.extend($, exports);

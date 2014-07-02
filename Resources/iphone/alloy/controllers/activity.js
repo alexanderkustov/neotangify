@@ -169,8 +169,10 @@ function Controller() {
     $.__views.feed_area.add($.__views.activityTable);
     exports.destroy = function() {};
     _.extend($, $.__views);
-    $.activityWindow.addEventListener("focus", function() {
+    $.activityWindow.addEventListener("focus", listener = function() {
         getActivityFeed();
+        $.activityWindow.removeEventListener("focus", listener);
+        listener = null;
     });
     __defers["$.__views.refresh!click!getActivityFeed"] && $.__views.refresh.addEventListener("click", getActivityFeed);
     _.extend($, exports);
