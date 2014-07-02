@@ -1,9 +1,12 @@
 function logout(e){
 	console.log("logout");
-	var win=Alloy.createController('login').getView();
-	win.open({transition:Ti.UI.iPhone.AnimationStyle.NONE});
+
+	auth_token = null;
 	$.settings = null;
 	tabgroup = null;
-	auth_token = null;
+	$.main_nav = null;
+	var win=Alloy.createController('login').getView();
+	win.open({transition:Ti.UI.iPhone.AnimationStyle.NONE});
+
 	
 }

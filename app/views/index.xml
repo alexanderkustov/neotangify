@@ -1,4 +1,4 @@
-<Alloy>
+<Alloy id="main_nav">
 	<TabGroup>
 		<Tab title="Profile" icon="profile.png">
 			<Require type="view" src="profile" id="profile"/>

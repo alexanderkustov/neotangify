@@ -123,7 +123,7 @@ function Controller() {
         id: "radar",
         width: "460px",
         height: "460px",
-        top: "40px",
+        top: "15%",
         backgroundImage: "/radar_back.png"
     });
     $.__views.radar_window.add($.__views.radar);
