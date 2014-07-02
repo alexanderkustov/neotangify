@@ -17,9 +17,8 @@ function getFriends(e){
 					if(parsedText[i].presentation_picture.url != null){
 						person_image = mainserver + parsedText[i].presentation_picture.url;
 					}else{
-					 person_image = "person.png";
+					 	person_image = "person.png";
 					}
-				
 					
             	addFriendToTable(parsedText[i].id, parsedText[i].name, "Last", person_image );
                 
