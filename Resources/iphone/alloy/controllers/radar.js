@@ -32,7 +32,6 @@ function Controller() {
         var url = mainserver + "/people_nearby.json?" + "auth_token=" + Alloy.Globals.auth_token;
         var client = Ti.Network.createHTTPClient({
             onload: function() {
-                alert("pessoas a tua volta: " + JSON.parse(this.responseText).people.length);
                 if (JSON.parse(this.responseText).people.length > 0) {
                     for (var i = 0; JSON.parse(this.responseText).people.length > i; i++) {
                         var persons_name = JSON.parse(this.responseText).people[i].name;

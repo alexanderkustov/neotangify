@@ -1,6 +1,6 @@
 function goback(e) {
-	var win=Alloy.createController('index').getView();
-	win.open();
+	$.win_editprofile.close();
+    $.win_editprofile = null;
 }
 
 /*

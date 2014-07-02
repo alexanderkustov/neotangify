@@ -27,9 +27,8 @@ function Controller() {
         client.send(params);
     }
     function goback() {
-        var win = Alloy.createController("index").getView();
-        win = Alloy.Globals.tabgroup.setActiveTab(2);
-        win.open();
+        $.win_profilemodal.close();
+        $.win_profilemodal = null;
     }
     function getFriend(userid) {
         var url = mainserver + "/users/" + userid + ".json?" + "auth_token=" + Alloy.Globals.auth_token;
@@ -74,49 +73,49 @@ function Controller() {
     });
     goback ? $.__views.back.addEventListener("click", goback) : __defers["$.__views.back!click!goback"] = true;
     $.__views.profile_name.leftNavButton = $.__views.back;
-    $.__views.__alloyId32 = Ti.UI.createView({
+    $.__views.__alloyId31 = Ti.UI.createView({
         layout: "vertical",
-        id: "__alloyId32"
+        id: "__alloyId31"
     });
-    $.__views.profile_name.add($.__views.__alloyId32);
-    $.__views.__alloyId33 = Ti.UI.createImageView({
+    $.__views.profile_name.add($.__views.__alloyId31);
+    $.__views.__alloyId32 = Ti.UI.createImageView({
         image: "/tangy_back.jpg",
         zIndex: "1",
         height: "160",
         top: "-50",
         width: Ti.UI.FILL,
-        id: "__alloyId33"
+        id: "__alloyId32"
     });
-    $.__views.__alloyId32.add($.__views.__alloyId33);
-    $.__views.__alloyId34 = Ti.UI.createImageView({
+    $.__views.__alloyId31.add($.__views.__alloyId32);
+    $.__views.__alloyId33 = Ti.UI.createImageView({
         image: "/person.png",
         zIndex: "5",
         top: "-50",
         borderRadius: "50%",
         borderWidth: "3",
         borderColor: "white",
-        id: "__alloyId34"
+        id: "__alloyId33"
     });
-    $.__views.__alloyId32.add($.__views.__alloyId34);
+    $.__views.__alloyId31.add($.__views.__alloyId33);
     $.__views.back = Ti.UI.createButton({
         color: "#fff",
         title: "Send a Message",
         id: "back"
     });
-    $.__views.__alloyId32.add($.__views.back);
+    $.__views.__alloyId31.add($.__views.back);
     sendMsg ? $.__views.back.addEventListener("click", sendMsg) : __defers["$.__views.back!click!sendMsg"] = true;
     $.__views.back = Ti.UI.createButton({
         color: "#fff",
         title: "Add a Friend",
         id: "back"
     });
-    $.__views.__alloyId32.add($.__views.back);
+    $.__views.__alloyId31.add($.__views.back);
     addFriend ? $.__views.back.addEventListener("click", addFriend) : __defers["$.__views.back!click!addFriend"] = true;
-    $.__views.win1 = Ti.UI.iOS.createNavigationWindow({
+    $.__views.win_profilemodal = Ti.UI.iOS.createNavigationWindow({
         window: $.__views.profile_name,
-        id: "win1"
+        id: "win_profilemodal"
     });
-    $.__views.win1 && $.addTopLevelView($.__views.win1);
+    $.__views.win_profilemodal && $.addTopLevelView($.__views.win_profilemodal);
     exports.destroy = function() {};
     _.extend($, $.__views);
     var current_user_id;

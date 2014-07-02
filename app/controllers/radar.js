@@ -46,7 +46,7 @@ function updateRadar(lat, longi){
 	var client = Ti.Network.createHTTPClient({
 		onload : function(e) {
 			
-			alert("pessoas a tua volta: " + JSON.parse(this.responseText).people.length);
+			//alert("pessoas a tua volta: " + JSON.parse(this.responseText).people.length);
 			
 			if(JSON.parse(this.responseText).people.length > 0){
 				

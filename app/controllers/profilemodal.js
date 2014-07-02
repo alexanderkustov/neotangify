@@ -35,14 +35,11 @@ function addFriend(e){
 }
 
 function goback(e) {
-	var win=Alloy.createController('index').getView();
-	win = Alloy.Globals.tabgroup.setActiveTab(2);
-	win.open();
-	
+	$.win_profilemodal.close();
+    $.win_profilemodal = null;
 }
 
 function getFriend(userid){
-
 	var url = mainserver + '/users/' + userid + '.json?' + 'auth_token=' + Alloy.Globals.auth_token ;
 	console.log(url);
 	

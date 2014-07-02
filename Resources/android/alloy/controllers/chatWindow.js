@@ -1,7 +1,7 @@
 function Controller() {
     function goback() {
-        var win = Alloy.createController("index").getView();
-        win.open();
+        $.win_chat.close();
+        $.win_chat = null;
     }
     function messageRoute(e) {
         console.log(e);
@@ -14,15 +14,12 @@ function Controller() {
           case "message":
             console.log("Message Received");
             text = data.sender.name + ": " + Base64.decode(data.text);
-            appendChatMessage(text, "Last");
+            appendChatMessage(text, "Last", false);
             break;
 
           case "conversation_with":
             console.log("Conversation With... Received");
-            for (var i = 0; data.length > i; i++) {
-                text = data.sender.name + ": " + Base64.decode(data.text);
-                appendChatMessage(text, "First");
-            }
+            appendChatConversation(data);
             break;
 
           case "auth_response":
@@ -43,22 +40,17 @@ function Controller() {
     }
     function getConversationWith(friend_id) {
         Alloy.Globals.WS.send(JSON.stringify([ "get_conversation_with", {
-            user: "a@a.com",
+            user: Alloy.Globals.user_email,
             auth_token: Alloy.Globals.auth_token,
             friend_id: friend_id,
             page: 1
         } ]));
     }
-    function sendMsg() {
-        appendChatMessage($.textChat.value);
-        sendMessage($.textChat.value, friend_id);
-        $.textChat.value = "";
-    }
     function sendMessage(message, friend_id) {
         if (!message) return;
-        Ti.API.info("Message sent: " + Base64.encode(message) + " frined_id: " + friend_id + "auth_token" + Alloy.Globals.auth_token);
+        Ti.API.info("Message sent: " + Base64.encode(message) + " friend_id: " + friend_id + " auth_token" + Alloy.Globals.auth_token);
         Alloy.Globals.WS.send(JSON.stringify([ "message", {
-            user: "a@a.com",
+            user: Alloy.Globals.user_email,
             auth_token: Alloy.Globals.auth_token,
             receiver_id: friend_id,
             message: Base64.encode(message)
@@ -68,18 +60,22 @@ function Controller() {
         var row = Ti.UI.createTableViewRow({
             className: "chat_message",
             color: "white",
-            backgroundColor: "transparent"
+            backgroundColor: "transparent",
+            selecttionStyle: "none"
         });
-        var imageAvatar = Ti.UI.createImageView({
-            image: "profile.png",
+        var imageAvatar = Ti.UI.createButton({
+            backgroundImage: "person.png",
+            backgroundSelectedImage: "person.png",
             left: 5,
             top: 5,
+            id: friend_id,
             width: 45,
             height: 45,
             borderColor: "#fff",
             borderRadius: 20,
             borderWidth: 1
         });
+        null != Alloy.Globals.user_pic && (imageAvatar.image = mainserver + Alloy.Globals.user_pic);
         row.add(imageAvatar);
         var label = Ti.UI.createLabel({
             text: message || "no-message",
@@ -93,9 +89,62 @@ function Controller() {
             }
         });
         row.add(label);
-        "First" == position ? $.chatArea.insertRowBefore(0, row) : $.chatArea.appendRow(row, {
-            animationStyle: Titanium.UI.iPhone.RowAnimationStyle.RIGHT
-        });
+        if ("First" == position) if (0 == $.chatArea.data.length) $.chatArea.appendRow(row); else {
+            $.chatArea.insertRowBefore(0, row);
+            $.chatArea.scrollToIndex($.chatArea.data[0].rows.length - 1);
+        } else {
+            $.chatArea.appendRow(row);
+            $.chatArea.scrollToIndex($.chatArea.data[0].rows.length - 1);
+        }
+        row = null;
+        imageAvatar = null;
+        label = null;
+    }
+    function appendChatConversation(data) {
+        var rows = [];
+        for (var i = 0; data.length > i; i++) {
+            text = data[i].sender.name + ": " + data[i].text;
+            var row = Ti.UI.createTableViewRow({
+                className: "chat_message",
+                color: "white",
+                backgroundColor: "transparent",
+                selecttionStyle: "none"
+            });
+            var imageAvatar = Ti.UI.createButton({
+                backgroundImage: "person.png",
+                id: "cover_picture",
+                backgroundSelectedImage: "person.png",
+                left: 5,
+                top: 5,
+                id: friend_id,
+                width: 45,
+                height: 45,
+                borderColor: "#fff",
+                borderRadius: 20,
+                borderWidth: 1
+            });
+            null != Alloy.Globals.user_pic && data[i].sender.id == Alloy.Globals.user_id && (imageAvatar.image = mainserver + Alloy.Globals.user_pic);
+            row.add(imageAvatar);
+            var label = Ti.UI.createLabel({
+                text: text || "no-message",
+                height: "50dp",
+                width: "auto",
+                color: "#fff",
+                left: 50,
+                font: {
+                    fontSize: "19dp",
+                    fontWeight: "bold"
+                }
+            });
+            row.add(label);
+            rows.push(row);
+            row = null;
+            imageAvatar = null;
+            label = null;
+        }
+        $.chatArea.data = rows;
+        $.chatArea.scrollToIndex($.chatArea.data[0].rows.length - 1);
+        rows = null;
     }
     require("alloy/controllers/BaseController").apply(this, Array.prototype.slice.call(arguments));
     this.__controllerPath = "chatWindow";
@@ -112,13 +161,16 @@ function Controller() {
         messageRoute(e);
     });
     $.textChat.addEventListener("return", function() {
-        appendChatMessage($.textChat.value, "Last");
-        sendMessage($.textChat.value, friend_id);
-        $.textChat.value = "";
+        if ("" == $.textChat.value) console.log("Está vazio"); else {
+            appendChatMessage(Alloy.Globals.user_name + ": " + $.textChat.value, "Last", true);
+            sendMessage($.textChat.value, friend_id);
+            $.textChat.value = "";
+        }
+    });
+    $.chatWindow.addEventListener("focus", function() {
+        getConversationWith(friend_id);
     });
     __defers["$.__views.back!click!goback"] && $.__views.back.addEventListener("click", goback);
-    __defers["$.__views.__alloyId11!click!sendMsg"] && $.__views.__alloyId11.addEventListener("click", sendMsg);
-    __defers["$.__views.__alloyId12!click!getConversationWith"] && $.__views.__alloyId12.addEventListener("click", getConversationWith);
     _.extend($, exports);
 }
 

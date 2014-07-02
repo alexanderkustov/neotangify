@@ -7,6 +7,9 @@ function Controller() {
         $.user_name.text = Alloy.Globals.user_name;
         $.birthdate.text = Alloy.Globals.birthdate;
         $.short_description.text = Alloy.Globals.short_description;
+        console.log(mainserver + Alloy.Globals.user_pic);
+        null != Alloy.Globals.user_pic && ($.user_picture.image = mainserver + Alloy.Globals.user_pic);
+        null != Alloy.Globals.cover_picture && ($.cover_picture.image = mainserver + Alloy.Globals.cover_picture);
     }
     require("alloy/controllers/BaseController").apply(this, Array.prototype.slice.call(arguments));
     this.__controllerPath = "profile";
@@ -32,30 +35,32 @@ function Controller() {
     });
     editProfile ? $.__views.edut.addEventListener("click", editProfile) : __defers["$.__views.edut!click!editProfile"] = true;
     $.__views.profile.rightNavButton = $.__views.edut;
-    $.__views.__alloyId33 = Ti.UI.createView({
+    $.__views.__alloyId29 = Ti.UI.createView({
         layout: "vertical",
-        id: "__alloyId33"
+        id: "__alloyId29"
     });
-    $.__views.profile.add($.__views.__alloyId33);
-    $.__views.__alloyId34 = Ti.UI.createImageView({
+    $.__views.profile.add($.__views.__alloyId29);
+    $.__views.cover_picture = Ti.UI.createImageView({
         image: "/tangy_back.jpg",
         zIndex: "1",
         height: "160",
         top: "-50",
         width: Ti.UI.FILL,
-        id: "__alloyId34"
+        id: "cover_picture"
     });
-    $.__views.__alloyId33.add($.__views.__alloyId34);
+    $.__views.__alloyId29.add($.__views.cover_picture);
     $.__views.user_picture = Ti.UI.createImageView({
+        width: 100,
+        height: 100,
+        borderRadius: "50",
         image: "/person.png",
         zIndex: "5",
         top: "-50",
-        borderRadius: "50%",
         borderWidth: "3",
         borderColor: "white",
         id: "user_picture"
     });
-    $.__views.__alloyId33.add($.__views.user_picture);
+    $.__views.__alloyId29.add($.__views.user_picture);
     $.__views.user_name = Ti.UI.createLabel({
         width: Ti.UI.SIZE,
         height: Ti.UI.SIZE,
@@ -67,7 +72,7 @@ function Controller() {
         textAlign: "center",
         id: "user_name"
     });
-    $.__views.__alloyId33.add($.__views.user_name);
+    $.__views.__alloyId29.add($.__views.user_name);
     $.__views.birthdate = Ti.UI.createLabel({
         width: Ti.UI.SIZE,
         height: Ti.UI.SIZE,
@@ -79,7 +84,7 @@ function Controller() {
         textAlign: "center",
         id: "birthdate"
     });
-    $.__views.__alloyId33.add($.__views.birthdate);
+    $.__views.__alloyId29.add($.__views.birthdate);
     $.__views.short_description = Ti.UI.createLabel({
         width: Ti.UI.SIZE,
         height: Ti.UI.SIZE,
@@ -91,7 +96,7 @@ function Controller() {
         textAlign: "center",
         id: "short_description"
     });
-    $.__views.__alloyId33.add($.__views.short_description);
+    $.__views.__alloyId29.add($.__views.short_description);
     exports.destroy = function() {};
     _.extend($, $.__views);
     $.profile.addEventListener("open", loadData);

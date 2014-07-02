@@ -1,7 +1,7 @@
 function Controller() {
     function goback() {
-        var win = Alloy.createController("index").getView();
-        win.open();
+        $.win_editprofile.close();
+        $.win_editprofile = null;
     }
     function uploadPic() {
         Titanium.Media.openPhotoGallery({
@@ -198,11 +198,11 @@ function Controller() {
     });
     $.__views.__alloyId13.add($.__views.__alloyId17);
     editProfile ? $.__views.__alloyId17.addEventListener("click", editProfile) : __defers["$.__views.__alloyId17!click!editProfile"] = true;
-    $.__views.win1 = Ti.UI.iOS.createNavigationWindow({
+    $.__views.win_editprofile = Ti.UI.iOS.createNavigationWindow({
         window: $.__views.__alloyId11,
-        id: "win1"
+        id: "win_editprofile"
     });
-    $.__views.win1 && $.addTopLevelView($.__views.win1);
+    $.__views.win_editprofile && $.addTopLevelView($.__views.win_editprofile);
     exports.destroy = function() {};
     _.extend($, $.__views);
     __defers["$.__views.back!click!goback"] && $.__views.back.addEventListener("click", goback);

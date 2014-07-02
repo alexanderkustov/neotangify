@@ -74,7 +74,7 @@ function Controller() {
     $.__views.index && $.addTopLevelView($.__views.index);
     exports.destroy = function() {};
     _.extend($, $.__views);
-    var loginWindow = Alloy.createController("login").getView();
+    var loginWindow = Alloy.createController("loginWindow").getView();
     loginWindow.open();
     _.extend($, exports);
 }

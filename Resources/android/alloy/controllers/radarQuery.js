@@ -101,7 +101,7 @@ function Controller() {
     exports.destroy = function() {};
     _.extend($, $.__views);
     var cur_longitude, cur_latitude;
-    __defers["$.__views.__alloyId45!click!geolocate"] && $.__views.__alloyId45.addEventListener("click", geolocate);
+    __defers["$.__views.__alloyId38!click!geolocate"] && $.__views.__alloyId38.addEventListener("click", geolocate);
     _.extend($, exports);
 }
 

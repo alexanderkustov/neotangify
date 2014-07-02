@@ -26,9 +26,9 @@ function login(e)
 	       		Alloy.Globals.user_pic = JSON.parse(this.responseText).user.presentation_picture.url;
 	       	}
 	       */
-	      var win=Alloy.createController('index').getView();
-	      $.win1.close();
 	      $.win1 = null;
+	      
+	      var win=Alloy.createController('index').getView();
 	      win.open();
 	        
 

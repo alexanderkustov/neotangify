@@ -1,5 +1,5 @@
 <Alloy>
-		<NavigationWindow id="win1" platform="ios">
+		<NavigationWindow id="win_editprofile" platform="ios">
 			<Window title="Registration">
                 <LeftNavButton>
                     <Button id="back" onClick="goback">Back</Button>

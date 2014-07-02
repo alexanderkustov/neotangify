@@ -1,7 +1,7 @@
 function Controller() {
     function goback() {
-        var win = Alloy.createController("index").getView();
-        win.open();
+        $.win_editprofile.close();
+        $.win_editprofile = null;
     }
     function uploadPic() {
         Titanium.Media.openPhotoGallery({
@@ -13,14 +13,31 @@ function Controller() {
                         message: "status code " + this.status
                     }).show();
                 };
-                xhr.open("POST", mainserver + "/users/" + Alloy.Globals.user_id + "/pictures.json");
-                xhr.send(JSON.stringify(params));
-                var params = {
-                    user: {
-                        image: event.media
-                    },
-                    user_id: Alloy.Globals.user_id
+                xhr.open("POST", mainserver + "/users/" + Alloy.Globals.user_id + "/picture_upload.json?" + "auth_token=" + Alloy.Globals.auth_token);
+                xhr.send({
+                    picture: event.media
+                });
+                xhr.setRequestHeader("enctype", "multipart/form-data");
+                xhr.setRequestHeader("Content-Type", "image/png");
+            }
+        });
+    }
+    function uploadCoverPic() {
+        Titanium.Media.openPhotoGallery({
+            success: function(event) {
+                var xhr = Titanium.Network.createHTTPClient();
+                xhr.onload = function() {
+                    Ti.UI.createAlertDialog({
+                        title: "Success",
+                        message: "status code " + this.status
+                    }).show();
                 };
+                xhr.open("POST", mainserver + "/users/" + Alloy.Globals.user_id + "/cover_upload.json?" + "auth_token=" + Alloy.Globals.auth_token);
+                xhr.send({
+                    cover: event.media
+                });
+                xhr.setRequestHeader("enctype", "multipart/form-data");
+                xhr.setRequestHeader("Content-Type", "image/png");
             }
         });
     }
@@ -62,8 +79,9 @@ function Controller() {
     exports.destroy = function() {};
     _.extend($, $.__views);
     __defers["$.__views.back!click!goback"] && $.__views.back.addEventListener("click", goback);
-    __defers["$.__views.__alloyId16!click!uploadPic"] && $.__views.__alloyId16.addEventListener("click", uploadPic);
-    __defers["$.__views.__alloyId18!click!editProfile"] && $.__views.__alloyId18.addEventListener("click", editProfile);
+    __defers["$.__views.__alloyId14!click!uploadCoverPic"] && $.__views.__alloyId14.addEventListener("click", uploadCoverPic);
+    __defers["$.__views.__alloyId15!click!uploadPic"] && $.__views.__alloyId15.addEventListener("click", uploadPic);
+    __defers["$.__views.__alloyId17!click!editProfile"] && $.__views.__alloyId17.addEventListener("click", editProfile);
     _.extend($, exports);
 }
 

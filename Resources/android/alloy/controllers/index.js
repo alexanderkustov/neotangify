@@ -6,31 +6,31 @@ function Controller() {
     arguments[0] ? arguments[0]["__itemTemplate"] : null;
     var $ = this;
     var exports = {};
-    var __alloyId19 = [];
+    var __alloyId18 = [];
     $.__views.profile = Alloy.createController("profile", {
         id: "profile"
     });
-    $.__views.__alloyId20 = Ti.UI.createTab({
+    $.__views.__alloyId19 = Ti.UI.createTab({
         window: $.__views.profile.getViewEx({
             recurse: true
         }),
         title: "Profile",
         icon: "profile.png",
-        id: "__alloyId20"
+        id: "__alloyId19"
     });
-    __alloyId19.push($.__views.__alloyId20);
+    __alloyId18.push($.__views.__alloyId19);
     $.__views.activity = Alloy.createController("activity", {
         id: "activity"
     });
-    $.__views.__alloyId22 = Ti.UI.createTab({
+    $.__views.__alloyId21 = Ti.UI.createTab({
         window: $.__views.activity.getViewEx({
             recurse: true
         }),
         title: "Feed",
         icon: "KS_nav_ui.png",
-        id: "__alloyId22"
+        id: "__alloyId21"
     });
-    __alloyId19.push($.__views.__alloyId22);
+    __alloyId18.push($.__views.__alloyId21);
     $.__views.radar = Alloy.createController("radar", {
         id: "radar"
     });
@@ -42,41 +42,40 @@ function Controller() {
         icon: "radar.png",
         id: "radar_window"
     });
-    __alloyId19.push($.__views.radar_window);
+    __alloyId18.push($.__views.radar_window);
     $.__views.chat = Alloy.createController("chat", {
         id: "chat"
     });
-    $.__views.__alloyId23 = Ti.UI.createTab({
+    $.__views.__alloyId22 = Ti.UI.createTab({
         window: $.__views.chat.getViewEx({
             recurse: true
         }),
         title: "Chat",
         icon: "chat.png",
-        id: "__alloyId23"
+        id: "__alloyId22"
     });
-    __alloyId19.push($.__views.__alloyId23);
+    __alloyId18.push($.__views.__alloyId22);
     $.__views.settings = Alloy.createController("settings", {
         id: "settings"
     });
-    $.__views.__alloyId24 = Ti.UI.createTab({
+    $.__views.__alloyId23 = Ti.UI.createTab({
         window: $.__views.settings.getViewEx({
             recurse: true
         }),
         title: "Settings",
         icon: "settings.png",
-        id: "__alloyId24"
+        id: "__alloyId23"
     });
-    __alloyId19.push($.__views.__alloyId24);
+    __alloyId18.push($.__views.__alloyId23);
     $.__views.index = Ti.UI.createTabGroup({
-        tabs: __alloyId19,
+        tabs: __alloyId18,
         id: "index"
     });
     $.__views.index && $.addTopLevelView($.__views.index);
     exports.destroy = function() {};
     _.extend($, $.__views);
-    var loginWindow = Alloy.createController("login").getView();
-    loginWindow.open();
-    Alloy.Globals.tabgroup = $.index;
+    var loginWindow = Alloy.createController("loginWindow").getView();
+    Ti.Android ? loginWindow.open() : Titanium.UI.currentTab.open(loginWindow);
     _.extend($, exports);
 }
 

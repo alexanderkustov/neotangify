@@ -5,7 +5,10 @@ function Controller() {
             onload: function() {
                 Ti.API.info("Received text: " + this.responseText);
                 alert("success");
-                goBack();
+                var win = Alloy.createController("login").getView();
+                $.register.close();
+                $.register = null;
+                win.open();
             },
             onerror: function(e) {
                 alert("error" + e);
@@ -24,8 +27,8 @@ function Controller() {
         client.send(params);
     }
     function goback() {
-        var win = Alloy.createController("login").getView();
-        win.open();
+        $.register.close();
+        $.register = null;
     }
     require("alloy/controllers/BaseController").apply(this, Array.prototype.slice.call(arguments));
     this.__controllerPath = "register";
@@ -38,7 +41,7 @@ function Controller() {
     exports.destroy = function() {};
     _.extend($, $.__views);
     __defers["$.__views.back!click!goback"] && $.__views.back.addEventListener("click", goback);
-    __defers["$.__views.__alloyId48!click!register"] && $.__views.__alloyId48.addEventListener("click", register);
+    __defers["$.__views.__alloyId41!click!register"] && $.__views.__alloyId41.addEventListener("click", register);
     _.extend($, exports);
 }
 

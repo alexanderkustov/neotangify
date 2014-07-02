@@ -18,7 +18,7 @@ $.textChat.addEventListener( 'return', function(e) {
 	if ($.textChat.value == '') {
 		console.log("Está vazio");
 	} else{
-		appendChatMessage($.textChat.value, "Last", true);
+		appendChatMessage( Alloy.Globals.user_name + ": " +  $.textChat.value, "Last", true);
     	sendMessage($.textChat.value, friend_id );
     	$.textChat.value = "";	
 	}; 
@@ -26,8 +26,9 @@ $.textChat.addEventListener( 'return', function(e) {
 });
 
 function goback(e) {
-    var win=Alloy.createController('index').getView();
-    win.open();
+    //var win=Alloy.createController('chat').getView();
+    $.win_chat.close();
+    $.win_chat = null;
 }
 
 function messageRoute(e) {

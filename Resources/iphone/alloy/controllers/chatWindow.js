@@ -1,7 +1,7 @@
 function Controller() {
     function goback() {
-        var win = Alloy.createController("index").getView();
-        win.open();
+        $.win_chat.close();
+        $.win_chat = null;
     }
     function messageRoute(e) {
         console.log(e);
@@ -218,7 +218,7 @@ function Controller() {
     });
     $.textChat.addEventListener("return", function() {
         if ("" == $.textChat.value) console.log("Está vazio"); else {
-            appendChatMessage($.textChat.value, "Last", true);
+            appendChatMessage(Alloy.Globals.user_name + ": " + $.textChat.value, "Last", true);
             sendMessage($.textChat.value, friend_id);
             $.textChat.value = "";
         }
