@@ -9,8 +9,8 @@ function Controller() {
                 Ti.API.info("Get feed text: " + this.responseText);
                 var parsedText = JSON.parse(this.responseText).activities;
                 for (var i = 0; parsedText.length > i; i++) {
-                    if (null != parsedText[i].subject.friend.presentation_picture_url) {
-                        friend_image = mainserver + parsedText[i].subject.friend.presentation_picture_url;
+                    if (null != parsedText[i].subject.friend.presentation_picture) {
+                        friend_image = mainserver + parsedText[i].subject.friend.presentation_picture;
                         console.log(friend_image);
                     } else friend_image = "person.png";
                     console.log(friend_image);

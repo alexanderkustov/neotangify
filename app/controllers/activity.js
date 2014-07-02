@@ -42,13 +42,14 @@ function getActivityFeed(e){
 	    	
 	    	for(var i=0; i < parsedText.length; i ++)
 	    		{
-	    			if(parsedText[i].subject.friend.presentation_picture_url != null){
-						friend_image = mainserver +  parsedText[i].subject.friend.presentation_picture_url;
+	    			if(parsedText[i].subject.friend.presentation_picture != null){
+						friend_image = mainserver +  parsedText[i].subject.friend.presentation_picture;
 						console.log(friend_image);
 					}else{
 						friend_image = "person.png";
 					}
-	    									console.log(friend_image);
+	    		
+	    			console.log(friend_image);
 
 	    			//var obj = parsedText[i];
 	    			switch(parsedText[i].name){
