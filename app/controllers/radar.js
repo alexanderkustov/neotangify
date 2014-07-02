@@ -130,7 +130,7 @@ function addClickstoRadar(e){
 
 $.radar_window.addEventListener('focus', function() {
 	geolocate();
-	//setInterval(function(){geolocate();},35000);
+	// setInterval(function(){geolocate();},30000);
 });
 
 //CENAS INUTEIS POR AGORA

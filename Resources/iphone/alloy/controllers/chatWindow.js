@@ -232,10 +232,10 @@ function Controller() {
     $.win_chat.addEventListener("close", function() {
         console.log("Yeah im closing, clean some shit");
     });
-    $.win_chat.addEventListener("focus", listener = function() {
+    $.win_chat.addEventListener("focus", chatFocusListener = function() {
         getConversationWith(friend_id);
-        $.win_chat.removeEventListener("focus", listener);
-        listener = null;
+        $.win_chat.removeEventListener("focus", chatFocusListener);
+        chatFocusListener = null;
     });
     __defers["$.__views.back!click!goback"] && $.__views.back.addEventListener("click", goback);
     _.extend($, exports);

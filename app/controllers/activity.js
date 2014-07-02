@@ -197,10 +197,10 @@ function markAsRead(activity_id){
 }
 
 
-$.activityWindow.addEventListener('focus', listener = function() {
+$.activityWindow.addEventListener('focus', activityListener = function() {
     getActivityFeed();
-    $.activityWindow.removeEventListener('focus', listener);
-    listener = null;
+    $.activityWindow.removeEventListener('focus', activityListener);
+    activityListener = null;
 });
 
 

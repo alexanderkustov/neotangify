@@ -290,9 +290,9 @@ function appendChatConversation(data, is_sender){
 }
 
 //setInterval(function(){geolocate();},35000);
-$.win_chat.addEventListener('focus', listener = function() {
+$.win_chat.addEventListener('focus', chatFocusListener = function() {
 	getConversationWith(friend_id);
-    $.win_chat.removeEventListener('focus', listener);
-    listener = null;
+    $.win_chat.removeEventListener('focus', chatFocusListener);
+    chatFocusListener = null;
 });
 
