@@ -100,8 +100,6 @@ function Controller() {
     exports.destroy = function() {};
     _.extend($, $.__views);
     $.profile.addEventListener("open", loadData);
-    Ti.include("base64.js");
-    Ti.include("websockets.js");
     __defers["$.__views.edut!click!editProfile"] && $.__views.edut.addEventListener("click", editProfile);
     _.extend($, exports);
 }

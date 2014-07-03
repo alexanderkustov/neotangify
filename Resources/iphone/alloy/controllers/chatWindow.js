@@ -28,7 +28,10 @@ function Controller() {
             break;
 
           case "auth_response":
-            "authentication_success" == message[1]["data"] ? console.log("Authentication Success Received") : console.log("Authentication Failed Received");
+            if ("authentication_success" == message[1]["data"]) {
+                console.log("Authentication Success Received");
+                getConversationWith(friend_id);
+            } else console.log("Authentication Failed Received");
             break;
 
           case "pong":
@@ -238,9 +241,8 @@ function Controller() {
         console.log("Yeah im closing, clean some shit");
     });
     $.win_chat.addEventListener("focus", chatFocusListener = function() {
+        Alloy.Globals.WS.startWebsocket();
         getConversationWith(friend_id);
-        $.win_chat.removeEventListener("focus", chatFocusListener);
-        chatFocusListener = null;
     });
     __defers["$.__views.back!click!goback"] && $.__views.back.addEventListener("click", goback);
     _.extend($, exports);

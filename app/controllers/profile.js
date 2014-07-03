@@ -20,5 +20,3 @@ function loadData(e){
 }
 
 $.profile.addEventListener('open', loadData);
-Ti.include("base64.js");
-Ti.include("websockets.js");

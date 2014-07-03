@@ -72,6 +72,7 @@ function messageRoute(e) {
         if (message[1]['data'] == 'authentication_success') {
             // getConversationWith(4);
             console.log("Authentication Success Received");
+            getConversationWith(friend_id);
         }else{
             console.log("Authentication Failed Received");    
         }
@@ -294,7 +295,10 @@ function appendChatConversation(data, is_sender){
 
 //setInterval(function(){geolocate();},35000);
 $.win_chat.addEventListener('focus', chatFocusListener = function() {
+    Alloy.Globals.WS.startWebsocket();
+    //Antes
 	getConversationWith(friend_id);
-    $.win_chat.removeEventListener('focus', chatFocusListener);
-    chatFocusListener = null;
+
+    // $.win_chat.removeEventListener('focus', chatFocusListener);
+    // chatFocusListener = null;
 });
