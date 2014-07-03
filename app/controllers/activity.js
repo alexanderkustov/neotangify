@@ -114,7 +114,7 @@ function addActivitiesToTable(user_name, friend_name, position, friend_id, activ
     row.add(imageAvatar);
     
     var label = Ti.UI.createLabel({
-            text   : "You've accepted " + friend_name,
+            text   : "You've"+ type + friend_name,
             height : (OS_ANDROID) ? '50dp' : 'auto',
             width  : 'auto',
             color  : "#fff",
