@@ -45,7 +45,8 @@ uri = 'ws://tangifyapp.com:81';
 // 	// setInterval("sendKeepAlives();", 30000);
 // });
 // Alloy.Globals.WS = require('net.iamyellow.tiws').createWS();
-var initKeepAlive = keepAlive();
+var initKeepAlive;
+
 function keepAlive(){
 	console.log("in keep alive outside setInterval");
 	i = setInterval(function() {
@@ -102,12 +103,13 @@ Alloy.Globals.startWebsocket = function() {
 
 	// Start keep alives
 	console.log("opened");
-	clearInterval(initKeepAlive);
-	initKeepAlive = null;
+	
 	initKeepAlive = keepAlive();
 };
 
 Alloy.Globals.stopWebsocket = function() {
+	clearInterval(initKeepAlive);
+	initKeepAlive = null;
 	Alloy.Globals.WS.close();
 };
 

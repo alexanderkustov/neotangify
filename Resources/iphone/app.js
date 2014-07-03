@@ -21,7 +21,7 @@ Ti.include("base64.js");
 
 uri = "ws://tangifyapp.com:81";
 
-var initKeepAlive = keepAlive();
+var initKeepAlive;
 
 Alloy.Globals.startWebsocket = function() {
     console.log("Im on start websocket");
@@ -51,12 +51,12 @@ Alloy.Globals.startWebsocket = function() {
     });
     Alloy.Globals.WS.open(uri);
     console.log("opened");
-    clearInterval(initKeepAlive);
-    initKeepAlive = null;
     initKeepAlive = keepAlive();
 };
 
 Alloy.Globals.stopWebsocket = function() {
+    clearInterval(initKeepAlive);
+    initKeepAlive = null;
     Alloy.Globals.WS.close();
 };
 
