@@ -6,9 +6,7 @@ function Controller() {
         tabgroup = null;
         $.main_nav = null;
         var win = Alloy.createController("login").getView();
-        win.open({
-            transition: Ti.UI.iPhone.AnimationStyle.NONE
-        });
+        win.open();
     }
     require("alloy/controllers/BaseController").apply(this, Array.prototype.slice.call(arguments));
     this.__controllerPath = "settings";

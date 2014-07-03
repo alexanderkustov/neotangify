@@ -1,6 +1,6 @@
 <Alloy>
 
-<Window id="loginWindow">
+<Window id="loginWindowin">
 				<TitleControl>
 					<Label id="myTitleLabel">Please Login</Label>
 				</TitleControl>

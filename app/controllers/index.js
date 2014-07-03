@@ -1,17 +1,15 @@
-
 //autoLogin
+
 if(Ti.App.Properties.getString('saved_login') && Ti.App.Properties.getString('saved_pw')){
 	console.log("poderia ir para autologin");
 	var loginWindow = Alloy.createController('login').getView();
-loginWindow.open();
+	loginWindow.open();
 	//autoLogin();
-}else{
-
-var loginWindow = Alloy.createController('login').getView();
-loginWindow.open();
+	}else{
+	var loginWindow = Alloy.createController('login').getView();
+	loginWindow.open();
 }
 //Alloy.Globals.tabgroup = $.index;
-
 function autoLogin(e){
 	//starting to send out the auth
 	var url = mainserver + "/auth/identity/callback?format=json";

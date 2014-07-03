@@ -2,10 +2,9 @@
 	  <!-- iOS -->
 		<NavigationWindow id="loginWindow" exitOnClose="true" platform="ios">
 			<Require id="loginWindow" src="loginWindow"></Require>
-			
-</NavigationWindow>
+		</NavigationWindow>
  <!-- Android -->
-    <Require id="loginWindow" src="loginWindow" platform="android"></Require>
+    <Require id="settings" src="settings" platform="android"></Require>
    
     		  
 </Alloy>
