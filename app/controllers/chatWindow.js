@@ -201,6 +201,8 @@ function appendChatMessage(message, position, is_sender){
         // scroll
     }
     row = null;
+    row.remove(imageAvatar);
+    row.remove(label);
     imageAvatar = null;
     label = null;
     //$.chatArea.scrollToIndex($.chatArea.data[0].length);
@@ -284,8 +286,9 @@ function goback(e) {
             $.chatArea.children[c] = null;
         }
     }
-    $.chatArea.data = null;
-    
+    // $.chatArea.data = null;
+    $.win_chat.remove($.chatArea);
+    // $.chatArea = null;
     $.win_chat.close();
     $.win_chat = null;
 }

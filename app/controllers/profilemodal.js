@@ -35,6 +35,14 @@ function addFriend(e){
 }
 
 function goback(e) {
+	$.win_profilemodal.remove($.cover_picture);
+	$.win_profilemodal.remove($.person_picture);
+	if ($.win_profilemodal.children) {
+        for (var c = $.win_profilemodal.children.length - 1; c >= 0; c--) {
+            $.win_profilemodal.remove($.win_profilemodal.children[c]);
+            $.win_profilemodal.children[c] = null;
+        }
+    }
 	$.win_profilemodal.close();
     $.win_profilemodal = null;
 }

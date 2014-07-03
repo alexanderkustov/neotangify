@@ -41,7 +41,7 @@ function Controller() {
     });
     $.__views.profile.add($.__views.__alloyId30);
     $.__views.cover_picture = Ti.UI.createImageView({
-        image: "/tangy_back.jpg",
+        image: "/tangy_back2.jpg",
         zIndex: "1",
         height: "160",
         top: "-50",
