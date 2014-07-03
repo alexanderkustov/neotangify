@@ -99,6 +99,8 @@ function Controller() {
             $.chatArea.scrollToIndex($.chatArea.data[0].rows.length - 1);
         }
         row = null;
+        row.remove(imageAvatar);
+        row.remove(label);
         imageAvatar = null;
         label = null;
     }
@@ -156,7 +158,7 @@ function Controller() {
             $.chatArea.remove($.chatArea.children[c]);
             $.chatArea.children[c] = null;
         }
-        $.chatArea.data = null;
+        $.win_chat.remove($.chatArea);
         $.win_chat.close();
         $.win_chat = null;
     }

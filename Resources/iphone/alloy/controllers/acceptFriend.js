@@ -33,7 +33,7 @@ function Controller() {
     });
     $.__views.profile_name.add($.__views.__alloyId1);
     $.__views.__alloyId2 = Ti.UI.createImageView({
-        image: "/tangy_back.jpg",
+        image: "/tangy_back2.jpg",
         zIndex: "1",
         height: "160",
         top: "-50",

@@ -14,8 +14,8 @@ function login(e)
 	       	Alloy.Globals.user_email = JSON.parse(this.responseText).user.email;
 	       	Alloy.Globals.birthdate = JSON.parse(this.responseText).user.birthdate; 
 	       	Alloy.Globals.short_description = JSON.parse(this.responseText).user.short_description; 
-	       	Alloy.Globals.user_pic = JSON.parse(this.responseText).user.presentation_picture.url;
-	       	Alloy.Globals.cover_picture = JSON.parse(this.responseText).user.cover_picture.url;
+	       	Alloy.Globals.user_pic = JSON.parse(this.responseText).user.presentation_picture.thumb.url;
+	       	Alloy.Globals.cover_picture = JSON.parse(this.responseText).user.cover_picture.small.url;
 	       	
 	    
 	      // $.win1 = null;

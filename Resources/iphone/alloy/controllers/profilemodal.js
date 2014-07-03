@@ -27,6 +27,12 @@ function Controller() {
         client.send(params);
     }
     function goback() {
+        $.win_profilemodal.remove($.cover_picture);
+        $.win_profilemodal.remove($.person_picture);
+        if ($.win_profilemodal.children) for (var c = $.win_profilemodal.children.length - 1; c >= 0; c--) {
+            $.win_profilemodal.remove($.win_profilemodal.children[c]);
+            $.win_profilemodal.children[c] = null;
+        }
         $.win_profilemodal.close();
         $.win_profilemodal = null;
     }
@@ -83,7 +89,7 @@ function Controller() {
     $.__views.profile_name.add($.__views.__alloyId32);
     $.__views.cover_picture = Ti.UI.createImageView({
         id: "cover_picture",
-        image: "/tangy_back.jpg",
+        image: "/tangy_back2.jpg",
         zIndex: "1",
         height: "160",
         top: "-50",

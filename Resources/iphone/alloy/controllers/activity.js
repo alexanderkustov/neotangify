@@ -120,7 +120,7 @@ function Controller() {
                 read: "true"
             }
         };
-        client.open("PUT", url);
+        client.open("POST", url);
         client.send(params);
     }
     require("alloy/controllers/BaseController").apply(this, Array.prototype.slice.call(arguments));
