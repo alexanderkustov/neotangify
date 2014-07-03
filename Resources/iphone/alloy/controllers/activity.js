@@ -19,8 +19,12 @@ function Controller() {
                         false == parsedText[i].read && addActivitiesToTable(parsedText[i].subject.user.name, parsedText[i].subject.friend.name, "Last", parsedText[i].subject.friend.id, parsedText[i].id, "accepted", friend_image);
                         break;
 
-                      case "friend_request_recieved":
-                        false == parsedText[i].read && addActivitiesToTable(parsedText[i].subject.user.name, parsedText[i].subject.friend.name, "Last", parsedText[i].subject.friend.id, parsedText[i].id, "recieved", friend_image);
+                      case "friend_request_received":
+                        false == parsedText[i].read && addActivitiesToTable(parsedText[i].subject.friend.name, parsedText[i].subject.user.name, "Last", parsedText[i].subject.friend.id, parsedText[i].id, "recieved", friend_image);
+                        break;
+
+                      case "friend_request_accepted":
+                        false == parsedText[i].read && addActivitiesToTable(parsedText[i].subject.friend.name, parsedText[i].subject.user.name, "Last", parsedText[i].subject.friend.id, parsedText[i].id, "accepted", friend_image);
                         break;
 
                       default:
@@ -59,10 +63,6 @@ function Controller() {
             borderRadius: 20,
             borderWidth: 1
         });
-        imageAvatar.addEventListener("click", function() {
-            Ti.API.info("You clicked the guy: " + this.id);
-            profilemodal(this.id);
-        });
         row.add(imageAvatar);
         var label = Ti.UI.createLabel({
             text: "You've accepted " + friend_name,
@@ -92,7 +92,7 @@ function Controller() {
             height: 50
         });
         row.add(label);
-        "recieved" == type && row.add(acceptButton);
+        "received" == type && row.add(acceptButton);
         row.add(readButton);
         readButton.addEventListener("click", function() {
             Ti.API.info("You marking this as read: " + this.id);
@@ -102,17 +102,12 @@ function Controller() {
             animationStyle: Titanium.UI.iPhone.RowAnimationStyle.RIGHT
         });
     }
-    function profilemodal(userid) {
-        var profilewin = Alloy.createController("acceptFriend", {
-            userId: userid
-        }).getView();
-        profilewin.open();
-    }
     function markAsRead(activity_id) {
         var url = mainserver + "/read_activity.json?" + activity_id + "&auth_token=" + Alloy.Globals.auth_token;
         var client = Ti.Network.createHTTPClient({
             onload: function() {
                 Ti.API.info("Received text: " + this.responseText);
+                getActivityFeed();
             },
             onerror: function(e) {
                 alert("error" + e);

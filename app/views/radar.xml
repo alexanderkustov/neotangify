@@ -3,6 +3,7 @@
 	<LeftNavButton>
 	  	<Button id="refresh" onClick="geolocate" >Refresh</Button>
 	</LeftNavButton>
+	
 		<View id="radar" width="Ti.UI.FILL" height="460px" width="460px" top="15%" backgroundImage="/radar_back.png"></View>
 	</Window>
 </Alloy>

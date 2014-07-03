@@ -20,7 +20,6 @@ function acceptFriendship(friend_id){
     client.send(params); 
 }
 
-
 function getActivityFeed(e){
 	var url = mainserver + '/activities.json?' + 'auth_token=' + Alloy.Globals.auth_token ;
 	console.log(url);
@@ -58,9 +57,13 @@ function getActivityFeed(e){
     							addActivitiesToTable(parsedText[i].subject.user.name, parsedText[i].subject.friend.name, "Last", parsedText[i].subject.friend.id, parsedText[i].id, "accepted", friend_image);
     					break;
                         
-                        case 'friend_request_recieved':
+                        case 'friend_request_received':
                             if(parsedText[i].read == false)
-                                addActivitiesToTable(parsedText[i].subject.user.name, parsedText[i].subject.friend.name, "Last", parsedText[i].subject.friend.id, parsedText[i].id, "recieved", friend_image);
+                                addActivitiesToTable(parsedText[i].subject.friend.name, parsedText[i].subject.user.name, "Last", parsedText[i].subject.friend.id, parsedText[i].id, "recieved", friend_image);
+                        break;
+                        case 'friend_request_accepted':
+                            if(parsedText[i].read == false)
+                                addActivitiesToTable(parsedText[i].subject.friend.name, parsedText[i].subject.user.name, "Last", parsedText[i].subject.friend.id, parsedText[i].id, "accepted", friend_image);
                         break;
 
     					default:
@@ -87,7 +90,6 @@ function getActivityFeed(e){
 	client.send(params);  
 }
 
-
 function addActivitiesToTable(user_name, friend_name, position, friend_id, activity_id, type, friend_image){
 
  var row = Ti.UI.createTableViewRow({
@@ -107,11 +109,6 @@ function addActivitiesToTable(user_name, friend_name, position, friend_id, activ
         borderColor: '#fff',
         borderRadius: 20,
         borderWidth: 1
-    });
-
-    imageAvatar.addEventListener('click',function(e){
-        Ti.API.info("You clicked the guy: " + this.id);
-        profilemodal(this.id);
     });
 
     row.add(imageAvatar);
@@ -144,7 +141,7 @@ function addActivitiesToTable(user_name, friend_name, position, friend_id, activ
     });
   
     row.add(label);
-    if(type == "recieved"){
+    if(type == "received"){
         row.add(acceptButton);
     }
     row.add(readButton);
@@ -162,7 +159,6 @@ function addActivitiesToTable(user_name, friend_name, position, friend_id, activ
 
 }
 
-
 function profilemodal(userid){  
     var profilewin = Alloy.createController('acceptFriend', {userId: userid}).getView();
     profilewin.open();
@@ -174,9 +170,8 @@ function markAsRead(activity_id){
     
     var client = Ti.Network.createHTTPClient({
         onload : function(e) {
-            Ti.API.info("Received text: " + this.responseText);
-            
-            
+            Ti.API.info("Received text: " + this.responseText); 
+            getActivityFeed();  
         },
         onerror : function(e) {
             alert('error' + e);
@@ -186,16 +181,15 @@ function markAsRead(activity_id){
     });
     
             var params = {
-        'activity': { 
-            'read': "true"
-    }
+        	'activity': { 
+            	'read': "true"
+            	}
             };
 
     client.open("PUT", url);
     client.send(params); 
     
 }
-
 
 $.activityWindow.addEventListener('focus', activityListener = function() {
     getActivityFeed();
