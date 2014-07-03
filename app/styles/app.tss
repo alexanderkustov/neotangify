@@ -21,6 +21,24 @@
 	width:100,
 	height:100,
 	borderRadius : "50",
+},
+"#loginBtn":{
+	borderWidth : "1",
+    borderColor : 'white',
+    borderRadius: "3",
+    top:"10px",
+    left:"20px"
+},
+"#regButton":{
+	 top:"10px",
+	 left:"20px"
+},
+"#facebookBtn":{
+	borderWidth : "1",
+    borderColor : 'white',
+    backgroundColor: "#4c66a4",
+    borderRadius: "3",
+    top:"10px"
 }
 
 "Label": {

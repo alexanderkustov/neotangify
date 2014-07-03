@@ -8,24 +8,16 @@ function login(e)
 	    	Ti.API.info("Received text: " + this.responseText);
 	    	 
 	  	 	//fica com auth token para sempre  	 
-	        Alloy.Globals.auth_token = JSON.parse(this.responseText).user.auth_token; 
-	        Ti.API.info("auth token:" +  Alloy.Globals.auth_token);
+	        Alloy.Globals.auth_token = JSON.parse(this.responseText).user.auth_token;
+	       	Alloy.Globals.user_id = JSON.parse(this.responseText).user.id;
 	       	Alloy.Globals.user_name = JSON.parse(this.responseText).user.name; 
 	       	Alloy.Globals.user_email = JSON.parse(this.responseText).user.email;
 	       	Alloy.Globals.birthdate = JSON.parse(this.responseText).user.birthdate; 
 	       	Alloy.Globals.short_description = JSON.parse(this.responseText).user.short_description; 
-	       	Alloy.Globals.user_id = JSON.parse(this.responseText).user.id; 
 	       	Alloy.Globals.user_pic = JSON.parse(this.responseText).user.presentation_picture.url;
 	       	Alloy.Globals.cover_picture = JSON.parse(this.responseText).user.cover_picture.url;
 	       	
-	       	//picture issues
-	       	/*
-	       	if(!JSON.parse(this.responseText).user.presentation_picture.url)
-	       	{
-	       		console.log("PICTURE : " +  JSON.parse(this.responseText).user.presentation_picture.url);
-	       		Alloy.Globals.user_pic = JSON.parse(this.responseText).user.presentation_picture.url;
-	       	}
-	       */
+	    
 	      $.win1 = null;
 	      
 	      var win=Alloy.createController('index').getView();
@@ -119,7 +111,7 @@ function openRegister(e)
 	
 }
 
-/*
+
 function facebookLogin(e)
 {
 	var fb = require('facebook');
@@ -152,4 +144,4 @@ function facebookLogin(e)
 	});
 	fb.authorize();
 }
-*/
+
