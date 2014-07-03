@@ -186,7 +186,7 @@ function markAsRead(activity_id){
             	}
             };
 
-    client.open("PUT", url);
+    client.open("POST", url);
     client.send(params); 
     
 }

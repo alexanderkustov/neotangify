@@ -1,6 +1,6 @@
 var selected_friend;
 
-function getFriends(e){
+function getFriends(){
     var url = mainserver + '/friendships.json?' + 'auth_token=' + Alloy.Globals.auth_token ;
     console.log(url);
     
@@ -11,25 +11,21 @@ function getFriends(e){
             var parsedText = JSON.parse(this.responseText).friends;
             
 			var person_image ;
-            for(var i=0; i < parsedText.length; i ++)
-            	{
-				
-					if(parsedText[i].presentation_picture.url != null){
-						person_image = mainserver + parsedText[i].presentation_picture.url;
-						Ti.App.FriendPicture = person_image;
-						
-					}else{
-					 	person_image = "person.png";
-					 	
-					}
-					
+            for(var i=0; i < parsedText.length; i ++){
+				if(parsedText[i].presentation_picture.url != null){
+					person_image = mainserver + parsedText[i].presentation_picture.url;
 					Ti.App.FriendPicture = person_image;
-					console.log(person_image +  " : " +  Ti.App.FriendPicture);
-    
-   
+				}else{
+					person_image = "person.png";
+					 	
+				}
+					
+				Ti.App.FriendPicture = person_image;
+				console.log(person_image +  " : " +  Ti.App.FriendPicture);
             	addFriendToTable(parsedText[i].id, parsedText[i].name, "Last", person_image );
-                
             }
+            parsedText=null;
+            person_image = null;
                   
         },
         onerror : function(e) {
@@ -56,7 +52,7 @@ function addFriendToTable(friend_id, friend_name, position, presentation_picture
     });
 
 
- var imageAvatar = Ti.UI.createImageView({
+    var imageAvatar = Ti.UI.createImageView({
         image: presentation_picture,
         left:5, top:5,
         width:45, height:45,
@@ -91,6 +87,7 @@ function addFriendToTable(friend_id, friend_name, position, presentation_picture
         $.friendsTable.scrollToIndex($.friendsTable.data[0].rows.length-1);
     }
     row = null;
+    label = null;
     imageAvatar = null;
 }
 
@@ -105,9 +102,10 @@ function openChat(friend_id){
 $.chatFriends.addEventListener('focus', friendsFocuslistener = function() {
     // var rd = []; 
     // $.friendsTable.data = rd;
+    $.friendsTable.data = [];
     getFriends();
-    $.chatFriends.removeEventListener('focus', friendsFocuslistener);
-    friendsFocuslistener = null;
+    // $.chatFriends.removeEventListener('focus', friendsFocuslistener);
+    // friendsFocuslistener = null;
 });
 
 $.friendsTable.addEventListener('click', function(e) {

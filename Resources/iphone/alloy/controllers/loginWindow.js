@@ -12,7 +12,6 @@ function Controller() {
                 Alloy.Globals.short_description = JSON.parse(this.responseText).user.short_description;
                 Alloy.Globals.user_pic = JSON.parse(this.responseText).user.presentation_picture.url;
                 Alloy.Globals.cover_picture = JSON.parse(this.responseText).user.cover_picture.url;
-                $.win1 = null;
                 var win = Alloy.createController("index").getView();
                 win.open();
             },

@@ -10,12 +10,13 @@ function loadData(e){
 	
 	console.log(mainserver + Alloy.Globals.user_pic);
 	
-	if(Alloy.Globals.user_pic != null)
+	if(Alloy.Globals.user_pic != null){
 		$.user_picture.image = mainserver + Alloy.Globals.user_pic;
-	
-	if(Alloy.Globals.cover_picture != null)
+	}
+
+	if(Alloy.Globals.cover_picture != null){
 		$.cover_picture.image = mainserver + Alloy.Globals.cover_picture;
-		
+	}
 		
 }
 
