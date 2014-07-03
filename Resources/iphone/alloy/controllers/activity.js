@@ -65,7 +65,7 @@ function Controller() {
         });
         row.add(imageAvatar);
         var label = Ti.UI.createLabel({
-            text: "You've accepted " + friend_name,
+            text: "You've" + type + friend_name,
             height: "auto",
             width: "auto",
             color: "#fff",
