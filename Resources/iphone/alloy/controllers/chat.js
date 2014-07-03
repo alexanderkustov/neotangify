@@ -63,7 +63,8 @@ function Controller() {
         row = null;
         imageAvatar = null;
     }
-    function openChat() {
+    function openChat(friend_id) {
+        Ti.App.SelectedFriend = friend_id;
         var win = Alloy.createController("chatWindow").getView();
         win.open();
     }

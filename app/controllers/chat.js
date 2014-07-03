@@ -95,7 +95,7 @@ function addFriendToTable(friend_id, friend_name, position, presentation_picture
 
 
 function openChat(friend_id){
-    
+      Ti.App.SelectedFriend = friend_id;
     var win=Alloy.createController('chatWindow').getView();
     win.open();
 }
