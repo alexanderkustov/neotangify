@@ -18,48 +18,99 @@ Ti.include("base64.js");
 
 //WEBSOCKETS
 uri = 'ws://tangifyapp.com:81';
-Alloy.Globals.WS = require('net.iamyellow.tiws').createWS();
+
+// Alloy.Globals.WS = require('net.iamyellow.tiws').createWS();	
+
+// Alloy.Globals.WS.addEventListener('close', function (ev) {
+// 	Ti.API.info(ev);
+// 	// Alloy.Globals.WS.open(uri);
+// });
 	
-Alloy.Globals.WS.addEventListener('close', function (ev) {
-	Ti.API.info(ev);
-	// Alloy.Globals.WS.open(uri);
-});
-	
-Alloy.Globals.WS.addEventListener('error', function (ev) {
-	Ti.API.info(ev);
-	// Alloy.Globals.WS.open(uri);
-});
+// Alloy.Globals.WS.addEventListener('error', function (ev) {
+// 	Ti.API.info(ev);
+// 	// Alloy.Globals.WS.open(uri);
+// });
 
-Alloy.Globals.WS.addEventListener('message', function (ev) {
-	console.log("Message received" + ev);
-	Ti.App.fireEvent("app:messageReceived", {
-   		e : ev
-	});
-});
+// Alloy.Globals.WS.addEventListener('message', function (ev) {
+// 	console.log("Message received" + ev);
+// 	Ti.App.fireEvent("app:messageReceived", {
+//    		e : ev
+// 	});
+// });
 
-Alloy.Globals.WS.addEventListener('open', function () {
-	Ti.API.info('websocket opened');
-	Alloy.Globals.WS.send(JSON.stringify(["connect",{"user":Alloy.Globals.user_email,"auth_token":Alloy.Globals.auth_token}]));
-	// sendKeepAlives();
-	// setInterval("sendKeepAlives();", 30000);
-});
-
-Alloy.Globals.WS.startWebsocket = function() {
-	console.log("Im on start websocket");
-	clearInterval(keepAlive);
-	console.log("interval cleared?");
-	Alloy.Globals.WS.open(uri);	
-	console.log("opened");
-	keepAlive();
-}
-
-
-var keepAlive = function(){
-	setInterval(function() {
+// Alloy.Globals.WS.addEventListener('open', function () {
+// 	Ti.API.info('websocket opened');
+// 	Alloy.Globals.WS.send(JSON.stringify(["connect",{"user":Alloy.Globals.user_email,"auth_token":Alloy.Globals.auth_token}]));
+// 	// sendKeepAlives();
+// 	// setInterval("sendKeepAlives();", 30000);
+// });
+// Alloy.Globals.WS = require('net.iamyellow.tiws').createWS();
+var initKeepAlive = keepAlive();
+function keepAlive(){
+	console.log("in keep alive outside setInterval");
+	i = setInterval(function() {
 		console.log("Lets send a ping");
+		// Atenção null e open.
 		Alloy.Globals.WS.send(JSON.stringify(["ping"]));
 	}, 30000);
-}
+	return i;
+};
+
+Alloy.Globals.startWebsocket = function() {
+	console.log("Im on start websocket");
+	
+	console.log("interval cleared?");
+
+	// Create
+	if (Alloy.Globals.WS == null) {
+		Alloy.Globals.WS = require('net.iamyellow.tiws').createWS();
+	}else{
+		Alloy.Globals.WS = null;
+		Alloy.Globals.WS = require('net.iamyellow.tiws').createWS();
+	}
+	
+	// Alloy.Globals.WS = require('net.iamyellow.tiws').createWS();	
+
+	Alloy.Globals.WS.addEventListener('close', function (ev) {
+		Ti.API.info(ev);
+		// Alloy.Globals.WS.open(uri);
+	});
+		
+	Alloy.Globals.WS.addEventListener('error', function (ev) {
+		Ti.API.info(ev);
+		// Alloy.Globals.WS.open(uri);
+	});
+
+	Alloy.Globals.WS.addEventListener('message', function (ev) {
+		console.log("Message received" + ev);
+		Ti.App.fireEvent("app:messageReceived", {
+	   		e : ev
+		});
+	});
+
+	Alloy.Globals.WS.addEventListener('open', function () {
+		Ti.API.info('websocket opened');
+		Alloy.Globals.WS.send(JSON.stringify(["connect",{"user":Alloy.Globals.user_email,"auth_token":Alloy.Globals.auth_token}]));
+		// sendKeepAlives();
+		// setInterval("sendKeepAlives();", 30000);
+	});
+
+
+	// Open
+	Alloy.Globals.WS.open(uri);	
+
+
+	// Start keep alives
+	console.log("opened");
+	clearInterval(initKeepAlive);
+	initKeepAlive = null;
+	initKeepAlive = keepAlive();
+};
+
+Alloy.Globals.stopWebsocket = function() {
+	Alloy.Globals.WS.close();
+};
+
 
 //Meter esta num ponto inicial
 

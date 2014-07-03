@@ -2,10 +2,8 @@ var current_page = 1;
 var friend_pic = Ti.App.FriendPicture;
 var friend_id = Ti.App.SelectedFriend;
 
-Ti.App.addEventListener("app:messageReceived", function(e) {
-   
+Ti.App.addEventListener("app:messageReceived", function(e) {   
     messageRoute(e);
-    
 });
 
 
@@ -18,25 +16,6 @@ $.textChat.addEventListener( 'return', function(e) {
     	$.textChat.value = "";	
 	}; 
    
-});
-
-function goback(e) {
-   
-    if ($.chatArea.children) {
-        for (var c = $.chatArea.children.length - 1; c >= 0; c--) {
-            $.chatArea.remove($.chatArea.children[c]);
-            $.chatArea.children[c] = null;
-        }
-    }
-    $.chatArea.data = null;
-    
-    $.win_chat.close();
-    $.win_chat = null;
-}
-
-
-$.win_chat.addEventListener('close', function() {
-    console.log("Yeah im closing, clean some shit");
 });
 
 function messageRoute(e) {
@@ -254,17 +233,21 @@ function appendChatConversation(data, is_sender){
 	        borderWidth: 1
 	    });
 	    
-	    if(Alloy.Globals.user_pic != null)
+	    if(Alloy.Globals.user_pic != null){
             imageAvatar.image = mainserver + Alloy.Globals.user_pic;
-    if(friend_pic != null && !is_sender)	
-     	imageAvatar.image = friend_pic;
+        }
+        
+        if(friend_pic != null && !is_sender){
+            imageAvatar.image = friend_pic;
+        }
 		
-		if(Alloy.Globals.user_pic != null)
-			if(data[i].sender.id == Alloy.Globals.user_id)
-           		 imageAvatar.image = mainserver + Alloy.Globals.user_pic;
-           	 else{
-           	 	
-           	 }
+		if(Alloy.Globals.user_pic != null){
+			if(data[i].sender.id == Alloy.Globals.user_id){
+           	    imageAvatar.image = mainserver + Alloy.Globals.user_pic;
+           	}else{
+           	 	// ...
+           	}
+        }
         
 		
 	    row.add(imageAvatar);
@@ -293,11 +276,30 @@ function appendChatConversation(data, is_sender){
     rows=null;
 }
 
+function goback(e) {
+    Alloy.Globals.stopWebsocket();
+    if ($.chatArea.children) {
+        for (var c = $.chatArea.children.length - 1; c >= 0; c--) {
+            $.chatArea.remove($.chatArea.children[c]);
+            $.chatArea.children[c] = null;
+        }
+    }
+    $.chatArea.data = null;
+    
+    $.win_chat.close();
+    $.win_chat = null;
+}
+
+
+$.win_chat.addEventListener('close', function() {
+    console.log("Yeah im closing, clean some shit");
+});
+
 //setInterval(function(){geolocate();},35000);
-$.win_chat.addEventListener('focus', chatFocusListener = function() {
-    Alloy.Globals.WS.startWebsocket();
+$.win_chat.addEventListener('focus', function() {
+    Alloy.Globals.startWebsocket();
     //Antes
-	getConversationWith(friend_id);
+	// getConversationWith(friend_id);
 
     // $.win_chat.removeEventListener('focus', chatFocusListener);
     // chatFocusListener = null;

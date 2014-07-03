@@ -1,13 +1,4 @@
 function Controller() {
-    function goback() {
-        if ($.chatArea.children) for (var c = $.chatArea.children.length - 1; c >= 0; c--) {
-            $.chatArea.remove($.chatArea.children[c]);
-            $.chatArea.children[c] = null;
-        }
-        $.chatArea.data = null;
-        $.win_chat.close();
-        $.win_chat = null;
-    }
     function messageRoute(e) {
         console.log(e);
         message = JSON.parse(e.e.data);
@@ -159,6 +150,16 @@ function Controller() {
         $.chatArea.scrollToIndex($.chatArea.data[0].rows.length - 1);
         rows = null;
     }
+    function goback() {
+        Alloy.Globals.stopWebsocket();
+        if ($.chatArea.children) for (var c = $.chatArea.children.length - 1; c >= 0; c--) {
+            $.chatArea.remove($.chatArea.children[c]);
+            $.chatArea.children[c] = null;
+        }
+        $.chatArea.data = null;
+        $.win_chat.close();
+        $.win_chat = null;
+    }
     require("alloy/controllers/BaseController").apply(this, Array.prototype.slice.call(arguments));
     this.__controllerPath = "chatWindow";
     arguments[0] ? arguments[0]["__parentSymbol"] : null;
@@ -240,9 +241,8 @@ function Controller() {
     $.win_chat.addEventListener("close", function() {
         console.log("Yeah im closing, clean some shit");
     });
-    $.win_chat.addEventListener("focus", chatFocusListener = function() {
-        Alloy.Globals.WS.startWebsocket();
-        getConversationWith(friend_id);
+    $.win_chat.addEventListener("focus", function() {
+        Alloy.Globals.startWebsocket();
     });
     __defers["$.__views.back!click!goback"] && $.__views.back.addEventListener("click", goback);
     _.extend($, exports);
