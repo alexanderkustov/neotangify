@@ -6,7 +6,6 @@ function logout(e){
 	tabgroup = null;
 	$.main_nav = null;
 	var win=Alloy.createController('login').getView();
-	win.open({transition:Ti.UI.iPhone.AnimationStyle.NONE});
-
+	win.open();
 	
 }

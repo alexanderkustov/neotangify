@@ -3,17 +3,12 @@ var current_page = 1;
 var friend_id = Ti.App.SelectedFriend;
 
 Ti.App.addEventListener("app:messageReceived", function(e) {
-    // e.data...
+   
     messageRoute(e);
-    // var row = Ti.UI.createTableViewRow({
-    //     title: e.title, 
-    //     otherAttribute: e.otherAttribute
-    // });
-    // // Now append it to the table
-    // $.basketTable.append(row);
+    
 });
 
-// Listen for Return Key Press
+
 $.textChat.addEventListener( 'return', function(e) {
 	if ($.textChat.value == '') {
 		console.log("Está vazio");
@@ -22,11 +17,11 @@ $.textChat.addEventListener( 'return', function(e) {
     	sendMessage($.textChat.value, friend_id );
     	$.textChat.value = "";	
 	}; 
-    //$.textChat.focus();
+   
 });
 
 function goback(e) {
-    //var win=Alloy.createController('chat').getView();
+   
     if ($.chatArea.children) {
         for (var c = $.chatArea.children.length - 1; c >= 0; c--) {
             $.chatArea.remove($.chatArea.children[c]);
@@ -93,7 +88,7 @@ function messageRoute(e) {
 }
 
 function getConversationWith(friend_id){
-    console.log('Lets send request for conversation with');
+    console.log('Lets send request for conversation with ... ');
     Alloy.Globals.WS.send(
     	JSON.stringify(["get_conversation_with",{
     		"user": Alloy.Globals.user_email,
@@ -169,8 +164,9 @@ function appendChatMessage(message, position, is_sender){
     var row = Ti.UI.createTableViewRow({
         className          : "chat_message",
         color:'white',
-        backgroundColor: 'transparent',
-        selecttionStyle: 'none'
+        selecttionStyle: 'none',
+         separatorColor: 'transparent',
+   		 backgroundColor:' rgba(0,0,0,0.2)'
     });
     
     var imageAvatar = Ti.UI.createButton({
@@ -295,4 +291,3 @@ $.win_chat.addEventListener('focus', chatFocusListener = function() {
     $.win_chat.removeEventListener('focus', chatFocusListener);
     chatFocusListener = null;
 });
-

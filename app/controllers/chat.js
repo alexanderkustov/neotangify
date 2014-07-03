@@ -16,10 +16,16 @@ function getFriends(e){
 				
 					if(parsedText[i].presentation_picture.url != null){
 						person_image = mainserver + parsedText[i].presentation_picture.url;
+						
 					}else{
 					 	person_image = "person.png";
+					 	
 					}
 					
+					Ti.App.FriendPicture = person_image;
+					console.log(person_image +  " : " +  Ti.App.FriendPicture);
+    
+   
             	addFriendToTable(parsedText[i].id, parsedText[i].name, "Last", person_image );
                 
             }
@@ -43,6 +49,8 @@ function addFriendToTable(friend_id, friend_name, position, presentation_picture
         color : 'white',
         backgroundColor : 'rgba(0,0,0,0.2)',
         id     : friend_id,
+         separatorColor:'transparent',
+   		 backgroundColor:'rgba(0,0,0,0.2)'
 
     });
 
@@ -88,7 +96,6 @@ function addFriendToTable(friend_id, friend_name, position, presentation_picture
 
 function openChat(friend_id){
     
-    Ti.App.SelectedFriend = friend_id;
     var win=Alloy.createController('chatWindow').getView();
     win.open();
 }

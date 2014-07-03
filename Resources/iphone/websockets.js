@@ -10,7 +10,7 @@ Alloy.Globals.WS = require("net.iamyellow.tiws").createWS();
 Alloy.Globals.WS.addEventListener("open", function() {
     Ti.API.info("websocket opened");
     Alloy.Globals.WS.send(JSON.stringify([ "connect", {
-        user: "a@a.com",
+        user: Alloy.Globals.user_email,
         auth_token: Alloy.Globals.auth_token
     } ]));
     sendKeepAlives();

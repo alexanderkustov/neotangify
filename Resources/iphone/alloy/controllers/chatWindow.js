@@ -44,7 +44,7 @@ function Controller() {
         }
     }
     function getConversationWith(friend_id) {
-        console.log("Lets send request for conversation with");
+        console.log("Lets send request for conversation with ... ");
         Alloy.Globals.WS.send(JSON.stringify([ "get_conversation_with", {
             user: Alloy.Globals.user_email,
             auth_token: Alloy.Globals.auth_token,
@@ -66,8 +66,9 @@ function Controller() {
         var row = Ti.UI.createTableViewRow({
             className: "chat_message",
             color: "white",
-            backgroundColor: "transparent",
-            selecttionStyle: "none"
+            selecttionStyle: "none",
+            separatorColor: "transparent",
+            backgroundColor: " rgba(0,0,0,0.2)"
         });
         var imageAvatar = Ti.UI.createButton({
             backgroundImage: "person.png",

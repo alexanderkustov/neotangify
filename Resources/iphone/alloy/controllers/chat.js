@@ -9,6 +9,8 @@ function Controller() {
                 var person_image;
                 for (var i = 0; parsedText.length > i; i++) {
                     person_image = null != parsedText[i].presentation_picture.url ? mainserver + parsedText[i].presentation_picture.url : "person.png";
+                    Ti.App.FriendPicture = person_image;
+                    console.log(person_image + " : " + Ti.App.FriendPicture);
                     addFriendToTable(parsedText[i].id, parsedText[i].name, "Last", person_image);
                 }
             },
@@ -26,7 +28,9 @@ function Controller() {
             className: "friend_row",
             color: "white",
             backgroundColor: "rgba(0,0,0,0.2)",
-            id: friend_id
+            id: friend_id,
+            separatorColor: "transparent",
+            backgroundColor: "rgba(0,0,0,0.2)"
         });
         var imageAvatar = Ti.UI.createImageView({
             image: presentation_picture,
@@ -59,8 +63,7 @@ function Controller() {
         row = null;
         imageAvatar = null;
     }
-    function openChat(friend_id) {
-        Ti.App.SelectedFriend = friend_id;
+    function openChat() {
         var win = Alloy.createController("chatWindow").getView();
         win.open();
     }

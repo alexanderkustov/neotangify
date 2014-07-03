@@ -6,7 +6,13 @@ function Controller() {
             onload: function() {
                 Ti.API.info("Get friends : " + this.responseText);
                 var parsedText = JSON.parse(this.responseText).friends;
-                for (var i = 0; parsedText.length > i; i++) addFriendToTable(parsedText[i].id, parsedText[i].name, "Last");
+                var person_image;
+                for (var i = 0; parsedText.length > i; i++) {
+                    person_image = null != parsedText[i].presentation_picture.url ? mainserver + parsedText[i].presentation_picture.url : "person.png";
+                    Ti.App.FriendPicture = person_image;
+                    console.log(person_image + " : " + Ti.App.FriendPicture);
+                    addFriendToTable(parsedText[i].id, parsedText[i].name, "Last", person_image);
+                }
             },
             onerror: function(e) {
                 alert("error" + e);
@@ -17,7 +23,7 @@ function Controller() {
         client.open("GET", url);
         client.send();
     }
-    function addFriendToTable(friend_id, friend_name, position) {
+    function addFriendToTable(friend_id, friend_name, position, presentation_picture) {
         var row = Ti.UI.createTableViewRow({
             className: "friend_row",
             color: "white",
@@ -25,7 +31,7 @@ function Controller() {
             id: friend_id
         });
         var imageAvatar = Ti.UI.createImageView({
-            image: "person.png",
+            image: presentation_picture,
             left: 5,
             top: 5,
             width: 45,
@@ -48,12 +54,14 @@ function Controller() {
             }
         });
         row.add(label);
-        "First" == position ? $.friendsTable.insertRowBefore(0, row) : $.friendsTable.appendRow(row, {
-            animationStyle: Titanium.UI.iPhone.RowAnimationStyle.RIGHT
-        });
+        if ("First" == position) $.friendsTable.insertRowBefore(0, row); else {
+            $.friendsTable.appendRow(row);
+            $.friendsTable.scrollToIndex($.friendsTable.data[0].rows.length - 1);
+        }
+        row = null;
+        imageAvatar = null;
     }
-    function openChat(friend_id) {
-        Ti.App.SelectedFriend = friend_id;
+    function openChat() {
         var win = Alloy.createController("chatWindow").getView();
         win.open();
     }
@@ -90,10 +98,10 @@ function Controller() {
     $.__views.chatContaniner.add($.__views.friendsTable);
     exports.destroy = function() {};
     _.extend($, $.__views);
-    $.chatFriends.addEventListener("focus", function() {
-        var rd = [];
-        $.friendsTable.data = rd;
+    $.chatFriends.addEventListener("focus", friendsFocuslistener = function() {
         getFriends();
+        $.chatFriends.removeEventListener("focus", friendsFocuslistener);
+        friendsFocuslistener = null;
     });
     $.friendsTable.addEventListener("click", function(e) {
         Ti.API.info("row clicked: " + e.rowData.id + " index : " + e.index + " texto: " + e.rowData.text);

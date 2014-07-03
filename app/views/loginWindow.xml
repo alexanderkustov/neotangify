@@ -1,0 +1,20 @@
+<Alloy>
+
+<Window id="loginWindow">
+				<TitleControl>
+					<Label id="myTitleLabel">Please Login</Label>
+				</TitleControl>
+		<ScrollView id="mainLogin" layout="vertical" contentWidth="auto" contentHeight="auto" showVerticalScrollIndicator="true" showHorizontalScrollIndicator="false" height="100%">
+		 	<ImageView image="/login-logo.png" height="160" top="40px">
+			<TextField value="a@a.com" height="40" width="Ti.UI.FILL" id="loginInput"></TextField>
+			<TextField hintText="Password" passwordMask="true" height="40" width="Ti.UI.FILL" id="password" value="123"></TextField>
+			<View layout="horizontal" height="100px">
+				<Button height="40" width="65%" id="loginBtn" onClick="login">Login</Button>
+				<Button height="40"  width="20%"   id="regButton" onClick="openRegister">Register</Button>
+			</View>
+			<View layout="horizontal" height="100px">
+			<Button height="40" left="20px" width="65%"  id="facebookBtn" onClick="facebookLogin">Facebook</Button>
+			</View>
+		</ScrollView>
+	</Window>
+	</Alloy>
