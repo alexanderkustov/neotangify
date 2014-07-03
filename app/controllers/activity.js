@@ -33,12 +33,7 @@ function getActivityFeed(e){
 	    	Ti.API.info("Get feed text: " + this.responseText);
 	    	
 	    	var parsedText = JSON.parse(this.responseText).activities;
-	    	
-	    	
-			
-		
 
-	    	
 	    	for(var i=0; i < parsedText.length; i ++)
 	    		{
 	    			if(parsedText[i].subject.friend.presentation_picture != null){
@@ -49,22 +44,37 @@ function getActivityFeed(e){
 					}
 	    		
 	    			console.log(friend_image);
-
+					
 	    			//var obj = parsedText[i];
 	    			switch(parsedText[i].name){
     					case 'friend_request_accepted':
+    					
                             if(parsedText[i].read == false)
-    							addActivitiesToTable(parsedText[i].subject.user.name, parsedText[i].subject.friend.name, "Last", parsedText[i].subject.friend.id, parsedText[i].id, "accepted", friend_image);
+                            	if(parsedText[i].direction === 'from'){
+    								addActivitiesToTable(parsedText[i].subject.user.name, parsedText[i].subject.friend.name, "Last", parsedText[i].subject.friend.id, parsedText[i].id, "accepted", friend_image);
+    								}else{
+    								addActivitiesToTable(parsedText[i].subject.user.name, parsedText[i].subject.friend.name,  "Last", parsedText[i].subject.friend.id, parsedText[i].id, "accepted", friend_image);
+
+    								}
     					break;
-                        
                         case 'friend_request_received':
                             if(parsedText[i].read == false)
-                                addActivitiesToTable(parsedText[i].subject.friend.name, parsedText[i].subject.user.name, "Last", parsedText[i].subject.friend.id, parsedText[i].id, "recieved", friend_image);
+                            	if(parsedText[i].direction === 'from'){
+                                addActivitiesToTable(
+                                	parsedText[i].subject.friend.name,
+                                	parsedText[i].subject.user.name,
+                                	"Last",
+                                	parsedText[i].subject.friend.id,
+                                	parsedText[i].id,
+                                	"recieved",
+                                	friend_image);
+                               }
+                               else{
+                               	addActivitiesToTable(parsedText[i].subject.user.name, parsedText[i].subject.friend.name,  "Last", parsedText[i].subject.friend.id, parsedText[i].id, "recieved", friend_image);
+
+                               }
                         break;
-                        case 'friend_request_accepted':
-                            if(parsedText[i].read == false)
-                                addActivitiesToTable(parsedText[i].subject.friend.name, parsedText[i].subject.user.name, "Last", parsedText[i].subject.friend.id, parsedText[i].id, "accepted", friend_image);
-                        break;
+                       
 
     					default:
     						console.log("default feed stuff");
@@ -114,7 +124,7 @@ function addActivitiesToTable(user_name, friend_name, position, friend_id, activ
     row.add(imageAvatar);
     
     var label = Ti.UI.createLabel({
-            text   : "You've"+ type + friend_name,
+            text   : "Friend Request " + type +" "+ friend_name,
             height : (OS_ANDROID) ? '50dp' : 'auto',
             width  : 'auto',
             color  : "#fff",

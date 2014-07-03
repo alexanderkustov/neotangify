@@ -16,15 +16,11 @@ function Controller() {
                     console.log(friend_image);
                     switch (parsedText[i].name) {
                       case "friend_request_accepted":
-                        false == parsedText[i].read && addActivitiesToTable(parsedText[i].subject.user.name, parsedText[i].subject.friend.name, "Last", parsedText[i].subject.friend.id, parsedText[i].id, "accepted", friend_image);
+                        false == parsedText[i].read && ("from" === parsedText[i].direction ? addActivitiesToTable(parsedText[i].subject.user.name, parsedText[i].subject.friend.name, "Last", parsedText[i].subject.friend.id, parsedText[i].id, "accepted", friend_image) : addActivitiesToTable(parsedText[i].subject.user.name, parsedText[i].subject.friend.name, "Last", parsedText[i].subject.friend.id, parsedText[i].id, "accepted", friend_image));
                         break;
 
                       case "friend_request_received":
-                        false == parsedText[i].read && addActivitiesToTable(parsedText[i].subject.friend.name, parsedText[i].subject.user.name, "Last", parsedText[i].subject.friend.id, parsedText[i].id, "recieved", friend_image);
-                        break;
-
-                      case "friend_request_accepted":
-                        false == parsedText[i].read && addActivitiesToTable(parsedText[i].subject.friend.name, parsedText[i].subject.user.name, "Last", parsedText[i].subject.friend.id, parsedText[i].id, "accepted", friend_image);
+                        false == parsedText[i].read && ("from" === parsedText[i].direction ? addActivitiesToTable(parsedText[i].subject.friend.name, parsedText[i].subject.user.name, "Last", parsedText[i].subject.friend.id, parsedText[i].id, "recieved", friend_image) : addActivitiesToTable(parsedText[i].subject.user.name, parsedText[i].subject.friend.name, "Last", parsedText[i].subject.friend.id, parsedText[i].id, "recieved", friend_image));
                         break;
 
                       default:
@@ -65,7 +61,7 @@ function Controller() {
         });
         row.add(imageAvatar);
         var label = Ti.UI.createLabel({
-            text: "You've" + type + friend_name,
+            text: "Friend Request " + type + " " + friend_name,
             height: "auto",
             width: "auto",
             color: "#fff",
@@ -120,7 +116,7 @@ function Controller() {
                 read: "true"
             }
         };
-        client.open("PUT", url);
+        client.open("POST", url);
         client.send(params);
     }
     require("alloy/controllers/BaseController").apply(this, Array.prototype.slice.call(arguments));
