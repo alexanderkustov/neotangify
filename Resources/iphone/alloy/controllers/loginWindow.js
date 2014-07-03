@@ -68,14 +68,14 @@ function Controller() {
     var $ = this;
     var exports = {};
     var __defers = {};
-    $.__views.loginWindow = Ti.UI.createWindow({
+    $.__views.loginWindowin = Ti.UI.createWindow({
         backgroundImage: "background.jpg",
         color: "#fff",
         translucent: "false",
         barColor: "#fff",
-        id: "loginWindow"
+        id: "loginWindowin"
     });
-    $.__views.loginWindow && $.addTopLevelView($.__views.loginWindow);
+    $.__views.loginWindowin && $.addTopLevelView($.__views.loginWindowin);
     $.__views.myTitleLabel = Ti.UI.createLabel({
         width: Ti.UI.SIZE,
         height: Ti.UI.SIZE,
@@ -89,7 +89,7 @@ function Controller() {
         text: "Please Login",
         id: "myTitleLabel"
     });
-    $.__views.loginWindow.titleControl = $.__views.myTitleLabel;
+    $.__views.loginWindowin.titleControl = $.__views.myTitleLabel;
     $.__views.mainLogin = Ti.UI.createScrollView({
         id: "mainLogin",
         layout: "vertical",
@@ -99,7 +99,7 @@ function Controller() {
         showHorizontalScrollIndicator: "false",
         height: "100%"
     });
-    $.__views.loginWindow.add($.__views.mainLogin);
+    $.__views.loginWindowin.add($.__views.mainLogin);
     $.__views.__alloyId26 = Ti.UI.createImageView({
         image: "/login-logo.png",
         height: "160",

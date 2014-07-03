@@ -237,7 +237,7 @@ function appendChatConversation(data, is_sender){
 	        color:'white',
 	        backgroundColor: 'transparent',
 	        selecttionStyle: 'none'
-	    });
+	    }); 
 	    
 	   
 	    

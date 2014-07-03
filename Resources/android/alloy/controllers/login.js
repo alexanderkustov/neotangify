@@ -6,11 +6,11 @@ function Controller() {
     arguments[0] ? arguments[0]["__itemTemplate"] : null;
     var $ = this;
     var exports = {};
-    $.__views.loginWindow = Alloy.createController("loginWindow", {
-        id: "loginWindow",
+    $.__views.settings = Alloy.createController("settings", {
+        id: "settings",
         __parentSymbol: __parentSymbol
     });
-    $.__views.loginWindow && $.addTopLevelView($.__views.loginWindow);
+    $.__views.settings && $.addTopLevelView($.__views.settings);
     exports.destroy = function() {};
     _.extend($, $.__views);
     _.extend($, exports);

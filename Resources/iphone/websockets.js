@@ -1,4 +1,5 @@
 function sendKeepAlives() {
+    console.log("Lets send a ping");
     Alloy.Globals.WS.send(JSON.stringify([ "ping" ]));
 }
 

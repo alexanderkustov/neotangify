@@ -44,7 +44,7 @@ function Controller() {
         }
     }
     function getConversationWith(friend_id) {
-        console.log("Lets send request for conversation with");
+        console.log("Lets send request for conversation with ... ");
         Alloy.Globals.WS.send(JSON.stringify([ "get_conversation_with", {
             user: Alloy.Globals.user_email,
             auth_token: Alloy.Globals.auth_token,
@@ -66,8 +66,9 @@ function Controller() {
         var row = Ti.UI.createTableViewRow({
             className: "chat_message",
             color: "white",
-            backgroundColor: "transparent",
-            selecttionStyle: "none"
+            selecttionStyle: "none",
+            separatorColor: "transparent",
+            backgroundColor: " rgba(0,0,0,0.2)"
         });
         var imageAvatar = Ti.UI.createButton({
             backgroundImage: "person.png",
@@ -81,9 +82,8 @@ function Controller() {
             borderRadius: 20,
             borderWidth: 1
         });
-        null != Alloy.Globals.user_pic && is_sender && (imageAvatar.image = mainserver + Alloy.Globals.user_pic);
+        null != Alloy.Globals.user_pic && (imageAvatar.image = mainserver + Alloy.Globals.user_pic);
         null == friend_pic || is_sender || (imageAvatar.image = friend_pic);
-        is_sender == fasle && console.log(imageAvatar);
         row.add(imageAvatar);
         var label = Ti.UI.createLabel({
             text: message || "no-message",
@@ -108,7 +108,7 @@ function Controller() {
         imageAvatar = null;
         label = null;
     }
-    function appendChatConversation(data) {
+    function appendChatConversation(data, is_sender) {
         var rows = [];
         for (var i = data.length - 1; i >= 0; i--) {
             text = data[i].sender.name + ": " + data[i].text;
@@ -131,6 +131,8 @@ function Controller() {
                 borderRadius: 20,
                 borderWidth: 1
             });
+            null != Alloy.Globals.user_pic && (imageAvatar.image = mainserver + Alloy.Globals.user_pic);
+            null == friend_pic || is_sender || (imageAvatar.image = friend_pic);
             null != Alloy.Globals.user_pic && data[i].sender.id == Alloy.Globals.user_id && (imageAvatar.image = mainserver + Alloy.Globals.user_pic);
             row.add(imageAvatar);
             var label = Ti.UI.createLabel({
@@ -220,8 +222,8 @@ function Controller() {
     $.__views.win_chat && $.addTopLevelView($.__views.win_chat);
     exports.destroy = function() {};
     _.extend($, $.__views);
-    var friend_id = Ti.App.SelectedFriend;
     var friend_pic = Ti.App.FriendPicture;
+    var friend_id = Ti.App.SelectedFriend;
     Ti.App.addEventListener("app:messageReceived", function(e) {
         messageRoute(e);
     });
