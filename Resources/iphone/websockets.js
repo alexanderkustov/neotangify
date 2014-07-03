@@ -1,6 +1,5 @@
 function sendKeepAlives() {
     Alloy.Globals.WS.send(JSON.stringify([ "ping" ]));
-    setTimeout("sendKeepAlives();", 3e4);
 }
 
 uri = "ws://tangifyapp.com:81";
@@ -13,12 +12,11 @@ Alloy.Globals.WS.addEventListener("open", function() {
         user: Alloy.Globals.user_email,
         auth_token: Alloy.Globals.auth_token
     } ]));
-    sendKeepAlives();
+    setInterval("sendKeepAlives();", 3e4);
 });
 
 Alloy.Globals.WS.addEventListener("close", function(ev) {
     Ti.API.info(ev);
-    Alloy.Globals.WS.open(uri);
 });
 
 Alloy.Globals.WS.addEventListener("error", function(ev) {

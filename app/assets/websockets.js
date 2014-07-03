@@ -5,16 +5,18 @@
 	Alloy.Globals.WS.addEventListener('open', function () {
 		Ti.API.info('websocket opened');
 		Alloy.Globals.WS.send(JSON.stringify(["connect",{"user":Alloy.Globals.user_email,"auth_token":Alloy.Globals.auth_token}]));
-		sendKeepAlives();
+		// sendKeepAlives();
+		setInterval("sendKeepAlives();", 30000);
 	});
 		
 	Alloy.Globals.WS.addEventListener('close', function (ev) {
 		Ti.API.info(ev);
-		Alloy.Globals.WS.open(uri);
+		// Alloy.Globals.WS.open(uri);
 	});
 		
 	Alloy.Globals.WS.addEventListener('error', function (ev) {
 		Ti.API.info(ev);
+		// Alloy.Globals.WS.open(uri);
 	});
 
 	Alloy.Globals.WS.addEventListener('message', function (ev) {
@@ -31,7 +33,7 @@
 	function sendKeepAlives(){
 		//if (WS && WS.readyState == WebSocket.OPEN){
 			// Send a ping to avoid TCP timeout.
+		console.log("Lets send a ping");
         Alloy.Globals.WS.send(JSON.stringify(["ping"])); 
 		//}
-    	setTimeout("sendKeepAlives();", 30000);
 	}
