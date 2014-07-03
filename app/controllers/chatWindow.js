@@ -252,6 +252,11 @@ function appendChatConversation(data, is_sender){
 	        borderRadius: 20,
 	        borderWidth: 1
 	    });
+	    
+	    if(Alloy.Globals.user_pic != null)
+            imageAvatar.image = mainserver + Alloy.Globals.user_pic;
+    if(friend_pic != null && !is_sender)	
+     	imageAvatar.image = friend_pic;
 		
 		if(Alloy.Globals.user_pic != null)
 			if(data[i].sender.id == Alloy.Globals.user_id)
