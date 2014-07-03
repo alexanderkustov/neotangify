@@ -18,12 +18,12 @@ function login(e)
 	       	Alloy.Globals.cover_picture = JSON.parse(this.responseText).user.cover_picture.url;
 	       	
 	    
-	      $.win1 = null;
+	      // $.win1 = null;
 	      
-	      var win=Alloy.createController('index').getView();
-	      win.open();
-	      // loginWindow.close();
-	      // loginWindow=null; n encontra assim.
+	    	var win=Alloy.createController('index').getView();
+	    	win.open();
+	      	// loginWindow.close();
+	      	// loginWindow=null; n encontra assim.
 
 	    },
 	    // function called when an error occurs, including a timeout
