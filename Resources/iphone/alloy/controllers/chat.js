@@ -8,7 +8,10 @@ function Controller() {
                 var parsedText = JSON.parse(this.responseText).friends;
                 var person_image;
                 for (var i = 0; parsedText.length > i; i++) {
-                    person_image = null != parsedText[i].presentation_picture.url ? mainserver + parsedText[i].presentation_picture.url : "person.png";
+                    if (null != parsedText[i].presentation_picture.url) {
+                        person_image = mainserver + parsedText[i].presentation_picture.url;
+                        Ti.App.FriendPicture = person_image;
+                    } else person_image = "person.png";
                     Ti.App.FriendPicture = person_image;
                     console.log(person_image + " : " + Ti.App.FriendPicture);
                     addFriendToTable(parsedText[i].id, parsedText[i].name, "Last", person_image);

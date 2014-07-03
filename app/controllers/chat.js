@@ -16,6 +16,7 @@ function getFriends(e){
 				
 					if(parsedText[i].presentation_picture.url != null){
 						person_image = mainserver + parsedText[i].presentation_picture.url;
+						Ti.App.FriendPicture = person_image;
 						
 					}else{
 					 	person_image = "person.png";
@@ -95,7 +96,8 @@ function addFriendToTable(friend_id, friend_name, position, presentation_picture
 
 
 function openChat(friend_id){
-      Ti.App.SelectedFriend = friend_id;
+
+    Ti.App.SelectedFriend = friend_id;
     var win=Alloy.createController('chatWindow').getView();
     win.open();
 }

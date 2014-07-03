@@ -1,5 +1,5 @@
 var current_page = 1;
-
+var friend_pic = Ti.App.FriendPicture;
 var friend_id = Ti.App.SelectedFriend;
 
 Ti.App.addEventListener("app:messageReceived", function(e) {
@@ -182,6 +182,8 @@ function appendChatMessage(message, position, is_sender){
 
     if(Alloy.Globals.user_pic != null)
             imageAvatar.image = mainserver + Alloy.Globals.user_pic;
+    if(friend_pic != null && !is_sender)	
+     	imageAvatar.image = friend_pic;
         
     row.add(imageAvatar);
 

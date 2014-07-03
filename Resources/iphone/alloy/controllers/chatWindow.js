@@ -62,7 +62,7 @@ function Controller() {
             message: Base64.encode(message)
         } ]));
     }
-    function appendChatMessage(message, position) {
+    function appendChatMessage(message, position, is_sender) {
         var row = Ti.UI.createTableViewRow({
             className: "chat_message",
             color: "white",
@@ -83,6 +83,7 @@ function Controller() {
             borderWidth: 1
         });
         null != Alloy.Globals.user_pic && (imageAvatar.image = mainserver + Alloy.Globals.user_pic);
+        null == friend_pic || is_sender || (imageAvatar.image = friend_pic);
         row.add(imageAvatar);
         var label = Ti.UI.createLabel({
             text: message || "no-message",
@@ -219,6 +220,7 @@ function Controller() {
     $.__views.win_chat && $.addTopLevelView($.__views.win_chat);
     exports.destroy = function() {};
     _.extend($, $.__views);
+    var friend_pic = Ti.App.FriendPicture;
     var friend_id = Ti.App.SelectedFriend;
     Ti.App.addEventListener("app:messageReceived", function(e) {
         messageRoute(e);
