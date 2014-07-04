@@ -51,7 +51,14 @@ function Controller() {
         var client = Ti.Network.createHTTPClient({
             onload: function() {
                 Ti.API.info("Received text: " + this.responseText);
-                alert("Profile updated!");
+                Alloy.Globals.auth_token = JSON.parse(this.responseText).user.auth_token;
+                Alloy.Globals.user_id = JSON.parse(this.responseText).user.id;
+                Alloy.Globals.user_name = JSON.parse(this.responseText).user.name;
+                Alloy.Globals.user_email = JSON.parse(this.responseText).user.email;
+                Alloy.Globals.birthdate = JSON.parse(this.responseText).user.birthdate;
+                Alloy.Globals.short_description = JSON.parse(this.responseText).user.short_description;
+                Alloy.Globals.user_pic = JSON.parse(this.responseText).user.presentation_picture.thumb.url;
+                Alloy.Globals.cover_picture = JSON.parse(this.responseText).user.cover_picture.small.url;
             },
             onerror: function(e) {
                 alert("Error updating profile: " + e.code);

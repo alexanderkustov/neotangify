@@ -98,7 +98,7 @@ function Controller() {
     $.__views.__alloyId23.add($.__views.short_description);
     exports.destroy = function() {};
     _.extend($, $.__views);
-    $.profile.addEventListener("open", loadData);
+    $.profile.addEventListener("focus", loadData);
     __defers["$.__views.edut!click!editProfile"] && $.__views.edut.addEventListener("click", editProfile);
     _.extend($, exports);
 }

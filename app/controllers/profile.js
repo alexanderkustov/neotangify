@@ -22,4 +22,4 @@ function loadData(e){
 		
 }
 
-$.profile.addEventListener('open', loadData);
+$.profile.addEventListener('focus', loadData);
