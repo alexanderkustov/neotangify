@@ -111,6 +111,13 @@ function Controller() {
     });
     geolocate ? $.__views.refresh.addEventListener("click", geolocate) : __defers["$.__views.refresh!click!geolocate"] = true;
     $.__views.radar_window.leftNavButton = $.__views.refresh;
+    $.__views.filter = Ti.UI.createButton({
+        color: "#fff",
+        title: "Filter",
+        id: "filter"
+    });
+    geolocate ? $.__views.filter.addEventListener("click", geolocate) : __defers["$.__views.filter!click!geolocate"] = true;
+    $.__views.radar_window.rightNavButton = $.__views.filter;
     $.__views.radar = Ti.UI.createView({
         id: "radar",
         width: "100%",
@@ -126,6 +133,7 @@ function Controller() {
         geolocate();
     });
     __defers["$.__views.refresh!click!geolocate"] && $.__views.refresh.addEventListener("click", geolocate);
+    __defers["$.__views.filter!click!geolocate"] && $.__views.filter.addEventListener("click", geolocate);
     _.extend($, exports);
 }
 

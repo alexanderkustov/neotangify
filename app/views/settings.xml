@@ -9,5 +9,19 @@
 					<Switch id="basicSwitch" value="true" />
 					
 				</View>
+				 <View layout="vertical">
+				 	<Button height="40" width="Ti.UI.FILL" onClick="uploadCoverPic">Cover Picture</Button>
+					
+				 	<Button height="40" width="Ti.UI.FILL" onClick="uploadPic">Picture</Button>
+					
+				 	<TextField hintText="Name" height="40" width="Ti.UI.FILL" id="name"></TextField>
+	        		<TextField hintText="Email" height="40" width="Ti.UI.FILL" id="email"></TextField>
+	        		<TextField hintText="Short Description" height="40" width="Ti.UI.FILL" id="short_description"></TextField>
+	        		
+	        		<Label text="Want to change your password? (Optional)"></Label>
+	        		<TextField hintText="Password" passwordMask="true" height="40" width="Ti.UI.FILL" id="password"></TextField>
+	        		<TextField hintText="Confirm Password" passwordMask="true" height="40" width="Ti.UI.FILL" id="password_confirmation"></TextField>
+	        		<Button height="40" width="Ti.UI.FILL" onClick="editProfile">Submit</Button>	        		
+	    		</View>
 			</Window>
 		</Alloy>

@@ -1,6 +1,5 @@
 function editProfile(){
-	var win=Alloy.createController('editProfile').getView();
-	win.open();
+	$.index.setActiveTab(4).open();
 }
 
 function loadData(e){	

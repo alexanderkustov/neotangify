@@ -3,6 +3,9 @@
 	<LeftNavButton>
 	  	<Button id="refresh" onClick="geolocate" >Refresh</Button>
 	</LeftNavButton>
+	<RightNavButton>
+	  	<Button id="filter" onClick="geolocate" >Filter</Button>
+	</RightNavButton>
 		<View id="radar"  width="100%"  height="100%" top="-400px"></View>
 	</Window>
 </Alloy>
