@@ -97,7 +97,7 @@ function Controller() {
     });
     logout ? $.__views.logout.addEventListener("click", logout) : __defers["$.__views.logout!click!logout"] = true;
     $.__views.settings.rightNavButton = $.__views.logout;
-    $.__views.__alloyId33 = Ti.UI.createView({
+    $.__views.__alloyId33 = Ti.UI.createScrollView({
         layout: "vertical",
         id: "__alloyId33"
     });
@@ -120,29 +120,24 @@ function Controller() {
         id: "basicSwitch"
     });
     $.__views.__alloyId33.add($.__views.basicSwitch);
-    $.__views.__alloyId35 = Ti.UI.createView({
-        layout: "vertical",
-        id: "__alloyId35"
-    });
-    $.__views.settings.add($.__views.__alloyId35);
-    $.__views.__alloyId36 = Ti.UI.createButton({
+    $.__views.__alloyId35 = Ti.UI.createButton({
         color: "#fff",
         title: "Cover Picture",
         height: "40",
         width: Ti.UI.FILL,
-        id: "__alloyId36"
+        id: "__alloyId35"
     });
-    $.__views.__alloyId35.add($.__views.__alloyId36);
-    uploadCoverPic ? $.__views.__alloyId36.addEventListener("click", uploadCoverPic) : __defers["$.__views.__alloyId36!click!uploadCoverPic"] = true;
-    $.__views.__alloyId37 = Ti.UI.createButton({
+    $.__views.__alloyId33.add($.__views.__alloyId35);
+    uploadCoverPic ? $.__views.__alloyId35.addEventListener("click", uploadCoverPic) : __defers["$.__views.__alloyId35!click!uploadCoverPic"] = true;
+    $.__views.__alloyId36 = Ti.UI.createButton({
         color: "#fff",
         title: "Picture",
         height: "40",
         width: Ti.UI.FILL,
-        id: "__alloyId37"
+        id: "__alloyId36"
     });
-    $.__views.__alloyId35.add($.__views.__alloyId37);
-    uploadPic ? $.__views.__alloyId37.addEventListener("click", uploadPic) : __defers["$.__views.__alloyId37!click!uploadPic"] = true;
+    $.__views.__alloyId33.add($.__views.__alloyId36);
+    uploadPic ? $.__views.__alloyId36.addEventListener("click", uploadPic) : __defers["$.__views.__alloyId36!click!uploadPic"] = true;
     $.__views.name = Ti.UI.createTextField({
         color: "#333",
         borderStyle: Ti.UI.INPUT_BORDERSTYLE_ROUNDED,
@@ -154,7 +149,7 @@ function Controller() {
         hintText: "Name",
         id: "name"
     });
-    $.__views.__alloyId35.add($.__views.name);
+    $.__views.__alloyId33.add($.__views.name);
     $.__views.email = Ti.UI.createTextField({
         color: "#333",
         borderStyle: Ti.UI.INPUT_BORDERSTYLE_ROUNDED,
@@ -166,7 +161,7 @@ function Controller() {
         hintText: "Email",
         id: "email"
     });
-    $.__views.__alloyId35.add($.__views.email);
+    $.__views.__alloyId33.add($.__views.email);
     $.__views.short_description = Ti.UI.createTextField({
         color: "#333",
         borderStyle: Ti.UI.INPUT_BORDERSTYLE_ROUNDED,
@@ -178,8 +173,8 @@ function Controller() {
         hintText: "Short Description",
         id: "short_description"
     });
-    $.__views.__alloyId35.add($.__views.short_description);
-    $.__views.__alloyId38 = Ti.UI.createLabel({
+    $.__views.__alloyId33.add($.__views.short_description);
+    $.__views.__alloyId37 = Ti.UI.createLabel({
         width: Ti.UI.SIZE,
         height: Ti.UI.SIZE,
         color: "#fff",
@@ -188,10 +183,10 @@ function Controller() {
             fontFamily: "Helvetica Neue"
         },
         textAlign: "center",
-        text: "Want to change your password? (Optional)",
-        id: "__alloyId38"
+        text: "Want to change your password?",
+        id: "__alloyId37"
     });
-    $.__views.__alloyId35.add($.__views.__alloyId38);
+    $.__views.__alloyId33.add($.__views.__alloyId37);
     $.__views.password = Ti.UI.createTextField({
         color: "#333",
         borderStyle: Ti.UI.INPUT_BORDERSTYLE_ROUNDED,
@@ -204,7 +199,7 @@ function Controller() {
         passwordMask: "true",
         id: "password"
     });
-    $.__views.__alloyId35.add($.__views.password);
+    $.__views.__alloyId33.add($.__views.password);
     $.__views.password_confirmation = Ti.UI.createTextField({
         color: "#333",
         borderStyle: Ti.UI.INPUT_BORDERSTYLE_ROUNDED,
@@ -217,22 +212,22 @@ function Controller() {
         passwordMask: "true",
         id: "password_confirmation"
     });
-    $.__views.__alloyId35.add($.__views.password_confirmation);
-    $.__views.__alloyId39 = Ti.UI.createButton({
+    $.__views.__alloyId33.add($.__views.password_confirmation);
+    $.__views.__alloyId38 = Ti.UI.createButton({
         color: "#fff",
         title: "Submit",
         height: "40",
         width: Ti.UI.FILL,
-        id: "__alloyId39"
+        id: "__alloyId38"
     });
-    $.__views.__alloyId35.add($.__views.__alloyId39);
-    editProfile ? $.__views.__alloyId39.addEventListener("click", editProfile) : __defers["$.__views.__alloyId39!click!editProfile"] = true;
+    $.__views.__alloyId33.add($.__views.__alloyId38);
+    editProfile ? $.__views.__alloyId38.addEventListener("click", editProfile) : __defers["$.__views.__alloyId38!click!editProfile"] = true;
     exports.destroy = function() {};
     _.extend($, $.__views);
     __defers["$.__views.logout!click!logout"] && $.__views.logout.addEventListener("click", logout);
-    __defers["$.__views.__alloyId36!click!uploadCoverPic"] && $.__views.__alloyId36.addEventListener("click", uploadCoverPic);
-    __defers["$.__views.__alloyId37!click!uploadPic"] && $.__views.__alloyId37.addEventListener("click", uploadPic);
-    __defers["$.__views.__alloyId39!click!editProfile"] && $.__views.__alloyId39.addEventListener("click", editProfile);
+    __defers["$.__views.__alloyId35!click!uploadCoverPic"] && $.__views.__alloyId35.addEventListener("click", uploadCoverPic);
+    __defers["$.__views.__alloyId36!click!uploadPic"] && $.__views.__alloyId36.addEventListener("click", uploadPic);
+    __defers["$.__views.__alloyId38!click!editProfile"] && $.__views.__alloyId38.addEventListener("click", editProfile);
     _.extend($, exports);
 }
 

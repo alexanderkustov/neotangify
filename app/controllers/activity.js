@@ -108,7 +108,6 @@ function addActivitiesToTable(user_name, friend_name, position, friend_id, activ
         rowID: friend_id,
         backgroundColor: 'transparent',
         separatorStyle: Titanium.UI.iPhone.TableViewSeparatorStyle.NONE
-
     });
 
     var imageAvatar = Ti.UI.createButton({
@@ -124,7 +123,7 @@ function addActivitiesToTable(user_name, friend_name, position, friend_id, activ
     row.add(imageAvatar);
     
     var label = Ti.UI.createLabel({
-            text   : "Friend Request " + type +" "+ friend_name,
+            text   : "Request " + type +" "+ friend_name,
             height : (OS_ANDROID) ? '50dp' : 'auto',
             width  : 'auto',
             color  : "#fff",
@@ -145,13 +144,12 @@ function addActivitiesToTable(user_name, friend_name, position, friend_id, activ
     var acceptButton = Ti.UI.createButton({
         title: '✓',
         color: '#fff',
-      
         top: 10, right: 30, 
         width: 20, height: 50
     });
   
     row.add(label);
-    if(type == "received"){
+    if(type === "recieved"){
         row.add(acceptButton);
     }
     row.add(readButton);
@@ -159,6 +157,11 @@ function addActivitiesToTable(user_name, friend_name, position, friend_id, activ
     readButton.addEventListener('click',function(e){
         Ti.API.info("You marking this as read: " + this.id);
         markAsRead(this.id);
+    });
+    
+    acceptButton.addEventListener('click',function(e){
+        Ti.API.info("You accepting this friend request: " + this.id);
+        acceptFriendship(this.id);
     });
 
      if(position == "First") {
@@ -169,15 +172,9 @@ function addActivitiesToTable(user_name, friend_name, position, friend_id, activ
 
 }
 
-function profilemodal(userid){  
-    var profilewin = Alloy.createController('acceptFriend', {userId: userid}).getView();
-    profilewin.open();
-}
-
 function markAsRead(activity_id){
    
     var url = mainserver + '/read_activity.json?' + activity_id +  '&auth_token=' + Alloy.Globals.auth_token ;
-    
     var client = Ti.Network.createHTTPClient({
         onload : function(e) {
             Ti.API.info("Received text: " + this.responseText); 

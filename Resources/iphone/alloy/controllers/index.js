@@ -67,11 +67,11 @@ function Controller() {
         id: "__alloyId17"
     });
     __alloyId12.push($.__views.__alloyId17);
-    $.__views.index = Ti.UI.createTabGroup({
+    $.__views.main_tab = Ti.UI.createTabGroup({
         tabs: __alloyId12,
-        id: "index"
+        id: "main_tab"
     });
-    $.__views.index && $.addTopLevelView($.__views.index);
+    $.__views.main_tab && $.addTopLevelView($.__views.main_tab);
     exports.destroy = function() {};
     _.extend($, $.__views);
     if (Ti.App.Properties.getString("saved_login") && Ti.App.Properties.getString("saved_pw")) {

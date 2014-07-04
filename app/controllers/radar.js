@@ -2,7 +2,7 @@ var cur_long, cur_lat;
 const LATCONV = 0.0000089928;
 const LONGCONV = 0.0000101857;
 var persons = new Array();
-
+var j = 1;
 function geolocate(e){
 	//var cur_loc_timestamp;
 	Titanium.Geolocation.ACCURACY_BEST;	
@@ -101,9 +101,14 @@ function addPersonToRadar(personId, lat, longi, i, person_image){
 	//alert(cur_lat.toFixed(5) + " " + cur_long.toFixed(5));
 	//alert(lat.toFixed(5) + " " + longi.toFixed(5));
 	
+	if(i%300 === 0){
+		j++;
+	}
+	
 	persons[personId] = Ti.UI.createImageView({
 		image: person_image,
 		left: i*60,
+		top: j*60,
 		id: thisPerson,
 		width: 60,
 		height: 60,

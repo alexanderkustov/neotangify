@@ -1,5 +1,5 @@
 <Alloy id="main_nav">
-	<TabGroup>
+	<TabGroup id="main_tab">
 		<Tab title="Profile" icon="profile.png">
 			<Require type="view" src="profile" id="profile"/>
 		</Tab>

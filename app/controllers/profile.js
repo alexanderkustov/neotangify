@@ -1,6 +1,9 @@
 function editProfile(){
-	$.index.setActiveTab(4).open();
+	
+	$.main_tab.setActiveTab(3);
+	
 }
+
 
 function loadData(e){	
 	$.user_name.text = Alloy.Globals.user_name;

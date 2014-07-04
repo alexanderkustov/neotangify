@@ -59,9 +59,11 @@ function Controller() {
     }
     function addPersonToRadar(personId, lat, longi, i, person_image) {
         var thisPerson = personId;
+        0 === i % 300 && j++;
         persons[personId] = Ti.UI.createImageView({
             image: person_image,
             left: 60 * i,
+            top: 60 * j,
             id: thisPerson,
             width: 60,
             height: 60,
@@ -121,14 +123,14 @@ function Controller() {
     $.__views.radar = Ti.UI.createView({
         id: "radar",
         width: "100%",
-        height: "100%",
-        top: "-400px"
+        height: "100%"
     });
     $.__views.radar_window.add($.__views.radar);
     exports.destroy = function() {};
     _.extend($, $.__views);
     var cur_long, cur_lat;
     var persons = new Array();
+    var j = 1;
     $.radar_window.addEventListener("focus", function() {
         geolocate();
     });

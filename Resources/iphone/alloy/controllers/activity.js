@@ -1,4 +1,23 @@
 function Controller() {
+    function acceptFriendship(friend_id) {
+        var url = mainserver + "/friendships.json?" + friend_id + "&auth_token=" + Alloy.Globals.auth_token;
+        var client = Ti.Network.createHTTPClient({
+            onload: function() {
+                Ti.API.info("Received text: " + this.responseText);
+                alert("Success, are no longer forever alone!");
+            },
+            onerror: function(e) {
+                alert("error" + e);
+                console.log(e);
+            },
+            timeout: 6e4
+        });
+        var params = {
+            format: "json"
+        };
+        client.open("POST", url);
+        client.send(params);
+    }
     function getActivityFeed() {
         var url = mainserver + "/activities.json?" + "auth_token=" + Alloy.Globals.auth_token;
         console.log(url);
@@ -61,7 +80,7 @@ function Controller() {
         });
         row.add(imageAvatar);
         var label = Ti.UI.createLabel({
-            text: "Friend Request " + type + " " + friend_name,
+            text: "Request " + type + " " + friend_name,
             height: "auto",
             width: "auto",
             color: "#fff",
@@ -88,11 +107,15 @@ function Controller() {
             height: 50
         });
         row.add(label);
-        "received" == type && row.add(acceptButton);
+        "recieved" === type && row.add(acceptButton);
         row.add(readButton);
         readButton.addEventListener("click", function() {
             Ti.API.info("You marking this as read: " + this.id);
             markAsRead(this.id);
+        });
+        acceptButton.addEventListener("click", function() {
+            Ti.API.info("You accepting this friend request: " + this.id);
+            acceptFriendship(this.id);
         });
         "First" == position ? $.activityTable.insertRowBefore(0, row) : $.activityTable.appendRow(row, {
             animationStyle: Titanium.UI.iPhone.RowAnimationStyle.RIGHT
