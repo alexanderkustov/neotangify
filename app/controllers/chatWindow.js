@@ -201,8 +201,7 @@ function appendChatMessage(message, position, is_sender){
         // scroll
     }
     row = null;
-    row.remove(imageAvatar);
-    row.remove(label);
+  
     imageAvatar = null;
     label = null;
     //$.chatArea.scrollToIndex($.chatArea.data[0].length);
@@ -254,8 +253,7 @@ function appendChatConversation(data, is_sender){
 		
 	    row.add(imageAvatar);
 		
-
-			
+	
 	    var label = Ti.UI.createLabel({
 	        text   : text || "no-message",
 	        height : (OS_ANDROID) ? '50dp' : 'auto',
@@ -287,7 +285,7 @@ function goback(e) {
         }
     }
     // $.chatArea.data = null;
-    $.win_chat.remove($.chatArea);
+    // $.win_chat.remove($.chatArea);
     // $.chatArea = null;
     $.win_chat.close();
     $.win_chat = null;

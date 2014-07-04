@@ -59,18 +59,12 @@ function Controller() {
     }
     function addPersonToRadar(personId, lat, longi, i, person_image) {
         var thisPerson = personId;
-        var dlat = cur_lat - lat;
-        var dlong = cur_long - longi;
-        var topOffset = 200 * (dlat / LATCONV / 50) + 100;
-        var leftOffset = 200 * (dlong / LONGCONV / 50) + 100;
         persons[personId] = Ti.UI.createImageView({
             image: person_image,
-            top: topOffset,
-            left: leftOffset,
+            left: 60 * i,
             id: thisPerson,
-            width: 30,
-            height: 30,
-            borderRadius: 15,
+            width: 60,
+            height: 60,
             zIndex: 999
         });
         $.radar.add(persons[personId]);
@@ -119,17 +113,14 @@ function Controller() {
     $.__views.radar_window.leftNavButton = $.__views.refresh;
     $.__views.radar = Ti.UI.createView({
         id: "radar",
-        width: "460px",
-        height: "460px",
-        top: "15%",
-        backgroundImage: "/radar_back.png"
+        width: "100%",
+        height: "100%",
+        top: "-400px"
     });
     $.__views.radar_window.add($.__views.radar);
     exports.destroy = function() {};
     _.extend($, $.__views);
     var cur_long, cur_lat;
-    const LATCONV = 89928e-10;
-    const LONGCONV = 101857e-10;
     var persons = new Array();
     $.radar_window.addEventListener("focus", function() {
         geolocate();

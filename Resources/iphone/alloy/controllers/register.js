@@ -55,7 +55,12 @@ function Controller() {
     $.__views.__alloyId35.leftNavButton = $.__views.back;
     $.__views.registerContainer = Ti.UI.createScrollView({
         id: "registerContainer",
-        layout: "vertical"
+        layout: "vertical",
+        contentWidth: "auto",
+        contentHeight: "auto",
+        showVerticalScrollIndicator: "true",
+        showHorizontalScrollIndicator: "false",
+        height: "100%"
     });
     $.__views.__alloyId35.add($.__views.registerContainer);
     $.__views.name = Ti.UI.createTextField({

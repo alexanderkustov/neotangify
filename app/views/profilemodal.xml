@@ -7,7 +7,7 @@
                 
 				 <View layout="vertical">
 				 	<ImageView id="cover_picture" image="/tangy_back2.jpg" zIndex="1" height="160" top="-50" width="Ti.UI.FILL"></ImageView>
-					<ImageView image="/person.png" zIndex="5" top="-50" borderRadius="50" borderWidth="3" borderColor="white" width="100" height="100" id="person_picture"></ImageView>
+					<ImageView image="/person.png" zIndex="5" top="-50" borderWidth="3" borderColor="white" width="200" height="200" id="person_picture"></ImageView>
 
 	
 					<Label id="user_name"></Label>

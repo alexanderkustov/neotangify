@@ -7,7 +7,7 @@
 			<Button id="back" onClick="goback">Back</Button>
 		</LeftNavButton>
 
-		<ScrollView id="registerContainer" layout="vertical">
+		<ScrollView id="registerContainer" layout="vertical"  contentWidth="auto" contentHeight="auto" showVerticalScrollIndicator="true" showHorizontalScrollIndicator="false" height="100%">
 			<TextField hintText="Name" height="40" width="Ti.UI.FILL" id="name"></TextField>
 			<TextField hintText="Email" height="40" width="Ti.UI.FILL" id="email"></TextField>
 			<TextField hintText="Password" passwordMask="true" height="40" width="Ti.UI.FILL" id="password"></TextField>

@@ -15,14 +15,19 @@ Titanium.Media.openPhotoGallery({
 			
 			var xhr = Titanium.Network.createHTTPClient();
 			xhr.onload = function(e) {
+				
+				//console.log(JSON.stringify(e) + e);
 				Ti.UI.createAlertDialog({
 				      title:'Success',
-				      message:'status code ' + this.status
+				      message:'Photo uploaded '
 			    }).show();
+			    
+			  	
 		};
 		xhr.open('POST', mainserver + "/users/"+Alloy.Globals.user_id + "/picture_upload.json?" + 'auth_token=' + Alloy.Globals.auth_token );
 		
 		xhr.send({"picture": event.media});
+		
 		  
 		xhr.setRequestHeader('enctype', 'multipart/form-data');
 		xhr.setRequestHeader('Content-Type', 'image/png');
@@ -41,7 +46,7 @@ Titanium.Media.openPhotoGallery({
 			xhr.onload = function(e) {
 				Ti.UI.createAlertDialog({
 				      title:'Success',
-				      message:'status code ' + this.status
+				      message:'Success, Photo uploaded '
 			    }).show();
 		};
 		xhr.open('POST', mainserver + "/users/"+Alloy.Globals.user_id + "/cover_upload.json?" + 'auth_token=' + Alloy.Globals.auth_token );

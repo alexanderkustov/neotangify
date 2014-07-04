@@ -16,6 +16,8 @@ function geolocate(e){
 		changePosition(cur_lat, cur_long);
 		
 	});
+	
+	
 }
 
 function changePosition(lat, longi){
@@ -90,23 +92,21 @@ function updateRadar(lat, longi){
 function addPersonToRadar(personId, lat, longi, i, person_image){
 	var thisPerson = personId;
 	
-	var dlat = cur_lat - lat;
-	var dlong = cur_long - longi;
+	//var dlat = cur_lat - lat;
+	//var dlong = cur_long - longi;
 	
-	var topOffset = (((dlat/LATCONV) / 50) * 200) + 100;
-	var leftOffset = (((dlong/LONGCONV) / 50) * 200) + 100;
+	//var topOffset = (((dlat/LATCONV) / 50) * 200) + 100;
+	//var leftOffset = (((dlong/LONGCONV) / 50) * 200) + 100;
 	
 	//alert(cur_lat.toFixed(5) + " " + cur_long.toFixed(5));
 	//alert(lat.toFixed(5) + " " + longi.toFixed(5));
 	
 	persons[personId] = Ti.UI.createImageView({
 		image: person_image,
-		top: topOffset,
-		left: leftOffset,
+		left: i*60,
 		id: thisPerson,
-		width: 30,
-		height: 30,
-		borderRadius:15,
+		width: 60,
+		height: 60,
 		zIndex: 999
 	});
 	

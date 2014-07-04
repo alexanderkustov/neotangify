@@ -100,11 +100,10 @@ function Controller() {
         image: "/person.png",
         zIndex: "5",
         top: "-50",
-        borderRadius: "50",
         borderWidth: "3",
         borderColor: "white",
-        width: "100",
-        height: "100",
+        width: "200",
+        height: "200",
         id: "person_picture"
     });
     $.__views.__alloyId32.add($.__views.person_picture);

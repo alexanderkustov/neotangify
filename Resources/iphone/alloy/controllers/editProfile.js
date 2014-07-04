@@ -10,7 +10,7 @@ function Controller() {
                 xhr.onload = function() {
                     Ti.UI.createAlertDialog({
                         title: "Success",
-                        message: "status code " + this.status
+                        message: "Photo uploaded "
                     }).show();
                 };
                 xhr.open("POST", mainserver + "/users/" + Alloy.Globals.user_id + "/picture_upload.json?" + "auth_token=" + Alloy.Globals.auth_token);
@@ -29,7 +29,7 @@ function Controller() {
                 xhr.onload = function() {
                     Ti.UI.createAlertDialog({
                         title: "Success",
-                        message: "status code " + this.status
+                        message: "Success, Photo uploaded "
                     }).show();
                 };
                 xhr.open("POST", mainserver + "/users/" + Alloy.Globals.user_id + "/cover_upload.json?" + "auth_token=" + Alloy.Globals.auth_token);
