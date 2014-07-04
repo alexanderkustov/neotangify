@@ -1,5 +1,6 @@
 function Controller() {
     function geolocate() {
+        j = 1;
         Titanium.Geolocation.ACCURACY_BEST;
         Titanium.Geolocation.getCurrentPosition(function(e) {
             cur_long = e.coords.longitude;

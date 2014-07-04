@@ -5,6 +5,7 @@ var persons = new Array();
 var j = 1;
 function geolocate(e){
 	//var cur_loc_timestamp;
+	j = 1;
 	Titanium.Geolocation.ACCURACY_BEST;	
 	Titanium.Geolocation.getCurrentPosition(function(e)
 	{
