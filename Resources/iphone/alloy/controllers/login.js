@@ -6,12 +6,12 @@ function Controller() {
     arguments[0] ? arguments[0]["__itemTemplate"] : null;
     var $ = this;
     var exports = {};
-    $.__views.loginWindow = Alloy.createController("loginWindow", {
-        id: "loginWindow",
+    $.__views.__alloyId8 = Alloy.createController("loginWindow", {
+        id: "__alloyId8",
         __parentSymbol: __parentSymbol
     });
     $.__views.loginWindow = Ti.UI.iOS.createNavigationWindow({
-        window: $.__views.loginWindow.getViewEx({
+        window: $.__views.__alloyId8.getViewEx({
             recurse: true
         }),
         id: "loginWindow",

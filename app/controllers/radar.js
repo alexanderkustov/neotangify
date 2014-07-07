@@ -116,8 +116,6 @@ function addPersonToRadar(personId, lat, longi, i, person_image){
 		zIndex: 999
 	});
 	
-	
-	
 	//alert(dlat.toFixed(5) + " " + dlong.toFixed(5)   + " " + topOffset.toFixed(5)  + " " + leftOffset.toFixed(5)  + " " + thisPerson);
 	
 	$.radar.add(persons[personId]);		

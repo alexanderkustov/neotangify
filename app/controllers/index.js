@@ -2,12 +2,12 @@
 
 if(Ti.App.Properties.getString('saved_login') && Ti.App.Properties.getString('saved_pw')){
 	console.log("poderia ir para autologin");
-	var loginWindow = Alloy.createController('login').getView();
-	loginWindow.open();
+		var loginWindow = Alloy.createController('loginWindow').getView();
+		loginWindow.open();
 	//autoLogin();
 	}else{
-	var loginWindow = Alloy.createController('loginWindow').getView();
-	loginWindow.open();
+		var loginWindow = Alloy.createController('loginWindow').getView();
+		loginWindow.open();
 }
 //Alloy.Globals.tabgroup = $.index;
 function autoLogin(e){

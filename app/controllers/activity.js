@@ -4,11 +4,11 @@ function acceptFriendship(friend_id){
     var client = Ti.Network.createHTTPClient({
         onload : function(e) {
             Ti.API.info("Received text: " + this.responseText);
-            alert('Success, are no longer forever alone!');
+            alert('Success,you are no longer alone!');
             
         },
         onerror : function(e) {
-            alert('error' + e);
+            alert('error' + JSON.stringify(e));
             console.log(e);
         },
         timeout : 60 * 1000
@@ -64,15 +64,15 @@ function getActivityFeed(e){
                                 	parsedText[i].subject.friend.name,
                                 	parsedText[i].subject.user.name,
                                 	"Last",
-                                	parsedText[i].subject.friend.id,
+                                	parsedText[i].subject.user.id,
                                 	parsedText[i].id,
                                 	"recieved",
                                 	friend_image);
                                }
                                else{
-                               	addActivitiesToTable(parsedText[i].subject.user.name, parsedText[i].subject.friend.name,  "Last", parsedText[i].subject.friend.id, parsedText[i].id, "recieved", friend_image);
-
+                               	addActivitiesToTable(parsedText[i].subject.user.name, parsedText[i].subject.friend.name,  "Last", parsedText[i].subject.user.id, parsedText[i].id, "recieved", friend_image);
                                }
+                               console.log(parsedText[i].subject.friend.id + " : " + parsedText[i].subject.user.id);
                         break;
                        
 
@@ -137,13 +137,15 @@ function addActivitiesToTable(user_name, friend_name, position, friend_id, activ
         title: 'x',
         color: '#fff',
         id: activity_id,
+        
         top: 10, right: 0, 
         width: 20, height: 50
     });
-
+console.log( "accept button: " + friend_id);
     var acceptButton = Ti.UI.createButton({
         title: '✓',
         color: '#fff',
+        id: friend_id,
         top: 10, right: 30, 
         width: 20, height: 50
     });
@@ -203,6 +205,3 @@ $.activityWindow.addEventListener('focus', activityListener = function() {
     $.activityWindow.removeEventListener('focus', activityListener);
     activityListener = null;
 });
-
-
-

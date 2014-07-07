@@ -167,21 +167,22 @@ function Controller() {
     var $ = this;
     var exports = {};
     var __defers = {};
-    $.__views.__alloyId10 = Ti.UI.createWindow({
+    $.__views.win_chat = Ti.UI.createWindow({
         backgroundImage: "background.jpg",
         color: "#fff",
         translucent: "false",
         barColor: "#fff",
         title: "",
-        id: "__alloyId10"
+        id: "win_chat"
     });
+    $.__views.win_chat && $.addTopLevelView($.__views.win_chat);
     $.__views.back = Ti.UI.createButton({
         color: "white",
         title: "Back",
         id: "back"
     });
     goback ? $.__views.back.addEventListener("click", goback) : __defers["$.__views.back!click!goback"] = true;
-    $.__views.__alloyId10.leftNavButton = $.__views.back;
+    $.__views.win_chat.leftNavButton = $.__views.back;
     $.__views.chatContaniner = Ti.UI.createScrollView({
         id: "chatContaniner",
         layout: "vertical",
@@ -191,7 +192,7 @@ function Controller() {
         showHorizontalScrollIndicator: "false",
         height: "100%"
     });
-    $.__views.__alloyId10.add($.__views.chatContaniner);
+    $.__views.win_chat.add($.__views.chatContaniner);
     $.__views.chatArea = Ti.UI.createTableView({
         id: "chatArea",
         backgroundColor: "transparent",
@@ -218,11 +219,6 @@ function Controller() {
         id: "textChat"
     });
     $.__views.chatBtn.add($.__views.textChat);
-    $.__views.win_chat = Ti.UI.iOS.createNavigationWindow({
-        window: $.__views.__alloyId10,
-        id: "win_chat"
-    });
-    $.__views.win_chat && $.addTopLevelView($.__views.win_chat);
     exports.destroy = function() {};
     _.extend($, $.__views);
     var friend_pic = Ti.App.FriendPicture;

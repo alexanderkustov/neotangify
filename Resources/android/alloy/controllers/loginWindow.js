@@ -99,13 +99,13 @@ function Controller() {
         height: "100%"
     });
     $.__views.loginWindow.add($.__views.mainLogin);
-    $.__views.__alloyId20 = Ti.UI.createImageView({
+    $.__views.__alloyId10 = Ti.UI.createImageView({
         image: "/login-logo.png",
         height: "160",
         top: "40px",
-        id: "__alloyId20"
+        id: "__alloyId10"
     });
-    $.__views.mainLogin.add($.__views.__alloyId20);
+    $.__views.mainLogin.add($.__views.__alloyId10);
     $.__views.loginInput = Ti.UI.createTextField({
         color: "#333",
         borderStyle: Ti.UI.INPUT_BORDERSTYLE_ROUNDED,
@@ -132,12 +132,12 @@ function Controller() {
         value: "123"
     });
     $.__views.mainLogin.add($.__views.password);
-    $.__views.__alloyId21 = Ti.UI.createView({
+    $.__views.__alloyId11 = Ti.UI.createView({
         layout: "horizontal",
         height: "100px",
-        id: "__alloyId21"
+        id: "__alloyId11"
     });
-    $.__views.mainLogin.add($.__views.__alloyId21);
+    $.__views.mainLogin.add($.__views.__alloyId11);
     $.__views.loginBtn = Ti.UI.createButton({
         color: "#fff",
         borderWidth: "1",
@@ -150,7 +150,7 @@ function Controller() {
         width: "65%",
         id: "loginBtn"
     });
-    $.__views.__alloyId21.add($.__views.loginBtn);
+    $.__views.__alloyId11.add($.__views.loginBtn);
     login ? $.__views.loginBtn.addEventListener("click", login) : __defers["$.__views.loginBtn!click!login"] = true;
     $.__views.regButton = Ti.UI.createButton({
         color: "#fff",
@@ -161,14 +161,14 @@ function Controller() {
         width: "20%",
         id: "regButton"
     });
-    $.__views.__alloyId21.add($.__views.regButton);
+    $.__views.__alloyId11.add($.__views.regButton);
     openRegister ? $.__views.regButton.addEventListener("click", openRegister) : __defers["$.__views.regButton!click!openRegister"] = true;
-    $.__views.__alloyId22 = Ti.UI.createView({
+    $.__views.__alloyId12 = Ti.UI.createView({
         layout: "horizontal",
         height: "100px",
-        id: "__alloyId22"
+        id: "__alloyId12"
     });
-    $.__views.mainLogin.add($.__views.__alloyId22);
+    $.__views.mainLogin.add($.__views.__alloyId12);
     $.__views.facebookBtn = Ti.UI.createButton({
         color: "#fff",
         borderWidth: "1",
@@ -182,7 +182,7 @@ function Controller() {
         width: "65%",
         id: "facebookBtn"
     });
-    $.__views.__alloyId22.add($.__views.facebookBtn);
+    $.__views.__alloyId12.add($.__views.facebookBtn);
     facebookLogin ? $.__views.facebookBtn.addEventListener("click", facebookLogin) : __defers["$.__views.facebookBtn!click!facebookLogin"] = true;
     exports.destroy = function() {};
     _.extend($, $.__views);

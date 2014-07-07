@@ -104,12 +104,12 @@ function Controller() {
     });
     logout ? $.__views.logout.addEventListener("click", logout) : __defers["$.__views.logout!click!logout"] = true;
     $.__views.settings.rightNavButton = $.__views.logout;
-    $.__views.__alloyId34 = Ti.UI.createScrollView({
+    $.__views.__alloyId24 = Ti.UI.createScrollView({
         layout: "vertical",
-        id: "__alloyId34"
+        id: "__alloyId24"
     });
-    $.__views.settings.add($.__views.__alloyId34);
-    $.__views.__alloyId35 = Ti.UI.createLabel({
+    $.__views.settings.add($.__views.__alloyId24);
+    $.__views.__alloyId25 = Ti.UI.createLabel({
         width: Ti.UI.SIZE,
         height: Ti.UI.SIZE,
         color: "#fff",
@@ -119,32 +119,32 @@ function Controller() {
         },
         textAlign: "center",
         text: "I am Tangible on the Radar",
-        id: "__alloyId35"
+        id: "__alloyId25"
     });
-    $.__views.__alloyId34.add($.__views.__alloyId35);
+    $.__views.__alloyId24.add($.__views.__alloyId25);
     $.__views.basicSwitch = Ti.UI.createSwitch({
         value: true,
         id: "basicSwitch"
     });
-    $.__views.__alloyId34.add($.__views.basicSwitch);
-    $.__views.__alloyId36 = Ti.UI.createButton({
+    $.__views.__alloyId24.add($.__views.basicSwitch);
+    $.__views.__alloyId26 = Ti.UI.createButton({
         color: "#fff",
         title: "Cover Picture",
         height: "40",
         width: Ti.UI.FILL,
-        id: "__alloyId36"
+        id: "__alloyId26"
     });
-    $.__views.__alloyId34.add($.__views.__alloyId36);
-    uploadCoverPic ? $.__views.__alloyId36.addEventListener("click", uploadCoverPic) : __defers["$.__views.__alloyId36!click!uploadCoverPic"] = true;
-    $.__views.__alloyId37 = Ti.UI.createButton({
+    $.__views.__alloyId24.add($.__views.__alloyId26);
+    uploadCoverPic ? $.__views.__alloyId26.addEventListener("click", uploadCoverPic) : __defers["$.__views.__alloyId26!click!uploadCoverPic"] = true;
+    $.__views.__alloyId27 = Ti.UI.createButton({
         color: "#fff",
         title: "Picture",
         height: "40",
         width: Ti.UI.FILL,
-        id: "__alloyId37"
+        id: "__alloyId27"
     });
-    $.__views.__alloyId34.add($.__views.__alloyId37);
-    uploadPic ? $.__views.__alloyId37.addEventListener("click", uploadPic) : __defers["$.__views.__alloyId37!click!uploadPic"] = true;
+    $.__views.__alloyId24.add($.__views.__alloyId27);
+    uploadPic ? $.__views.__alloyId27.addEventListener("click", uploadPic) : __defers["$.__views.__alloyId27!click!uploadPic"] = true;
     $.__views.name = Ti.UI.createTextField({
         color: "#333",
         borderStyle: Ti.UI.INPUT_BORDERSTYLE_ROUNDED,
@@ -156,7 +156,7 @@ function Controller() {
         hintText: "Name",
         id: "name"
     });
-    $.__views.__alloyId34.add($.__views.name);
+    $.__views.__alloyId24.add($.__views.name);
     $.__views.email = Ti.UI.createTextField({
         color: "#333",
         borderStyle: Ti.UI.INPUT_BORDERSTYLE_ROUNDED,
@@ -168,7 +168,7 @@ function Controller() {
         hintText: "Email",
         id: "email"
     });
-    $.__views.__alloyId34.add($.__views.email);
+    $.__views.__alloyId24.add($.__views.email);
     $.__views.short_description = Ti.UI.createTextField({
         color: "#333",
         borderStyle: Ti.UI.INPUT_BORDERSTYLE_ROUNDED,
@@ -180,8 +180,8 @@ function Controller() {
         hintText: "Short Description",
         id: "short_description"
     });
-    $.__views.__alloyId34.add($.__views.short_description);
-    $.__views.__alloyId38 = Ti.UI.createLabel({
+    $.__views.__alloyId24.add($.__views.short_description);
+    $.__views.__alloyId28 = Ti.UI.createLabel({
         width: Ti.UI.SIZE,
         height: Ti.UI.SIZE,
         color: "#fff",
@@ -191,9 +191,9 @@ function Controller() {
         },
         textAlign: "center",
         text: "Want to change your password?",
-        id: "__alloyId38"
+        id: "__alloyId28"
     });
-    $.__views.__alloyId34.add($.__views.__alloyId38);
+    $.__views.__alloyId24.add($.__views.__alloyId28);
     $.__views.password = Ti.UI.createTextField({
         color: "#333",
         borderStyle: Ti.UI.INPUT_BORDERSTYLE_ROUNDED,
@@ -206,7 +206,7 @@ function Controller() {
         passwordMask: "true",
         id: "password"
     });
-    $.__views.__alloyId34.add($.__views.password);
+    $.__views.__alloyId24.add($.__views.password);
     $.__views.password_confirmation = Ti.UI.createTextField({
         color: "#333",
         borderStyle: Ti.UI.INPUT_BORDERSTYLE_ROUNDED,
@@ -219,22 +219,22 @@ function Controller() {
         passwordMask: "true",
         id: "password_confirmation"
     });
-    $.__views.__alloyId34.add($.__views.password_confirmation);
-    $.__views.__alloyId39 = Ti.UI.createButton({
+    $.__views.__alloyId24.add($.__views.password_confirmation);
+    $.__views.__alloyId29 = Ti.UI.createButton({
         color: "#fff",
         title: "Submit",
         height: "40",
         width: Ti.UI.FILL,
-        id: "__alloyId39"
+        id: "__alloyId29"
     });
-    $.__views.__alloyId34.add($.__views.__alloyId39);
-    editProfile ? $.__views.__alloyId39.addEventListener("click", editProfile) : __defers["$.__views.__alloyId39!click!editProfile"] = true;
+    $.__views.__alloyId24.add($.__views.__alloyId29);
+    editProfile ? $.__views.__alloyId29.addEventListener("click", editProfile) : __defers["$.__views.__alloyId29!click!editProfile"] = true;
     exports.destroy = function() {};
     _.extend($, $.__views);
     __defers["$.__views.logout!click!logout"] && $.__views.logout.addEventListener("click", logout);
-    __defers["$.__views.__alloyId36!click!uploadCoverPic"] && $.__views.__alloyId36.addEventListener("click", uploadCoverPic);
-    __defers["$.__views.__alloyId37!click!uploadPic"] && $.__views.__alloyId37.addEventListener("click", uploadPic);
-    __defers["$.__views.__alloyId39!click!editProfile"] && $.__views.__alloyId39.addEventListener("click", editProfile);
+    __defers["$.__views.__alloyId26!click!uploadCoverPic"] && $.__views.__alloyId26.addEventListener("click", uploadCoverPic);
+    __defers["$.__views.__alloyId27!click!uploadPic"] && $.__views.__alloyId27.addEventListener("click", uploadPic);
+    __defers["$.__views.__alloyId29!click!editProfile"] && $.__views.__alloyId29.addEventListener("click", editProfile);
     _.extend($, exports);
 }
 
