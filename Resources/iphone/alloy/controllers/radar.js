@@ -121,10 +121,8 @@ function Controller() {
     });
     geolocate ? $.__views.filter.addEventListener("click", geolocate) : __defers["$.__views.filter!click!geolocate"] = true;
     $.__views.radar_window.rightNavButton = $.__views.filter;
-    $.__views.radar = Ti.UI.createView({
-        id: "radar",
-        width: "100%",
-        height: "100%"
+    $.__views.radar = Ti.UI.createScrollView({
+        id: "radar"
     });
     $.__views.radar_window.add($.__views.radar);
     exports.destroy = function() {};
