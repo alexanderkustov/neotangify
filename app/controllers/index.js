@@ -6,7 +6,7 @@ if(Ti.App.Properties.getString('saved_login') && Ti.App.Properties.getString('sa
 	loginWindow.open();
 	//autoLogin();
 	}else{
-	var loginWindow = Alloy.createController('login').getView();
+	var loginWindow = Alloy.createController('loginWindow').getView();
 	loginWindow.open();
 }
 //Alloy.Globals.tabgroup = $.index;

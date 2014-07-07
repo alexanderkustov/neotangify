@@ -1,8 +1,8 @@
 <Alloy>
 	  <!-- iOS -->
-		<NavigationWindow id="loginWindow" exitOnClose="true" platform="ios">
-			<Require id="loginWindow" src="loginWindow"></Require>
-		</NavigationWindow>
+	<NavigationWindow id="loginWindow" exitOnClose="true" platform="ios">
+		<Require src="loginWindow"></Require>
+	</NavigationWindow>
  <!-- Android -->
     <Require id="settings" src="settings" platform="android"></Require>
    

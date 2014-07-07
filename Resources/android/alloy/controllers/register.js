@@ -38,13 +38,13 @@ function Controller() {
     var $ = this;
     var exports = {};
     var __defers = {};
-    $.__views.__alloyId38 = Ti.UI.createWindow({
+    $.__views.__alloyId30 = Ti.UI.createWindow({
         backgroundImage: "background.jpg",
         color: "#fff",
         translucent: "false",
         barColor: "#fff",
         title: "Registration",
-        id: "__alloyId38"
+        id: "__alloyId30"
     });
     $.__views.back = Ti.UI.createButton({
         color: "#fff",
@@ -52,12 +52,17 @@ function Controller() {
         id: "back"
     });
     goback ? $.__views.back.addEventListener("click", goback) : __defers["$.__views.back!click!goback"] = true;
-    $.__views.__alloyId38.leftNavButton = $.__views.back;
+    $.__views.__alloyId30.leftNavButton = $.__views.back;
     $.__views.registerContainer = Ti.UI.createScrollView({
         id: "registerContainer",
-        layout: "vertical"
+        layout: "vertical",
+        contentWidth: "auto",
+        contentHeight: "auto",
+        showVerticalScrollIndicator: "true",
+        showHorizontalScrollIndicator: "false",
+        height: "100%"
     });
-    $.__views.__alloyId38.add($.__views.registerContainer);
+    $.__views.__alloyId30.add($.__views.registerContainer);
     $.__views.name = Ti.UI.createTextField({
         color: "#333",
         borderStyle: Ti.UI.INPUT_BORDERSTYLE_ROUNDED,
@@ -108,24 +113,24 @@ function Controller() {
         id: "password_confirmation"
     });
     $.__views.registerContainer.add($.__views.password_confirmation);
-    $.__views.__alloyId40 = Ti.UI.createButton({
+    $.__views.__alloyId32 = Ti.UI.createButton({
         color: "#fff",
         title: "Register",
         height: "40",
         width: Ti.UI.FILL,
-        id: "__alloyId40"
+        id: "__alloyId32"
     });
-    $.__views.registerContainer.add($.__views.__alloyId40);
-    register ? $.__views.__alloyId40.addEventListener("click", register) : __defers["$.__views.__alloyId40!click!register"] = true;
+    $.__views.registerContainer.add($.__views.__alloyId32);
+    register ? $.__views.__alloyId32.addEventListener("click", register) : __defers["$.__views.__alloyId32!click!register"] = true;
     $.__views.register = Ti.UI.iOS.createNavigationWindow({
-        window: $.__views.__alloyId38,
+        window: $.__views.__alloyId30,
         id: "register"
     });
     $.__views.register && $.addTopLevelView($.__views.register);
     exports.destroy = function() {};
     _.extend($, $.__views);
     __defers["$.__views.back!click!goback"] && $.__views.back.addEventListener("click", goback);
-    __defers["$.__views.__alloyId40!click!register"] && $.__views.__alloyId40.addEventListener("click", register);
+    __defers["$.__views.__alloyId32!click!register"] && $.__views.__alloyId32.addEventListener("click", register);
     _.extend($, exports);
 }
 

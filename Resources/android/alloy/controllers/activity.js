@@ -1,4 +1,23 @@
 function Controller() {
+    function acceptFriendship(friend_id) {
+        var url = mainserver + "/friendships.json?" + friend_id + "&auth_token=" + Alloy.Globals.auth_token;
+        var client = Ti.Network.createHTTPClient({
+            onload: function() {
+                Ti.API.info("Received text: " + this.responseText);
+                alert("Success, are no longer forever alone!");
+            },
+            onerror: function(e) {
+                alert("error" + e);
+                console.log(e);
+            },
+            timeout: 6e4
+        });
+        var params = {
+            format: "json"
+        };
+        client.open("POST", url);
+        client.send(params);
+    }
     function getActivityFeed() {
         var url = mainserver + "/activities.json?" + "auth_token=" + Alloy.Globals.auth_token;
         console.log(url);
@@ -16,11 +35,11 @@ function Controller() {
                     console.log(friend_image);
                     switch (parsedText[i].name) {
                       case "friend_request_accepted":
-                        false == parsedText[i].read && addActivitiesToTable(parsedText[i].subject.user.name, parsedText[i].subject.friend.name, "Last", parsedText[i].subject.friend.id, parsedText[i].id, "accepted", friend_image);
+                        false == parsedText[i].read && ("from" === parsedText[i].direction ? addActivitiesToTable(parsedText[i].subject.user.name, parsedText[i].subject.friend.name, "Last", parsedText[i].subject.friend.id, parsedText[i].id, "accepted", friend_image) : addActivitiesToTable(parsedText[i].subject.user.name, parsedText[i].subject.friend.name, "Last", parsedText[i].subject.friend.id, parsedText[i].id, "accepted", friend_image));
                         break;
 
-                      case "friend_request_recieved":
-                        false == parsedText[i].read && addActivitiesToTable(parsedText[i].subject.user.name, parsedText[i].subject.friend.name, "Last", parsedText[i].subject.friend.id, parsedText[i].id, "recieved", friend_image);
+                      case "friend_request_received":
+                        false == parsedText[i].read && ("from" === parsedText[i].direction ? addActivitiesToTable(parsedText[i].subject.friend.name, parsedText[i].subject.user.name, "Last", parsedText[i].subject.friend.id, parsedText[i].id, "recieved", friend_image) : addActivitiesToTable(parsedText[i].subject.user.name, parsedText[i].subject.friend.name, "Last", parsedText[i].subject.friend.id, parsedText[i].id, "recieved", friend_image));
                         break;
 
                       default:
@@ -59,13 +78,9 @@ function Controller() {
             borderRadius: 20,
             borderWidth: 1
         });
-        imageAvatar.addEventListener("click", function() {
-            Ti.API.info("You clicked the guy: " + this.id);
-            profilemodal(this.id);
-        });
         row.add(imageAvatar);
         var label = Ti.UI.createLabel({
-            text: "You've accepted " + friend_name,
+            text: "Request " + type + " " + friend_name,
             height: "50dp",
             width: "auto",
             color: "#fff",
@@ -92,27 +107,26 @@ function Controller() {
             height: 50
         });
         row.add(label);
-        "recieved" == type && row.add(acceptButton);
+        "recieved" === type && row.add(acceptButton);
         row.add(readButton);
         readButton.addEventListener("click", function() {
             Ti.API.info("You marking this as read: " + this.id);
             markAsRead(this.id);
         });
+        acceptButton.addEventListener("click", function() {
+            Ti.API.info("You accepting this friend request: " + this.id);
+            acceptFriendship(this.id);
+        });
         "First" == position ? $.activityTable.insertRowBefore(0, row) : $.activityTable.appendRow(row, {
             animationStyle: Titanium.UI.iPhone.RowAnimationStyle.RIGHT
         });
-    }
-    function profilemodal(userid) {
-        var profilewin = Alloy.createController("acceptFriend", {
-            userId: userid
-        }).getView();
-        profilewin.open();
     }
     function markAsRead(activity_id) {
         var url = mainserver + "/read_activity.json?" + activity_id + "&auth_token=" + Alloy.Globals.auth_token;
         var client = Ti.Network.createHTTPClient({
             onload: function() {
                 Ti.API.info("Received text: " + this.responseText);
+                getActivityFeed();
             },
             onerror: function(e) {
                 alert("error" + e);
@@ -125,7 +139,7 @@ function Controller() {
                 read: "true"
             }
         };
-        client.open("PUT", url);
+        client.open("POST", url);
         client.send(params);
     }
     require("alloy/controllers/BaseController").apply(this, Array.prototype.slice.call(arguments));

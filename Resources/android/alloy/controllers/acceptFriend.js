@@ -33,7 +33,7 @@ function Controller() {
     });
     $.__views.profile_name.add($.__views.__alloyId1);
     $.__views.__alloyId2 = Ti.UI.createImageView({
-        image: "/tangy_back.jpg",
+        image: "/tangy_back2.jpg",
         zIndex: "1",
         height: "160",
         top: "-50",
@@ -51,11 +51,11 @@ function Controller() {
         id: "__alloyId3"
     });
     $.__views.__alloyId1.add($.__views.__alloyId3);
-    $.__views.win1 = Ti.UI.iOS.createNavigationWindow({
+    $.__views.acceptFriend = Ti.UI.iOS.createNavigationWindow({
         window: $.__views.profile_name,
-        id: "win1"
+        id: "acceptFriend"
     });
-    $.__views.win1 && $.addTopLevelView($.__views.win1);
+    $.__views.acceptFriend && $.addTopLevelView($.__views.acceptFriend);
     exports.destroy = function() {};
     _.extend($, $.__views);
     __defers["$.__views.back!click!goback"] && $.__views.back.addEventListener("click", goback);

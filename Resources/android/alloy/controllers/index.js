@@ -6,31 +6,31 @@ function Controller() {
     arguments[0] ? arguments[0]["__itemTemplate"] : null;
     var $ = this;
     var exports = {};
-    var __alloyId19 = [];
+    var __alloyId12 = [];
     $.__views.profile = Alloy.createController("profile", {
         id: "profile"
     });
-    $.__views.__alloyId20 = Ti.UI.createTab({
+    $.__views.__alloyId13 = Ti.UI.createTab({
         window: $.__views.profile.getViewEx({
             recurse: true
         }),
         title: "Profile",
         icon: "profile.png",
-        id: "__alloyId20"
+        id: "__alloyId13"
     });
-    __alloyId19.push($.__views.__alloyId20);
+    __alloyId12.push($.__views.__alloyId13);
     $.__views.activity = Alloy.createController("activity", {
         id: "activity"
     });
-    $.__views.__alloyId22 = Ti.UI.createTab({
+    $.__views.__alloyId15 = Ti.UI.createTab({
         window: $.__views.activity.getViewEx({
             recurse: true
         }),
         title: "Feed",
         icon: "KS_nav_ui.png",
-        id: "__alloyId22"
+        id: "__alloyId15"
     });
-    __alloyId19.push($.__views.__alloyId22);
+    __alloyId12.push($.__views.__alloyId15);
     $.__views.radar = Alloy.createController("radar", {
         id: "radar"
     });
@@ -42,36 +42,36 @@ function Controller() {
         icon: "radar.png",
         id: "radar_window"
     });
-    __alloyId19.push($.__views.radar_window);
+    __alloyId12.push($.__views.radar_window);
     $.__views.chat = Alloy.createController("chat", {
         id: "chat"
     });
-    $.__views.__alloyId23 = Ti.UI.createTab({
+    $.__views.__alloyId16 = Ti.UI.createTab({
         window: $.__views.chat.getViewEx({
             recurse: true
         }),
         title: "Chat",
         icon: "chat.png",
-        id: "__alloyId23"
+        id: "__alloyId16"
     });
-    __alloyId19.push($.__views.__alloyId23);
+    __alloyId12.push($.__views.__alloyId16);
     $.__views.settings = Alloy.createController("settings", {
         id: "settings"
     });
-    $.__views.__alloyId24 = Ti.UI.createTab({
+    $.__views.__alloyId17 = Ti.UI.createTab({
         window: $.__views.settings.getViewEx({
             recurse: true
         }),
         title: "Settings",
         icon: "settings.png",
-        id: "__alloyId24"
+        id: "__alloyId17"
     });
-    __alloyId19.push($.__views.__alloyId24);
-    $.__views.index = Ti.UI.createTabGroup({
-        tabs: __alloyId19,
-        id: "index"
+    __alloyId12.push($.__views.__alloyId17);
+    $.__views.main_tab = Ti.UI.createTabGroup({
+        tabs: __alloyId12,
+        id: "main_tab"
     });
-    $.__views.index && $.addTopLevelView($.__views.index);
+    $.__views.main_tab && $.addTopLevelView($.__views.main_tab);
     exports.destroy = function() {};
     _.extend($, $.__views);
     if (Ti.App.Properties.getString("saved_login") && Ti.App.Properties.getString("saved_pw")) {
@@ -79,7 +79,7 @@ function Controller() {
         var loginWindow = Alloy.createController("login").getView();
         loginWindow.open();
     } else {
-        var loginWindow = Alloy.createController("login").getView();
+        var loginWindow = Alloy.createController("loginWindow").getView();
         loginWindow.open();
     }
     _.extend($, exports);

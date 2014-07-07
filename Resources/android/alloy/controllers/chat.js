@@ -16,6 +16,8 @@ function Controller() {
                     console.log(person_image + " : " + Ti.App.FriendPicture);
                     addFriendToTable(parsedText[i].id, parsedText[i].name, "Last", person_image);
                 }
+                parsedText = null;
+                person_image = null;
             },
             onerror: function(e) {
                 alert("error" + e);
@@ -64,6 +66,7 @@ function Controller() {
             $.friendsTable.scrollToIndex($.friendsTable.data[0].rows.length - 1);
         }
         row = null;
+        label = null;
         imageAvatar = null;
     }
     function openChat(friend_id) {
@@ -105,9 +108,8 @@ function Controller() {
     exports.destroy = function() {};
     _.extend($, $.__views);
     $.chatFriends.addEventListener("focus", friendsFocuslistener = function() {
+        $.friendsTable.data = [];
         getFriends();
-        $.chatFriends.removeEventListener("focus", friendsFocuslistener);
-        friendsFocuslistener = null;
     });
     $.friendsTable.addEventListener("click", function(e) {
         Ti.API.info("row clicked: " + e.rowData.id + " index : " + e.index + " texto: " + e.rowData.text);
