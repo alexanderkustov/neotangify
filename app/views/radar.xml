@@ -1,11 +1,11 @@
 <Alloy>
-<Window title="tangify" class="titleBar" id="radar_window">
-	<LeftNavButton>
-	  	<Button id="refresh" onClick="geolocate" >Refresh</Button>
-	</LeftNavButton>
-	<RightNavButton>
-	  	<Button id="filter" onClick="geolocate" >Filter</Button>
-	</RightNavButton>
-		<ScrollView id="radar"></ScrollView>
+	<Window title="tangify" class="titleBar" id="radar_window">
+		<LeftNavButton>
+		  	<Button id="refresh" onClick="geolocate" >Refresh</Button>
+		</LeftNavButton>
+		<RightNavButton>
+		  	<Button id="filter" onClick="geolocate" >Filter</Button>
+		</RightNavButton>
+			<ScrollView id="radar"></ScrollView>
 	</Window>
 </Alloy>

@@ -175,7 +175,6 @@ function Controller() {
         title: "",
         id: "win_chat"
     });
-    $.__views.win_chat && $.addTopLevelView($.__views.win_chat);
     $.__views.back = Ti.UI.createButton({
         color: "white",
         title: "Back",
@@ -219,6 +218,11 @@ function Controller() {
         id: "textChat"
     });
     $.__views.chatBtn.add($.__views.textChat);
+    $.__views.chatWindow = Ti.UI.iOS.createNavigationWindow({
+        window: $.__views.win_chat,
+        id: "chatWindow"
+    });
+    $.__views.chatWindow && $.addTopLevelView($.__views.chatWindow);
     exports.destroy = function() {};
     _.extend($, $.__views);
     var friend_pic = Ti.App.FriendPicture;
@@ -239,6 +243,7 @@ function Controller() {
     $.win_chat.addEventListener("focus", function() {
         Alloy.Globals.startWebsocket();
     });
+    __defers["$.__views.back!click!goback"] && $.__views.back.addEventListener("click", goback);
     __defers["$.__views.back!click!goback"] && $.__views.back.addEventListener("click", goback);
     _.extend($, exports);
 }
