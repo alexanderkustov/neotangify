@@ -75,20 +75,6 @@ function Controller() {
         id: "loginWindow"
     });
     $.__views.loginWindow && $.addTopLevelView($.__views.loginWindow);
-    $.__views.myTitleLabel = Ti.UI.createLabel({
-        width: Ti.UI.SIZE,
-        height: Ti.UI.SIZE,
-        color: "#333",
-        font: {
-            fontSize: 20,
-            fontFamily: "Helvetica Neue"
-        },
-        textAlign: "center",
-        backgroundColor: "#fff",
-        text: "Please Login",
-        id: "myTitleLabel"
-    });
-    $.__views.loginWindow.titleControl = $.__views.myTitleLabel;
     $.__views.mainLogin = Ti.UI.createScrollView({
         id: "mainLogin",
         layout: "vertical",
@@ -99,13 +85,13 @@ function Controller() {
         height: "100%"
     });
     $.__views.loginWindow.add($.__views.mainLogin);
-    $.__views.__alloyId10 = Ti.UI.createImageView({
+    $.__views.__alloyId9 = Ti.UI.createImageView({
         image: "/login-logo.png",
         height: "160",
-        top: "40px",
-        id: "__alloyId10"
+        top: "80px",
+        id: "__alloyId9"
     });
-    $.__views.mainLogin.add($.__views.__alloyId10);
+    $.__views.mainLogin.add($.__views.__alloyId9);
     $.__views.loginInput = Ti.UI.createTextField({
         color: "#333",
         borderStyle: Ti.UI.INPUT_BORDERSTYLE_ROUNDED,
@@ -132,12 +118,6 @@ function Controller() {
         value: "123"
     });
     $.__views.mainLogin.add($.__views.password);
-    $.__views.__alloyId11 = Ti.UI.createView({
-        layout: "horizontal",
-        height: "100px",
-        id: "__alloyId11"
-    });
-    $.__views.mainLogin.add($.__views.__alloyId11);
     $.__views.loginBtn = Ti.UI.createButton({
         color: "#fff",
         borderWidth: "1",
@@ -147,28 +127,11 @@ function Controller() {
         left: "20px",
         title: "Login",
         height: "40",
-        width: "65%",
+        width: "93%",
         id: "loginBtn"
     });
-    $.__views.__alloyId11.add($.__views.loginBtn);
+    $.__views.mainLogin.add($.__views.loginBtn);
     login ? $.__views.loginBtn.addEventListener("click", login) : __defers["$.__views.loginBtn!click!login"] = true;
-    $.__views.regButton = Ti.UI.createButton({
-        color: "#fff",
-        top: "10px",
-        left: "20px",
-        title: "Register",
-        height: "40",
-        width: "20%",
-        id: "regButton"
-    });
-    $.__views.__alloyId11.add($.__views.regButton);
-    openRegister ? $.__views.regButton.addEventListener("click", openRegister) : __defers["$.__views.regButton!click!openRegister"] = true;
-    $.__views.__alloyId12 = Ti.UI.createView({
-        layout: "horizontal",
-        height: "100px",
-        id: "__alloyId12"
-    });
-    $.__views.mainLogin.add($.__views.__alloyId12);
     $.__views.facebookBtn = Ti.UI.createButton({
         color: "#fff",
         borderWidth: "1",
@@ -176,19 +139,30 @@ function Controller() {
         backgroundColor: "#4c66a4",
         borderRadius: "3",
         top: "10px",
-        title: "Facebook",
+        title: "Facebook Login",
         height: "40",
+        width: "93%",
         left: "20px",
-        width: "65%",
         id: "facebookBtn"
     });
-    $.__views.__alloyId12.add($.__views.facebookBtn);
+    $.__views.mainLogin.add($.__views.facebookBtn);
     facebookLogin ? $.__views.facebookBtn.addEventListener("click", facebookLogin) : __defers["$.__views.facebookBtn!click!facebookLogin"] = true;
+    $.__views.regButton = Ti.UI.createButton({
+        color: "#fff",
+        top: "10px",
+        left: "20px",
+        title: "Register",
+        height: "40",
+        width: "93%",
+        id: "regButton"
+    });
+    $.__views.mainLogin.add($.__views.regButton);
+    openRegister ? $.__views.regButton.addEventListener("click", openRegister) : __defers["$.__views.regButton!click!openRegister"] = true;
     exports.destroy = function() {};
     _.extend($, $.__views);
     __defers["$.__views.loginBtn!click!login"] && $.__views.loginBtn.addEventListener("click", login);
-    __defers["$.__views.regButton!click!openRegister"] && $.__views.regButton.addEventListener("click", openRegister);
     __defers["$.__views.facebookBtn!click!facebookLogin"] && $.__views.facebookBtn.addEventListener("click", facebookLogin);
+    __defers["$.__views.regButton!click!openRegister"] && $.__views.regButton.addEventListener("click", openRegister);
     _.extend($, exports);
 }
 

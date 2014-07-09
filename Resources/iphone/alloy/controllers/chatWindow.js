@@ -175,13 +175,7 @@ function Controller() {
         title: "",
         id: "win_chat"
     });
-    $.__views.back = Ti.UI.createButton({
-        color: "white",
-        title: "Back",
-        id: "back"
-    });
-    goback ? $.__views.back.addEventListener("click", goback) : __defers["$.__views.back!click!goback"] = true;
-    $.__views.win_chat.leftNavButton = $.__views.back;
+    $.__views.win_chat && $.addTopLevelView($.__views.win_chat);
     $.__views.chatContaniner = Ti.UI.createScrollView({
         id: "chatContaniner",
         layout: "vertical",
@@ -192,6 +186,21 @@ function Controller() {
         height: "100%"
     });
     $.__views.win_chat.add($.__views.chatContaniner);
+    $.__views.__alloyId1 = Ti.UI.createView({
+        layout: "horizontal",
+        top: "0%",
+        height: "100px",
+        backgroundColor: "#0071bc",
+        id: "__alloyId1"
+    });
+    $.__views.chatContaniner.add($.__views.__alloyId1);
+    $.__views.back = Ti.UI.createButton({
+        color: "white",
+        title: "Back",
+        id: "back"
+    });
+    $.__views.__alloyId1.add($.__views.back);
+    goback ? $.__views.back.addEventListener("click", goback) : __defers["$.__views.back!click!goback"] = true;
     $.__views.chatArea = Ti.UI.createTableView({
         id: "chatArea",
         backgroundColor: "transparent",
@@ -218,11 +227,6 @@ function Controller() {
         id: "textChat"
     });
     $.__views.chatBtn.add($.__views.textChat);
-    $.__views.chatWindow = Ti.UI.iOS.createNavigationWindow({
-        window: $.__views.win_chat,
-        id: "chatWindow"
-    });
-    $.__views.chatWindow && $.addTopLevelView($.__views.chatWindow);
     exports.destroy = function() {};
     _.extend($, $.__views);
     var friend_pic = Ti.App.FriendPicture;
@@ -243,7 +247,6 @@ function Controller() {
     $.win_chat.addEventListener("focus", function() {
         Alloy.Globals.startWebsocket();
     });
-    __defers["$.__views.back!click!goback"] && $.__views.back.addEventListener("click", goback);
     __defers["$.__views.back!click!goback"] && $.__views.back.addEventListener("click", goback);
     _.extend($, exports);
 }

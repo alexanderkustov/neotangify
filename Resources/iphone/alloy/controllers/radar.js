@@ -90,6 +90,9 @@ function Controller() {
         }).getView();
         profilewin.open();
     }
+    function updateLabel(e) {
+        $.label.text = String.format("%3.1f", e.value) + "m";
+    }
     require("alloy/controllers/BaseController").apply(this, Array.prototype.slice.call(arguments));
     this.__controllerPath = "radar";
     arguments[0] ? arguments[0]["__parentSymbol"] : null;
@@ -121,8 +124,33 @@ function Controller() {
     });
     geolocate ? $.__views.filter.addEventListener("click", geolocate) : __defers["$.__views.filter!click!geolocate"] = true;
     $.__views.radar_window.rightNavButton = $.__views.filter;
+    $.__views.slider = Ti.UI.createSlider({
+        id: "slider",
+        top: "50",
+        min: "25",
+        max: "75",
+        width: "100%",
+        value: "25"
+    });
+    $.__views.radar_window.add($.__views.slider);
+    updateLabel ? $.__views.slider.addEventListener("change", updateLabel) : __defers["$.__views.slider!change!updateLabel"] = true;
+    $.__views.label = Ti.UI.createLabel({
+        width: "100%",
+        height: Ti.UI.SIZE,
+        color: "#fff",
+        font: {
+            fontSize: 20,
+            fontFamily: "Helvetica Neue"
+        },
+        textAlign: "center",
+        id: "label",
+        top: "30",
+        left: "0"
+    });
+    $.__views.radar_window.add($.__views.label);
     $.__views.radar = Ti.UI.createScrollView({
-        id: "radar"
+        id: "radar",
+        top: "120"
     });
     $.__views.radar_window.add($.__views.radar);
     exports.destroy = function() {};
@@ -133,8 +161,10 @@ function Controller() {
     $.radar_window.addEventListener("focus", function() {
         geolocate();
     });
+    $.slider.text = $.slider.value;
     __defers["$.__views.refresh!click!geolocate"] && $.__views.refresh.addEventListener("click", geolocate);
     __defers["$.__views.filter!click!geolocate"] && $.__views.filter.addEventListener("click", geolocate);
+    __defers["$.__views.slider!change!updateLabel"] && $.__views.slider.addEventListener("change", updateLabel);
     _.extend($, exports);
 }
 

@@ -6,6 +6,8 @@
 		<RightNavButton>
 		  	<Button id="filter" onClick="geolocate" >Filter</Button>
 		</RightNavButton>
-			<ScrollView id="radar"></ScrollView>
+		<Slider id="slider" top="50" min="25" max="75" width="100%" value="25" onChange="updateLabel"/>
+        <Label id="label" width="100%" top="30" left="0" />
+			<ScrollView id="radar" top="120"></ScrollView>
 	</Window>
 </Alloy>

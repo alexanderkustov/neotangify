@@ -4,10 +4,10 @@ function Controller() {
         var client = Ti.Network.createHTTPClient({
             onload: function() {
                 Ti.API.info("Received text: " + this.responseText);
-                alert("Success, are no longer forever alone!");
+                alert("Success,you are no longer alone!");
             },
             onerror: function(e) {
-                alert("error" + e);
+                alert("error" + JSON.stringify(e));
                 console.log(e);
             },
             timeout: 6e4
@@ -39,7 +39,8 @@ function Controller() {
                         break;
 
                       case "friend_request_received":
-                        false == parsedText[i].read && ("from" === parsedText[i].direction ? addActivitiesToTable(parsedText[i].subject.friend.name, parsedText[i].subject.user.name, "Last", parsedText[i].subject.friend.id, parsedText[i].id, "recieved", friend_image) : addActivitiesToTable(parsedText[i].subject.user.name, parsedText[i].subject.friend.name, "Last", parsedText[i].subject.friend.id, parsedText[i].id, "recieved", friend_image));
+                        false == parsedText[i].read && ("from" === parsedText[i].direction ? addActivitiesToTable(parsedText[i].subject.friend.name, parsedText[i].subject.user.name, "Last", parsedText[i].subject.user.id, parsedText[i].id, "recieved", friend_image) : addActivitiesToTable(parsedText[i].subject.user.name, parsedText[i].subject.friend.name, "Last", parsedText[i].subject.user.id, parsedText[i].id, "recieved", friend_image));
+                        console.log(parsedText[i].subject.friend.id + " : " + parsedText[i].subject.user.id);
                         break;
 
                       default:
@@ -98,9 +99,11 @@ function Controller() {
             width: 20,
             height: 50
         });
+        console.log("accept button: " + friend_id);
         var acceptButton = Ti.UI.createButton({
             title: "✓",
             color: "#fff",
+            id: friend_id,
             top: 10,
             right: 30,
             width: 20,

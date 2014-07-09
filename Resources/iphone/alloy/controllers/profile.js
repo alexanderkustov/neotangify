@@ -34,11 +34,11 @@ function Controller() {
     });
     editProfile ? $.__views.edut.addEventListener("click", editProfile) : __defers["$.__views.edut!click!editProfile"] = true;
     $.__views.profile.rightNavButton = $.__views.edut;
-    $.__views.__alloyId14 = Ti.UI.createView({
+    $.__views.__alloyId11 = Ti.UI.createView({
         layout: "vertical",
-        id: "__alloyId14"
+        id: "__alloyId11"
     });
-    $.__views.profile.add($.__views.__alloyId14);
+    $.__views.profile.add($.__views.__alloyId11);
     $.__views.cover_picture = Ti.UI.createImageView({
         image: "/tangy_back2.jpg",
         zIndex: "1",
@@ -47,7 +47,7 @@ function Controller() {
         width: Ti.UI.FILL,
         id: "cover_picture"
     });
-    $.__views.__alloyId14.add($.__views.cover_picture);
+    $.__views.__alloyId11.add($.__views.cover_picture);
     $.__views.user_picture = Ti.UI.createImageView({
         width: 100,
         height: 100,
@@ -59,7 +59,7 @@ function Controller() {
         borderColor: "white",
         id: "user_picture"
     });
-    $.__views.__alloyId14.add($.__views.user_picture);
+    $.__views.__alloyId11.add($.__views.user_picture);
     $.__views.user_name = Ti.UI.createLabel({
         width: Ti.UI.SIZE,
         height: Ti.UI.SIZE,
@@ -71,7 +71,7 @@ function Controller() {
         textAlign: "center",
         id: "user_name"
     });
-    $.__views.__alloyId14.add($.__views.user_name);
+    $.__views.__alloyId11.add($.__views.user_name);
     $.__views.birthdate = Ti.UI.createLabel({
         width: Ti.UI.SIZE,
         height: Ti.UI.SIZE,
@@ -83,7 +83,7 @@ function Controller() {
         textAlign: "center",
         id: "birthdate"
     });
-    $.__views.__alloyId14.add($.__views.birthdate);
+    $.__views.__alloyId11.add($.__views.birthdate);
     $.__views.short_description = Ti.UI.createLabel({
         width: Ti.UI.SIZE,
         height: Ti.UI.SIZE,
@@ -95,7 +95,7 @@ function Controller() {
         textAlign: "center",
         id: "short_description"
     });
-    $.__views.__alloyId14.add($.__views.short_description);
+    $.__views.__alloyId11.add($.__views.short_description);
     exports.destroy = function() {};
     _.extend($, $.__views);
     $.profile.addEventListener("focus", loadData);

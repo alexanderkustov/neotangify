@@ -176,3 +176,8 @@ function profilemodal(userid){
 	var profilewin = Alloy.createController('profilemodal', {userId: userid}).getView();
 	profilewin.open();
 }
+
+$.slider.text = $.slider.value;
+function updateLabel(e){
+    $.label.text = String.format("%3.1f", e.value) + 'm';
+}

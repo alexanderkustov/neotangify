@@ -82,11 +82,11 @@ function Controller() {
     });
     goback ? $.__views.back.addEventListener("click", goback) : __defers["$.__views.back!click!goback"] = true;
     $.__views.profile_name.leftNavButton = $.__views.back;
-    $.__views.__alloyId16 = Ti.UI.createView({
+    $.__views.__alloyId13 = Ti.UI.createView({
         layout: "vertical",
-        id: "__alloyId16"
+        id: "__alloyId13"
     });
-    $.__views.profile_name.add($.__views.__alloyId16);
+    $.__views.profile_name.add($.__views.__alloyId13);
     $.__views.cover_picture = Ti.UI.createImageView({
         id: "cover_picture",
         image: "/tangy_back2.jpg",
@@ -95,7 +95,7 @@ function Controller() {
         top: "-50",
         width: Ti.UI.FILL
     });
-    $.__views.__alloyId16.add($.__views.cover_picture);
+    $.__views.__alloyId13.add($.__views.cover_picture);
     $.__views.person_picture = Ti.UI.createImageView({
         image: "/person.png",
         zIndex: "5",
@@ -106,7 +106,7 @@ function Controller() {
         height: "200",
         id: "person_picture"
     });
-    $.__views.__alloyId16.add($.__views.person_picture);
+    $.__views.__alloyId13.add($.__views.person_picture);
     $.__views.user_name = Ti.UI.createLabel({
         width: Ti.UI.SIZE,
         height: Ti.UI.SIZE,
@@ -118,7 +118,7 @@ function Controller() {
         textAlign: "center",
         id: "user_name"
     });
-    $.__views.__alloyId16.add($.__views.user_name);
+    $.__views.__alloyId13.add($.__views.user_name);
     $.__views.birthdate = Ti.UI.createLabel({
         width: Ti.UI.SIZE,
         height: Ti.UI.SIZE,
@@ -130,7 +130,7 @@ function Controller() {
         textAlign: "center",
         id: "birthdate"
     });
-    $.__views.__alloyId16.add($.__views.birthdate);
+    $.__views.__alloyId13.add($.__views.birthdate);
     $.__views.short_description = Ti.UI.createLabel({
         width: Ti.UI.SIZE,
         height: Ti.UI.SIZE,
@@ -142,20 +142,20 @@ function Controller() {
         textAlign: "center",
         id: "short_description"
     });
-    $.__views.__alloyId16.add($.__views.short_description);
+    $.__views.__alloyId13.add($.__views.short_description);
     $.__views.back = Ti.UI.createButton({
         color: "#fff",
         title: "Send a Message",
         id: "back"
     });
-    $.__views.__alloyId16.add($.__views.back);
+    $.__views.__alloyId13.add($.__views.back);
     sendMsg ? $.__views.back.addEventListener("click", sendMsg) : __defers["$.__views.back!click!sendMsg"] = true;
     $.__views.back = Ti.UI.createButton({
         color: "#fff",
         title: "Add a Friend",
         id: "back"
     });
-    $.__views.__alloyId16.add($.__views.back);
+    $.__views.__alloyId13.add($.__views.back);
     addFriend ? $.__views.back.addEventListener("click", addFriend) : __defers["$.__views.back!click!addFriend"] = true;
     $.__views.win_profilemodal = Ti.UI.iOS.createNavigationWindow({
         window: $.__views.profile_name,
