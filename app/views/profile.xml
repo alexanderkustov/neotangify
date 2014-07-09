@@ -1,9 +1,6 @@
 <Alloy>
-<Window title="Profile">
-	            <RightNavButton>
-		            <Button id="edut" title="Edit" onClick="editProfile"/>
-		        </RightNavButton>
-
+<Window>
+	           
 				<View layout="vertical">
 					
 					

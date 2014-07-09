@@ -47,6 +47,10 @@ function goback(e) {
     $.win_profilemodal = null;
 }
 
+function isFriend(){
+	
+}
+
 function getFriend(userid){
 	var url = mainserver + '/users/' + userid + '.json?' + 'auth_token=' + Alloy.Globals.auth_token ;
 	console.log(url);
@@ -66,6 +70,8 @@ function getFriend(userid){
 			if(JSON.parse(this.responseText).user.cover_picture.small.url != null)
 	    	$.cover_picture.image = mainserver + JSON.parse(this.responseText).user.cover_picture.small.url;
 			console.log($.profile_name.person_picture);
+			if(isFriend)
+				$.addFriend.hide();
 			
 	    },
 	    onerror : function(e) {

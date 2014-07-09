@@ -1,5 +1,5 @@
 function acceptFriendship(friend_id){
-    var url = mainserver + '/friendships.json?' + friend_id +  '&auth_token=' + Alloy.Globals.auth_token ;
+    var url = mainserver + '/friendship_accept.json?' + friend_id +  '&auth_token=' + Alloy.Globals.auth_token ;
     
     var client = Ti.Network.createHTTPClient({
         onload : function(e) {
@@ -14,10 +14,9 @@ function acceptFriendship(friend_id){
         timeout : 60 * 1000
     });
     
-    var params = {'format': "json"};
 
     client.open("POST", url);
-    client.send(params); 
+    client.send(); 
 }
 
 function getActivityFeed(e){

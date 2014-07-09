@@ -197,7 +197,8 @@ function Controller() {
     $.__views.back = Ti.UI.createButton({
         color: "white",
         title: "Back",
-        id: "back"
+        id: "back",
+        top: "10px"
     });
     $.__views.__alloyId1.add($.__views.back);
     goback ? $.__views.back.addEventListener("click", goback) : __defers["$.__views.back!click!goback"] = true;

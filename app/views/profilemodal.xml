@@ -12,9 +12,10 @@
 	
 					<Label id="user_name"></Label>
 					<Label id="birthdate"></Label>
-					<Label id="short_description"></Label>		
+					<Label id="short_description"></Label>
+					
 				   	      <Button id="back" onClick="sendMsg">Send a Message</Button>
-				   	            <Button id="back" onClick="addFriend">Add a Friend</Button>
+				   	      <Button id="addFriend" onClick="addFriend">Add a Friend</Button>
 
 				</View>
     		</Window>

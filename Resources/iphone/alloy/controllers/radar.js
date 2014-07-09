@@ -106,7 +106,7 @@ function Controller() {
         color: "#fff",
         translucent: "false",
         barColor: "#fff",
-        title: "tangify",
+        title: "Radar",
         id: "radar_window"
     });
     $.__views.radar_window && $.addTopLevelView($.__views.radar_window);
@@ -150,7 +150,8 @@ function Controller() {
     $.__views.radar_window.add($.__views.label);
     $.__views.radar = Ti.UI.createScrollView({
         id: "radar",
-        top: "120"
+        width: "100%",
+        top: "50px"
     });
     $.__views.radar_window.add($.__views.radar);
     exports.destroy = function() {};

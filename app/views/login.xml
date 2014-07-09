@@ -4,7 +4,5 @@
 		<Require src="loginWindow"></Require>
 	</NavigationWindow>
  <!-- Android -->
-    <Require id="settings" src="settings" platform="android"></Require>
-   
-    		  
+    <Require id="settings" src="settings" platform="android"></Require>  		  
 </Alloy>
