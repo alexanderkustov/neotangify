@@ -36,6 +36,7 @@ function Controller() {
         $.win_profilemodal.close();
         $.win_profilemodal = null;
     }
+    function isFriend() {}
     function getFriend(userid) {
         var url = mainserver + "/users/" + userid + ".json?" + "auth_token=" + Alloy.Globals.auth_token;
         console.log(url);
@@ -49,6 +50,7 @@ function Controller() {
                 null != JSON.parse(this.responseText).user.presentation_picture.thumb.url && ($.person_picture.image = mainserver + JSON.parse(this.responseText).user.presentation_picture.thumb.url);
                 null != JSON.parse(this.responseText).user.cover_picture.small.url && ($.cover_picture.image = mainserver + JSON.parse(this.responseText).user.cover_picture.small.url);
                 console.log($.profile_name.person_picture);
+                isFriend && $.addFriend.hide();
             },
             onerror: function(e) {
                 alert("error" + e);
@@ -150,13 +152,13 @@ function Controller() {
     });
     $.__views.__alloyId12.add($.__views.back);
     sendMsg ? $.__views.back.addEventListener("click", sendMsg) : __defers["$.__views.back!click!sendMsg"] = true;
-    $.__views.back = Ti.UI.createButton({
+    $.__views.addFriend = Ti.UI.createButton({
         color: "#fff",
         title: "Add a Friend",
-        id: "back"
+        id: "addFriend"
     });
-    $.__views.__alloyId12.add($.__views.back);
-    addFriend ? $.__views.back.addEventListener("click", addFriend) : __defers["$.__views.back!click!addFriend"] = true;
+    $.__views.__alloyId12.add($.__views.addFriend);
+    addFriend ? $.__views.addFriend.addEventListener("click", addFriend) : __defers["$.__views.addFriend!click!addFriend"] = true;
     $.__views.win_profilemodal = Ti.UI.iOS.createNavigationWindow({
         window: $.__views.profile_name,
         id: "win_profilemodal"
@@ -170,7 +172,7 @@ function Controller() {
     getFriend(args.userId);
     __defers["$.__views.back!click!goback"] && $.__views.back.addEventListener("click", goback);
     __defers["$.__views.back!click!sendMsg"] && $.__views.back.addEventListener("click", sendMsg);
-    __defers["$.__views.back!click!addFriend"] && $.__views.back.addEventListener("click", addFriend);
+    __defers["$.__views.addFriend!click!addFriend"] && $.__views.addFriend.addEventListener("click", addFriend);
     _.extend($, exports);
 }
 

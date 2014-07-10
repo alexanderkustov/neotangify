@@ -52,44 +52,87 @@ function login(e)
 	client.send(params);
 }
 	
+function getAge(dateString) {
+    var today = new Date();
+    var birthDate = new Date(dateString);
+    var age = today.getFullYear() - birthDate.getFullYear();
+    var m = today.getMonth() - birthDate.getMonth();
+    if (m < 0 || (m === 0 && today.getDate() < birthDate.getDate())) {
+        age--;
+    }
+    return age;
+}
+	
 function openRegister(e)
 {
 	$.win1 = null;
 	var win=Alloy.createController('register').getView();
 	win.open();
-	
 }
 
-function facebookLogin(e)
-{
-	var fb = require('facebook');
+function facebookLogin(e){
+	var response, email, birthday, name, gender, accesToken;
+	
+var fb = require('facebook');
 	fb.appid = 391052681038594;
-	fb.permissions = ['email, public_profile, user_friends ']; // Permissions your app needs
-	fb.forceDialogAuth = true;
-	fb.addEventListener('login', function(e) {
-	    if (e.success) {
-	         fb.requestWithGraphPath('me', {}, 'GET', function(e) {
+	fb.permissions = ['email, public_profile, user_friends ']; 
+	// Permissions your app needs
+// This property needs to be false to use the built-in iOS 6 login
+fb.forceDialogAuth = false;
+fb.addEventListener('login', function(e) {
+    if (e.success) {
+        fb.requestWithGraphPath('me', {}, 'GET', function(e) {
 	            if (e.success) {
 	                //alert(e.result);
-	                var response = JSON.parse(e.result);
-	                var email = response.email;
-	                var age = response.age;
-	                var name = response.name;
-	                var gender = response.gender;
-	                alert(name+' '+email+' '+gender + ' '+age);
-	                autologin(email, email);
+	                response = JSON.parse(e.result);
+	                email = response.email;
+	                birthday = response.birthday;
+	                name = response.name;
+	                gender = response.gender;
+	                
+	                accesToken = fb.getAccessToken();
+	                alert(name+' '+email+' '+gender + ' '+ getAge(birthday) + ' ' +  accesToken);
+	               	facebookToApp(accesToken);
 	            } else if (e.error) {
 	                alert(e.error);
 	            } else {
 	                alert('Unknown response');
 	            }
 	        });
-	    } else if (e.error) {
-	        alert(e.error);
-	    } else if (e.cancelled) {
-	        alert("Canceled");
-	    }
+    } else if (e.error) {
+        alert(e.error);
+    } else if (e.cancelled) {
+        alert("Canceled");
+    }
+});
+
+if (!fb.loggedIn) {
+    fb.authorize();
+    	               	facebookToApp(accesToken);
+
+}
+
+}
+
+function facebookToApp(accesToken){
+	
+	var urlFace = "http://tangifyapp.com/auth/facebook?format=json&code=" + accesToken;
+	
+	console.log(urlFace);
+	var client = Ti.Network.createHTTPClient({	    
+	    onload : function(e) {
+	    	Ti.API.info("Received text: " + this.responseText);
+	    	alert("Sucess of some sort");
+	    },
+	    onerror : function(e) {
+	        alert('Error, try again!');
+	      	Ti.API.info(" error: " + JSON.stringify(e) );
+    },
+   		timeout : 60 * 1000
 	});
-	fb.authorize();
+
+ client.open("GET", urlFace);
+ client.send();
+	
 }
 
