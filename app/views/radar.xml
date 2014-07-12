@@ -4,10 +4,9 @@
 		  	<Button id="refresh" onClick="geolocate" >Refresh</Button>
 		</LeftNavButton>
 		<RightNavButton>
-		  	<Button id="filter" onClick="geolocate" >Filter</Button>
+		  	<Button id="filter" onClick="filter" >Filter</Button>
 		</RightNavButton>
-			<Slider id="slider" top="50" min="25" max="75" width="100%" value="25" onChange="updateLabel"/>
-        	<Label id="label" width="100%" top="30" left="0" />
+			
 			<ScrollView id="radar" width="100%" top="50px"></ScrollView>
 		
 	</Window>

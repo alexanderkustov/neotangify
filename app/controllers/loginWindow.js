@@ -91,7 +91,7 @@ fb.addEventListener('login', function(e) {
 	                gender = response.gender;
 	                
 	                accesToken = fb.getAccessToken();
-	                alert(name+' '+email+' '+gender + ' '+ getAge(birthday) + ' ' +  accesToken);
+	                //alert(name+' '+email+' '+gender + ' '+ getAge(birthday) + ' ' +  accesToken);
 	               	facebookToApp(accesToken);
 	            } else if (e.error) {
 	                alert(e.error);
@@ -116,13 +116,25 @@ if (!fb.loggedIn) {
 
 function facebookToApp(accesToken){
 	
-	var urlFace = "http://tangifyapp.com/auth/facebook?format=json&code=" + accesToken;
+	var urlFace = "http://tangifyapp.com/authenticate?graph=true&access_token="+ accesToken +"&format=json";
 	
+
 	console.log(urlFace);
 	var client = Ti.Network.createHTTPClient({	    
 	    onload : function(e) {
 	    	Ti.API.info("Received text: " + this.responseText);
-	    	alert("Sucess of some sort");
+	    	
+	    	 Alloy.Globals.auth_token = JSON.parse(this.responseText).user.auth_token;
+	       	Alloy.Globals.user_id = JSON.parse(this.responseText).user.id;
+	       	Alloy.Globals.user_name = JSON.parse(this.responseText).user.name; 
+	       	Alloy.Globals.user_email = JSON.parse(this.responseText).user.email;
+	       	Alloy.Globals.birthdate = JSON.parse(this.responseText).user.birthdate; 
+	       	Alloy.Globals.short_description = JSON.parse(this.responseText).user.short_description; 
+	       	Alloy.Globals.user_pic = JSON.parse(this.responseText).user.presentation_picture.thumb.url;
+	       	Alloy.Globals.cover_picture = JSON.parse(this.responseText).user.cover_picture.small.url;
+	    	
+	    	var win=Alloy.createController('index').getView();
+	    	win.open();
 	    },
 	    onerror : function(e) {
 	        alert('Error, try again!');
@@ -131,7 +143,7 @@ function facebookToApp(accesToken){
    		timeout : 60 * 1000
 	});
 
- client.open("GET", urlFace);
+ client.open("POST", urlFace);
  client.send();
 	
 }

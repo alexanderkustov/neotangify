@@ -3,6 +3,10 @@ const LATCONV = 0.0000089928;
 const LONGCONV = 0.0000101857;
 var persons = new Array();
 var j = 1;
+
+//def nearby(latitude, longitude, sex = nil, min_age = nil, max_age = nil)
+var sex, min_age, max_age;
+
 function geolocate(e){
 	//var cur_loc_timestamp;
 	j = 1;
@@ -167,17 +171,165 @@ function clearRadar(e){
 }
 
 function filter(e){
-	var win=Alloy.createController('radarQuery').getView();
-	win.open();
+	
+var infoWin = Titanium.UI.createWindow({
+    backgroundColor: '#2980b9',
+    top: 0,
+    left: 0,
+    opacity: 1,
+    zIndex: 100
+});
+
+var titleLabel = Ti.UI.createLabel({
+    text: "Filter your Radar",
+    color: "#fff",
+    width: '100%',
+    height: 'auto',
+    top: 40,
+    left: 0,
+    textAlign: Ti.UI.TEXT_ALIGNMENT_CENTER
+    });
+    
+    infoWin.add(titleLabel);
+//MALE SWITCH
+var maleLabel = Ti.UI.createLabel({
+    text: "Male",
+    color: "#fff",
+    width: '100%',
+    height: 'auto',
+    top: 100,
+    left: 20
+        });
+    
+    infoWin.add(maleLabel);
+
+var maleSwitch = Ti.UI.createSwitch({
+  	value:true,
+   	top: 95,
+    left: 240,
+});
+
+infoWin.add(maleSwitch);
+
+maleSwitch.addEventListener('change',function(e){
+  Ti.API.info('Switch value: ' + maleSwitch.value);
+});
+
+//FEMALE SWITCH
+var femaleLabel = Ti.UI.createLabel({
+    text: "Female",
+    color: "#fff",
+    width: '100%',
+    height: 'auto',
+    top: 150,
+    left: 20
+        });
+    
+    infoWin.add(femaleLabel);
+
+var femaleSwitch = Ti.UI.createSwitch({
+  	value:true,
+   	top: 145,
+    left: 240,
+});
+
+infoWin.add(femaleSwitch);
+
+femaleSwitch.addEventListener('change',function(e){
+  Ti.API.info('Switch value: ' + femaleSwitch.value);
+});
+
+
+var button = Titanium.UI.createButton({
+   title: 'Search',
+   color: "#fff",
+   top: 400,
+   width: 100,
+   height: 50
+});
+
+
+var slider = Titanium.UI.createSlider({
+    min: 25,
+    max: 75,
+    width: '90%',
+    value: 30,
+    top: 210
+    });
+    
+var label = Ti.UI.createLabel({
+    text: slider.value,
+    width: '100%',
+    height: 'auto',
+    color: "#fff",
+    top: 190,
+    left: 0,
+    textAlign: Ti.UI.TEXT_ALIGNMENT_CENTER
+    });
+
+slider.addEventListener('change', function(e) {
+    label.text = String.format("Maximum Distance: " + "%3.1f" + "m", e.value);
+});
+
+var minAge = Ti.UI.createLabel({
+    text: "Minimum Age",
+    color: "#fff",
+    width: '100%',
+    height: 'auto',
+    top: 270,
+    left: 20
+        });
+    
+    infoWin.add(minAge);
+
+var minAgeInput = Ti.UI.createTextField({
+  	value:"18",
+  	 color: "#fff",
+   	top: 270,
+    left: 200,
+});
+
+infoWin.add(minAgeInput);
+
+
+var maxAge = Ti.UI.createLabel({
+    text: "Maximum Age",
+    color: "#fff",
+    width: '100%',
+    height: 'auto',
+    top: 300,
+    left: 20
+        });
+    
+    infoWin.add(maxAge);
+
+var maxAgeInput = Ti.UI.createTextField({
+  	value:"99",
+  	 color: "#fff",
+   	top: 300,
+    left: 200,
+});
+
+infoWin.add(maxAgeInput);
+
+
+
+
+
+button.addEventListener('click',function(e)
+{
+   Titanium.API.info("You clicked the button");
+});
+
+infoWin.add(button);
+infoWin.add(slider);
+infoWin.add(label);
+
+infoWin.open({modal:true});
 }
 
 function profilemodal(userid){	
 	console.log(userid + ' este e o user');
 	var profilewin = Alloy.createController('profilemodal', {userId: userid}).getView();
 	profilewin.open();
-}
-
-$.slider.text = $.slider.value;
-function updateLabel(e){
-    $.label.text = String.format("%3.1f", e.value) + 'm';
 }
