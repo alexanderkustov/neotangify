@@ -89,7 +89,13 @@ function updateRadar(lat, longi){
 		timeout : 60 * 1000
 	});
 	
-	var params = { 'latitude': lat, 'longitude' : longi};
+	var params = { 
+		'latitude': lat,
+		'longitude' : longi,
+		'sex' : sex,
+		'min_age': min_age,
+		'max_age': max_age
+		};
 	client.open("GET", url);
 	client.send(params);  
 }
@@ -214,10 +220,7 @@ infoWin.add(maleSwitch);
 
 maleSwitch.addEventListener('change',function(e){
   Ti.API.info('Male value: ' + maleSwitch.value);
-  if(femaleSwitch.value===true)
-  	sex = null;
-  else
-   sex = "male";
+ 
   
 });
 
@@ -243,26 +246,14 @@ infoWin.add(femaleSwitch);
 
 femaleSwitch.addEventListener('change',function(e){
   Ti.API.info('Switch value: ' + femaleSwitch.value);
-  if(maleSwitch.value===true)
-  	sex = null;
-  else
-   sex = "female";
+  
 });
 
-
-var searchBtn = Titanium.UI.createButton({
-   title: 'Search',
-   color: "#fff",
-   top: 400,
-   width: 100,
-   left: 20,
-   height: 50
-});
 
 
 
 var closeBtn = Titanium.UI.createButton({
-   title: 'Close',
+   title: 'Search',
    color: "#fff",
    top: 400,
    width: 100,
@@ -307,7 +298,8 @@ var minAge = Ti.UI.createLabel({
 
 var minAgeInput = Ti.UI.createTextField({
   	value:"18",
-  	 color: "#fff",
+  	 color: "#333",
+  	 borderStyle: Ti.UI.INPUT_BORDERSTYLE_ROUNDED,
    	top: 270,
     left: 200,
 });
@@ -317,7 +309,7 @@ infoWin.add(minAgeInput);
 
 var maxAge = Ti.UI.createLabel({
     text: "Maximum Age",
-    color: "#fff",
+  color: "#fff",
     width: '100%',
     height: 'auto',
     top: 300,
@@ -328,7 +320,9 @@ var maxAge = Ti.UI.createLabel({
 
 var maxAgeInput = Ti.UI.createTextField({
   	value:"99",
-  	 color: "#fff",
+  	
+  	   color: "#333",
+  	 borderStyle: Ti.UI.INPUT_BORDERSTYLE_ROUNDED,
    	top: 300,
     left: 200,
 });
@@ -337,16 +331,27 @@ infoWin.add(maxAgeInput);
 
 
 
-
-
 closeBtn.addEventListener('click',function(e)
 {
-	console.log(sex + " min_age: " +  min_age + " max_age: " + max_age);
+if(maleSwitch.value===true && femaleSwitch.value===true ){
+  	sex = null;
+  }
+else{
+	if(maleSwitch.value===false && femaleSwitch.value===true)
+		sex = "female";
+	else
+		sex = "male";
+	}
+	
+	max_age = maxAgeInput;
+	min_age = minAgeInput;
+	
+		console.log(sex + " min_age: " +  min_age + " max_age: " + max_age);
    infoWin.close();
   
 });
 
-infoWin.add(searchBtn);
+
 infoWin.add(closeBtn);
 infoWin.add(slider);
 infoWin.add(label);

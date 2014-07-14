@@ -53,7 +53,10 @@ function Controller() {
         });
         var params = {
             latitude: lat,
-            longitude: longi
+            longitude: longi,
+            sex: sex,
+            min_age: min_age,
+            max_age: max_age
         };
         client.open("GET", url);
         client.send(params);
@@ -118,7 +121,6 @@ function Controller() {
         infoWin.add(maleSwitch);
         maleSwitch.addEventListener("change", function() {
             Ti.API.info("Male value: " + maleSwitch.value);
-            sex = true === femaleSwitch.value ? null : "male";
         });
         var femaleLabel = Ti.UI.createLabel({
             text: "Female",
@@ -137,18 +139,9 @@ function Controller() {
         infoWin.add(femaleSwitch);
         femaleSwitch.addEventListener("change", function() {
             Ti.API.info("Switch value: " + femaleSwitch.value);
-            sex = true === maleSwitch.value ? null : "female";
-        });
-        var searchBtn = Titanium.UI.createButton({
-            title: "Search",
-            color: "#fff",
-            top: 400,
-            width: 100,
-            left: 20,
-            height: 50
         });
         var closeBtn = Titanium.UI.createButton({
-            title: "Close",
+            title: "Search",
             color: "#fff",
             top: 400,
             width: 100,
@@ -185,7 +178,8 @@ function Controller() {
         infoWin.add(minAge);
         var minAgeInput = Ti.UI.createTextField({
             value: "18",
-            color: "#fff",
+            color: "#333",
+            borderStyle: Ti.UI.INPUT_BORDERSTYLE_ROUNDED,
             top: 270,
             left: 200
         });
@@ -201,16 +195,19 @@ function Controller() {
         infoWin.add(maxAge);
         var maxAgeInput = Ti.UI.createTextField({
             value: "99",
-            color: "#fff",
+            color: "#333",
+            borderStyle: Ti.UI.INPUT_BORDERSTYLE_ROUNDED,
             top: 300,
             left: 200
         });
         infoWin.add(maxAgeInput);
         closeBtn.addEventListener("click", function() {
+            sex = true === maleSwitch.value && true === femaleSwitch.value ? null : false === maleSwitch.value && true === femaleSwitch.value ? "female" : "male";
+            max_age = maxAgeInput;
+            min_age = minAgeInput;
             console.log(sex + " min_age: " + min_age + " max_age: " + max_age);
             infoWin.close();
         });
-        infoWin.add(searchBtn);
         infoWin.add(closeBtn);
         infoWin.add(slider);
         infoWin.add(label);

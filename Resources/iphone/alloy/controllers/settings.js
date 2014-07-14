@@ -145,6 +145,24 @@ function Controller() {
     });
     $.__views.__alloyId20.add($.__views.__alloyId23);
     uploadPic ? $.__views.__alloyId23.addEventListener("click", uploadPic) : __defers["$.__views.__alloyId23!click!uploadPic"] = true;
+    $.__views.__alloyId24 = Ti.UI.createLabel({
+        width: Ti.UI.SIZE,
+        height: Ti.UI.SIZE,
+        color: "#fff",
+        font: {
+            fontSize: 20,
+            fontFamily: "Helvetica Neue"
+        },
+        textAlign: "center",
+        text: "Sex: Male/Female",
+        id: "__alloyId24"
+    });
+    $.__views.__alloyId20.add($.__views.__alloyId24);
+    $.__views.sexSwitch = Ti.UI.createSwitch({
+        value: true,
+        id: "sexSwitch"
+    });
+    $.__views.__alloyId20.add($.__views.sexSwitch);
     $.__views.name = Ti.UI.createTextField({
         color: "#333",
         borderStyle: Ti.UI.INPUT_BORDERSTYLE_ROUNDED,
@@ -181,7 +199,7 @@ function Controller() {
         id: "short_description"
     });
     $.__views.__alloyId20.add($.__views.short_description);
-    $.__views.__alloyId24 = Ti.UI.createLabel({
+    $.__views.__alloyId25 = Ti.UI.createLabel({
         width: Ti.UI.SIZE,
         height: Ti.UI.SIZE,
         color: "#fff",
@@ -191,9 +209,9 @@ function Controller() {
         },
         textAlign: "center",
         text: "Want to change your password?",
-        id: "__alloyId24"
+        id: "__alloyId25"
     });
-    $.__views.__alloyId20.add($.__views.__alloyId24);
+    $.__views.__alloyId20.add($.__views.__alloyId25);
     $.__views.password = Ti.UI.createTextField({
         color: "#333",
         borderStyle: Ti.UI.INPUT_BORDERSTYLE_ROUNDED,
@@ -220,21 +238,21 @@ function Controller() {
         id: "password_confirmation"
     });
     $.__views.__alloyId20.add($.__views.password_confirmation);
-    $.__views.__alloyId25 = Ti.UI.createButton({
+    $.__views.__alloyId26 = Ti.UI.createButton({
         color: "#fff",
         title: "Submit",
         height: "40",
         width: Ti.UI.FILL,
-        id: "__alloyId25"
+        id: "__alloyId26"
     });
-    $.__views.__alloyId20.add($.__views.__alloyId25);
-    editProfile ? $.__views.__alloyId25.addEventListener("click", editProfile) : __defers["$.__views.__alloyId25!click!editProfile"] = true;
+    $.__views.__alloyId20.add($.__views.__alloyId26);
+    editProfile ? $.__views.__alloyId26.addEventListener("click", editProfile) : __defers["$.__views.__alloyId26!click!editProfile"] = true;
     exports.destroy = function() {};
     _.extend($, $.__views);
     __defers["$.__views.logout!click!logout"] && $.__views.logout.addEventListener("click", logout);
     __defers["$.__views.__alloyId22!click!uploadCoverPic"] && $.__views.__alloyId22.addEventListener("click", uploadCoverPic);
     __defers["$.__views.__alloyId23!click!uploadPic"] && $.__views.__alloyId23.addEventListener("click", uploadPic);
-    __defers["$.__views.__alloyId25!click!editProfile"] && $.__views.__alloyId25.addEventListener("click", editProfile);
+    __defers["$.__views.__alloyId26!click!editProfile"] && $.__views.__alloyId26.addEventListener("click", editProfile);
     _.extend($, exports);
 }
 
