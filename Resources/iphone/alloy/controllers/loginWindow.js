@@ -34,6 +34,14 @@ function Controller() {
         client.open("POST", url);
         client.send(params);
     }
+    function getAge(dateString) {
+        var today = new Date();
+        var birthDate = new Date(dateString);
+        var age = today.getFullYear() - birthDate.getFullYear();
+        var m = today.getMonth() - birthDate.getMonth();
+        (0 > m || 0 === m && today.getDate() < birthDate.getDate()) && age--;
+        return age;
+    }
     function openRegister() {
         $.win1 = null;
         var win = Alloy.createController("register").getView();
@@ -54,6 +62,7 @@ function Controller() {
                     name = response.name;
                     gender = response.gender;
                     accesToken = fb.getAccessToken();
+                    console.log(name + " " + email + " " + gender + " " + getAge(birthday) + " " + accesToken);
                     facebookToApp(accesToken);
                 } else e.error ? alert(e.error) : alert("Unknown response");
             }) : e.error ? alert(e.error) : e.cancelled && alert("Canceled");

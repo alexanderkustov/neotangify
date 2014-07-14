@@ -91,7 +91,7 @@ fb.addEventListener('login', function(e) {
 	                gender = response.gender;
 	                
 	                accesToken = fb.getAccessToken();
-	                //alert(name+' '+email+' '+gender + ' '+ getAge(birthday) + ' ' +  accesToken);
+	                console.log(name+' '+email+' '+gender + ' '+ getAge(birthday) + ' ' +  accesToken);
 	               	facebookToApp(accesToken);
 	            } else if (e.error) {
 	                alert(e.error);

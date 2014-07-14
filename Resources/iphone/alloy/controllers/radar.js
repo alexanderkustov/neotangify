@@ -117,7 +117,8 @@ function Controller() {
         });
         infoWin.add(maleSwitch);
         maleSwitch.addEventListener("change", function() {
-            Ti.API.info("Switch value: " + maleSwitch.value);
+            Ti.API.info("Male value: " + maleSwitch.value);
+            sex = true === femaleSwitch.value ? null : "male";
         });
         var femaleLabel = Ti.UI.createLabel({
             text: "Female",
@@ -136,12 +137,22 @@ function Controller() {
         infoWin.add(femaleSwitch);
         femaleSwitch.addEventListener("change", function() {
             Ti.API.info("Switch value: " + femaleSwitch.value);
+            sex = true === maleSwitch.value ? null : "female";
         });
-        var button = Titanium.UI.createButton({
+        var searchBtn = Titanium.UI.createButton({
             title: "Search",
             color: "#fff",
             top: 400,
             width: 100,
+            left: 20,
+            height: 50
+        });
+        var closeBtn = Titanium.UI.createButton({
+            title: "Close",
+            color: "#fff",
+            top: 400,
+            width: 100,
+            left: 100,
             height: 50
         });
         var slider = Titanium.UI.createSlider({
@@ -195,10 +206,12 @@ function Controller() {
             left: 200
         });
         infoWin.add(maxAgeInput);
-        button.addEventListener("click", function() {
-            Titanium.API.info("You clicked the button");
+        closeBtn.addEventListener("click", function() {
+            console.log(sex + " min_age: " + min_age + " max_age: " + max_age);
+            infoWin.close();
         });
-        infoWin.add(button);
+        infoWin.add(searchBtn);
+        infoWin.add(closeBtn);
         infoWin.add(slider);
         infoWin.add(label);
         infoWin.open({
@@ -254,6 +267,7 @@ function Controller() {
     var cur_long, cur_lat;
     var persons = new Array();
     var j = 1;
+    var sex, min_age, max_age;
     $.radar_window.addEventListener("focus", function() {
         geolocate();
     });

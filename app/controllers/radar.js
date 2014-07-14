@@ -4,6 +4,7 @@ const LONGCONV = 0.0000101857;
 var persons = new Array();
 var j = 1;
 
+
 //def nearby(latitude, longitude, sex = nil, min_age = nil, max_age = nil)
 var sex, min_age, max_age;
 
@@ -212,7 +213,12 @@ var maleSwitch = Ti.UI.createSwitch({
 infoWin.add(maleSwitch);
 
 maleSwitch.addEventListener('change',function(e){
-  Ti.API.info('Switch value: ' + maleSwitch.value);
+  Ti.API.info('Male value: ' + maleSwitch.value);
+  if(femaleSwitch.value===true)
+  	sex = null;
+  else
+   sex = "male";
+  
 });
 
 //FEMALE SWITCH
@@ -237,16 +243,33 @@ infoWin.add(femaleSwitch);
 
 femaleSwitch.addEventListener('change',function(e){
   Ti.API.info('Switch value: ' + femaleSwitch.value);
+  if(maleSwitch.value===true)
+  	sex = null;
+  else
+   sex = "female";
 });
 
 
-var button = Titanium.UI.createButton({
+var searchBtn = Titanium.UI.createButton({
    title: 'Search',
    color: "#fff",
    top: 400,
    width: 100,
+   left: 20,
    height: 50
 });
+
+
+
+var closeBtn = Titanium.UI.createButton({
+   title: 'Close',
+   color: "#fff",
+   top: 400,
+   width: 100,
+   left:100,
+   height: 50
+});
+
 
 
 var slider = Titanium.UI.createSlider({
@@ -316,12 +339,15 @@ infoWin.add(maxAgeInput);
 
 
 
-button.addEventListener('click',function(e)
+closeBtn.addEventListener('click',function(e)
 {
-   Titanium.API.info("You clicked the button");
+	console.log(sex + " min_age: " +  min_age + " max_age: " + max_age);
+   infoWin.close();
+  
 });
 
-infoWin.add(button);
+infoWin.add(searchBtn);
+infoWin.add(closeBtn);
 infoWin.add(slider);
 infoWin.add(label);
 
