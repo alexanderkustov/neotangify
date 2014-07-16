@@ -1,23 +1,15 @@
 <Alloy>
-	<NavigationWindow id="win_profilemodal">
-			<Window id="profile_name" title="">
-                <LeftNavButton>
-                	<Button id="back" onClick="goback">Back</Button>
-                </LeftNavButton>
-                
+	
+			<Window id="win_profilemodal" title="">
+           
 				 <View layout="vertical">
 				 	<ImageView id="cover_picture" image="/tangy_back2.jpg" zIndex="1" height="160" top="-50" width="Ti.UI.FILL"></ImageView>
 					<ImageView image="/person.png" zIndex="5" top="-50" borderWidth="3" borderColor="white" width="200" height="200" id="person_picture"></ImageView>
-
-	
-					<Label id="user_name"></Label>
-					<Label id="birthdate"></Label>
-					<Label id="short_description"></Label>
-					
+				   	<View layout="horizontal" width="Ti.UI.SIZE" >
 				   	      <Button id="back" onClick="sendMsg">Send a Message</Button>
 				   	      <Button id="addFriend" onClick="addFriend">Add a Friend</Button>
-
+				   	</View>
 				</View>
     		</Window>
-    </NavigationWindow>	  
+    
 </Alloy>

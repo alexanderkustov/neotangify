@@ -1,6 +1,6 @@
 function acceptFriendship(friend_id){
-    var url = mainserver + '/friendship_accept.json?' + friend_id +  '&auth_token=' + Alloy.Globals.auth_token ;
-    
+    var url = mainserver + '/accept_friend.json?friend_id=' + friend_id +  '&auth_token=' + Alloy.Globals.auth_token ;
+    console.log(url);
     var client = Ti.Network.createHTTPClient({
         onload : function(e) {
             Ti.API.info("Received text: " + this.responseText);
@@ -105,6 +105,7 @@ function addActivitiesToTable(user_name, friend_name, position, friend_id, activ
         className : "activity_row",
         color:'white',
         rowID: friend_id,
+        height: 70,
         backgroundColor: 'transparent',
         separatorStyle: Titanium.UI.iPhone.TableViewSeparatorStyle.NONE
     });
@@ -118,35 +119,44 @@ function addActivitiesToTable(user_name, friend_name, position, friend_id, activ
         borderRadius: 20,
         borderWidth: 1
     });
-
+    
+    imageAvatar.addEventListener('click',function(e){
+      profilemodal(this.id);
+    });
+    
+function profilemodal(userid){	
+	console.log(userid + ' este e o user');
+	var profilewin = Alloy.createController('profilemodal', {userId: userid}).getView();
+	profilewin.open();
+}
     row.add(imageAvatar);
     
     var label = Ti.UI.createLabel({
             text   : "Request " + type +" "+ friend_name,
             height : (OS_ANDROID) ? '50dp' : 'auto',
             width  : 'auto',
+            left: 55,
+            top: 15,
             color  : "#fff",
             font   : {
-                fontSize : (OS_ANDROID) ? '19dp' : 14,
-                fontWeight: (OS_ANDROID) ? 'bold' : 'normal'
+            	fontSize : (OS_ANDROID) ? '15dp' : 14,
             }
     });
 
     var readButton = Ti.UI.createButton({
-        title: 'x',
+        title: 'Ignore' ,
         color: '#fff',
         id: activity_id,
+        top: 30, right: 0, 
         
-        top: 10, right: 0, 
-        width: 20, height: 50
     });
-console.log( "accept button: " + friend_id);
+    
     var acceptButton = Ti.UI.createButton({
-        title: '✓',
+        title: 'Accept' ,
         color: '#fff',
         id: friend_id,
-        top: 10, right: 30, 
-        width: 20, height: 50
+        top: 30, right: 50, 
+   
     });
   
     row.add(label);

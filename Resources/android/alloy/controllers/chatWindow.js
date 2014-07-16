@@ -176,21 +176,6 @@ function Controller() {
         id: "win_chat"
     });
     $.__views.win_chat && $.addTopLevelView($.__views.win_chat);
-    $.__views.__alloyId1 = Ti.UI.createView({
-        layout: "horizontal",
-        top: "0%",
-        height: "100px",
-        backgroundColor: "#0071bc",
-        id: "__alloyId1"
-    });
-    $.__views.win_chat.add($.__views.__alloyId1);
-    $.__views.back = Ti.UI.createButton({
-        color: "white",
-        title: "Back",
-        id: "back"
-    });
-    $.__views.__alloyId1.add($.__views.back);
-    goback ? $.__views.back.addEventListener("click", goback) : __defers["$.__views.back!click!goback"] = true;
     $.__views.chatContaniner = Ti.UI.createScrollView({
         id: "chatContaniner",
         layout: "vertical",
@@ -201,6 +186,22 @@ function Controller() {
         height: "100%"
     });
     $.__views.win_chat.add($.__views.chatContaniner);
+    $.__views.__alloyId1 = Ti.UI.createView({
+        layout: "horizontal",
+        top: "0%",
+        height: "100px",
+        backgroundColor: "#0071bc",
+        id: "__alloyId1"
+    });
+    $.__views.chatContaniner.add($.__views.__alloyId1);
+    $.__views.back = Ti.UI.createButton({
+        color: "white",
+        title: "Back",
+        id: "back",
+        top: "10px"
+    });
+    $.__views.__alloyId1.add($.__views.back);
+    goback ? $.__views.back.addEventListener("click", goback) : __defers["$.__views.back!click!goback"] = true;
     $.__views.chatArea = Ti.UI.createTableView({
         id: "chatArea",
         backgroundColor: "transparent",

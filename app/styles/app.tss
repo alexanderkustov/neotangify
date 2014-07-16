@@ -3,7 +3,7 @@
 	color: "#fff",
 	translucent: 'false',
     barColor: '#fff'
-},
+    },
 "#myTitleLabel":{
     backgroundColor: '#fff',
     color: '#333'

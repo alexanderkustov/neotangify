@@ -2,25 +2,38 @@ var cur_long, cur_lat;
 const LATCONV = 0.0000089928;
 const LONGCONV = 0.0000101857;
 var persons = new Array();
-var j = 1;
-
-
-//def nearby(latitude, longitude, sex = nil, min_age = nil, max_age = nil)
+var j = 0;
 var sex, min_age, max_age;
 
 function geolocate(e){
 	//var cur_loc_timestamp;
 	j = 1;
-	Titanium.Geolocation.ACCURACY_BEST;	
-	Titanium.Geolocation.getCurrentPosition(function(e)
-	{
-		cur_long = e.coords.longitude;                     
-		cur_lat = e.coords.latitude;
-		
-		console.log("Tua posicao " + cur_lat +  ' ' + cur_long);
-		clearRadar();
-		changePosition(cur_lat, cur_long);
-		
+	Titanium.Geolocation.ACCURACY_HIGH;	
+	
+	if (Ti.Platform.osname == "android") {
+	
+		gpsProvider = Ti.Geolocation.Android.createLocationProvider({
+	    	name: Ti.Geolocation.PROVIDER_GPS,
+	   		minUpdateTime: 600, 
+		    minUpdateDistance: 1000
+		});
+	
+		Ti.Geolocation.Android.addLocationProvider(gpsProvider);
+	}
+	
+	Titanium.Geolocation.getCurrentPosition(function(e){
+		if(JSON.stringify(e.coords.longitude) === null)
+		{
+			alert("We cant locate you!");
+		}else{
+			cur_long = JSON.stringify(e.coords.longitude);                     
+			cur_lat = JSON.stringify(e.coords.latitude);	
+			Ti.API.info( JSON.stringify(e.coords.longitude) + JSON.stringify(e.coords.latitude));
+			console.log("Tua posicao " + cur_lat +  ' ' + cur_long);
+			clearRadar();
+			changePosition(cur_lat, cur_long);	
+		}
+			
 	});
 	
 	
@@ -124,7 +137,9 @@ function addPersonToRadar(personId, lat, longi, i, person_image){
 		id: thisPerson,
 		width: 60,
 		height: 60,
-		zIndex: 999
+		zIndex: 999,
+		borderColor: "#e74c3c",
+        borderWidth: 1,
 	});
 	
 	//alert(dlat.toFixed(5) + " " + dlong.toFixed(5)   + " " + topOffset.toFixed(5)  + " " + leftOffset.toFixed(5)  + " " + thisPerson);

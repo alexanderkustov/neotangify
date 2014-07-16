@@ -38,14 +38,14 @@
                 <string>UIStatusBarStyleDefault</string>
             </dict>
         </plist>
-    </ios> 	
-   <android xmlns:android="http://schemas.android.com/apk/res/android">
-    <manifest>
-        <application android:screenOrientation="portrait"/>
-        <uses-sdk android:minSdkVersion="16" android:targetSdkVersion="16" android:maxSdkVersion="19"/>
-    </manifest>
-</android>
-    
+    </ios>
+    <android xmlns:android="http://schemas.android.com/apk/res/android">
+        <manifest>
+            <application android:screenOrientation="portrait"/>
+            <uses-sdk android:maxSdkVersion="19"
+                android:minSdkVersion="16" android:targetSdkVersion="16"/>
+        </manifest>
+    </android>
     <mobileweb>
         <precache/>
         <splash>

@@ -6,7 +6,6 @@ Ti.App.addEventListener("app:messageReceived", function(e) {
     messageRoute(e);
 });
 
-
 $.textChat.addEventListener( 'return', function(e) {
 	if ($.textChat.value == '') {
 		console.log("Está vazio");

@@ -1,7 +1,5 @@
 function editProfile(){
-	
 	$.main_tab.setActiveTab(3);
-	
 }
 
 

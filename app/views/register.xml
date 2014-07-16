@@ -1,12 +1,5 @@
 <Alloy>
-<NavigationWindow id="register">
-	<Window title="Registration">
-	
-	
-		<LeftNavButton>
-			<Button id="back" onClick="goback">Back</Button>
-		</LeftNavButton>
-
+<Window id="register" title="Registration">
 		<ScrollView id="registerContainer" layout="vertical"  contentWidth="auto" contentHeight="auto" showVerticalScrollIndicator="true" showHorizontalScrollIndicator="false" height="100%">
 			<TextField hintText="Name" height="40" width="Ti.UI.FILL" id="name"></TextField>
 			<TextField hintText="Email" height="40" width="Ti.UI.FILL" id="email"></TextField>
@@ -17,6 +10,5 @@
 		</ScrollView>
 	
 	</Window>
-</NavigationWindow>
 
 </Alloy>

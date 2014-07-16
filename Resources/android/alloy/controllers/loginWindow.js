@@ -34,30 +34,69 @@ function Controller() {
         client.open("POST", url);
         client.send(params);
     }
+    function getAge(dateString) {
+        var today = new Date();
+        var birthDate = new Date(dateString);
+        var age = today.getFullYear() - birthDate.getFullYear();
+        var m = today.getMonth() - birthDate.getMonth();
+        (0 > m || 0 === m && today.getDate() < birthDate.getDate()) && age--;
+        return age;
+    }
     function openRegister() {
         $.win1 = null;
         var win = Alloy.createController("register").getView();
         win.open();
     }
     function facebookLogin() {
+        var response, email, birthday, name, gender, accesToken;
         var fb = require("facebook");
         fb.appid = 391052681038594;
         fb.permissions = [ "email, public_profile, user_friends " ];
-        fb.forceDialogAuth = true;
+        fb.forceDialogAuth = false;
         fb.addEventListener("login", function(e) {
             e.success ? fb.requestWithGraphPath("me", {}, "GET", function(e) {
                 if (e.success) {
-                    var response = JSON.parse(e.result);
-                    var email = response.email;
-                    var age = response.age;
-                    var name = response.name;
-                    var gender = response.gender;
-                    alert(name + " " + email + " " + gender + " " + age);
-                    autologin(email, email);
+                    response = JSON.parse(e.result);
+                    email = response.email;
+                    birthday = response.birthday;
+                    name = response.name;
+                    gender = response.gender;
+                    accesToken = fb.getAccessToken();
+                    console.log(name + " " + email + " " + gender + " " + getAge(birthday) + " " + accesToken);
+                    facebookToApp(accesToken);
                 } else e.error ? alert(e.error) : alert("Unknown response");
             }) : e.error ? alert(e.error) : e.cancelled && alert("Canceled");
         });
-        fb.authorize();
+        if (!fb.loggedIn) {
+            fb.authorize();
+            facebookToApp(accesToken);
+        }
+    }
+    function facebookToApp(accesToken) {
+        var urlFace = "http://tangifyapp.com/authenticate?graph=true&access_token=" + accesToken + "&format=json";
+        console.log(urlFace);
+        var client = Ti.Network.createHTTPClient({
+            onload: function() {
+                Ti.API.info("Received text: " + this.responseText);
+                Alloy.Globals.auth_token = JSON.parse(this.responseText).user.auth_token;
+                Alloy.Globals.user_id = JSON.parse(this.responseText).user.id;
+                Alloy.Globals.user_name = JSON.parse(this.responseText).user.name;
+                Alloy.Globals.user_email = JSON.parse(this.responseText).user.email;
+                Alloy.Globals.birthdate = JSON.parse(this.responseText).user.birthdate;
+                Alloy.Globals.short_description = JSON.parse(this.responseText).user.short_description;
+                Alloy.Globals.user_pic = JSON.parse(this.responseText).user.presentation_picture.thumb.url;
+                Alloy.Globals.cover_picture = JSON.parse(this.responseText).user.cover_picture.small.url;
+                var win = Alloy.createController("index").getView();
+                win.open();
+            },
+            onerror: function(e) {
+                alert("Error, try again!");
+                Ti.API.info(" error: " + JSON.stringify(e));
+            },
+            timeout: 6e4
+        });
+        client.open("POST", urlFace);
+        client.send();
     }
     require("alloy/controllers/BaseController").apply(this, Array.prototype.slice.call(arguments));
     this.__controllerPath = "loginWindow";
@@ -75,20 +114,6 @@ function Controller() {
         id: "loginWindow"
     });
     $.__views.loginWindow && $.addTopLevelView($.__views.loginWindow);
-    $.__views.myTitleLabel = Ti.UI.createLabel({
-        width: Ti.UI.SIZE,
-        height: Ti.UI.SIZE,
-        color: "#333",
-        font: {
-            fontSize: 20,
-            fontFamily: "Helvetica Neue"
-        },
-        textAlign: "center",
-        backgroundColor: "#fff",
-        text: "Please Login",
-        id: "myTitleLabel"
-    });
-    $.__views.loginWindow.titleControl = $.__views.myTitleLabel;
     $.__views.mainLogin = Ti.UI.createScrollView({
         id: "mainLogin",
         layout: "vertical",
@@ -99,13 +124,13 @@ function Controller() {
         height: "100%"
     });
     $.__views.loginWindow.add($.__views.mainLogin);
-    $.__views.__alloyId10 = Ti.UI.createImageView({
+    $.__views.__alloyId9 = Ti.UI.createImageView({
         image: "/login-logo.png",
         height: "160",
-        top: "40px",
-        id: "__alloyId10"
+        top: "80px",
+        id: "__alloyId9"
     });
-    $.__views.mainLogin.add($.__views.__alloyId10);
+    $.__views.mainLogin.add($.__views.__alloyId9);
     $.__views.loginInput = Ti.UI.createTextField({
         color: "#333",
         borderStyle: Ti.UI.INPUT_BORDERSTYLE_ROUNDED,
@@ -132,12 +157,6 @@ function Controller() {
         value: "123"
     });
     $.__views.mainLogin.add($.__views.password);
-    $.__views.__alloyId11 = Ti.UI.createView({
-        layout: "horizontal",
-        height: "100px",
-        id: "__alloyId11"
-    });
-    $.__views.mainLogin.add($.__views.__alloyId11);
     $.__views.loginBtn = Ti.UI.createButton({
         color: "#fff",
         borderWidth: "1",
@@ -147,28 +166,11 @@ function Controller() {
         left: "20px",
         title: "Login",
         height: "40",
-        width: "65%",
+        width: "93%",
         id: "loginBtn"
     });
-    $.__views.__alloyId11.add($.__views.loginBtn);
+    $.__views.mainLogin.add($.__views.loginBtn);
     login ? $.__views.loginBtn.addEventListener("click", login) : __defers["$.__views.loginBtn!click!login"] = true;
-    $.__views.regButton = Ti.UI.createButton({
-        color: "#fff",
-        top: "10px",
-        left: "20px",
-        title: "Register",
-        height: "40",
-        width: "20%",
-        id: "regButton"
-    });
-    $.__views.__alloyId11.add($.__views.regButton);
-    openRegister ? $.__views.regButton.addEventListener("click", openRegister) : __defers["$.__views.regButton!click!openRegister"] = true;
-    $.__views.__alloyId12 = Ti.UI.createView({
-        layout: "horizontal",
-        height: "100px",
-        id: "__alloyId12"
-    });
-    $.__views.mainLogin.add($.__views.__alloyId12);
     $.__views.facebookBtn = Ti.UI.createButton({
         color: "#fff",
         borderWidth: "1",
@@ -176,19 +178,30 @@ function Controller() {
         backgroundColor: "#4c66a4",
         borderRadius: "3",
         top: "10px",
-        title: "Facebook",
+        title: "Facebook Login",
         height: "40",
+        width: "93%",
         left: "20px",
-        width: "65%",
         id: "facebookBtn"
     });
-    $.__views.__alloyId12.add($.__views.facebookBtn);
+    $.__views.mainLogin.add($.__views.facebookBtn);
     facebookLogin ? $.__views.facebookBtn.addEventListener("click", facebookLogin) : __defers["$.__views.facebookBtn!click!facebookLogin"] = true;
+    $.__views.regButton = Ti.UI.createButton({
+        color: "#fff",
+        top: "10px",
+        left: "20px",
+        title: "Register",
+        height: "40",
+        width: "93%",
+        id: "regButton"
+    });
+    $.__views.mainLogin.add($.__views.regButton);
+    openRegister ? $.__views.regButton.addEventListener("click", openRegister) : __defers["$.__views.regButton!click!openRegister"] = true;
     exports.destroy = function() {};
     _.extend($, $.__views);
     __defers["$.__views.loginBtn!click!login"] && $.__views.loginBtn.addEventListener("click", login);
-    __defers["$.__views.regButton!click!openRegister"] && $.__views.regButton.addEventListener("click", openRegister);
     __defers["$.__views.facebookBtn!click!facebookLogin"] && $.__views.facebookBtn.addEventListener("click", facebookLogin);
+    __defers["$.__views.regButton!click!openRegister"] && $.__views.regButton.addEventListener("click", openRegister);
     _.extend($, exports);
 }
 

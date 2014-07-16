@@ -1,13 +1,24 @@
 function Controller() {
     function geolocate() {
         j = 1;
-        Titanium.Geolocation.ACCURACY_BEST;
+        Titanium.Geolocation.ACCURACY_HIGH;
+        if ("android" == Ti.Platform.osname) {
+            gpsProvider = Ti.Geolocation.Android.createLocationProvider({
+                name: Ti.Geolocation.PROVIDER_GPS,
+                minUpdateTime: 600,
+                minUpdateDistance: 1e3
+            });
+            Ti.Geolocation.Android.addLocationProvider(gpsProvider);
+        }
         Titanium.Geolocation.getCurrentPosition(function(e) {
-            cur_long = e.coords.longitude;
-            cur_lat = e.coords.latitude;
-            console.log("Tua posicao " + cur_lat + " " + cur_long);
-            clearRadar();
-            changePosition(cur_lat, cur_long);
+            if (null === JSON.stringify(e.coords.longitude)) alert("We cant locate you!"); else {
+                cur_long = JSON.stringify(e.coords.longitude);
+                cur_lat = JSON.stringify(e.coords.latitude);
+                Ti.API.info(JSON.stringify(e.coords.longitude) + JSON.stringify(e.coords.latitude));
+                console.log("Tua posicao " + cur_lat + " " + cur_long);
+                clearRadar();
+                changePosition(cur_lat, cur_long);
+            }
         });
     }
     function changePosition(lat, longi) {
@@ -71,7 +82,9 @@ function Controller() {
             id: thisPerson,
             width: 60,
             height: 60,
-            zIndex: 999
+            zIndex: 999,
+            borderColor: "#e74c3c",
+            borderWidth: 1
         });
         $.radar.add(persons[personId]);
     }
@@ -263,7 +276,7 @@ function Controller() {
     _.extend($, $.__views);
     var cur_long, cur_lat;
     var persons = new Array();
-    var j = 1;
+    var j = 0;
     var sex, min_age, max_age;
     $.radar_window.addEventListener("focus", function() {
         geolocate();

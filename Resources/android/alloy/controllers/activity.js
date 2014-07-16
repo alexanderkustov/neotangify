@@ -1,6 +1,6 @@
 function Controller() {
     function acceptFriendship(friend_id) {
-        var url = mainserver + "/friendships.json?" + friend_id + "&auth_token=" + Alloy.Globals.auth_token;
+        var url = mainserver + "/friendship_accept.json?" + friend_id + "&auth_token=" + Alloy.Globals.auth_token;
         var client = Ti.Network.createHTTPClient({
             onload: function() {
                 Ti.API.info("Received text: " + this.responseText);
@@ -12,11 +12,8 @@ function Controller() {
             },
             timeout: 6e4
         });
-        var params = {
-            format: "json"
-        };
         client.open("POST", url);
-        client.send(params);
+        client.send();
     }
     function getActivityFeed() {
         var url = mainserver + "/activities.json?" + "auth_token=" + Alloy.Globals.auth_token;
@@ -61,6 +58,13 @@ function Controller() {
         client.send(params);
     }
     function addActivitiesToTable(user_name, friend_name, position, friend_id, activity_id, type, friend_image) {
+        function profilemodal(userid) {
+            console.log(userid + " este e o user");
+            var profilewin = Alloy.createController("profilemodal", {
+                userId: userid
+            }).getView();
+            profilewin.open();
+        }
         var row = Ti.UI.createTableViewRow({
             className: "activity_row",
             color: "white",
@@ -79,6 +83,9 @@ function Controller() {
             borderRadius: 20,
             borderWidth: 1
         });
+        imageAvatar.addEventListener("click", function() {
+            profilemodal(this.id);
+        });
         row.add(imageAvatar);
         var label = Ti.UI.createLabel({
             text: "Request " + type + " " + friend_name,
@@ -86,28 +93,23 @@ function Controller() {
             width: "auto",
             color: "#fff",
             font: {
-                fontSize: "19dp",
-                fontWeight: "bold"
+                fontSize: "15dp"
             }
         });
         var readButton = Ti.UI.createButton({
-            title: "x",
+            title: "Ignore",
             color: "#fff",
             id: activity_id,
             top: 10,
-            right: 0,
-            width: 20,
-            height: 50
+            right: 0
         });
         console.log("accept button: " + friend_id);
         var acceptButton = Ti.UI.createButton({
-            title: "✓",
+            title: "Accept",
             color: "#fff",
             id: friend_id,
             top: 10,
-            right: 30,
-            width: 20,
-            height: 50
+            right: 30
         });
         row.add(label);
         "recieved" === type && row.add(acceptButton);
