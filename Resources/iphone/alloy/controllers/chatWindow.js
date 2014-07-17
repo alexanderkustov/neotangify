@@ -147,7 +147,7 @@ function Controller() {
             label = null;
         }
         $.chatArea.data = rows;
-        $.chatArea.scrollToIndex($.chatArea.data[0].rows.length - 1);
+        rows > 0 && $.chatArea.scrollToIndex($.chatArea.data[0].rows.length - 1);
         rows = null;
     }
     function goback() {
@@ -198,14 +198,15 @@ function Controller() {
         color: "white",
         title: "Back",
         id: "back",
-        top: "10px"
+        top: "20px",
+        left: "20px"
     });
     $.__views.__alloyId1.add($.__views.back);
     goback ? $.__views.back.addEventListener("click", goback) : __defers["$.__views.back!click!goback"] = true;
     $.__views.chatArea = Ti.UI.createTableView({
         id: "chatArea",
         backgroundColor: "transparent",
-        height: "88%"
+        height: "78%"
     });
     $.__views.chatContaniner.add($.__views.chatArea);
     $.__views.chatBtn = Ti.UI.createView({

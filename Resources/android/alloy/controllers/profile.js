@@ -30,15 +30,15 @@ function Controller() {
     $.__views.cover_picture = Ti.UI.createImageView({
         image: "/tangy_back2.jpg",
         zIndex: "1",
-        height: "160",
+        height: "200",
         top: "-50",
         width: Ti.UI.FILL,
         id: "cover_picture"
     });
     $.__views.__alloyId10.add($.__views.cover_picture);
     $.__views.user_picture = Ti.UI.createImageView({
-        width: 100,
-        height: 100,
+        width: "200",
+        height: "200",
         borderRadius: "50",
         image: "/person.png",
         zIndex: "5",

@@ -74,11 +74,22 @@ function facebookLogin(e){
 	var response, email, birthday, name, gender, accesToken;
 	
 var fb = require('facebook');
+
+	
 	fb.appid = 391052681038594;
 	fb.permissions = ['email, public_profile, user_friends ']; 
 	// Permissions your app needs
 // This property needs to be false to use the built-in iOS 6 login
-fb.forceDialogAuth = false;
+
+if ( Ti.Platform.osname === 'android') {
+       fb.forceDialogAuth = true;
+
+    }
+    else {
+       fb.forceDialogAuth = false;
+
+    }
+
 fb.addEventListener('login', function(e) {
     if (e.success) {
         fb.requestWithGraphPath('me', {}, 'GET', function(e) {

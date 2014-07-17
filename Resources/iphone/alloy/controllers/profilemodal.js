@@ -26,6 +26,16 @@ function Controller() {
         client.open("POST", url);
         client.send(params);
     }
+    function goback() {
+        $.win_profilemodal.remove($.cover_picture);
+        $.win_profilemodal.remove($.person_picture);
+        if ($.win_profilemodal.children) for (var c = $.win_profilemodal.children.length - 1; c >= 0; c--) {
+            $.win_profilemodal.remove($.win_profilemodal.children[c]);
+            $.win_profilemodal.children[c] = null;
+        }
+        $.win_profilemodal.close();
+        $.win_profilemodal = null;
+    }
     function isFriend() {}
     function getFriend(userid) {
         var url = mainserver + "/users/" + userid + ".json?" + "auth_token=" + Alloy.Globals.auth_token;
@@ -96,28 +106,45 @@ function Controller() {
         id: "__alloyId12"
     });
     $.__views.__alloyId11.add($.__views.__alloyId12);
+    $.__views.borderBtn = Ti.UI.createButton({
+        color: "#fff",
+        borderWidth: "1",
+        borderColor: "white",
+        borderRadius: "3",
+        title: "Send a Message",
+        top: "10px",
+        id: "borderBtn"
+    });
+    $.__views.__alloyId12.add($.__views.borderBtn);
+    sendMsg ? $.__views.borderBtn.addEventListener("click", sendMsg) : __defers["$.__views.borderBtn!click!sendMsg"] = true;
+    $.__views.borderBtn = Ti.UI.createButton({
+        color: "#fff",
+        borderWidth: "1",
+        borderColor: "white",
+        borderRadius: "3",
+        title: "Add a Friend",
+        left: "10px",
+        top: "10px",
+        id: "borderBtn"
+    });
+    $.__views.__alloyId12.add($.__views.borderBtn);
+    addFriend ? $.__views.borderBtn.addEventListener("click", addFriend) : __defers["$.__views.borderBtn!click!addFriend"] = true;
     $.__views.back = Ti.UI.createButton({
         color: "#fff",
-        title: "Send a Message",
+        title: "Go Back",
         id: "back"
     });
-    $.__views.__alloyId12.add($.__views.back);
-    sendMsg ? $.__views.back.addEventListener("click", sendMsg) : __defers["$.__views.back!click!sendMsg"] = true;
-    $.__views.addFriend = Ti.UI.createButton({
-        color: "#fff",
-        title: "Add a Friend",
-        id: "addFriend"
-    });
-    $.__views.__alloyId12.add($.__views.addFriend);
-    addFriend ? $.__views.addFriend.addEventListener("click", addFriend) : __defers["$.__views.addFriend!click!addFriend"] = true;
+    $.__views.__alloyId11.add($.__views.back);
+    goback ? $.__views.back.addEventListener("click", goback) : __defers["$.__views.back!click!goback"] = true;
     exports.destroy = function() {};
     _.extend($, $.__views);
     var current_user_id;
     var args = arguments[0] || {};
     console.log("About to get user with id " + args.userId);
     getFriend(args.userId);
-    __defers["$.__views.back!click!sendMsg"] && $.__views.back.addEventListener("click", sendMsg);
-    __defers["$.__views.addFriend!click!addFriend"] && $.__views.addFriend.addEventListener("click", addFriend);
+    __defers["$.__views.borderBtn!click!sendMsg"] && $.__views.borderBtn.addEventListener("click", sendMsg);
+    __defers["$.__views.borderBtn!click!addFriend"] && $.__views.borderBtn.addEventListener("click", addFriend);
+    __defers["$.__views.back!click!goback"] && $.__views.back.addEventListener("click", goback);
     _.extend($, exports);
 }
 

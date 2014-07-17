@@ -37,7 +37,6 @@ function Controller() {
                 current_user_id = JSON.parse(this.responseText).user.id;
                 null != JSON.parse(this.responseText).user.presentation_picture.thumb.url && ($.person_picture.image = mainserver + JSON.parse(this.responseText).user.presentation_picture.thumb.url);
                 null != JSON.parse(this.responseText).user.cover_picture.small.url && ($.cover_picture.image = mainserver + JSON.parse(this.responseText).user.cover_picture.small.url);
-                console.log($.profile_name.person_picture);
                 isFriend || $.addFriend.hide();
             },
             onerror: function(e) {

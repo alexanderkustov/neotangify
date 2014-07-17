@@ -52,7 +52,7 @@ function Controller() {
         var fb = require("facebook");
         fb.appid = 391052681038594;
         fb.permissions = [ "email, public_profile, user_friends " ];
-        fb.forceDialogAuth = false;
+        fb.forceDialogAuth = "android" === Ti.Platform.osname ? true : false;
         fb.addEventListener("login", function(e) {
             e.success ? fb.requestWithGraphPath("me", {}, "GET", function(e) {
                 if (e.success) {

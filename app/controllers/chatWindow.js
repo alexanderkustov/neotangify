@@ -270,9 +270,15 @@ function appendChatConversation(data, is_sender){
     	imageAvatar = null;
     	label = null;
     };
+    
+   
     $.chatArea.data=rows;
-    $.chatArea.scrollToIndex($.chatArea.data[0].rows.length-1);
-    rows=null;
+     if(rows > 0)
+    	{
+   			 $.chatArea.scrollToIndex($.chatArea.data[0].rows.length-1);
+   			 rows=null;
+       }
+    
 }
 
 function goback(e) {

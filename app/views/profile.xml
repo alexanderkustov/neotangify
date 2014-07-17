@@ -4,8 +4,9 @@
 				<View layout="vertical">
 					
 					
-					<ImageView image="/tangy_back2.jpg" zIndex="1" height="160" top="-50" width="Ti.UI.FILL" id="cover_picture"></ImageView>
-					<ImageView image="/person.png" zIndex="5" top="-50" borderRadius="50" borderWidth="3" borderColor="white" id="user_picture"></ImageView>
+					<ImageView image="/tangy_back2.jpg" zIndex="1" height="200" top="-50" width="Ti.UI.FILL" id="cover_picture"></ImageView>
+					<ImageView image="/person.png" zIndex="5" top="-50" borderWidth="3" borderColor="white" width="200" height="200" id="user_picture"></ImageView>
+				   	
 					<Label id="user_name"></Label>
 					<Label id="birthdate"></Label>
 					<Label id="short_description"></Label>					

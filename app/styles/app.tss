@@ -39,8 +39,12 @@
     backgroundColor: "#4c66a4",
     borderRadius: "3",
     top:"10px"
-}
-
+},
+"#borderBtn":{
+	borderWidth : "1",
+    borderColor : 'white',
+     borderRadius: "3"
+},
 "Label": {
 	width: Ti.UI.SIZE,
 	height: Ti.UI.SIZE,

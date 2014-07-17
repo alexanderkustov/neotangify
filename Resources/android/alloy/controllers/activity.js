@@ -1,6 +1,7 @@
 function Controller() {
     function acceptFriendship(friend_id) {
-        var url = mainserver + "/friendship_accept.json?" + friend_id + "&auth_token=" + Alloy.Globals.auth_token;
+        var url = mainserver + "/friendship_accept.json?friend_id=" + friend_id + "&auth_token=" + Alloy.Globals.auth_token;
+        console.log(url);
         var client = Ti.Network.createHTTPClient({
             onload: function() {
                 Ti.API.info("Received text: " + this.responseText);
@@ -69,6 +70,7 @@ function Controller() {
             className: "activity_row",
             color: "white",
             rowID: friend_id,
+            height: 70,
             backgroundColor: "transparent",
             separatorStyle: Titanium.UI.iPhone.TableViewSeparatorStyle.NONE
         });
@@ -91,6 +93,8 @@ function Controller() {
             text: "Request " + type + " " + friend_name,
             height: "50dp",
             width: "auto",
+            left: 55,
+            top: 15,
             color: "#fff",
             font: {
                 fontSize: "15dp"
@@ -100,16 +104,15 @@ function Controller() {
             title: "Ignore",
             color: "#fff",
             id: activity_id,
-            top: 10,
+            top: 30,
             right: 0
         });
-        console.log("accept button: " + friend_id);
         var acceptButton = Ti.UI.createButton({
             title: "Accept",
             color: "#fff",
             id: friend_id,
-            top: 10,
-            right: 30
+            top: 30,
+            right: 50
         });
         row.add(label);
         "recieved" === type && row.add(acceptButton);
@@ -127,7 +130,7 @@ function Controller() {
         });
     }
     function markAsRead(activity_id) {
-        var url = mainserver + "/read_activity.json?" + activity_id + "&auth_token=" + Alloy.Globals.auth_token;
+        var url = mainserver + "/read_activity.json?activity_id=" + activity_id + "&auth_token=" + Alloy.Globals.auth_token;
         var client = Ti.Network.createHTTPClient({
             onload: function() {
                 Ti.API.info("Received text: " + this.responseText);
