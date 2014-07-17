@@ -1,6 +1,6 @@
 function Controller() {
     function acceptFriendship(friend_id) {
-        var url = mainserver + "/accept_friend.json?friend_id=" + friend_id + "&auth_token=" + Alloy.Globals.auth_token;
+        var url = mainserver + "/friendship_accept.json?friend_id=" + friend_id + "&auth_token=" + Alloy.Globals.auth_token;
         console.log(url);
         var client = Ti.Network.createHTTPClient({
             onload: function() {
@@ -130,7 +130,7 @@ function Controller() {
         });
     }
     function markAsRead(activity_id) {
-        var url = mainserver + "/read_activity.json?" + activity_id + "&auth_token=" + Alloy.Globals.auth_token;
+        var url = mainserver + "/read_activity.json?activity_id=" + activity_id + "&auth_token=" + Alloy.Globals.auth_token;
         var client = Ti.Network.createHTTPClient({
             onload: function() {
                 Ti.API.info("Received text: " + this.responseText);
