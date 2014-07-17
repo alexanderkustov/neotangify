@@ -147,8 +147,10 @@ function Controller() {
             label = null;
         }
         $.chatArea.data = rows;
-        rows > 0 && $.chatArea.scrollToIndex($.chatArea.data[0].rows.length - 1);
-        rows = null;
+        if (rows > 0) {
+            $.chatArea.scrollToIndex($.chatArea.data[0].rows.length - 1);
+            rows = null;
+        }
     }
     function goback() {
         Alloy.Globals.stopWebsocket();

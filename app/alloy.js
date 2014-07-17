@@ -114,6 +114,40 @@ Alloy.Globals.stopWebsocket = function() {
 	Alloy.Globals.WS.close();
 };
 
+ var service;
+ 
+    // Ti.App.iOS.addEventListener('notification',function(e){
+        // You can use this event to pick up the info of the noticiation.
+        // Also to collect the 'userInfo' property data if any was set
+        // Ti.API.info("local notification received: "+JSON.stringify(e));
+    // });
+ 
+    // fired when an app resumes from suspension
+    Ti.App.addEventListener('resume',function(e){
+        Ti.API.info("app is resuming from the background");
+    });
+    Ti.App.addEventListener('resumed',function(e){
+        Ti.API.info("app has resumed from the background");
+        // this will unregister the service if the user just opened the app
+        // ie: not via the notification 'OK' button..
+        if(service!=null){
+            service.stop();
+            service.unregister();
+        }
+        //Titanium.UI.iPhone.appBadge = null;
+    });
+ 
+    Ti.App.addEventListener('pause',function(e){
+        Ti.API.info("app was paused from the foreground");
+        
+ 		service = Titanium.App.iOS.registerBackgroundService({
+   			url:'background.js'
+		});
+        
+        Ti.API.info("registered background service = "+service);
+ 
+    });
+
 
 //Meter esta num ponto inicial
 
