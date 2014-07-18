@@ -9,21 +9,17 @@ function __processArg(obj, key) {
 
 function Controller() {
     require("alloy/controllers/BaseController").apply(this, Array.prototype.slice.call(arguments));
-    this.__controllerPath = "login";
+    this.__controllerPath = "background";
     if (arguments[0]) {
-        var __parentSymbol = __processArg(arguments[0], "__parentSymbol");
+        __processArg(arguments[0], "__parentSymbol");
         __processArg(arguments[0], "$model");
         __processArg(arguments[0], "__itemTemplate");
     }
     var $ = this;
     var exports = {};
-    $.__views.settings = Alloy.createController("settings", {
-        id: "settings",
-        __parentSymbol: __parentSymbol
-    });
-    $.__views.settings && $.addTopLevelView($.__views.settings);
     exports.destroy = function() {};
     _.extend($, $.__views);
+    Ti.API.info("bg-service1: service has been invoked once, and will now be stopped to release it from memory. ");
     _.extend($, exports);
 }
 

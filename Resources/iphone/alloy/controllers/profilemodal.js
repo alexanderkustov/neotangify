@@ -1,3 +1,12 @@
+function __processArg(obj, key) {
+    var arg = null;
+    if (obj) {
+        arg = obj[key] || null;
+        delete obj[key];
+    }
+    return arg;
+}
+
 function Controller() {
     function sendMsg() {
         Ti.App.SelectedFriend = current_user_id;
@@ -60,9 +69,11 @@ function Controller() {
     }
     require("alloy/controllers/BaseController").apply(this, Array.prototype.slice.call(arguments));
     this.__controllerPath = "profilemodal";
-    arguments[0] ? arguments[0]["__parentSymbol"] : null;
-    arguments[0] ? arguments[0]["$model"] : null;
-    arguments[0] ? arguments[0]["__itemTemplate"] : null;
+    if (arguments[0]) {
+        __processArg(arguments[0], "__parentSymbol");
+        __processArg(arguments[0], "$model");
+        __processArg(arguments[0], "__itemTemplate");
+    }
     var $ = this;
     var exports = {};
     var __defers = {};
@@ -103,6 +114,7 @@ function Controller() {
     $.__views.__alloyId12 = Ti.UI.createView({
         layout: "horizontal",
         width: Ti.UI.SIZE,
+        height: "80",
         id: "__alloyId12"
     });
     $.__views.__alloyId11.add($.__views.__alloyId12);
@@ -113,7 +125,9 @@ function Controller() {
         borderRadius: "3",
         title: "Send a Message",
         top: "10px",
-        id: "borderBtn"
+        id: "borderBtn",
+        paddingLeft: "5",
+        paddingRight: "5"
     });
     $.__views.__alloyId12.add($.__views.borderBtn);
     sendMsg ? $.__views.borderBtn.addEventListener("click", sendMsg) : __defers["$.__views.borderBtn!click!sendMsg"] = true;
@@ -125,16 +139,24 @@ function Controller() {
         title: "Add a Friend",
         left: "10px",
         top: "10px",
+        paddingLeft: "5",
+        paddingRight: "5",
         id: "borderBtn"
     });
     $.__views.__alloyId12.add($.__views.borderBtn);
     addFriend ? $.__views.borderBtn.addEventListener("click", addFriend) : __defers["$.__views.borderBtn!click!addFriend"] = true;
+    $.__views.__alloyId13 = Ti.UI.createView({
+        layout: "horizontal",
+        width: Ti.UI.SIZE,
+        id: "__alloyId13"
+    });
+    $.__views.__alloyId11.add($.__views.__alloyId13);
     $.__views.back = Ti.UI.createButton({
         color: "#fff",
         title: "Go Back",
         id: "back"
     });
-    $.__views.__alloyId11.add($.__views.back);
+    $.__views.__alloyId13.add($.__views.back);
     goback ? $.__views.back.addEventListener("click", goback) : __defers["$.__views.back!click!goback"] = true;
     exports.destroy = function() {};
     _.extend($, $.__views);

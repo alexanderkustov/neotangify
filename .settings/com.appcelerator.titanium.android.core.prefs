@@ -1,0 +1,11 @@
+android/ATTR_MINIFY=true
+android/ATTR_PROJECT_NAME=tangify
+android/abi=armeabi-v7a
+android/distribute_path=/Users/knuxus/Desktop
+android/key_password=mirarika1
+android/keystore_alias=inspiring.pt
+android/keystore_password=mirarika1
+android/keystore_path=/Users/knuxus/Desktop/androidkeystore
+android/recent_output=/Users/knuxus/Desktop
+android/sdk_version=4.1.2
+eclipse.preferences.version=1

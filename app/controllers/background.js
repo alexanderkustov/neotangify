@@ -1,0 +1,1 @@
+Ti.API.info('bg-service1: service has been invoked once, and will now be stopped to release it from memory. ');

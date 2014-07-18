@@ -1,3 +1,12 @@
+function __processArg(obj, key) {
+    var arg = null;
+    if (obj) {
+        arg = obj[key] || null;
+        delete obj[key];
+    }
+    return arg;
+}
+
 function Controller() {
     function login() {
         var url = mainserver + "/auth/identity/callback?format=json";
@@ -100,9 +109,11 @@ function Controller() {
     }
     require("alloy/controllers/BaseController").apply(this, Array.prototype.slice.call(arguments));
     this.__controllerPath = "loginWindow";
-    arguments[0] ? arguments[0]["__parentSymbol"] : null;
-    arguments[0] ? arguments[0]["$model"] : null;
-    arguments[0] ? arguments[0]["__itemTemplate"] : null;
+    if (arguments[0]) {
+        __processArg(arguments[0], "__parentSymbol");
+        __processArg(arguments[0], "$model");
+        __processArg(arguments[0], "__itemTemplate");
+    }
     var $ = this;
     var exports = {};
     var __defers = {};
@@ -111,6 +122,7 @@ function Controller() {
         color: "#fff",
         translucent: "false",
         barColor: "#fff",
+        navBarHidden: "true",
         id: "loginWindow"
     });
     $.__views.loginWindow && $.addTopLevelView($.__views.loginWindow);
@@ -124,13 +136,13 @@ function Controller() {
         height: "100%"
     });
     $.__views.loginWindow.add($.__views.mainLogin);
-    $.__views.__alloyId9 = Ti.UI.createImageView({
+    $.__views.__alloyId8 = Ti.UI.createImageView({
         image: "/login-logo.png",
         height: "160",
         top: "80px",
-        id: "__alloyId9"
+        id: "__alloyId8"
     });
-    $.__views.mainLogin.add($.__views.__alloyId9);
+    $.__views.mainLogin.add($.__views.__alloyId8);
     $.__views.loginInput = Ti.UI.createTextField({
         color: "#333",
         borderStyle: Ti.UI.INPUT_BORDERSTYLE_ROUNDED,
@@ -139,7 +151,7 @@ function Controller() {
         right: 10,
         width: Ti.UI.FILL,
         height: "40",
-        value: "a@a.com",
+        hintText: "Email",
         id: "loginInput"
     });
     $.__views.mainLogin.add($.__views.loginInput);
@@ -153,8 +165,7 @@ function Controller() {
         height: "40",
         hintText: "Password",
         passwordMask: "true",
-        id: "password",
-        value: "123"
+        id: "password"
     });
     $.__views.mainLogin.add($.__views.password);
     $.__views.loginBtn = Ti.UI.createButton({

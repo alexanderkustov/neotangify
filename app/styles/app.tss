@@ -2,7 +2,8 @@
 	backgroundImage: "background.jpg",
 	color: "#fff",
 	translucent: 'false',
-    barColor: '#fff'
+    barColor: '#fff',
+    navBarHidden: 'true'
     },
 "#myTitleLabel":{
     backgroundColor: '#fff',

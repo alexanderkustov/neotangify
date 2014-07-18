@@ -1,3 +1,12 @@
+function __processArg(obj, key) {
+    var arg = null;
+    if (obj) {
+        arg = obj[key] || null;
+        delete obj[key];
+    }
+    return arg;
+}
+
 function Controller() {
     function messageRoute(e) {
         console.log(e);
@@ -147,8 +156,10 @@ function Controller() {
             label = null;
         }
         $.chatArea.data = rows;
-        $.chatArea.scrollToIndex($.chatArea.data[0].rows.length - 1);
-        rows = null;
+        if (rows > 0) {
+            $.chatArea.scrollToIndex($.chatArea.data[0].rows.length - 1);
+            rows = null;
+        }
     }
     function goback() {
         Alloy.Globals.stopWebsocket();
@@ -161,9 +172,11 @@ function Controller() {
     }
     require("alloy/controllers/BaseController").apply(this, Array.prototype.slice.call(arguments));
     this.__controllerPath = "chatWindow";
-    arguments[0] ? arguments[0]["__parentSymbol"] : null;
-    arguments[0] ? arguments[0]["$model"] : null;
-    arguments[0] ? arguments[0]["__itemTemplate"] : null;
+    if (arguments[0]) {
+        __processArg(arguments[0], "__parentSymbol");
+        __processArg(arguments[0], "$model");
+        __processArg(arguments[0], "__itemTemplate");
+    }
     var $ = this;
     var exports = {};
     var __defers = {};
@@ -172,6 +185,7 @@ function Controller() {
         color: "#fff",
         translucent: "false",
         barColor: "#fff",
+        navBarHidden: "true",
         title: "",
         id: "win_chat"
     });
@@ -198,14 +212,15 @@ function Controller() {
         color: "white",
         title: "Back",
         id: "back",
-        top: "10px"
+        top: "20px",
+        left: "20px"
     });
     $.__views.__alloyId1.add($.__views.back);
     goback ? $.__views.back.addEventListener("click", goback) : __defers["$.__views.back!click!goback"] = true;
     $.__views.chatArea = Ti.UI.createTableView({
         id: "chatArea",
         backgroundColor: "transparent",
-        height: "88%"
+        height: "78%"
     });
     $.__views.chatContaniner.add($.__views.chatArea);
     $.__views.chatBtn = Ti.UI.createView({

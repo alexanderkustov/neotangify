@@ -1,3 +1,12 @@
+function __processArg(obj, key) {
+    var arg = null;
+    if (obj) {
+        arg = obj[key] || null;
+        delete obj[key];
+    }
+    return arg;
+}
+
 function Controller() {
     function logout() {
         console.log("logout");
@@ -82,9 +91,11 @@ function Controller() {
     }
     require("alloy/controllers/BaseController").apply(this, Array.prototype.slice.call(arguments));
     this.__controllerPath = "settings";
-    arguments[0] ? arguments[0]["__parentSymbol"] : null;
-    arguments[0] ? arguments[0]["$model"] : null;
-    arguments[0] ? arguments[0]["__itemTemplate"] : null;
+    if (arguments[0]) {
+        __processArg(arguments[0], "__parentSymbol");
+        __processArg(arguments[0], "$model");
+        __processArg(arguments[0], "__itemTemplate");
+    }
     var $ = this;
     var exports = {};
     var __defers = {};
@@ -104,12 +115,12 @@ function Controller() {
     });
     logout ? $.__views.logout.addEventListener("click", logout) : __defers["$.__views.logout!click!logout"] = true;
     $.__views.settings.rightNavButton = $.__views.logout;
-    $.__views.__alloyId18 = Ti.UI.createScrollView({
+    $.__views.__alloyId19 = Ti.UI.createScrollView({
         layout: "vertical",
-        id: "__alloyId18"
+        id: "__alloyId19"
     });
-    $.__views.settings.add($.__views.__alloyId18);
-    $.__views.__alloyId19 = Ti.UI.createLabel({
+    $.__views.settings.add($.__views.__alloyId19);
+    $.__views.__alloyId20 = Ti.UI.createLabel({
         width: Ti.UI.SIZE,
         height: Ti.UI.SIZE,
         color: "#fff",
@@ -119,33 +130,33 @@ function Controller() {
         },
         textAlign: "center",
         text: "I am Tangible on the Radar",
-        id: "__alloyId19"
+        id: "__alloyId20"
     });
-    $.__views.__alloyId18.add($.__views.__alloyId19);
+    $.__views.__alloyId19.add($.__views.__alloyId20);
     $.__views.basicSwitch = Ti.UI.createSwitch({
         value: true,
         id: "basicSwitch"
     });
-    $.__views.__alloyId18.add($.__views.basicSwitch);
-    $.__views.__alloyId20 = Ti.UI.createButton({
+    $.__views.__alloyId19.add($.__views.basicSwitch);
+    $.__views.__alloyId21 = Ti.UI.createButton({
         color: "#fff",
         title: "Cover Picture",
         height: "40",
         width: Ti.UI.FILL,
-        id: "__alloyId20"
+        id: "__alloyId21"
     });
-    $.__views.__alloyId18.add($.__views.__alloyId20);
-    uploadCoverPic ? $.__views.__alloyId20.addEventListener("click", uploadCoverPic) : __defers["$.__views.__alloyId20!click!uploadCoverPic"] = true;
-    $.__views.__alloyId21 = Ti.UI.createButton({
+    $.__views.__alloyId19.add($.__views.__alloyId21);
+    uploadCoverPic ? $.__views.__alloyId21.addEventListener("click", uploadCoverPic) : __defers["$.__views.__alloyId21!click!uploadCoverPic"] = true;
+    $.__views.__alloyId22 = Ti.UI.createButton({
         color: "#fff",
         title: "Picture",
         height: "40",
         width: Ti.UI.FILL,
-        id: "__alloyId21"
+        id: "__alloyId22"
     });
-    $.__views.__alloyId18.add($.__views.__alloyId21);
-    uploadPic ? $.__views.__alloyId21.addEventListener("click", uploadPic) : __defers["$.__views.__alloyId21!click!uploadPic"] = true;
-    $.__views.__alloyId22 = Ti.UI.createLabel({
+    $.__views.__alloyId19.add($.__views.__alloyId22);
+    uploadPic ? $.__views.__alloyId22.addEventListener("click", uploadPic) : __defers["$.__views.__alloyId22!click!uploadPic"] = true;
+    $.__views.__alloyId23 = Ti.UI.createLabel({
         width: Ti.UI.SIZE,
         height: Ti.UI.SIZE,
         color: "#fff",
@@ -155,14 +166,14 @@ function Controller() {
         },
         textAlign: "center",
         text: "Sex: Male/Female",
-        id: "__alloyId22"
+        id: "__alloyId23"
     });
-    $.__views.__alloyId18.add($.__views.__alloyId22);
+    $.__views.__alloyId19.add($.__views.__alloyId23);
     $.__views.sexSwitch = Ti.UI.createSwitch({
         value: true,
         id: "sexSwitch"
     });
-    $.__views.__alloyId18.add($.__views.sexSwitch);
+    $.__views.__alloyId19.add($.__views.sexSwitch);
     $.__views.name = Ti.UI.createTextField({
         color: "#333",
         borderStyle: Ti.UI.INPUT_BORDERSTYLE_ROUNDED,
@@ -174,7 +185,7 @@ function Controller() {
         hintText: "Name",
         id: "name"
     });
-    $.__views.__alloyId18.add($.__views.name);
+    $.__views.__alloyId19.add($.__views.name);
     $.__views.email = Ti.UI.createTextField({
         color: "#333",
         borderStyle: Ti.UI.INPUT_BORDERSTYLE_ROUNDED,
@@ -186,7 +197,7 @@ function Controller() {
         hintText: "Email",
         id: "email"
     });
-    $.__views.__alloyId18.add($.__views.email);
+    $.__views.__alloyId19.add($.__views.email);
     $.__views.short_description = Ti.UI.createTextField({
         color: "#333",
         borderStyle: Ti.UI.INPUT_BORDERSTYLE_ROUNDED,
@@ -198,8 +209,8 @@ function Controller() {
         hintText: "Short Description",
         id: "short_description"
     });
-    $.__views.__alloyId18.add($.__views.short_description);
-    $.__views.__alloyId23 = Ti.UI.createLabel({
+    $.__views.__alloyId19.add($.__views.short_description);
+    $.__views.__alloyId24 = Ti.UI.createLabel({
         width: Ti.UI.SIZE,
         height: Ti.UI.SIZE,
         color: "#fff",
@@ -209,9 +220,9 @@ function Controller() {
         },
         textAlign: "center",
         text: "Want to change your password?",
-        id: "__alloyId23"
+        id: "__alloyId24"
     });
-    $.__views.__alloyId18.add($.__views.__alloyId23);
+    $.__views.__alloyId19.add($.__views.__alloyId24);
     $.__views.password = Ti.UI.createTextField({
         color: "#333",
         borderStyle: Ti.UI.INPUT_BORDERSTYLE_ROUNDED,
@@ -224,7 +235,7 @@ function Controller() {
         passwordMask: "true",
         id: "password"
     });
-    $.__views.__alloyId18.add($.__views.password);
+    $.__views.__alloyId19.add($.__views.password);
     $.__views.password_confirmation = Ti.UI.createTextField({
         color: "#333",
         borderStyle: Ti.UI.INPUT_BORDERSTYLE_ROUNDED,
@@ -237,22 +248,22 @@ function Controller() {
         passwordMask: "true",
         id: "password_confirmation"
     });
-    $.__views.__alloyId18.add($.__views.password_confirmation);
-    $.__views.__alloyId24 = Ti.UI.createButton({
+    $.__views.__alloyId19.add($.__views.password_confirmation);
+    $.__views.__alloyId25 = Ti.UI.createButton({
         color: "#fff",
         title: "Submit",
         height: "40",
         width: Ti.UI.FILL,
-        id: "__alloyId24"
+        id: "__alloyId25"
     });
-    $.__views.__alloyId18.add($.__views.__alloyId24);
-    editProfile ? $.__views.__alloyId24.addEventListener("click", editProfile) : __defers["$.__views.__alloyId24!click!editProfile"] = true;
+    $.__views.__alloyId19.add($.__views.__alloyId25);
+    editProfile ? $.__views.__alloyId25.addEventListener("click", editProfile) : __defers["$.__views.__alloyId25!click!editProfile"] = true;
     exports.destroy = function() {};
     _.extend($, $.__views);
     __defers["$.__views.logout!click!logout"] && $.__views.logout.addEventListener("click", logout);
-    __defers["$.__views.__alloyId20!click!uploadCoverPic"] && $.__views.__alloyId20.addEventListener("click", uploadCoverPic);
-    __defers["$.__views.__alloyId21!click!uploadPic"] && $.__views.__alloyId21.addEventListener("click", uploadPic);
-    __defers["$.__views.__alloyId24!click!editProfile"] && $.__views.__alloyId24.addEventListener("click", editProfile);
+    __defers["$.__views.__alloyId21!click!uploadCoverPic"] && $.__views.__alloyId21.addEventListener("click", uploadCoverPic);
+    __defers["$.__views.__alloyId22!click!uploadPic"] && $.__views.__alloyId22.addEventListener("click", uploadPic);
+    __defers["$.__views.__alloyId25!click!editProfile"] && $.__views.__alloyId25.addEventListener("click", editProfile);
     _.extend($, exports);
 }
 

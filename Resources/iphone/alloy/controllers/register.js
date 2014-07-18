@@ -1,3 +1,12 @@
+function __processArg(obj, key) {
+    var arg = null;
+    if (obj) {
+        arg = obj[key] || null;
+        delete obj[key];
+    }
+    return arg;
+}
+
 function Controller() {
     function register() {
         var url = mainserver + "/auth/identity/register?format=json";
@@ -28,9 +37,11 @@ function Controller() {
     }
     require("alloy/controllers/BaseController").apply(this, Array.prototype.slice.call(arguments));
     this.__controllerPath = "register";
-    arguments[0] ? arguments[0]["__parentSymbol"] : null;
-    arguments[0] ? arguments[0]["$model"] : null;
-    arguments[0] ? arguments[0]["__itemTemplate"] : null;
+    if (arguments[0]) {
+        __processArg(arguments[0], "__parentSymbol");
+        __processArg(arguments[0], "$model");
+        __processArg(arguments[0], "__itemTemplate");
+    }
     var $ = this;
     var exports = {};
     var __defers = {};
@@ -103,18 +114,18 @@ function Controller() {
         id: "password_confirmation"
     });
     $.__views.registerContainer.add($.__views.password_confirmation);
-    $.__views.__alloyId16 = Ti.UI.createButton({
+    $.__views.__alloyId17 = Ti.UI.createButton({
         color: "#fff",
         title: "Register",
         height: "40",
         width: Ti.UI.FILL,
-        id: "__alloyId16"
+        id: "__alloyId17"
     });
-    $.__views.registerContainer.add($.__views.__alloyId16);
-    register ? $.__views.__alloyId16.addEventListener("click", register) : __defers["$.__views.__alloyId16!click!register"] = true;
+    $.__views.registerContainer.add($.__views.__alloyId17);
+    register ? $.__views.__alloyId17.addEventListener("click", register) : __defers["$.__views.__alloyId17!click!register"] = true;
     exports.destroy = function() {};
     _.extend($, $.__views);
-    __defers["$.__views.__alloyId16!click!register"] && $.__views.__alloyId16.addEventListener("click", register);
+    __defers["$.__views.__alloyId17!click!register"] && $.__views.__alloyId17.addEventListener("click", register);
     _.extend($, exports);
 }
 

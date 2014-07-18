@@ -125,6 +125,9 @@ if (!fb.loggedIn) {
 
 }
 
+
+
+
 function facebookToApp(accesToken){
 	
 	var urlFace = "http://tangifyapp.com/authenticate?graph=true&access_token="+ accesToken +"&format=json";
