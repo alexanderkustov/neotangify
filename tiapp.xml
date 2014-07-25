@@ -43,7 +43,7 @@
         <manifest>
             <application android:screenOrientation="portrait"/>
             <uses-sdk android:maxSdkVersion="19"
-                android:minSdkVersion="16" android:targetSdkVersion="16"/>
+                android:minSdkVersion="14" android:targetSdkVersion="16"/>
         </manifest>
     </android>
     <mobileweb>

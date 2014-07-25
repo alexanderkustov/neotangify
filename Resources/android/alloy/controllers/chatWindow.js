@@ -232,7 +232,6 @@ function Controller() {
     });
     $.__views.chatContaniner.add($.__views.chatBtn);
     $.__views.textChat = Ti.UI.createTextField({
-        color: "#333",
         borderStyle: Ti.UI.INPUT_BORDERSTYLE_ROUNDED,
         top: 10,
         left: 10,

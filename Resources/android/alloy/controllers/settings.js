@@ -176,7 +176,6 @@ function Controller() {
     });
     $.__views.__alloyId18.add($.__views.sexSwitch);
     $.__views.name = Ti.UI.createTextField({
-        color: "#333",
         borderStyle: Ti.UI.INPUT_BORDERSTYLE_ROUNDED,
         top: 10,
         left: 10,
@@ -188,7 +187,6 @@ function Controller() {
     });
     $.__views.__alloyId18.add($.__views.name);
     $.__views.email = Ti.UI.createTextField({
-        color: "#333",
         borderStyle: Ti.UI.INPUT_BORDERSTYLE_ROUNDED,
         top: 10,
         left: 10,
@@ -200,7 +198,6 @@ function Controller() {
     });
     $.__views.__alloyId18.add($.__views.email);
     $.__views.short_description = Ti.UI.createTextField({
-        color: "#333",
         borderStyle: Ti.UI.INPUT_BORDERSTYLE_ROUNDED,
         top: 10,
         left: 10,
@@ -225,7 +222,6 @@ function Controller() {
     });
     $.__views.__alloyId18.add($.__views.__alloyId23);
     $.__views.password = Ti.UI.createTextField({
-        color: "#333",
         borderStyle: Ti.UI.INPUT_BORDERSTYLE_ROUNDED,
         top: 10,
         left: 10,
@@ -238,7 +234,6 @@ function Controller() {
     });
     $.__views.__alloyId18.add($.__views.password);
     $.__views.password_confirmation = Ti.UI.createTextField({
-        color: "#333",
         borderStyle: Ti.UI.INPUT_BORDERSTYLE_ROUNDED,
         top: 10,
         left: 10,

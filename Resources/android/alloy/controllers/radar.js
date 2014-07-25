@@ -18,7 +18,7 @@ function Controller() {
         });
         Ti.Geolocation.Android.addLocationProvider(gpsProvider);
         Titanium.Geolocation.getCurrentPosition(function(e) {
-            if (null === JSON.stringify(e.coords.longitude)) alert("We cant locate you!"); else {
+            if (null === JSON.stringify(e.coords.longitude) || "undefined" == typeof JSON.stringify(e.coords.longitude)) alert("We cant locate you!"); else {
                 cur_long = JSON.stringify(e.coords.longitude);
                 cur_lat = JSON.stringify(e.coords.latitude);
                 Ti.API.info(JSON.stringify(e.coords.longitude) + JSON.stringify(e.coords.latitude));
@@ -49,8 +49,10 @@ function Controller() {
     }
     function updateRadar(lat, longi) {
         var url = mainserver + "/people_nearby.json?" + "auth_token=" + Alloy.Globals.auth_token;
+        console.log(url);
         var client = Ti.Network.createHTTPClient({
             onload: function() {
+                console.log("pessoas a tua volta: " + JSON.stringify(this.responseText));
                 if (JSON.parse(this.responseText).people.length > 0) {
                     for (var i = 0; JSON.parse(this.responseText).people.length > i; i++) {
                         JSON.parse(this.responseText).people[i].name;
@@ -83,7 +85,7 @@ function Controller() {
         var thisPerson = personId;
         0 === i % 300 && j++;
         persons[personId] = Ti.UI.createImageView({
-            image: person_image,
+            backgroundImage: person_image,
             left: 60 * i,
             top: 60 * j,
             id: thisPerson,

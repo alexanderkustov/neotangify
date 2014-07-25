@@ -66,7 +66,6 @@ function Controller() {
     });
     $.__views.register.add($.__views.registerContainer);
     $.__views.name = Ti.UI.createTextField({
-        color: "#333",
         borderStyle: Ti.UI.INPUT_BORDERSTYLE_ROUNDED,
         top: 10,
         left: 10,
@@ -78,7 +77,6 @@ function Controller() {
     });
     $.__views.registerContainer.add($.__views.name);
     $.__views.email = Ti.UI.createTextField({
-        color: "#333",
         borderStyle: Ti.UI.INPUT_BORDERSTYLE_ROUNDED,
         top: 10,
         left: 10,
@@ -90,7 +88,6 @@ function Controller() {
     });
     $.__views.registerContainer.add($.__views.email);
     $.__views.password = Ti.UI.createTextField({
-        color: "#333",
         borderStyle: Ti.UI.INPUT_BORDERSTYLE_ROUNDED,
         top: 10,
         left: 10,
@@ -103,7 +100,6 @@ function Controller() {
     });
     $.__views.registerContainer.add($.__views.password);
     $.__views.password_confirmation = Ti.UI.createTextField({
-        color: "#333",
         borderStyle: Ti.UI.INPUT_BORDERSTYLE_ROUNDED,
         top: 10,
         left: 10,

@@ -22,7 +22,7 @@ function geolocate(e){
 	}
 	
 	Titanium.Geolocation.getCurrentPosition(function(e){
-		if(JSON.stringify(e.coords.longitude) === null)
+		if(JSON.stringify(e.coords.longitude) === null || typeof JSON.stringify(e.coords.longitude) === 'undefined')
 		{
 			alert("We cant locate you!");
 		}else{
@@ -62,11 +62,11 @@ function changePosition(lat, longi){
 
 function updateRadar(lat, longi){
 	var url = mainserver + '/people_nearby.json?' + 'auth_token=' + Alloy.Globals.auth_token ;
-	
+	console.log(url);
 	var client = Ti.Network.createHTTPClient({
 		onload : function(e) {
 			
-			//alert("pessoas a tua volta: " + JSON.parse(this.responseText).people.length);
+			console.log("pessoas a tua volta: " + JSON.stringify(this.responseText));
 			
 			if(JSON.parse(this.responseText).people.length > 0){
 				
@@ -86,7 +86,6 @@ function updateRadar(lat, longi){
 					
 						//alert("pessoa: " + persons_name + " " + lat + " " + longi );
 						if(persons_id != Alloy.Globals.user_id)
-							//(persons_id + ' ' + lat + " " + longi + " " + i);
 							addPersonToRadar(persons_id, lat, longi, i, person_image);
 				}
 					addClickstoRadar();
@@ -131,7 +130,7 @@ function addPersonToRadar(personId, lat, longi, i, person_image){
 	}
 	
 	persons[personId] = Ti.UI.createImageView({
-		image: person_image,
+		backgroundImage: person_image,
 		left: i*60,
 		top: j*60,
 		id: thisPerson,
