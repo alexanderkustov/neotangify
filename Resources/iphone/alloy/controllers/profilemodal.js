@@ -82,6 +82,7 @@ function Controller() {
         color: "#fff",
         translucent: "false",
         barColor: "#fff",
+        navBarHidden: "true",
         id: "win_profilemodal",
         title: ""
     });

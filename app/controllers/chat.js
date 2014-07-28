@@ -58,7 +58,8 @@ function addFriendToTable(friend_id, friend_name, position, presentation_picture
         width:45, height:45,
         borderColor: '#fff',
         borderRadius: 20,
-        borderWidth: 1
+        borderWidth: 1,
+        autorotate: true
     });
 
     row.add(imageAvatar);

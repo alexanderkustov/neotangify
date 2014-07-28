@@ -174,6 +174,7 @@ function Controller() {
         color: "#fff",
         translucent: "false",
         barColor: "#fff",
+        navBarHidden: "true",
         title: "Feed",
         id: "activityWindow"
     });

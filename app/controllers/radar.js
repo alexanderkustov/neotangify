@@ -134,6 +134,7 @@ function addPersonToRadar(personId, lat, longi, i, person_image){
 		left: i*60,
 		top: j*60,
 		id: thisPerson,
+		autorotate: true,
 		width: 60,
 		height: 60,
 		zIndex: 999,

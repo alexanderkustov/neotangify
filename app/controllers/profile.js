@@ -2,7 +2,6 @@ function editProfile(){
 	$.main_tab.setActiveTab(3);
 }
 
-
 function loadData(e){	
 	$.user_name.text = Alloy.Globals.user_name;
 	$.birthdate.text = Alloy.Globals.birthdate;

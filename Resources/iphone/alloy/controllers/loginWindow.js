@@ -122,6 +122,7 @@ function Controller() {
         color: "#fff",
         translucent: "false",
         barColor: "#fff",
+        navBarHidden: "true",
         id: "loginWindow"
     });
     $.__views.loginWindow && $.addTopLevelView($.__views.loginWindow);
@@ -143,7 +144,6 @@ function Controller() {
     });
     $.__views.mainLogin.add($.__views.__alloyId9);
     $.__views.loginInput = Ti.UI.createTextField({
-        color: "#333",
         borderStyle: Ti.UI.INPUT_BORDERSTYLE_ROUNDED,
         top: 10,
         left: 10,
@@ -155,7 +155,6 @@ function Controller() {
     });
     $.__views.mainLogin.add($.__views.loginInput);
     $.__views.password = Ti.UI.createTextField({
-        color: "#333",
         borderStyle: Ti.UI.INPUT_BORDERSTYLE_ROUNDED,
         top: 10,
         left: 10,

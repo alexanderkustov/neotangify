@@ -35,6 +35,10 @@ function Controller() {
         client.open("POST", url);
         client.send(params);
     }
+    function goback() {
+        $.register.close();
+        $.register = null;
+    }
     require("alloy/controllers/BaseController").apply(this, Array.prototype.slice.call(arguments));
     this.__controllerPath = "register";
     if (arguments[0]) {
@@ -50,6 +54,7 @@ function Controller() {
         color: "#fff",
         translucent: "false",
         barColor: "#fff",
+        navBarHidden: "true",
         id: "register",
         title: "Registration"
     });
@@ -64,8 +69,20 @@ function Controller() {
         height: "100%"
     });
     $.__views.register.add($.__views.registerContainer);
+    $.__views.__alloyId15 = Ti.UI.createLabel({
+        width: Ti.UI.SIZE,
+        height: Ti.UI.SIZE,
+        color: "#fff",
+        font: {
+            fontSize: 20,
+            fontFamily: "Helvetica Neue"
+        },
+        textAlign: "center",
+        text: "Register",
+        id: "__alloyId15"
+    });
+    $.__views.registerContainer.add($.__views.__alloyId15);
     $.__views.name = Ti.UI.createTextField({
-        color: "#333",
         borderStyle: Ti.UI.INPUT_BORDERSTYLE_ROUNDED,
         top: 10,
         left: 10,
@@ -77,7 +94,6 @@ function Controller() {
     });
     $.__views.registerContainer.add($.__views.name);
     $.__views.email = Ti.UI.createTextField({
-        color: "#333",
         borderStyle: Ti.UI.INPUT_BORDERSTYLE_ROUNDED,
         top: 10,
         left: 10,
@@ -89,7 +105,6 @@ function Controller() {
     });
     $.__views.registerContainer.add($.__views.email);
     $.__views.password = Ti.UI.createTextField({
-        color: "#333",
         borderStyle: Ti.UI.INPUT_BORDERSTYLE_ROUNDED,
         top: 10,
         left: 10,
@@ -102,7 +117,6 @@ function Controller() {
     });
     $.__views.registerContainer.add($.__views.password);
     $.__views.password_confirmation = Ti.UI.createTextField({
-        color: "#333",
         borderStyle: Ti.UI.INPUT_BORDERSTYLE_ROUNDED,
         top: 10,
         left: 10,
@@ -114,18 +128,28 @@ function Controller() {
         id: "password_confirmation"
     });
     $.__views.registerContainer.add($.__views.password_confirmation);
-    $.__views.__alloyId17 = Ti.UI.createButton({
+    $.__views.__alloyId16 = Ti.UI.createButton({
         color: "#fff",
         title: "Register",
+        height: "40",
+        width: Ti.UI.FILL,
+        id: "__alloyId16"
+    });
+    $.__views.registerContainer.add($.__views.__alloyId16);
+    register ? $.__views.__alloyId16.addEventListener("click", register) : __defers["$.__views.__alloyId16!click!register"] = true;
+    $.__views.__alloyId17 = Ti.UI.createButton({
+        color: "#fff",
+        title: "Go Back",
         height: "40",
         width: Ti.UI.FILL,
         id: "__alloyId17"
     });
     $.__views.registerContainer.add($.__views.__alloyId17);
-    register ? $.__views.__alloyId17.addEventListener("click", register) : __defers["$.__views.__alloyId17!click!register"] = true;
+    goback ? $.__views.__alloyId17.addEventListener("click", goback) : __defers["$.__views.__alloyId17!click!goback"] = true;
     exports.destroy = function() {};
     _.extend($, $.__views);
-    __defers["$.__views.__alloyId17!click!register"] && $.__views.__alloyId17.addEventListener("click", register);
+    __defers["$.__views.__alloyId16!click!register"] && $.__views.__alloyId16.addEventListener("click", register);
+    __defers["$.__views.__alloyId17!click!goback"] && $.__views.__alloyId17.addEventListener("click", goback);
     _.extend($, exports);
 }
 

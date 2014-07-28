@@ -156,6 +156,7 @@ function appendChatMessage(message, position, is_sender){
         width:45, height:45,
         borderColor: '#fff',
         borderRadius: 20,
+        autorotate: true,
         borderWidth: 1
     });
 

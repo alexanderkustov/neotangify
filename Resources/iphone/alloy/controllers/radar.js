@@ -20,7 +20,7 @@ function Controller() {
             Ti.Geolocation.Android.addLocationProvider(gpsProvider);
         }
         Titanium.Geolocation.getCurrentPosition(function(e) {
-            if (null === JSON.stringify(e.coords.longitude)) alert("We cant locate you!"); else {
+            if (null === JSON.stringify(e.coords.longitude) || "undefined" == typeof JSON.stringify(e.coords.longitude)) alert("We cant locate you!"); else {
                 cur_long = JSON.stringify(e.coords.longitude);
                 cur_lat = JSON.stringify(e.coords.latitude);
                 Ti.API.info(JSON.stringify(e.coords.longitude) + JSON.stringify(e.coords.latitude));
@@ -51,8 +51,10 @@ function Controller() {
     }
     function updateRadar(lat, longi) {
         var url = mainserver + "/people_nearby.json?" + "auth_token=" + Alloy.Globals.auth_token;
+        console.log(url);
         var client = Ti.Network.createHTTPClient({
             onload: function() {
+                console.log("pessoas a tua volta: " + JSON.stringify(this.responseText));
                 if (JSON.parse(this.responseText).people.length > 0) {
                     for (var i = 0; JSON.parse(this.responseText).people.length > i; i++) {
                         JSON.parse(this.responseText).people[i].name;
@@ -85,10 +87,11 @@ function Controller() {
         var thisPerson = personId;
         0 === i % 300 && j++;
         persons[personId] = Ti.UI.createImageView({
-            image: person_image,
+            backgroundImage: person_image,
             left: 60 * i,
             top: 60 * j,
             id: thisPerson,
+            autorotate: true,
             width: 60,
             height: 60,
             zIndex: 999,
@@ -259,30 +262,41 @@ function Controller() {
         color: "#fff",
         translucent: "false",
         barColor: "#fff",
+        navBarHidden: "true",
         title: "Radar",
         id: "radar_window"
     });
     $.__views.radar_window && $.addTopLevelView($.__views.radar_window);
-    $.__views.refresh = Ti.UI.createButton({
-        color: "#fff",
-        title: "Refresh",
-        id: "refresh"
-    });
-    geolocate ? $.__views.refresh.addEventListener("click", geolocate) : __defers["$.__views.refresh!click!geolocate"] = true;
-    $.__views.radar_window.leftNavButton = $.__views.refresh;
-    $.__views.filter = Ti.UI.createButton({
-        color: "#fff",
-        title: "Filter",
-        id: "filter"
-    });
-    filter ? $.__views.filter.addEventListener("click", filter) : __defers["$.__views.filter!click!filter"] = true;
-    $.__views.radar_window.rightNavButton = $.__views.filter;
     $.__views.radar = Ti.UI.createScrollView({
         id: "radar",
         width: "100%",
         top: "50px"
     });
     $.__views.radar_window.add($.__views.radar);
+    $.__views.chatBtn = Ti.UI.createView({
+        id: "chatBtn",
+        layout: "horizontal",
+        bottom: "0%",
+        height: "100px",
+        backgroundColor: "#0071bc"
+    });
+    $.__views.radar_window.add($.__views.chatBtn);
+    $.__views.refresh = Ti.UI.createButton({
+        color: "#fff",
+        title: "Refresh",
+        id: "refresh",
+        width: "50%"
+    });
+    $.__views.chatBtn.add($.__views.refresh);
+    geolocate ? $.__views.refresh.addEventListener("click", geolocate) : __defers["$.__views.refresh!click!geolocate"] = true;
+    $.__views.filter = Ti.UI.createButton({
+        color: "#fff",
+        title: "Filter",
+        id: "filter",
+        width: "50%"
+    });
+    $.__views.chatBtn.add($.__views.filter);
+    filter ? $.__views.filter.addEventListener("click", filter) : __defers["$.__views.filter!click!filter"] = true;
     exports.destroy = function() {};
     _.extend($, $.__views);
     var cur_long, cur_lat;

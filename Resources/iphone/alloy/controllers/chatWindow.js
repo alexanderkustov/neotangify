@@ -83,6 +83,7 @@ function Controller() {
             height: 45,
             borderColor: "#fff",
             borderRadius: 20,
+            autorotate: true,
             borderWidth: 1
         });
         null != Alloy.Globals.user_pic && (imageAvatar.image = mainserver + Alloy.Globals.user_pic);
@@ -185,6 +186,7 @@ function Controller() {
         color: "#fff",
         translucent: "false",
         barColor: "#fff",
+        navBarHidden: "true",
         title: "",
         id: "win_chat"
     });
@@ -231,7 +233,6 @@ function Controller() {
     });
     $.__views.chatContaniner.add($.__views.chatBtn);
     $.__views.textChat = Ti.UI.createTextField({
-        color: "#333",
         borderStyle: Ti.UI.INPUT_BORDERSTYLE_ROUNDED,
         top: 10,
         left: 10,

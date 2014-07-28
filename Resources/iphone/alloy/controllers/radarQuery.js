@@ -114,6 +114,7 @@ function Controller() {
         color: "#fff",
         translucent: "false",
         barColor: "#fff",
+        navBarHidden: "true",
         title: "tangify",
         id: "radar_window"
     });
@@ -126,7 +127,6 @@ function Controller() {
     geolocate ? $.__views.refresh.addEventListener("click", geolocate) : __defers["$.__views.refresh!click!geolocate"] = true;
     $.__views.radar_window.leftNavButton = $.__views.refresh;
     $.__views.age = Ti.UI.createTextField({
-        color: "#333",
         borderStyle: Ti.UI.INPUT_BORDERSTYLE_ROUNDED,
         top: 10,
         left: 10,
@@ -137,7 +137,6 @@ function Controller() {
     });
     $.__views.radar_window.add($.__views.age);
     $.__views.age = Ti.UI.createTextField({
-        color: "#333",
         borderStyle: Ti.UI.INPUT_BORDERSTYLE_ROUNDED,
         top: 10,
         left: 10,
@@ -148,7 +147,6 @@ function Controller() {
     });
     $.__views.radar_window.add($.__views.age);
     $.__views.age = Ti.UI.createTextField({
-        color: "#333",
         borderStyle: Ti.UI.INPUT_BORDERSTYLE_ROUNDED,
         top: 10,
         left: 10,
