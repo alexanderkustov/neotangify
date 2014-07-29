@@ -214,7 +214,7 @@ function Controller() {
             color: "#fff",
             width: "100%",
             height: "auto",
-            top: 300,
+            top: 320,
             left: 20
         });
         infoWin.add(maxAge);
@@ -222,7 +222,7 @@ function Controller() {
             value: "99",
             color: "#333",
             borderStyle: Ti.UI.INPUT_BORDERSTYLE_ROUNDED,
-            top: 300,
+            top: 320,
             left: 200
         });
         infoWin.add(maxAgeInput);

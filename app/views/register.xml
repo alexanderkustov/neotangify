@@ -5,6 +5,7 @@
 			
 			<TextField hintText="Name" height="40" width="Ti.UI.FILL" id="name"></TextField>
 			<TextField hintText="Email" height="40" width="Ti.UI.FILL" id="email"></TextField>
+			<TextField hintText="Age" height="40" width="Ti.UI.FILL" id="age"></TextField>
 			<TextField hintText="Password" passwordMask="true" height="40" width="Ti.UI.FILL" id="password"></TextField>
 		<TextField hintText="Confirm Password" passwordMask="true" height="40" width="Ti.UI.FILL" id="password_confirmation"></TextField>
 		<Button height="40" width="Ti.UI.FILL" onClick="register">Register</Button>

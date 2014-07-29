@@ -54,7 +54,8 @@ function Controller() {
             height: 45,
             borderColor: "#fff",
             borderRadius: 20,
-            borderWidth: 1
+            borderWidth: 1,
+            autorotate: true
         });
         row.add(imageAvatar);
         var label = Ti.UI.createLabel({

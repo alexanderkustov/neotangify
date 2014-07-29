@@ -1,11 +1,8 @@
 <Alloy>
 	<Window title="Radar" class="titleBar" id="radar_window">
-		
 			<ScrollView id="radar" width="100%" top="50px"></ScrollView>
-							<View id="chatBtn" layout="horizontal" bottom="0%" height="100px" backgroundColor="#0071bc">
-
+		<View id="chatBtn" layout="horizontal" bottom="0%" height="100px" backgroundColor="#0071bc">
 			<Button id="refresh" onClick="geolocate" width="50%">Refresh</Button>
-		
 		 	<Button id="filter" onClick="filter"  width="50%" >Filter</Button>
 		 	</View>
 	</Window>

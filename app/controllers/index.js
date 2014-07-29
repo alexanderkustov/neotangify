@@ -55,7 +55,7 @@ function autoLogin(e){
 	client.send(params);
 }
 
-
+/*
  var service;
  
     // Ti.App.iOS.addEventListener('notification',function(e){
@@ -90,4 +90,4 @@ function autoLogin(e){
  
     });
 
-
+*/

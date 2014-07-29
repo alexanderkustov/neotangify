@@ -16,6 +16,7 @@
 					<Label>Sex: Male/Female</Label>
 					<Switch id="sexSwitch" value="true" />
 				 	<TextField hintText="Name" height="40" width="Ti.UI.FILL" id="name"></TextField>
+	        		<TextField hintText="Age" height="40" width="Ti.UI.FILL" id="age"></TextField>	
 	        		<TextField hintText="Email" height="40" width="Ti.UI.FILL" id="email"></TextField>
 	        		<TextField hintText="Short Description" height="40" width="Ti.UI.FILL" id="short_description"></TextField>
 	        		

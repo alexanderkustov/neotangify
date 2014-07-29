@@ -93,24 +93,6 @@ function Controller() {
         var loginWindow = Alloy.createController("loginWindow").getView();
         loginWindow.open();
     }
-    var service;
-    Ti.App.addEventListener("resume", function() {
-        Ti.API.info("app is resuming from the background");
-    });
-    Ti.App.addEventListener("resumed", function() {
-        Ti.API.info("app has resumed from the background");
-        if (null != service) {
-            service.stop();
-            service.unregister();
-        }
-    });
-    Ti.App.addEventListener("pause", function() {
-        Ti.API.info("app was paused from the foreground");
-        service = Titanium.App.iOS.registerBackgroundService({
-            url: "background.js"
-        });
-        Ti.API.info("registered background service = " + service);
-    });
     _.extend($, exports);
 }
 

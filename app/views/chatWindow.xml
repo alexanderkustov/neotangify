@@ -7,7 +7,7 @@
 				<View layout="horizontal" top="0%" height="100px" backgroundColor="#0071bc">
 	            <Button id="back" onClick="goback" color="white" top="20px" left="20px" class="white">Back</Button>
 	   		</View>
-				<TableView id="chatArea" backgroundColor="transparent" height="78%">
+				<TableView id="chatArea" backgroundColor="transparent" height="68%">
 				</TableView>	
 				<View id="chatBtn" layout="horizontal" bottom="0%" height="100px" backgroundColor="#0071bc">
 					<TextField hintText="Enter Message..." height="30" width="93%" id="textChat"></TextField>

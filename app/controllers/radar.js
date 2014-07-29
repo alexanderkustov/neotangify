@@ -327,7 +327,7 @@ var maxAge = Ti.UI.createLabel({
   color: "#fff",
     width: '100%',
     height: 'auto',
-    top: 300,
+    top: 320,
     left: 20
         });
     
@@ -335,10 +335,9 @@ var maxAge = Ti.UI.createLabel({
 
 var maxAgeInput = Ti.UI.createTextField({
   	value:"99",
-  	
-  	   color: "#333",
-  	 borderStyle: Ti.UI.INPUT_BORDERSTYLE_ROUNDED,
-   	top: 300,
+  	color: "#333",
+  	borderStyle: Ti.UI.INPUT_BORDERSTYLE_ROUNDED,
+   	top: 320,
     left: 200,
 });
 

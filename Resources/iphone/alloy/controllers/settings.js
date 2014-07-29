@@ -186,6 +186,17 @@ function Controller() {
         id: "name"
     });
     $.__views.__alloyId19.add($.__views.name);
+    $.__views.age = Ti.UI.createTextField({
+        borderStyle: Ti.UI.INPUT_BORDERSTYLE_ROUNDED,
+        top: 10,
+        left: 10,
+        right: 10,
+        width: Ti.UI.FILL,
+        height: "40",
+        hintText: "Age",
+        id: "age"
+    });
+    $.__views.__alloyId19.add($.__views.age);
     $.__views.email = Ti.UI.createTextField({
         borderStyle: Ti.UI.INPUT_BORDERSTYLE_ROUNDED,
         top: 10,

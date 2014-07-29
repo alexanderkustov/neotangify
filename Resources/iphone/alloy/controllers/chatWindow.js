@@ -221,7 +221,7 @@ function Controller() {
     $.__views.chatArea = Ti.UI.createTableView({
         id: "chatArea",
         backgroundColor: "transparent",
-        height: "78%"
+        height: "68%"
     });
     $.__views.chatContaniner.add($.__views.chatArea);
     $.__views.chatBtn = Ti.UI.createView({

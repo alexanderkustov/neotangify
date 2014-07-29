@@ -104,6 +104,17 @@ function Controller() {
         id: "email"
     });
     $.__views.registerContainer.add($.__views.email);
+    $.__views.age = Ti.UI.createTextField({
+        borderStyle: Ti.UI.INPUT_BORDERSTYLE_ROUNDED,
+        top: 10,
+        left: 10,
+        right: 10,
+        width: Ti.UI.FILL,
+        height: "40",
+        hintText: "Age",
+        id: "age"
+    });
+    $.__views.registerContainer.add($.__views.age);
     $.__views.password = Ti.UI.createTextField({
         borderStyle: Ti.UI.INPUT_BORDERSTYLE_ROUNDED,
         top: 10,

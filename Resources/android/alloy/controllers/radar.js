@@ -89,6 +89,7 @@ function Controller() {
             left: 60 * i,
             top: 60 * j,
             id: thisPerson,
+            autorotate: true,
             width: 60,
             height: 60,
             zIndex: 999,
@@ -211,7 +212,7 @@ function Controller() {
             color: "#fff",
             width: "100%",
             height: "auto",
-            top: 300,
+            top: 320,
             left: 20
         });
         infoWin.add(maxAge);
@@ -219,7 +220,7 @@ function Controller() {
             value: "99",
             color: "#333",
             borderStyle: Ti.UI.INPUT_BORDERSTYLE_ROUNDED,
-            top: 300,
+            top: 320,
             left: 200
         });
         infoWin.add(maxAgeInput);
@@ -264,26 +265,36 @@ function Controller() {
         id: "radar_window"
     });
     $.__views.radar_window && $.addTopLevelView($.__views.radar_window);
-    $.__views.refresh = Ti.UI.createButton({
-        color: "#fff",
-        title: "Refresh",
-        id: "refresh"
-    });
-    geolocate ? $.__views.refresh.addEventListener("click", geolocate) : __defers["$.__views.refresh!click!geolocate"] = true;
-    $.__views.radar_window.leftNavButton = $.__views.refresh;
-    $.__views.filter = Ti.UI.createButton({
-        color: "#fff",
-        title: "Filter",
-        id: "filter"
-    });
-    filter ? $.__views.filter.addEventListener("click", filter) : __defers["$.__views.filter!click!filter"] = true;
-    $.__views.radar_window.rightNavButton = $.__views.filter;
     $.__views.radar = Ti.UI.createScrollView({
         id: "radar",
         width: "100%",
         top: "50px"
     });
     $.__views.radar_window.add($.__views.radar);
+    $.__views.chatBtn = Ti.UI.createView({
+        id: "chatBtn",
+        layout: "horizontal",
+        bottom: "0%",
+        height: "100px",
+        backgroundColor: "#0071bc"
+    });
+    $.__views.radar_window.add($.__views.chatBtn);
+    $.__views.refresh = Ti.UI.createButton({
+        color: "#fff",
+        title: "Refresh",
+        id: "refresh",
+        width: "50%"
+    });
+    $.__views.chatBtn.add($.__views.refresh);
+    geolocate ? $.__views.refresh.addEventListener("click", geolocate) : __defers["$.__views.refresh!click!geolocate"] = true;
+    $.__views.filter = Ti.UI.createButton({
+        color: "#fff",
+        title: "Filter",
+        id: "filter",
+        width: "50%"
+    });
+    $.__views.chatBtn.add($.__views.filter);
+    filter ? $.__views.filter.addEventListener("click", filter) : __defers["$.__views.filter!click!filter"] = true;
     exports.destroy = function() {};
     _.extend($, $.__views);
     var cur_long, cur_lat;
